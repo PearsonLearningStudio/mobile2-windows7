@@ -41,12 +41,19 @@ namespace eCollegeWP7
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
-            App.ViewModel.API.FetchMyCourses(result =>
+            App.ViewModel.API.FetchMyCurrentCourses(result =>
             {
                 var oc = new ObservableCollection<Course>();
                 foreach (var c in result) { oc.Add(c); }
                 App.ViewModel.MyCourses = oc;
             });
+
+        }
+
+        private void BtnOpenCourse_Click(object sender, RoutedEventArgs e)
+        {
+            var course = (sender as Button).DataContext as Course;
+            this.NavigationService.Navigate(new Uri("/CoursePage.xaml?courseId=" + course.ID, UriKind.Relative));
         }
     }
 }

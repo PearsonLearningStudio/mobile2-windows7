@@ -43,41 +43,22 @@ namespace eCollegeWP7
             _epid = epid;
         }
 
+        protected string PrettyPrint(string json)
+        {
+            object jsonObject = JsonConvert.DeserializeObject(json);
+            return JsonConvert.SerializeObject(jsonObject, Formatting.Indented);
+        }
+
         public void ExecuteAsync<T>(RestRequest request, Action<T> callback) where T : new()
         {
-            var client = new RestClient(RootUri);
-            client.AddHandler("application/json", new CustomJsonDeserializer());
-
-            if (_authenticator != null) client.Authenticator = _authenticator;
-            client.ExecuteAsync<T>(request, (response) =>
-            {
-                var dispatcher = Deployment.Current.Dispatcher;
-                dispatcher.BeginInvoke(() =>
-                {
-
-                    if (response.ResponseStatus == ResponseStatus.Error)
-                    {
-                        Debug.WriteLine("ErrorMessage: " + response.ErrorMessage);
-                        Debug.WriteLine("ErrorException: \n" + response.ErrorException + "\n");
-                        Debugger.Break();
-                    }
-                    else
-                    {
-                        callback(response.Data);
-                    }
-
-
-                    //try
-                    //{
-                    //    var obj = JsonConvert.DeserializeObject<T>(response.Content + "");
-                    //    callback(obj);
-                    //}
-                    //catch (Exception e)
-                    //{
-                    //    Debugger.Break();
-                    //}
-                });
-
+            ExecuteAsync(request, restresponse => {
+                var jsonDeserializer = new CustomJsonDeserializer();
+                try {
+                    T result = jsonDeserializer.Deserialize<T>(restresponse);
+                    callback(result);
+                } catch (Exception e) {
+                    Debugger.Break();
+                }
             });
         }
 
@@ -88,11 +69,33 @@ namespace eCollegeWP7
             if (_authenticator != null) client.Authenticator = _authenticator;
             client.ExecuteAsync(request, (response) =>
             {
+                var paramString = JsonConvert.SerializeObject(request.Parameters, Formatting.Indented);
+                Debug.WriteLine("Request: " + request.Method + " - " + RootUri + request.Resource + " - " + paramString);
+                Debug.WriteLine("Status: " + response.StatusCode);
+
+                if (response.ContentType.Contains("json")) // == "application/json")
+                {
+                    Debug.WriteLine("Response: " + PrettyPrint(response.Content + "") + "\n");
+                }
+                else
+                {
+                    Debug.WriteLine("Response (" + response.ContentType + "): " + response.Content + "\n");
+                }
+
+                if (response.ResponseStatus == ResponseStatus.Error)
+                {
+                    Debug.WriteLine("ErrorMessage: " + response.ErrorMessage);
+                    Debug.WriteLine("ErrorException: \n" + response.ErrorException + "\n");
+                    Debugger.Break();
+                }
+
                 var dispatcher = Deployment.Current.Dispatcher;
                 dispatcher.BeginInvoke(() =>
                 {
                     callback(response);
                 });
+
+                Debug.WriteLine("\n\n");
 
             });
         }
@@ -130,11 +133,44 @@ namespace eCollegeWP7
                 var formattedResult = new List<Course>();
                 foreach (var linkContainer in result.Courses)
                 {
-                    if (linkContainer.Links.Count > 0) {
+                    if (linkContainer.Links.Count > 0)
+                    {
                         formattedResult.Add(linkContainer.Links[0].Course);
                     }
                 }
                 callback(formattedResult);
+            });
+        }
+
+        public void FetchAnnouncements(int courseId, Action<List<Announcement>> callback)
+        {
+            var request = new RestRequest("courses/" + courseId + "/announcements", Method.GET);
+            ExecuteAsync<AnnouncementResultList>(request, result =>
+            {
+                callback(result.Announcements);
+                //var formattedResult = new List<Course>();
+                //foreach (var linkContainer in result.Courses)
+                //{
+                //    if (linkContainer.Links.Count > 0)
+                //    {
+                //        formattedResult.Add(linkContainer.Links[0].Course);
+                //    }
+                //}
+                //callback(formattedResult);
+            });
+        }
+
+        public class CurrentCoursesResults
+        {
+            public List<Course> CurrentCourses { get; set; }
+        }
+
+        public void FetchMyCurrentCourses(Action<List<Course>> callback)
+        {
+            var request = new RestRequest("me/currentcourses_moby", Method.GET);
+            ExecuteAsync<CurrentCoursesResults>(request, result =>
+            {
+                callback(result.CurrentCourses);
             });
         }
 

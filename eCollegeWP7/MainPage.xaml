@@ -86,6 +86,7 @@
                                             <TextBlock>Title:</TextBlock>
                                             <TextBlock Text="{Binding Path=Title}"/>
                                         </StackPanel>
+                                        <Button x:Name="BtnOpenCourse" Content="Open" Click="BtnOpenCourse_Click"/>
                                     </StackPanel>
                                 </Border>
                             </DataTemplate> 

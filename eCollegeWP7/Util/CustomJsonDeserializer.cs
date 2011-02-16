@@ -25,6 +25,7 @@ using System.Globalization;
 using RestSharp;
 using RestSharp.Deserializers;
 using System.Diagnostics;
+using Newtonsoft.Json;
 
 namespace eCollegeWP7.Util
 {
@@ -34,11 +35,14 @@ namespace eCollegeWP7.Util
         public string Namespace { get; set; }
         public string DateFormat { get; set; }
 
+        protected string PrettyPrint(string json)
+        {
+            object jsonObject = JsonConvert.DeserializeObject(json);
+            return JsonConvert.SerializeObject(jsonObject, Formatting.Indented);
+        }
+
         public T Deserialize<T>(RestResponse response) where T : new()
         {
-            Debug.WriteLine("Status: " + response.StatusCode);
-            Debug.WriteLine("Response: " + response.Content + "\n");
-
             var target = new T();
 
             try
