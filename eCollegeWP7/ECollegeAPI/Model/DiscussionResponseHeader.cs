@@ -19,5 +19,6 @@ namespace ECollegeAPI.Model
         public DiscussionResponse Response { get; set; }
         public ResponseCount ChildResponseCounts { get; set; }
         public ParentUserTopicLinkContainer ParentUserTopic { get; set; }
+        public ParentUserResponseLinkContainer ParentUserResponse { get; set; }
     }
 }

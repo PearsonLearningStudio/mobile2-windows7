@@ -8,14 +8,14 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using System.Collections.Generic;
 
-namespace ECollegeAPI.Model
+namespace ECollegeAPI.Model.Boilerplate
 {
-    public class ResponseCount
+    public class ParentUserResponseLinkContainer
     {
-        public long TotalResponseCount { get; set; }
-        public long UnreadResponseCount { get; set; }
-        public long PersonalResponseCount { get; set; }
-        public long Last24HourResponseCount { get; set; }
+        public string ID { get; set; }
+        public List<TopicLink> Links { get; set; }
+        public DiscussionResponse Response { get; set; }
     }
 }

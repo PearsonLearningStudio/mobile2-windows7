@@ -36,9 +36,19 @@ namespace ECollegeAPI
             });
         }
 
-        public void FetchMyDiscussionResponses(string topicId, Action<List<DiscussionResponseHeader>> callback)
+        public void FetchMyDiscussionResponsesByTopic(string topicId, Action<List<DiscussionResponseHeader>> callback)
         {
             var request = new RestRequest("me/topics/" + topicId + "/userresponses", Method.GET);
+
+            ExecuteAsync<UserResponsesResultList>(request, result =>
+            {
+                callback(result.UserResponses);
+            });
+        }
+
+        public void FetchMyDiscussionResponsesByResponse(string responseId, Action<List<DiscussionResponseHeader>> callback)
+        {
+            var request = new RestRequest("me/responses/" + responseId + "/userresponses", Method.GET);
 
             ExecuteAsync<UserResponsesResultList>(request, result =>
             {

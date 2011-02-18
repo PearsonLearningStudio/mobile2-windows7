@@ -14,18 +14,18 @@ using ECollegeAPI.Model;
 
 namespace eCollegeWP7.Views
 {
-    public partial class TopicPage : PhoneApplicationPage
+    public partial class TopicResponsePage : PhoneApplicationPage
     {
-        public TopicPage()
+        public TopicResponsePage()
         {
             InitializeComponent();
-        } 
+        }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
             IDictionary<string, string> parameters = this.NavigationContext.QueryString;
-            this.DataContext = new TopicViewModel(parameters["topicId"]);
+            this.DataContext = new TopicResponseViewModel(parameters["responseId"]);
         }
 
         private void BtnResponse_Click(object sender, RoutedEventArgs e)

@@ -1,5 +1,5 @@
 ﻿<phone:PhoneApplicationPage 
-    x:Class="eCollegeWP7.Views.TopicPage"
+    x:Class="eCollegeWP7.Views.TopicResponsePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
@@ -34,7 +34,7 @@
                     <ControlTemplate TargetType="ListBox">
                         <ScrollViewer x:Name="ScrollViewer" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Foreground="{TemplateBinding Foreground}" Padding="{TemplateBinding Padding}">
                             <StackPanel>
-                                <TextBlock Text="Main Topic Page"/>
+                                <TextBlock Text="Responses Page"/>
                                 <Button Content="Button1"/>
                                 <Button Content="Button2"/>
                                 <ItemsPresenter/>
@@ -67,7 +67,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            
+
         </Grid>
     </Grid>
  

@@ -77,7 +77,8 @@ namespace ECollegeAPI
 
                 if (response.ContentType.Contains("json")) // == "application/json")
                 {
-                    Debug.WriteLine("Response: " + PrettyPrint(response.Content + "") + "\n");
+                    var prettyResponse = PrettyPrint(response.Content);
+                    Debug.WriteLine("Response: " + prettyResponse + "\n");
                 }
                 else
                 {

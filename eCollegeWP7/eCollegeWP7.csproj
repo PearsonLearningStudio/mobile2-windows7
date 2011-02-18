@@ -76,6 +76,7 @@
     <Compile Include="ECollegeAPI\Model\Announcement.cs" />
     <Compile Include="ECollegeAPI\Model\Author.cs" />
     <Compile Include="ECollegeAPI\Model\Boilerplate\AnnouncementResultList.cs" />
+    <Compile Include="ECollegeAPI\Model\Boilerplate\ParentUserResponseLinkContainer.cs" />
     <Compile Include="ECollegeAPI\Model\Boilerplate\ParentUserTopicLinkContainer.cs" />
     <Compile Include="ECollegeAPI\Model\Boilerplate\TopicLink.cs" />
     <Compile Include="ECollegeAPI\Model\Boilerplate\UserResponsesResultList.cs" />
@@ -112,6 +113,7 @@
     <Compile Include="ViewModels\ApplicationStructure\Gradebook.cs" />
     <Compile Include="ViewModels\ApplicationStructure\Happenings.cs" />
     <Compile Include="ViewModels\ApplicationStructure\NavigationItem.cs" />
+    <Compile Include="ViewModels\TopicResponseViewModel.cs" />
     <Compile Include="ViewModels\TopicViewModel.cs" />
     <Compile Include="ViewModels\CourseViewModel.cs" />
     <Compile Include="ViewModels\DataContractStructure\Announcements.cs" />
@@ -125,6 +127,9 @@
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\TopicPage.xaml.cs">
       <DependentUpon>TopicPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TopicResponsePage.xaml.cs">
+      <DependentUpon>TopicResponsePage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -149,6 +154,10 @@
       <SubType>Designer</SubType>
     </DesignData>
     <Page Include="Views\TopicPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TopicResponsePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

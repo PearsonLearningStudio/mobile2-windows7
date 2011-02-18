@@ -17,14 +17,16 @@ using eCollegeWP7.Util;
 
 namespace eCollegeWP7
 {
-    public class TopicViewModel : ViewModelBase
+    public class TopicResponseViewModel : ViewModelBase
     {
 
-        private string _TopicID;
-        public string TopicID { 
-            get { return _TopicID; }
-            set { _TopicID = value; this.OnPropertyChanged(()=>this.TopicID); }
+        private string _ResponseID;
+        public string ResponseID
+        {
+            get { return _ResponseID; }
+            set { _ResponseID = value; this.OnPropertyChanged(() => this.ResponseID); }
         }
+        
 
         private ObservableCollection<DiscussionResponseHeader> _Responses;
         public ObservableCollection<DiscussionResponseHeader> Responses
@@ -33,19 +35,10 @@ namespace eCollegeWP7
             set { _Responses = value; this.OnPropertyChanged(() => this.Responses); }
         }
 
-        public TopicViewModel(string topicID)
+        public TopicResponseViewModel(string responseID)
         {
-            this.TopicID = topicID;
-            //App.ViewModel.API.FetchAnnouncements(courseId, (result) =>
-            //{
-            //    var formattedResult = new ObservableCollection<Announcement>();
-            //    foreach (var ann in result)
-            //    {
-            //        formattedResult.Add(ann);
-            //    }
-            //    this.Announcements = formattedResult;
-            //});
-            App.ViewModel.API.FetchMyDiscussionResponsesByTopic(topicID, (result) =>
+            this.ResponseID = responseID;
+            App.ViewModel.API.FetchMyDiscussionResponsesByResponse(responseID, (result) =>
             {
                 var formattedResult = new ObservableCollection<DiscussionResponseHeader>();
                 foreach (var r in result) formattedResult.Add(r);
