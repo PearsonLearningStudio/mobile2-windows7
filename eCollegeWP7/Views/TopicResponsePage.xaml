@@ -34,9 +34,23 @@
                     <ControlTemplate TargetType="ListBox">
                         <ScrollViewer x:Name="ScrollViewer" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Foreground="{TemplateBinding Foreground}" Padding="{TemplateBinding Padding}">
                             <StackPanel>
-                                <TextBlock Text="Responses Page"/>
-                                <Button Content="Button1"/>
-                                <Button Content="Button2"/>
+                                <Border HorizontalAlignment="Stretch" BorderBrush="Beige" BorderThickness="3">
+                                    <StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock>Title:</TextBlock>
+                                            <TextBlock Text="{Binding Path=ResponseHeader.Response.Title}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock>Description:</TextBlock>
+                                            <TextBlock Text="{Binding Path=ResponseHeader.Response.Description}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock>Response Count:</TextBlock>
+                                            <TextBlock Text="{Binding Path=ResponseHeader.ChildResponseCounts.TotalResponseCount}"/>
+                                        </StackPanel>
+                                        <Button Content="Add Response"/>
+                                    </StackPanel>
+                                </Border>
                                 <ItemsPresenter/>
                             </StackPanel>
                         </ScrollViewer>

@@ -26,6 +26,21 @@ namespace eCollegeWP7
             get { return _ResponseID; }
             set { _ResponseID = value; this.OnPropertyChanged(() => this.ResponseID); }
         }
+
+        private string _ResponseHeaderID;
+        public string ResponseHeaderID
+        {
+            get { return _ResponseHeaderID; }
+            set { _ResponseHeaderID = value; this.OnPropertyChanged(() => this.ResponseHeaderID); }
+        }
+        
+
+        private DiscussionResponseHeader _ResponseHeader;
+        public DiscussionResponseHeader ResponseHeader
+        {
+            get { return _ResponseHeader; }
+            set { _ResponseHeader = value; this.OnPropertyChanged(() => this.ResponseHeader); }
+        }
         
 
         private ObservableCollection<DiscussionResponseHeader> _Responses;
@@ -35,9 +50,15 @@ namespace eCollegeWP7
             set { _Responses = value; this.OnPropertyChanged(() => this.Responses); }
         }
 
-        public TopicResponseViewModel(string responseID)
+        public TopicResponseViewModel(string responseHeaderID, string responseID)
         {
+            this.ResponseHeaderID = responseHeaderID;
             this.ResponseID = responseID;
+
+            App.ViewModel.API.FetchMyDiscussionResponseById(responseHeaderID, (result) =>
+            {
+                this.ResponseHeader = result;
+            });
             App.ViewModel.API.FetchMyDiscussionResponsesByResponse(responseID, (result) =>
             {
                 var formattedResult = new ObservableCollection<DiscussionResponseHeader>();

@@ -55,5 +55,27 @@ namespace ECollegeAPI
                 callback(result.UserResponses);
             });
         }
+
+        public void FetchMyDiscussionTopicById(string topicId, Action<DiscussionTopicHeader> callback)
+        {
+            var request = new RestRequest("me/usertopics/" + topicId, Method.GET);
+
+            ExecuteAsync<UserTopicsResultList>(request, result =>
+            {
+                callback(result.UserTopics.First());
+            });
+        }
+
+        public void FetchMyDiscussionResponseById(string responseId, Action<DiscussionResponseHeader> callback)
+        {
+            var request = new RestRequest("me/userresponses/" + responseId, Method.GET);
+
+            ExecuteAsync<UserResponsesResultList>(request, result =>
+            {
+                callback(result.UserResponses.First());
+            });
+        }
+
+
     }
 }

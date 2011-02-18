@@ -25,13 +25,13 @@ namespace eCollegeWP7.Views
         {
             base.OnNavigatedTo(e);
             IDictionary<string, string> parameters = this.NavigationContext.QueryString;
-            this.DataContext = new TopicViewModel(parameters["topicId"]);
+            this.DataContext = new TopicViewModel(parameters["topicHeaderId"],parameters["topicId"]);
         }
 
         private void BtnResponse_Click(object sender, RoutedEventArgs e)
         {
             var rheader = (sender as Button).DataContext as DiscussionResponseHeader;
-            this.NavigationService.Navigate(new Uri("/Views/TopicResponsePage.xaml?responseId=" + rheader.Response.ID, UriKind.Relative));
+            this.NavigationService.Navigate(new Uri("/Views/TopicResponsePage.xaml?responseId=" + rheader.Response.ID + "&responseHeaderId=" + rheader.ID, UriKind.Relative));
         }
     }
 }

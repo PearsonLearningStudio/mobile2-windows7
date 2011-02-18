@@ -19,11 +19,25 @@ namespace eCollegeWP7
 {
     public class TopicViewModel : ViewModelBase
     {
+        private string _TopicHeaderID;
+        public string TopicHeaderID
+        {
+            get { return _TopicHeaderID; }
+            set { _TopicHeaderID = value; this.OnPropertyChanged(() => this.TopicHeaderID); }
+        }
+        
 
         private string _TopicID;
         public string TopicID { 
             get { return _TopicID; }
             set { _TopicID = value; this.OnPropertyChanged(()=>this.TopicID); }
+        }
+
+        private DiscussionTopicHeader _TopicHeader;
+        public DiscussionTopicHeader TopicHeader
+        {
+            get { return _TopicHeader; }
+            set { _TopicHeader = value; this.OnPropertyChanged(() => this.TopicHeader); }
         }
 
         private ObservableCollection<DiscussionResponseHeader> _Responses;
@@ -33,8 +47,9 @@ namespace eCollegeWP7
             set { _Responses = value; this.OnPropertyChanged(() => this.Responses); }
         }
 
-        public TopicViewModel(string topicID)
+        public TopicViewModel(string topicHeaderID, string topicID)
         {
+            this.TopicHeaderID = topicHeaderID;
             this.TopicID = topicID;
             //App.ViewModel.API.FetchAnnouncements(courseId, (result) =>
             //{
@@ -45,6 +60,12 @@ namespace eCollegeWP7
             //    }
             //    this.Announcements = formattedResult;
             //});
+
+            App.ViewModel.API.FetchMyDiscussionTopicById(topicHeaderID, (result) =>
+            {
+                this.TopicHeader = result;
+            });
+
             App.ViewModel.API.FetchMyDiscussionResponsesByTopic(topicID, (result) =>
             {
                 var formattedResult = new ObservableCollection<DiscussionResponseHeader>();
