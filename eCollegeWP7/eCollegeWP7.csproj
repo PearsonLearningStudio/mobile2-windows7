@@ -68,14 +68,23 @@
     <Compile Include="CoursePage.xaml.cs">
       <DependentUpon>CoursePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ECollegeApi\Core.cs" />
+    <Compile Include="ECollegeAPI\Core.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ECollegeApi\Model\Announcements.cs" />
-    <Compile Include="ECollegeApi\Model\Courses.cs" />
-    <Compile Include="ECollegeApi\Model\Token.cs" />
-    <Compile Include="ECollegeApi\Model\User.cs" />
+    <Compile Include="ECollegeAPI\Model\Announcement.cs" />
+    <Compile Include="ECollegeAPI\Model\Boilerplate\AnnouncementResultList.cs" />
+    <Compile Include="ECollegeAPI\Model\Boilerplate\CourseLink.cs" />
+    <Compile Include="ECollegeAPI\Model\Boilerplate\CoursesResultList.cs" />
+    <Compile Include="ECollegeAPI\Model\Boilerplate\InstructorLink.cs" />
+    <Compile Include="ECollegeAPI\Model\Boilerplate\LinkContainer.cs" />
+    <Compile Include="ECollegeAPI\Model\Boilerplate\StudentLink.cs" />
+    <Compile Include="ECollegeAPI\Model\Boilerplate\TeacherAssistantLink.cs" />
+    <Compile Include="ECollegeAPI\Model\Boilerplate\TermLink.cs" />
+    <Compile Include="ECollegeAPI\Model\Course.cs" />
+    <Compile Include="ECollegeAPI\Model\Discussions.cs" />
+    <Compile Include="ECollegeAPI\Model\Token.cs" />
+    <Compile Include="ECollegeAPI\Model\User.cs" />
     <Compile Include="LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
@@ -139,6 +148,7 @@
     <Resource Include="PanoramaBackground.png" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

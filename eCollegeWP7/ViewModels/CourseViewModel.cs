@@ -33,6 +33,13 @@ namespace eCollegeWP7
             get { return _Announcements; }
             set { _Announcements = value; this.OnPropertyChanged(() => this.Announcements); }
         }
+
+        private ObservableCollection<ThreadedDiscussion> _ThreadedDiscussions;
+        public ObservableCollection<ThreadedDiscussion> ThreadedDiscussions
+        {
+            get { return _ThreadedDiscussions; }
+            set { _ThreadedDiscussions = value; this.OnPropertyChanged(() => this.ThreadedDiscussions); }
+        }
         
 
         public CourseViewModel(int courseId)
@@ -46,6 +53,15 @@ namespace eCollegeWP7
                     formattedResult.Add(ann);
                 }
                 this.Announcements = formattedResult;
+            });
+            App.ViewModel.API.FetchDiscussions(courseId, (result) =>
+            {
+                var formattedResult = new ObservableCollection<ThreadedDiscussion>();
+                foreach (var dis in result)
+                {
+                    formattedResult.Add(dis);
+                }
+                this.ThreadedDiscussions = formattedResult;
             });
         }
 

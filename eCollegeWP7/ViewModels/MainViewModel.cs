@@ -12,8 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
-using ECollegeAPI.Model;
 using eCollegeWP7.Util;
+using ECollegeAPI.Model;
 
 namespace eCollegeWP7
 {

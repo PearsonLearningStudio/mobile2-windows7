@@ -48,6 +48,27 @@
                 </Grid>
             </controls:PivotItem>
 
+            <controls:PivotItem Header="discussions">
+                <Grid>
+                    <ListBox ItemsSource="{Binding ThreadedDiscussions}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock>ID:</TextBlock>
+                                        <TextBlock Text="{Binding Path=ID}"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock>Introductory Text:</TextBlock>
+                                        <TextBlock Text="{Binding Path=IntroductoryText}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </controls:PivotItem>
+            
             <!--Pivot item two-->
             <controls:PivotItem Header="other">
                 <Grid/>

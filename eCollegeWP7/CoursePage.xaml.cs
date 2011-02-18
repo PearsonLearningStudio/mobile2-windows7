@@ -28,5 +28,6 @@ namespace eCollegeWP7
             int courseId = Int32.Parse(parameters["courseId"]);
             this.DataContext = new CourseViewModel(courseId);
         }
+
     }
 }

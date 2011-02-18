@@ -16,6 +16,8 @@ using Newtonsoft.Json;
 using System.Text;
 using System.IO;
 using eCollegeWP7.Util;
+using ECollegeAPI.Model;
+using ECollegeAPI.Model.Boilerplate;
 
 namespace eCollegeWP7
 {
@@ -148,15 +150,28 @@ namespace eCollegeWP7
             ExecuteAsync<AnnouncementResultList>(request, result =>
             {
                 callback(result.Announcements);
-                //var formattedResult = new List<Course>();
-                //foreach (var linkContainer in result.Courses)
-                //{
-                //    if (linkContainer.Links.Count > 0)
-                //    {
-                //        formattedResult.Add(linkContainer.Links[0].Course);
-                //    }
-                //}
-                //callback(formattedResult);
+            });
+        }
+
+
+        public void FetchDiscussions(Action<List<ThreadedDiscussion>> callback)
+        {
+            //var request = new RestRequest("courses/" + courseId + "/threadeddiscussions", Method.GET);
+            //request.AddParameter("expand", "topics", ParameterType.GetOrPost);
+            //ExecuteAsync<ThreadedDiscussionResultList>(request, result =>
+            //{
+            //    callback(result.ThreadedDiscussions);
+            //});
+        }
+
+
+        public void FetchDiscussions(int courseId, Action<List<ThreadedDiscussion>> callback)
+        {
+            var request = new RestRequest("courses/" + courseId + "/threadeddiscussions", Method.GET);
+            request.AddParameter("expand", "topics", ParameterType.GetOrPost);
+            ExecuteAsync<ThreadedDiscussionResultList>(request, result =>
+            {
+                callback(result.ThreadedDiscussions);
             });
         }
 
