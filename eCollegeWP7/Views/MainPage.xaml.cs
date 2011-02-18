@@ -14,7 +14,7 @@ using System.Diagnostics;
 using System.Collections.ObjectModel;
 using ECollegeAPI.Model;
 
-namespace eCollegeWP7
+namespace eCollegeWP7.Views
 {
     public partial class MainPage : PhoneApplicationPage
     {
@@ -53,7 +53,7 @@ namespace eCollegeWP7
         private void BtnOpenCourse_Click(object sender, RoutedEventArgs e)
         {
             var course = (sender as Button).DataContext as Course;
-            this.NavigationService.Navigate(new Uri("/CoursePage.xaml?courseId=" + course.ID, UriKind.Relative));
+            this.NavigationService.Navigate(new Uri("/Views/CoursePage.xaml?courseId=" + course.ID, UriKind.Relative));
         }
     }
 }

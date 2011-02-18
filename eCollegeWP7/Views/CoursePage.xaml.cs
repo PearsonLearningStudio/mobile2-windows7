@@ -12,7 +12,7 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using ECollegeAPI.Model;
 
-namespace eCollegeWP7
+namespace eCollegeWP7.Views
 {
     public partial class CoursePage : PhoneApplicationPage
     {

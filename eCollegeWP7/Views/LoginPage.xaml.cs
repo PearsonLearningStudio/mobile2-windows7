@@ -11,7 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 
-namespace eCollegeWP7
+namespace eCollegeWP7.Views
 {
     public partial class LoginPage : PhoneApplicationPage
     {
@@ -24,7 +24,7 @@ namespace eCollegeWP7
         {
             App.ViewModel.Login(TxtUsername.Text, TxtPassword.Password, me =>
             {
-                this.NavigationService.Navigate(new Uri("/MainPage.xaml",UriKind.Relative));
+                this.NavigationService.Navigate(new Uri("/Views/MainPage.xaml",UriKind.Relative));
             });
         }
     }
