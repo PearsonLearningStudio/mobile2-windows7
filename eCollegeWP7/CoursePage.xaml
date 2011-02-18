@@ -21,10 +21,27 @@
             <!--Pivot item one-->
             <controls:PivotItem Header="announcements">
                 <Grid>
-                    <ListBox ItemsSource="{Binding Annoucements}">
+                    <ListBox ItemsSource="{Binding Announcements}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Subject}"/>
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock>ID:</TextBlock>
+                                        <TextBlock Text="{Binding Path=ID}"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock>Text:</TextBlock>
+                                        <TextBlock Text="{Binding Path=Text}"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock>Subject:</TextBlock>
+                                        <TextBlock Text="{Binding Path=Subject}"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock>Submitter:</TextBlock>
+                                        <TextBlock Text="{Binding Path=Submitter}"/>
+                                    </StackPanel>
+                                </StackPanel>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ListBox>
@@ -49,5 +66,5 @@
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>-->
-    
+
 </phone:PhoneApplicationPage>
