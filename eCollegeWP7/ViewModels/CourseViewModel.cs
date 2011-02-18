@@ -34,12 +34,19 @@ namespace eCollegeWP7
             set { _Announcements = value; this.OnPropertyChanged(() => this.Announcements); }
         }
 
-        private ObservableCollection<ThreadedDiscussion> _ThreadedDiscussions;
-        public ObservableCollection<ThreadedDiscussion> ThreadedDiscussions
+        private ObservableCollection<DiscussionTopicHeader> _UserTopics;
+        public ObservableCollection<DiscussionTopicHeader> UserTopics
         {
-            get { return _ThreadedDiscussions; }
-            set { _ThreadedDiscussions = value; this.OnPropertyChanged(() => this.ThreadedDiscussions); }
+            get { return _UserTopics; }
+            set { _UserTopics = value; this.OnPropertyChanged(() => this.UserTopics); }
         }
+
+        //private ObservableCollection<ThreadedDiscussion> _ThreadedDiscussions;
+        //public ObservableCollection<ThreadedDiscussion> ThreadedDiscussions
+        //{
+        //    get { return _ThreadedDiscussions; }
+        //    set { _ThreadedDiscussions = value; this.OnPropertyChanged(() => this.ThreadedDiscussions); }
+        //}
         
 
         public CourseViewModel(int courseId)
@@ -54,14 +61,11 @@ namespace eCollegeWP7
                 }
                 this.Announcements = formattedResult;
             });
-            App.ViewModel.API.FetchDiscussions(courseId, (result) =>
+            App.ViewModel.API.FetchMyDiscussionTopics(new List<long>(){courseId}, (result) =>
             {
-                var formattedResult = new ObservableCollection<ThreadedDiscussion>();
-                foreach (var dis in result)
-                {
-                    formattedResult.Add(dis);
-                }
-                this.ThreadedDiscussions = formattedResult;
+                var formattedResult = new ObservableCollection<DiscussionTopicHeader>();
+                foreach (var r in result) formattedResult.Add(r);
+                this.UserTopics = formattedResult;
             });
         }
 

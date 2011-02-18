@@ -19,13 +19,13 @@ using eCollegeWP7.Util;
 using ECollegeAPI.Model;
 using ECollegeAPI.Model.Boilerplate;
 
-namespace eCollegeWP7
+namespace ECollegeAPI
 {
     public static class UriStrings
     {
     }
 
-    public partial class ECollegeAPI
+    public partial class ECollegeClient
     {
         
         public const string RootUri = "https://m-api.ecollege.com/";
@@ -35,9 +35,9 @@ namespace eCollegeWP7
         readonly string _password;
         readonly string _epid;
         private Token _currentToken;
-        private ECollegeAPIAuthenticator _authenticator;
+        private ECollegeClientAuthenticator _authenticator;
 
-        public ECollegeAPI(string domain, string username, string password, string epid)
+        public ECollegeClient(string domain, string username, string password, string epid)
         {
             _domain = domain;
             _username = username;
@@ -112,7 +112,7 @@ namespace eCollegeWP7
             ExecuteAsync<Token>(request, (token) =>
             {
                 _currentToken = token;
-                _authenticator = new ECollegeAPIAuthenticator(token.AccessToken);
+                _authenticator = new ECollegeClientAuthenticator(token.AccessToken);
                 callback(token);
             });
         }
@@ -154,26 +154,26 @@ namespace eCollegeWP7
         }
 
 
-        public void FetchDiscussions(Action<List<ThreadedDiscussion>> callback)
-        {
-            //var request = new RestRequest("courses/" + courseId + "/threadeddiscussions", Method.GET);
-            //request.AddParameter("expand", "topics", ParameterType.GetOrPost);
-            //ExecuteAsync<ThreadedDiscussionResultList>(request, result =>
-            //{
-            //    callback(result.ThreadedDiscussions);
-            //});
-        }
+        //public void FetchDiscussions(Action<List<ThreadedDiscussion>> callback)
+        //{
+        //    //var request = new RestRequest("courses/" + courseId + "/threadeddiscussions", Method.GET);
+        //    //request.AddParameter("expand", "topics", ParameterType.GetOrPost);
+        //    //ExecuteAsync<ThreadedDiscussionResultList>(request, result =>
+        //    //{
+        //    //    callback(result.ThreadedDiscussions);
+        //    //});
+        //}
 
 
-        public void FetchDiscussions(int courseId, Action<List<ThreadedDiscussion>> callback)
-        {
-            var request = new RestRequest("courses/" + courseId + "/threadeddiscussions", Method.GET);
-            request.AddParameter("expand", "topics", ParameterType.GetOrPost);
-            ExecuteAsync<ThreadedDiscussionResultList>(request, result =>
-            {
-                callback(result.ThreadedDiscussions);
-            });
-        }
+        //public void FetchDiscussions(int courseId, Action<List<ThreadedDiscussion>> callback)
+        //{
+        //    var request = new RestRequest("courses/" + courseId + "/threadeddiscussions", Method.GET);
+        //    request.AddParameter("expand", "topics", ParameterType.GetOrPost);
+        //    ExecuteAsync<ThreadedDiscussionResultList>(request, result =>
+        //    {
+        //        callback(result.ThreadedDiscussions);
+        //    });
+        //}
 
         public class CurrentCoursesResults
         {
@@ -189,11 +189,11 @@ namespace eCollegeWP7
             });
         }
 
-        private class ECollegeAPIAuthenticator : IAuthenticator
+        private class ECollegeClientAuthenticator : IAuthenticator
         {
             private readonly string _token;
 
-            public ECollegeAPIAuthenticator(string token)
+            public ECollegeClientAuthenticator(string token)
             {
                 _token = token;
             }

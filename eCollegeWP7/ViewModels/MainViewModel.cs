@@ -14,13 +14,14 @@ using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using eCollegeWP7.Util;
 using ECollegeAPI.Model;
+using ECollegeAPI;
 
 namespace eCollegeWP7
 {
     public class MainViewModel : ViewModelBase
     {
-        private ECollegeAPI _api;
-        public ECollegeAPI API { get { return _api; } }
+        private ECollegeClient _api;
+        public ECollegeClient API { get { return _api; } }
 
         private AuthenticatedUser _AuthenticatedUser;
         public AuthenticatedUser AuthenticatedUser
@@ -43,7 +44,7 @@ namespace eCollegeWP7
 
         public void Login(string username, string password, Action<AuthenticatedUser> callback)
         {
-            _api = new ECollegeAPI("ctstate",username, password, "30bb1d4f-2677-45d1-be13-339174404402");
+            _api = new ECollegeClient("ctstate", username, password, "30bb1d4f-2677-45d1-be13-339174404402");
 
             _api.FetchToken(t =>
             {

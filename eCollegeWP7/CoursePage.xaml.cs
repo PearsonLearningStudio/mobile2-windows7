@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
+using ECollegeAPI.Model;
 
 namespace eCollegeWP7
 {
@@ -27,6 +28,12 @@ namespace eCollegeWP7
 
             int courseId = Int32.Parse(parameters["courseId"]);
             this.DataContext = new CourseViewModel(courseId);
+        }
+
+        private void BtnDiscussion_Click(object sender, RoutedEventArgs e)
+        {
+            var theader = (sender as Button).DataContext as DiscussionTopicHeader;
+            this.NavigationService.Navigate(new Uri("/Views/TopicPage.xaml?topicId=" + theader.Topic.ID, UriKind.Relative));
         }
 
     }
