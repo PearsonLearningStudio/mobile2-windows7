@@ -4,10 +4,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:conv="clr-namespace:eCollegeWP7.Util.Converters"
     xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
     <!--Application Resources-->
     <Application.Resources>
+        <conv:FilterTopicByCourseConverter x:Key="FilterTopicByCourseConverter"/>
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>

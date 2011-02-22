@@ -13,6 +13,7 @@ using Microsoft.Phone.Controls;
 using System.Diagnostics;
 using System.Collections.ObjectModel;
 using ECollegeAPI.Model;
+using eCollegeWP7.Util;
 
 namespace eCollegeWP7.Views
 {
@@ -43,19 +44,25 @@ namespace eCollegeWP7.Views
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
-            Model.AppViewModel.API.FetchMyCurrentCourses(result =>
-            {
-                var oc = new ObservableCollection<Course>();
-                foreach (var c in result) { oc.Add(c); }
-                Model.MyCourses = oc;
-            });
-
+            Model.LoadData();
         }
 
         private void BtnOpenCourse_Click(object sender, RoutedEventArgs e)
         {
             var course = (sender as Button).DataContext as Course;
             this.NavigationService.Navigate(new Uri("/Views/CoursePage.xaml?courseId=" + course.ID, UriKind.Relative));
+        }
+
+        private void BtnDiscussion_Click(object sender, RoutedEventArgs e)
+        {
+            var theader = (sender as Button).DataContext as DiscussionTopicHeader;
+            this.NavigationService.Navigate(new Uri("/Views/DiscussionPage.xaml?topicId=" + theader.Topic.ID + "&topicHeaderId=" + theader.ID, UriKind.Relative));
+        }
+
+        private void LspFilterDiscussions_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var LspFilterDiscussions = sender as ListPicker;
+            Model.DiscussionCourseFilter = LspFilterDiscussions.SelectedItem as Course;
         }
     }
 }

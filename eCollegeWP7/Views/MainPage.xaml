@@ -5,10 +5,11 @@
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:mb="clr-namespace:eCollegeWP7.Util.MultiBinding"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="800" 
-    d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -17,42 +18,13 @@
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
- 
+
         <!--Panorama control-->
         <controls:Panorama Title="eCollege">
             <controls:Panorama.Background>
-                <ImageBrush ImageSource="/PanoramaBackground.png"/>
+                <ImageBrush ImageSource="../PanoramaBackground.png"/>
             </controls:Panorama.Background>
- 
-            <!--Panorama item one-->
-            <controls:PanoramaItem Header="about me">
-                <StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock>ID:</TextBlock>
-                        <TextBlock Text="{Binding Path=AuthenticatedUser.ID}"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock>Username:</TextBlock>
-                        <TextBlock Text="{Binding Path=AuthenticatedUser.UserName}"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock>Firstname:</TextBlock>
-                        <TextBlock Text="{Binding Path=AuthenticatedUser.FirstName}"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock>Lastname:</TextBlock>
-                        <TextBlock Text="{Binding Path=AuthenticatedUser.LastName}"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock>Email:</TextBlock>
-                        <TextBlock Text="{Binding Path=AuthenticatedUser.EmailAddress}"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock>Client String:</TextBlock>
-                        <TextBlock Text="{Binding Path=AuthenticatedUser.ClientString}"/>
-                    </StackPanel>
-                </StackPanel>
-            </controls:PanoramaItem>
+
 
             <!--Panorama item two-->
             <!--Use 'Orientation="Horizontal"' to enable a panel that lays out horizontally-->
@@ -89,15 +61,109 @@
                                         <Button x:Name="BtnOpenCourse" Content="Open" Click="BtnOpenCourse_Click"/>
                                     </StackPanel>
                                 </Border>
-                            </DataTemplate> 
+                            </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </Grid>
             </controls:PanoramaItem>
 
+
+            <controls:PanoramaItem x:Name="PanDiscussions" Header="discussions">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <ListBox Grid.Row="1">
+                        <mb:BindingUtil.MultiBindings>
+                            <mb:MultiBindings>
+                                <mb:MultiBinding TargetProperty="ItemsSource" Converter="{StaticResource FilterTopicByCourseConverter}">
+                                    <mb:BindingCollection>
+                                        <Binding Path="Topics"/>
+                                        <Binding Path="DiscussionCourseFilter"/>
+                                    </mb:BindingCollection>
+                                </mb:MultiBinding>
+                            </mb:MultiBindings>
+                        </mb:BindingUtil.MultiBindings>
+                        <ListBox.Template>
+                            <ControlTemplate TargetType="ListBox">
+                                <ScrollViewer x:Name="ScrollViewer" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Foreground="{TemplateBinding Foreground}" Padding="{TemplateBinding Padding}">
+                                    <StackPanel>
+                                        <toolkit:ListPicker x:Name="LspFilterDiscussions" SelectionChanged="LspFilterDiscussions_SelectionChanged" ListPickerMode="Normal" Header="course filter" ItemsSource="{Binding Path=MyCoursesPlusAll}">
+                                            <toolkit:ListPicker.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Title}" Margin="12 0 0 0"/>
+                                                </DataTemplate>
+                                            </toolkit:ListPicker.ItemTemplate>
+                                        </toolkit:ListPicker>
+                                        <ItemsPresenter/>
+                                    </StackPanel>
+                                </ScrollViewer>
+                            </ControlTemplate>
+                        </ListBox.Template>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button x:Name="BtnDiscussion" Click="BtnDiscussion_Click">
+                                    <StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock>Title:</TextBlock>
+                                            <TextBlock Text="{Binding Path=Topic.Title}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock>Description:</TextBlock>
+                                            <TextBlock Text="{Binding Path=Topic.Description}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock>Response Count:</TextBlock>
+                                            <TextBlock Text="{Binding Path=ChildResponseCounts.TotalResponseCount}"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </controls:PanoramaItem>
+
+            <controls:PanoramaItem x:Name="PanPeople" Header="people">
+                <Grid>
+
+                </Grid>
+            </controls:PanoramaItem>
+
+            <!--Panorama item one-->
+            <controls:PanoramaItem Header="about me">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock>ID:</TextBlock>
+                        <TextBlock Text="{Binding Path=AppViewModel.AuthenticatedUser.ID}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock>Username:</TextBlock>
+                        <TextBlock Text="{Binding Path=AppViewModel.AuthenticatedUser.UserName}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock>Firstname:</TextBlock>
+                        <TextBlock Text="{Binding Path=AppViewModel.AuthenticatedUser.FirstName}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock>Lastname:</TextBlock>
+                        <TextBlock Text="{Binding Path=AppViewModel.AuthenticatedUser.LastName}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock>Email:</TextBlock>
+                        <TextBlock Text="{Binding Path=AppViewModel.AuthenticatedUser.EmailAddress}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock>Client String:</TextBlock>
+                        <TextBlock Text="{Binding Path=AppViewModel.AuthenticatedUser.ClientString}"/>
+                    </StackPanel>
+                </StackPanel>
+            </controls:PanoramaItem>
+
         </controls:Panorama>
     </Grid>
- 
+
     <!--Panorama-based applications should not show an ApplicationBar-->
 
 </phone:PhoneApplicationPage>
