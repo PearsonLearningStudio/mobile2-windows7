@@ -65,6 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Util\TreeHelperExtensions.cs" />
     <Compile Include="Views\CoursePage.xaml.cs">
       <DependentUpon>CoursePage.xaml</DependentUpon>
     </Compile>
@@ -113,8 +114,7 @@
     <Compile Include="ViewModels\ApplicationStructure\Gradebook.cs" />
     <Compile Include="ViewModels\ApplicationStructure\Happenings.cs" />
     <Compile Include="ViewModels\ApplicationStructure\NavigationItem.cs" />
-    <Compile Include="ViewModels\TopicResponseViewModel.cs" />
-    <Compile Include="ViewModels\TopicViewModel.cs" />
+    <Compile Include="ViewModels\DiscussionViewModel.cs" />
     <Compile Include="ViewModels\CourseViewModel.cs" />
     <Compile Include="ViewModels\DataContractStructure\Announcements.cs" />
     <Compile Include="ViewModels\DataContractStructure\Courses.cs" />
@@ -125,11 +125,8 @@
     <Compile Include="ViewModels\DataContractStructure\User.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
-    <Compile Include="Views\TopicPage.xaml.cs">
-      <DependentUpon>TopicPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\TopicResponsePage.xaml.cs">
-      <DependentUpon>TopicResponsePage.xaml</DependentUpon>
+    <Compile Include="Views\DiscussionPage.xaml.cs">
+      <DependentUpon>DiscussionPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -153,11 +150,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </DesignData>
-    <Page Include="Views\TopicPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\TopicResponsePage.xaml">
+    <Page Include="Views\DiscussionPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -176,7 +169,10 @@
     <Resource Include="PanoramaBackground.png" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Controls\" />
+    <Folder Include="Views\Dialogs\" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -33,7 +33,7 @@ namespace eCollegeWP7.Views
         private void BtnDiscussion_Click(object sender, RoutedEventArgs e)
         {
             var theader = (sender as Button).DataContext as DiscussionTopicHeader;
-            this.NavigationService.Navigate(new Uri("/Views/TopicPage.xaml?topicId=" + theader.Topic.ID + "&topicHeaderId=" + theader.ID, UriKind.Relative));
+            this.NavigationService.Navigate(new Uri("/Views/DiscussionPage.xaml?topicId=" + theader.Topic.ID + "&topicHeaderId=" + theader.ID, UriKind.Relative));
         }
 
     }

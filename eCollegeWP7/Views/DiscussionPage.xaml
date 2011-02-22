@@ -1,5 +1,5 @@
 ﻿<phone:PhoneApplicationPage 
-    x:Class="eCollegeWP7.Views.TopicPage"
+    x:Class="eCollegeWP7.Views.DiscussionPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
@@ -38,17 +38,35 @@
                                     <StackPanel>
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock>Title:</TextBlock>
-                                            <TextBlock Text="{Binding Path=TopicHeader.Topic.Title}"/>
+                                            <TextBlock Text="{Binding Path=DiscussionTitle}"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock>Description:</TextBlock>
-                                            <TextBlock Text="{Binding Path=TopicHeader.Topic.Description}"/>
+                                            <TextBlock Text="{Binding Path=DiscussionDescription}"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock>Response Count:</TextBlock>
-                                            <TextBlock Text="{Binding Path=TopicHeader.ChildResponseCounts.TotalResponseCount}"/>
+                                            <TextBlock Text="{Binding Path=DiscussionResponseCount}"/>
                                         </StackPanel>
-                                        <Button Content="Add Response"/>
+
+                                        <Button x:Name="BtnShowAddResponse" Content="Add Response" Click="BtnShowAddResponse_Click"/>
+
+                                        <Grid x:Name="GrdResponse" Height="300" Visibility="Collapsed">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <TextBox x:Name="TxtResponse" AcceptsReturn="True"/>
+                                            <Grid Grid.Row="1">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Button x:Name="BtnAddResponse" Content="Add" Click="BtnAddResponse_Click"/>
+                                                <Button x:Name="BtnCancelResponse" Grid.Column="1" Content="Cancel" Click="BtnCancelResponse_Click"/>
+                                            </Grid>
+                                        </Grid>
+
                                     </StackPanel>
                                 </Border>
                                 <ItemsPresenter/>
@@ -83,8 +101,10 @@
             </ListBox>
 
         </Grid>
+        
     </Grid>
 
+    
     <!--Sample code showing usage of ApplicationBar-->
     <!--<phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">

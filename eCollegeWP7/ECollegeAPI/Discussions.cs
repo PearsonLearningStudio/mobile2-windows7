@@ -56,9 +56,9 @@ namespace ECollegeAPI
             });
         }
 
-        public void FetchMyDiscussionTopicById(string topicId, Action<DiscussionTopicHeader> callback)
+        public void FetchMyDiscussionTopicById(string topicHeaderId, Action<DiscussionTopicHeader> callback)
         {
-            var request = new RestRequest("me/usertopics/" + topicId, Method.GET);
+            var request = new RestRequest("me/usertopics/" + topicHeaderId, Method.GET);
 
             ExecuteAsync<UserTopicsResultList>(request, result =>
             {
@@ -66,14 +66,20 @@ namespace ECollegeAPI
             });
         }
 
-        public void FetchMyDiscussionResponseById(string responseId, Action<DiscussionResponseHeader> callback)
+        public void FetchMyDiscussionResponseById(string responseHeaderId, Action<DiscussionResponseHeader> callback)
         {
-            var request = new RestRequest("me/userresponses/" + responseId, Method.GET);
+            var request = new RestRequest("me/userresponses/" + responseHeaderId, Method.GET);
 
             ExecuteAsync<UserResponsesResultList>(request, result =>
             {
                 callback(result.UserResponses.First());
             });
+        }
+
+        public void PostMyResponseToTopic(string topicId, string responseText, Action<RestResponse> callback)
+        {
+            var request = new RestRequest("me/topics/" + topicId + "/responses", Method.POST);
+
         }
 
 
