@@ -52,7 +52,7 @@ namespace eCollegeWP7
         public CourseViewModel(int courseId)
         {
             this.CourseID = courseId;
-            App.ViewModel.API.FetchAnnouncements(courseId, (result) =>
+            AppViewModel.API.FetchAnnouncements(courseId, (result) =>
             {
                 var formattedResult = new ObservableCollection<Announcement>();
                 foreach (var ann in result)
@@ -61,7 +61,7 @@ namespace eCollegeWP7
                 }
                 this.Announcements = formattedResult;
             });
-            App.ViewModel.API.FetchMyDiscussionTopics(new List<long>(){courseId}, (result) =>
+            AppViewModel.API.FetchMyDiscussionTopics(new List<long>(){courseId}, (result) =>
             {
                 var formattedResult = new ObservableCollection<DiscussionTopicHeader>();
                 foreach (var r in result) formattedResult.Add(r);

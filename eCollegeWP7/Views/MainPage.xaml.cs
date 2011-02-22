@@ -18,13 +18,15 @@ namespace eCollegeWP7.Views
 {
     public partial class MainPage : PhoneApplicationPage
     {
+        public MainViewModel Model { get { return this.DataContext as MainViewModel; } }
+
         // Constructor
         public MainPage()
         {
             InitializeComponent();
 
             // Set the data context of the listbox control to the sample data
-            DataContext = App.ViewModel;
+            DataContext = new MainViewModel();
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
         }
 
@@ -41,11 +43,11 @@ namespace eCollegeWP7.Views
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
-            App.ViewModel.API.FetchMyCurrentCourses(result =>
+            Model.AppViewModel.API.FetchMyCurrentCourses(result =>
             {
                 var oc = new ObservableCollection<Course>();
                 foreach (var c in result) { oc.Add(c); }
-                App.ViewModel.MyCourses = oc;
+                Model.MyCourses = oc;
             });
 
         }

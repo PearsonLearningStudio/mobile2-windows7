@@ -5,11 +5,14 @@ using System.Text;
 using System.ComponentModel;
 using eCollegeWP7.Util;
 using System.Linq.Expressions;
+using eCollegeWP7.ViewModels;
 
 namespace eCollegeWP7
 {
     public abstract class ViewModelBase : INotifyPropertyChanged, IDisposable
     {
+        public AppViewModel AppViewModel { get { return App.AppViewModel; } }
+
         protected ViewModelBase()
         {
         }

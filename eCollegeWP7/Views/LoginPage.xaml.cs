@@ -22,7 +22,7 @@ namespace eCollegeWP7.Views
 
         private void BtnSignIn_Click(object sender, RoutedEventArgs e)
         {
-            App.ViewModel.Login(TxtUsername.Text, TxtPassword.Password, me =>
+            App.AppViewModel.Login(TxtUsername.Text, TxtPassword.Password, me =>
             {
                 this.NavigationService.Navigate(new Uri("/Views/MainPage.xaml",UriKind.Relative));
             });

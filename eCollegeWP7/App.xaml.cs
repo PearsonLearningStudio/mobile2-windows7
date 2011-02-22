@@ -12,26 +12,28 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using eCollegeWP7.ViewModels;
+using ECollegeAPI.Model;
 
 namespace eCollegeWP7
 {
     public partial class App : Application
     {
-        private static MainViewModel viewModel = null;
+        private static AppViewModel appViewModel = null;
 
         /// <summary>
         /// A static ViewModel used by the views to bind against.
         /// </summary>
         /// <returns>The MainViewModel object.</returns>
-        public static MainViewModel ViewModel
+        public static AppViewModel AppViewModel
         {
             get
             {
                 // Delay creation of the view model until necessary
-                if (viewModel == null)
-                    viewModel = new MainViewModel();
+                if (appViewModel == null)
+                    appViewModel = new AppViewModel();
 
-                return viewModel;
+                return appViewModel;
             }
         }
 
@@ -80,20 +82,21 @@ namespace eCollegeWP7
         // This code will not execute when the application is first launched
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
-            // Ensure that application state is restored appropriately
-            /*
-            if (!App.ViewModel.IsDataLoaded)
+            if (PhoneApplicationService.Current.State.ContainsKey("token") && AppViewModel.API == null)
             {
-                App.ViewModel.LoadData();
+                Token savedToken = PhoneApplicationService.Current.State["token"] as Token;
+                AppViewModel.API = new ECollegeAPI.ECollegeClient(savedToken);
             }
-             */
         }
 
         // Code to execute when the application is deactivated (sent to background)
         // This code will not execute when the application is closing
         private void Application_Deactivated(object sender, DeactivatedEventArgs e)
         {
-            // Ensure that required application state is persisted here.
+            if (AppViewModel.API != null && AppViewModel.API.CurrentToken != null)
+            {
+                PhoneApplicationService.Current.State["token"] = AppViewModel.API.CurrentToken;
+            }
         }
 
         // Code to execute when the application is closing (eg, user hit Back)

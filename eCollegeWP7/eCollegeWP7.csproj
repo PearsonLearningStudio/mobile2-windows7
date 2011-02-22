@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Util\TreeHelperExtensions.cs" />
+    <Compile Include="ViewModels\AppViewModel.cs" />
     <Compile Include="Views\CoursePage.xaml.cs">
       <DependentUpon>CoursePage.xaml</DependentUpon>
     </Compile>
@@ -107,22 +108,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\CustomJsonDeserializer.cs" />
     <Compile Include="Util\NotificationExtensions.cs" />
-    <Compile Include="ViewModels\ApplicationStructure\Announcements.cs" />
-    <Compile Include="ViewModels\ApplicationStructure\Course.cs" />
-    <Compile Include="ViewModels\ApplicationStructure\Discussions.cs" />
-    <Compile Include="ViewModels\ApplicationStructure\DropBox.cs" />
-    <Compile Include="ViewModels\ApplicationStructure\Gradebook.cs" />
-    <Compile Include="ViewModels\ApplicationStructure\Happenings.cs" />
-    <Compile Include="ViewModels\ApplicationStructure\NavigationItem.cs" />
     <Compile Include="ViewModels\DiscussionViewModel.cs" />
     <Compile Include="ViewModels\CourseViewModel.cs" />
-    <Compile Include="ViewModels\DataContractStructure\Announcements.cs" />
-    <Compile Include="ViewModels\DataContractStructure\Courses.cs" />
-    <Compile Include="ViewModels\DataContractStructure\Discussions.cs" />
-    <Compile Include="ViewModels\DataContractStructure\DropBox.cs" />
-    <Compile Include="ViewModels\DataContractStructure\Gradebook.cs" />
-    <Compile Include="ViewModels\DataContractStructure\Token.cs" />
-    <Compile Include="ViewModels\DataContractStructure\User.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\DiscussionPage.xaml.cs">

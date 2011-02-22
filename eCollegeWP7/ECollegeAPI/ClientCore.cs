@@ -36,6 +36,13 @@ namespace ECollegeAPI
         readonly string _epid;
         private Token _currentToken;
         private ECollegeClientAuthenticator _authenticator;
+        public Token CurrentToken { get { return _currentToken; } }
+
+        public ECollegeClient(Token token)
+        {
+            _currentToken = token;
+            _authenticator = new ECollegeClientAuthenticator(token.AccessToken);
+        }
 
         public ECollegeClient(string domain, string username, string password, string epid)
         {
