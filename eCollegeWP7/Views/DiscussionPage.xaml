@@ -53,11 +53,13 @@
 
                                         <Grid x:Name="GrdResponse" Height="300" Visibility="Collapsed">
                                             <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
                                                 <RowDefinition Height="*"/>
                                                 <RowDefinition Height="Auto"/>
                                             </Grid.RowDefinitions>
-                                            <TextBox x:Name="TxtResponse" AcceptsReturn="True"/>
-                                            <Grid Grid.Row="1">
+                                            <TextBox Grid.Row="0" x:Name="TxtResponseTitle" AcceptsReturn="True"/>
+                                            <TextBox Grid.Row="1" x:Name="TxtResponse" AcceptsReturn="True"/>
+                                            <Grid Grid.Row="2">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="*"/>
                                                     <ColumnDefinition Width="*"/>

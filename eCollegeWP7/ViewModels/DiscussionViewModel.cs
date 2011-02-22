@@ -103,10 +103,10 @@ namespace eCollegeWP7
 
         public DiscussionViewModel(string discussionHeaderId, string discussionId, DiscussionType dt)
         {
+            CurrentDiscussionType = dt;
 
-            if (dt == DiscussionType.TopicAndResponses)
+            if (CurrentDiscussionType == DiscussionType.TopicAndResponses)
             {
-
                 this.TopicHeaderID = discussionHeaderId;
                 this.TopicID = discussionId;
 
@@ -117,16 +117,9 @@ namespace eCollegeWP7
                     this.DiscussionDescription = result.Topic.Description;
                     this.DiscussionResponseCount = result.ChildResponseCounts.TotalResponseCount;
                 });
-
-                App.ViewModel.API.FetchMyDiscussionResponsesByTopic(discussionId, (result) =>
-                {
-                    var formattedResult = new ObservableCollection<DiscussionResponseHeader>();
-                    foreach (var r in result) formattedResult.Add(r);
-                    this.Responses = formattedResult;
-                });
             }
 
-            if (dt == DiscussionType.ResponseAndResponses)
+            if (CurrentDiscussionType == DiscussionType.ResponseAndResponses)
             {
                 this.ResponseHeaderID = discussionHeaderId;
                 this.ResponseID = discussionId;
@@ -138,13 +131,56 @@ namespace eCollegeWP7
                     this.DiscussionDescription = result.Response.Description;
                     this.DiscussionResponseCount = result.ChildResponseCounts.TotalResponseCount;
                 });
-                App.ViewModel.API.FetchMyDiscussionResponsesByResponse(discussionId, (result) =>
+            }
+
+            FetchResponses();
+        }
+
+        public void PostResponse(string responseTitle, string responseText)
+        {
+            if (CurrentDiscussionType == DiscussionType.TopicAndResponses)
+            {
+                App.ViewModel.API.PostMyResponseToTopic(this.TopicID, responseTitle, responseText, (result) =>
+                {
+                    if (result.ResponseStatus == RestSharp.ResponseStatus.Completed)
+                    {
+                        FetchResponses();
+                    }
+                });
+            }
+            else if (CurrentDiscussionType == DiscussionType.ResponseAndResponses)
+            {
+                App.ViewModel.API.PostMyResponseToResponse(this.ResponseID, responseTitle, responseText, (result) =>
+                {
+                    if (result.ResponseStatus == RestSharp.ResponseStatus.Completed)
+                    {
+                        FetchResponses();
+                    }
+                });
+            }
+        }
+
+        protected void FetchResponses()
+        {
+            if (CurrentDiscussionType == DiscussionType.TopicAndResponses)
+            {
+                App.ViewModel.API.FetchMyDiscussionResponsesByTopic(TopicID, (result) =>
                 {
                     var formattedResult = new ObservableCollection<DiscussionResponseHeader>();
                     foreach (var r in result) formattedResult.Add(r);
                     this.Responses = formattedResult;
                 });
             }
+            else if (CurrentDiscussionType == DiscussionType.ResponseAndResponses)
+            {
+                App.ViewModel.API.FetchMyDiscussionResponsesByResponse(ResponseID, (result) =>
+                {
+                    var formattedResult = new ObservableCollection<DiscussionResponseHeader>();
+                    foreach (var r in result) formattedResult.Add(r);
+                    this.Responses = formattedResult;
+                });
+            }
+
         }
 
     }

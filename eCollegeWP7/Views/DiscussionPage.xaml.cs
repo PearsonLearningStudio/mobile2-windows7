@@ -21,7 +21,8 @@ namespace eCollegeWP7.Views
         protected Button BtnShowAddResponse { get { return this.FindVisualChild<Button>("BtnShowAddResponse"); } }
         protected Button BtnAddResponse { get { return this.FindVisualChild<Button>("BtnAddResponse"); } }
         protected TextBox TxtResponse { get { return this.FindVisualChild<TextBox>("TxtResponse"); } }
-
+        protected TextBox TxtResponseTitle { get { return this.FindVisualChild<TextBox>("TxtResponseTitle"); } }
+        protected DiscussionViewModel Model { get { return this.DataContext as DiscussionViewModel; } }
 
         public DiscussionPage()
         {
@@ -64,9 +65,11 @@ namespace eCollegeWP7.Views
         {
             GrdResponse.Visibility = Visibility.Collapsed;
             BtnShowAddResponse.Visibility = Visibility.Visible;
+            var responseTitle = TxtResponseTitle.Text;
+            TxtResponseTitle.Text = "";
             var responseText = TxtResponse.Text;
             TxtResponse.Text = "";
-
+            Model.PostResponse(responseTitle, responseText);
         }
 
     }

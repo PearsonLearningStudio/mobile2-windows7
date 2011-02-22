@@ -19,6 +19,7 @@ using eCollegeWP7.Util;
 using ECollegeAPI.Model;
 using ECollegeAPI.Model.Boilerplate;
 using System.Linq;
+using Newtonsoft.Json.Linq;
 
 namespace ECollegeAPI
 {
@@ -76,10 +77,38 @@ namespace ECollegeAPI
             });
         }
 
-        public void PostMyResponseToTopic(string topicId, string responseText, Action<RestResponse> callback)
+        public void PostMyResponseToTopic(string topicId, string responseTitle, string responseText, Action<RestResponse> callback)
         {
             var request = new RestRequest("me/topics/" + topicId + "/responses", Method.POST);
 
+            JObject postData = new JObject();
+            JObject postDataResponses = new JObject();
+            postDataResponses["title"] = responseTitle;
+            postDataResponses["description"] = responseText;
+            postData["responses"] = postDataResponses;
+            request.AddParameter("RequestBody", postData.ToString(), ParameterType.RequestBody);
+
+            ExecuteAsync(request, result =>
+            {
+                callback(result);
+            });
+        }
+
+        public void PostMyResponseToResponse(string responseId, string responseTitle, string responseText, Action<RestResponse> callback)
+        {
+            var request = new RestRequest("me/responses/" + responseId + "/responses", Method.POST);
+
+            JObject postData = new JObject();
+            JObject postDataResponses = new JObject();
+            postDataResponses["title"] = responseTitle;
+            postDataResponses["description"] = responseText;
+            postData["responses"] = postDataResponses;
+            request.AddParameter("RequestBody", postData.ToString(), ParameterType.RequestBody);
+
+            ExecuteAsync(request, result =>
+            {
+                callback(result);
+            });
         }
 
 
