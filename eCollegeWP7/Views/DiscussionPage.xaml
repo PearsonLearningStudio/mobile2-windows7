@@ -40,9 +40,9 @@
                                             <TextBlock>Title:</TextBlock>
                                             <TextBlock Text="{Binding Path=DiscussionTitle}"/>
                                         </StackPanel>
-                                        <StackPanel Orientation="Horizontal">
+                                        <StackPanel Orientation="Vertical">
                                             <TextBlock>Description:</TextBlock>
-                                            <TextBlock Text="{Binding Path=DiscussionDescription}"/>
+                                            <TextBlock Text="{Binding Path=DiscussionDescription,Converter={StaticResource HtmlToTextConverter}}"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock>Response Count:</TextBlock>
@@ -88,9 +88,9 @@
                                     <TextBlock>Title:</TextBlock>
                                     <TextBlock Text="{Binding Path=Response.Title}"/>
                                 </StackPanel>
-                                <StackPanel Orientation="Horizontal">
+                                <StackPanel Orientation="Vertical">
                                     <TextBlock>Description:</TextBlock>
-                                    <TextBlock Text="{Binding Path=Response.Description}"/>
+                                    <TextBlock Text="{Binding Path=Response.Description,Converter={StaticResource HtmlToTextConverter}}"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock>Response Count:</TextBlock>

@@ -103,17 +103,17 @@
                         </ListBox.Template>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Button x:Name="BtnDiscussion" Click="BtnDiscussion_Click">
-                                    <StackPanel>
-                                        <StackPanel Orientation="Horizontal">
+                                <Button x:Name="BtnDiscussion" Click="BtnDiscussion_Click" HorizontalAlignment="Stretch">
+                                    <StackPanel HorizontalAlignment="Stretch">
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                                             <TextBlock>Title:</TextBlock>
                                             <TextBlock Text="{Binding Path=Topic.Title}"/>
                                         </StackPanel>
-                                        <StackPanel Orientation="Horizontal">
+                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
                                             <TextBlock>Description:</TextBlock>
-                                            <TextBlock Text="{Binding Path=Topic.Description}"/>
+                                            <TextBlock TextWrapping="Wrap" Text="{Binding Path=Topic.Description,Converter={StaticResource HtmlToTextConverter}}"/>
                                         </StackPanel>
-                                        <StackPanel Orientation="Horizontal">
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                                             <TextBlock>Response Count:</TextBlock>
                                             <TextBlock Text="{Binding Path=ChildResponseCounts.TotalResponseCount}"/>
                                         </StackPanel>
