@@ -69,7 +69,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ECollegeAPI\Dropbox.cs" />
+    <Compile Include="ECollegeAPI\Model\Boilerplate\BasketItemLink.cs" />
+    <Compile Include="ECollegeAPI\Model\Boilerplate\AttachmentLink.cs" />
+    <Compile Include="ECollegeAPI\Model\Boilerplate\UserLink.cs" />
+    <Compile Include="ECollegeAPI\Model\Boilerplate\DropboxBasketMessagesResultList.cs" />
+    <Compile Include="ECollegeAPI\Model\Boilerplate\DropboxBasketsResultList.cs" />
     <Compile Include="ECollegeAPI\Model\Boilerplate\EnrolledUsersResultList.cs" />
+    <Compile Include="ECollegeAPI\Model\DropboxAttachment.cs" />
+    <Compile Include="ECollegeAPI\Model\DropboxBasketMessage.cs" />
+    <Compile Include="ECollegeAPI\Model\DropboxBasket.cs" />
     <Compile Include="ECollegeAPI\Model\Role.cs" />
     <Compile Include="ECollegeAPI\Model\EnrolledUser.cs" />
     <Compile Include="ECollegeAPI\Users.cs" />
@@ -82,6 +91,10 @@
     <Compile Include="Util\MultiBinding\MultiBindings.cs" />
     <Compile Include="Util\TreeHelperExtensions.cs" />
     <Compile Include="ViewModels\AppViewModel.cs" />
+    <Compile Include="ViewModels\DropboxViewModel.cs" />
+    <Compile Include="Views\DropboxPage.xaml.cs">
+      <DependentUpon>DropboxPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CoursePage.xaml.cs">
       <DependentUpon>CoursePage.xaml</DependentUpon>
     </Compile>
@@ -136,6 +149,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="Views\DropboxPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\CoursePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

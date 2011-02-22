@@ -18,7 +18,24 @@
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <!--Pivot Control-->
         <controls:Pivot Title="eCollege">
-            <!--Pivot item one-->
+
+            <controls:PivotItem Header="dropbox">
+                <Grid>
+                    <ItemsControl ItemsSource="{Binding DropboxBaskets}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button x:Name="BtnDropboxBasket" MinHeight="150" Click="BtnDropboxBasket_Click">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <TextBlock>Title:</TextBlock>
+                                        <TextBlock TextWrapping="Wrap" Text="{Binding Path=Title}"/>
+                                    </StackPanel>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
+            </controls:PivotItem>
+
             <controls:PivotItem Header="announcements">
                 <Grid>
                     <ListBox ItemsSource="{Binding Announcements}">
@@ -74,11 +91,23 @@
                     </ListBox>
                 </Grid>
             </controls:PivotItem>
-            
-            <!--Pivot item two-->
-            <controls:PivotItem Header="other">
+
+            <controls:PivotItem Header="progress">
                 <Grid/>
             </controls:PivotItem>
+
+            <controls:PivotItem Header="people">
+                <Grid/>
+            </controls:PivotItem>
+
+            <controls:PivotItem Header="activity">
+                <Grid/>
+            </controls:PivotItem>
+
+            <controls:PivotItem Header="gradebook">
+                <Grid/>
+            </controls:PivotItem>
+
         </controls:Pivot>
     </Grid>
 

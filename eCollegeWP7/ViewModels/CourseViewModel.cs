@@ -41,6 +41,14 @@ namespace eCollegeWP7
             set { _UserTopics = value; this.OnPropertyChanged(() => this.UserTopics); }
         }
 
+        private ObservableCollection<DropboxBasket> _DropboxBaskets;
+        public ObservableCollection<DropboxBasket> DropboxBaskets
+        {
+            get { return _DropboxBaskets; }
+            set { _DropboxBaskets = value; this.OnPropertyChanged(() => this.DropboxBaskets); }
+        }
+        
+
         //private ObservableCollection<ThreadedDiscussion> _ThreadedDiscussions;
         //public ObservableCollection<ThreadedDiscussion> ThreadedDiscussions
         //{
@@ -54,19 +62,18 @@ namespace eCollegeWP7
             this.CourseID = courseId;
             AppViewModel.API.FetchAnnouncements(courseId, (result) =>
             {
-                var formattedResult = new ObservableCollection<Announcement>();
-                foreach (var ann in result)
-                {
-                    formattedResult.Add(ann);
-                }
-                this.Announcements = formattedResult;
+                this.Announcements = result.ToObservableCollection();
             });
-            AppViewModel.API.FetchMyDiscussionTopics(new List<long>(){courseId}, (result) =>
+            AppViewModel.API.FetchMyDiscussionTopics(new List<long>() { courseId }, (result) =>
             {
-                var formattedResult = new ObservableCollection<DiscussionTopicHeader>();
-                foreach (var r in result) formattedResult.Add(r);
-                this.UserTopics = formattedResult;
+                this.UserTopics = result.ToObservableCollection();
             });
+            AppViewModel.API.FetchDropboxBaskets(courseId, (result) =>
+            {
+                this.DropboxBaskets = result.ToObservableCollection();
+            });
+
+
         }
 
     }
