@@ -127,7 +127,47 @@
 
             <controls:PanoramaItem x:Name="PanPeople" Header="people">
                 <Grid>
-
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <ListBox Grid.Row="1">
+                        <ListBox.Template>
+                            <ControlTemplate TargetType="ListBox">
+                                <ScrollViewer x:Name="ScrollViewer" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Foreground="{TemplateBinding Foreground}" Padding="{TemplateBinding Padding}">
+                                    <StackPanel>
+                                        <toolkit:ListPicker x:Name="LspFilterPeople" SelectionChanged="LspFilterPeople_SelectionChanged" ListPickerMode="Normal" Header="course filter" ItemsSource="{Binding Path=MyCourses}">
+                                            <toolkit:ListPicker.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Title}" Margin="12 0 0 0"/>
+                                                </DataTemplate>
+                                            </toolkit:ListPicker.ItemTemplate>
+                                        </toolkit:ListPicker>
+                                        <ItemsPresenter/>
+                                    </StackPanel>
+                                </ScrollViewer>
+                            </ControlTemplate>
+                        </ListBox.Template>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button x:Name="BtnPerson" HorizontalAlignment="Stretch">
+                                    <StackPanel HorizontalAlignment="Stretch">
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                                            <TextBlock>Name:</TextBlock>
+                                            <TextBlock Text="{Binding Path=User.FirstName}"/>
+                                            <TextBlock Text=" "/>
+                                            <TextBlock Text="{Binding Path=User.LastName}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
+                                            <TextBlock>Role:</TextBlock>
+                                            <TextBlock TextWrapping="Wrap" Text="{Binding Path=Role.Type}"/>
+                                            <TextBlock TextWrapping="Wrap" Text="{Binding Path=Role.Name}"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ListBox>
                 </Grid>
             </controls:PanoramaItem>
 
@@ -136,27 +176,27 @@
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock>ID:</TextBlock>
-                        <TextBlock Text="{Binding Path=AppViewModel.AuthenticatedUser.ID}"/>
+                        <TextBlock Text="{Binding Path=AppViewModel.User.ID}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock>Username:</TextBlock>
-                        <TextBlock Text="{Binding Path=AppViewModel.AuthenticatedUser.UserName}"/>
+                        <TextBlock Text="{Binding Path=AppViewModel.User.UserName}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock>Firstname:</TextBlock>
-                        <TextBlock Text="{Binding Path=AppViewModel.AuthenticatedUser.FirstName}"/>
+                        <TextBlock Text="{Binding Path=AppViewModel.User.FirstName}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock>Lastname:</TextBlock>
-                        <TextBlock Text="{Binding Path=AppViewModel.AuthenticatedUser.LastName}"/>
+                        <TextBlock Text="{Binding Path=AppViewModel.User.LastName}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock>Email:</TextBlock>
-                        <TextBlock Text="{Binding Path=AppViewModel.AuthenticatedUser.EmailAddress}"/>
+                        <TextBlock Text="{Binding Path=AppViewModel.User.EmailAddress}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock>Client String:</TextBlock>
-                        <TextBlock Text="{Binding Path=AppViewModel.AuthenticatedUser.ClientString}"/>
+                        <TextBlock Text="{Binding Path=AppViewModel.User.ClientString}"/>
                     </StackPanel>
                 </StackPanel>
             </controls:PanoramaItem>

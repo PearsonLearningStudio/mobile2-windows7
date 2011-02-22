@@ -125,15 +125,6 @@ namespace ECollegeAPI
             });
         }
 
-        public void FetchMe(Action<AuthenticatedUser> callback)
-        {
-            var request = new RestRequest("me", Method.GET);
-            ExecuteAsync<MeResult>(request, result =>
-            {
-                callback(result.Me);
-            });
-        }
-
         public void FetchMyCourses(Action<List<Course>> callback)
         {
             var request = new RestRequest("me/courses", Method.GET);

@@ -18,15 +18,15 @@ namespace eCollegeWP7.ViewModels
     {
         public ECollegeClient API { get; set; }
 
-        private AuthenticatedUser _AuthenticatedUser;
-        public AuthenticatedUser AuthenticatedUser
+        private User _User;
+        public User User
         {
-            get { return _AuthenticatedUser; }
-            set { _AuthenticatedUser = value; this.OnPropertyChanged(() => this.AuthenticatedUser); }
+            get { return _User; }
+            set { _User = value; this.OnPropertyChanged(() => this.User); }
         }
 
 
-        public void Login(string username, string password, Action<AuthenticatedUser> callback)
+        public void Login(string username, string password, Action<User> callback)
         {
             API = new ECollegeClient("ctstate", username, password, "30bb1d4f-2677-45d1-be13-339174404402");
 
@@ -35,7 +35,7 @@ namespace eCollegeWP7.ViewModels
                 Debug.WriteLine("Token is: " + t.AccessToken);
                 API.FetchMe(me =>
                 {
-                    this.AuthenticatedUser = me;
+                    this.User = me;
                     Debug.WriteLine("Current User is: " + me.FirstName + " " + me.LastName);
                     callback(me);
                 });

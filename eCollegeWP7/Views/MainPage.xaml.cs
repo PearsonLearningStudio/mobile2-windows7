@@ -64,5 +64,11 @@ namespace eCollegeWP7.Views
             var LspFilterDiscussions = sender as ListPicker;
             Model.DiscussionCourseFilter = LspFilterDiscussions.SelectedItem as Course;
         }
+
+        private void LspFilterPeople_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var LspFilterPeople = sender as ListPicker;
+            Model.PeopleCourseFilter = LspFilterPeople.SelectedItem as Course;
+        }
     }
 }

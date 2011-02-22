@@ -69,8 +69,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ECollegeAPI\Model\Boilerplate\EnrolledUsersResultList.cs" />
+    <Compile Include="ECollegeAPI\Model\Role.cs" />
+    <Compile Include="ECollegeAPI\Model\EnrolledUser.cs" />
+    <Compile Include="ECollegeAPI\Users.cs" />
     <Compile Include="Util\Converters\FilterTopicByCourseConverter.cs" />
     <Compile Include="Util\Converters\HtmlToTextConverter.cs" />
+    <Compile Include="Util\ListExtensions.cs" />
     <Compile Include="Util\MultiBinding\BindingUtil.cs" />
     <Compile Include="Util\MultiBinding\IMultiValueConverter.cs" />
     <Compile Include="Util\MultiBinding\MultiBinding.cs" />

@@ -5,10 +5,10 @@ namespace ECollegeAPI.Model
     [DataContract]
     public class MeResult
     {
-        public AuthenticatedUser Me { get; set; }
+        public User Me { get; set; }
     }
 
-    public class AuthenticatedUser
+    public class User
     {
         public int ID { get; set; }
         public string UserName { get; set; }
