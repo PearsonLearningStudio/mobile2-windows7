@@ -26,9 +26,9 @@ namespace eCollegeWP7.ViewModels
         }
 
 
-        public void Login(string username, string password, Action<User> callback)
+        public void Login(string domain, string username, string password, Action<User> callback)
         {
-            API = new ECollegeClient("ctstate", username, password, "30bb1d4f-2677-45d1-be13-339174404402");
+            API = new ECollegeClient(domain, username, password, "30bb1d4f-2677-45d1-be13-339174404402");
 
             API.FetchToken(t =>
             {

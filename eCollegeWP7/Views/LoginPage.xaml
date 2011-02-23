@@ -31,11 +31,16 @@
             
             <StackPanel HorizontalAlignment="Stretch">
                 <TextBlock Text="username or email"/>
-                <TextBox x:Name="TxtUsername" Text="veronicastudent4"/>
+                <TextBox x:Name="TxtUsername"/>
 
                 <TextBlock Text="password"/>
-                <PasswordBox x:Name="TxtPassword" Password="veronicastudent4"/>
+                <PasswordBox x:Name="TxtPassword"/>
+
+                <TextBlock Text="domain"/>
+                <TextBox x:Name="TxtDomain"/>
                 
+                <CheckBox x:Name="ChkRememberMe" Content="Remember Me?" IsChecked="True"/>
+
                 <Button x:Name="BtnSignIn" Content="sign in" Click="BtnSignIn_Click"/>
             </StackPanel>
             
