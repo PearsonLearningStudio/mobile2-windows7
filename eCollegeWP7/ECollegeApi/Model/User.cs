@@ -4,12 +4,6 @@ using ECollegeAPI.Model.Boilerplate;
 
 namespace ECollegeAPI.Model
 {
-    [DataContract]
-    public class MeResult
-    {
-        public User Me { get; set; }
-    }
-
     public class User
     {
         public int ID { get; set; }

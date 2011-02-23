@@ -31,9 +31,9 @@ namespace ECollegeAPI
             var courseString = String.Join(";", (from cid in courseIds select (cid + "")).ToArray());
             var request = new RestRequest("me/userTopics?courses=" + courseString, Method.GET);
 
-            ExecuteAsync<UserTopicsResultList>(request, result =>
+            ExecuteAsync<List<DiscussionTopicHeader>>(request, "userTopics", result =>
             {
-                callback(result.UserTopics);
+                callback(result);
             });
         }
 
@@ -41,9 +41,9 @@ namespace ECollegeAPI
         {
             var request = new RestRequest("me/topics/" + topicId + "/userresponses", Method.GET);
 
-            ExecuteAsync<UserResponsesResultList>(request, result =>
+            ExecuteAsync<List<DiscussionResponseHeader>>(request,"userResponses", result =>
             {
-                callback(result.UserResponses);
+                callback(result);
             });
         }
 
@@ -51,9 +51,9 @@ namespace ECollegeAPI
         {
             var request = new RestRequest("me/responses/" + responseId + "/userresponses", Method.GET);
 
-            ExecuteAsync<UserResponsesResultList>(request, result =>
+            ExecuteAsync<List<DiscussionResponseHeader>>(request,"userResponses", result =>
             {
-                callback(result.UserResponses);
+                callback(result);
             });
         }
 
@@ -61,9 +61,9 @@ namespace ECollegeAPI
         {
             var request = new RestRequest("me/usertopics/" + topicHeaderId, Method.GET);
 
-            ExecuteAsync<UserTopicsResultList>(request, result =>
+            ExecuteAsync<List<DiscussionTopicHeader>>(request, "userTopics", result =>
             {
-                callback(result.UserTopics.First());
+                callback(result.First());
             });
         }
 
@@ -71,9 +71,9 @@ namespace ECollegeAPI
         {
             var request = new RestRequest("me/userresponses/" + responseHeaderId, Method.GET);
 
-            ExecuteAsync<UserResponsesResultList>(request, result =>
+            ExecuteAsync<List<DiscussionResponseHeader>>(request,"userResponses", result =>
             {
-                callback(result.UserResponses.First());
+                callback(result.First());
             });
         }
 

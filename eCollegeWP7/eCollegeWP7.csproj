@@ -69,13 +69,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ECollegeAPI\Announcements.cs" />
+    <Compile Include="ECollegeAPI\Courses.cs" />
     <Compile Include="ECollegeAPI\Dropbox.cs" />
     <Compile Include="ECollegeAPI\Model\Boilerplate\BasketItemLink.cs" />
     <Compile Include="ECollegeAPI\Model\Boilerplate\AttachmentLink.cs" />
     <Compile Include="ECollegeAPI\Model\Boilerplate\UserLink.cs" />
-    <Compile Include="ECollegeAPI\Model\Boilerplate\DropboxBasketMessagesResultList.cs" />
-    <Compile Include="ECollegeAPI\Model\Boilerplate\DropboxBasketsResultList.cs" />
-    <Compile Include="ECollegeAPI\Model\Boilerplate\EnrolledUsersResultList.cs" />
     <Compile Include="ECollegeAPI\Model\DropboxAttachment.cs" />
     <Compile Include="ECollegeAPI\Model\DropboxBasketMessage.cs" />
     <Compile Include="ECollegeAPI\Model\DropboxBasket.cs" />
@@ -105,19 +104,15 @@
     <Compile Include="ECollegeAPI\Discussions.cs" />
     <Compile Include="ECollegeAPI\Model\Announcement.cs" />
     <Compile Include="ECollegeAPI\Model\Author.cs" />
-    <Compile Include="ECollegeAPI\Model\Boilerplate\AnnouncementResultList.cs" />
     <Compile Include="ECollegeAPI\Model\Boilerplate\ParentUserResponseLinkContainer.cs" />
     <Compile Include="ECollegeAPI\Model\Boilerplate\ParentUserTopicLinkContainer.cs" />
     <Compile Include="ECollegeAPI\Model\Boilerplate\TopicLink.cs" />
-    <Compile Include="ECollegeAPI\Model\Boilerplate\UserResponsesResultList.cs" />
     <Compile Include="ECollegeAPI\Model\Boilerplate\CourseLink.cs" />
-    <Compile Include="ECollegeAPI\Model\Boilerplate\CoursesResultList.cs" />
     <Compile Include="ECollegeAPI\Model\Boilerplate\InstructorLink.cs" />
     <Compile Include="ECollegeAPI\Model\Boilerplate\LinkContainer.cs" />
     <Compile Include="ECollegeAPI\Model\Boilerplate\StudentLink.cs" />
     <Compile Include="ECollegeAPI\Model\Boilerplate\TeacherAssistantLink.cs" />
     <Compile Include="ECollegeAPI\Model\Boilerplate\TermLink.cs" />
-    <Compile Include="ECollegeAPI\Model\Boilerplate\UserTopicsResultList.cs" />
     <Compile Include="ECollegeAPI\Model\ContainerInfo.cs" />
     <Compile Include="ECollegeAPI\Model\DiscussionResponse.cs" />
     <Compile Include="ECollegeAPI\Model\DiscussionResponseHeader.cs" />

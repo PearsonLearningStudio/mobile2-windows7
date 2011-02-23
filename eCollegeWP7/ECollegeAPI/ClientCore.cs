@@ -58,10 +58,22 @@ namespace ECollegeAPI
             return JsonConvert.SerializeObject(jsonObject, Formatting.Indented);
         }
 
+
         public void ExecuteAsync<T>(RestRequest request, Action<T> callback) where T : new()
+        {
+            ExecuteAsync(request, null, callback);
+        }
+
+        public void ExecuteAsync<T>(RestRequest request, string rootElement, Action<T> callback) where T : new()
         {
             ExecuteAsync(request, restresponse => {
                 var jsonDeserializer = new CustomJsonDeserializer();
+
+                if (rootElement != null)
+                {
+                    jsonDeserializer.RootElement = rootElement;
+                }
+
                 try {
                     T result = jsonDeserializer.Deserialize<T>(restresponse);
                     callback(result);
@@ -74,7 +86,6 @@ namespace ECollegeAPI
         public void ExecuteAsync(RestRequest request, Action<RestResponse> callback)
         {
             var client = new RestClient(RootUri);
-            client.AddHandler("application/json", new CustomJsonDeserializer());
             if (_authenticator != null) client.Authenticator = _authenticator;
             client.ExecuteAsync(request, (response) =>
             {
@@ -94,20 +105,37 @@ namespace ECollegeAPI
 
                 if (response.ResponseStatus == ResponseStatus.Error)
                 {
-                    Debug.WriteLine("ErrorMessage: " + response.ErrorMessage);
-                    Debug.WriteLine("ErrorException: \n" + response.ErrorException + "\n");
-                    Debugger.Break();
+                    OnClientErrorReturned(response);
                 }
-
-                var dispatcher = Deployment.Current.Dispatcher;
-                dispatcher.BeginInvoke(() =>
+                else if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.Created && response.StatusCode != HttpStatusCode.NoContent && response.StatusCode != HttpStatusCode.NotModified)
                 {
-                    callback(response);
-                });
+                    OnServerErrorReturned(response);
+                }
+                else
+                {
+                    var dispatcher = Deployment.Current.Dispatcher;
+                    dispatcher.BeginInvoke(() =>
+                    {
+                        callback(response);
+                    });
+                }
 
                 Debug.WriteLine("\n\n");
 
             });
+        }
+
+        protected void OnClientErrorReturned(RestResponse response)
+        {
+            Debug.WriteLine("ErrorMessage: " + response.ErrorMessage);
+            Debug.WriteLine("ErrorException: \n" + response.ErrorException + "\n");
+            Debugger.Break();
+        }
+
+        protected void OnServerErrorReturned(RestResponse response)
+        {
+            Debug.WriteLine("ERROR!" + response.StatusCode);
+            Debugger.Break();
         }
 
         public void FetchToken(Action<Token> callback)
@@ -122,69 +150,6 @@ namespace ECollegeAPI
                 _currentToken = token;
                 _authenticator = new ECollegeClientAuthenticator(token.AccessToken);
                 callback(token);
-            });
-        }
-
-        public void FetchMyCourses(Action<List<Course>> callback)
-        {
-            var request = new RestRequest("me/courses", Method.GET);
-            request.AddParameter("expand", "course", ParameterType.GetOrPost);
-            ExecuteAsync<CoursesResultList>(request, result =>
-            {
-                var formattedResult = new List<Course>();
-                foreach (var linkContainer in result.Courses)
-                {
-                    if (linkContainer.Links.Count > 0)
-                    {
-                        formattedResult.Add(linkContainer.Links[0].Course);
-                    }
-                }
-                callback(formattedResult);
-            });
-        }
-
-        public void FetchAnnouncements(int courseId, Action<List<Announcement>> callback)
-        {
-            var request = new RestRequest("courses/" + courseId + "/announcements", Method.GET);
-            ExecuteAsync<AnnouncementResultList>(request, result =>
-            {
-                callback(result.Announcements);
-            });
-        }
-
-
-        //public void FetchDiscussions(Action<List<ThreadedDiscussion>> callback)
-        //{
-        //    //var request = new RestRequest("courses/" + courseId + "/threadeddiscussions", Method.GET);
-        //    //request.AddParameter("expand", "topics", ParameterType.GetOrPost);
-        //    //ExecuteAsync<ThreadedDiscussionResultList>(request, result =>
-        //    //{
-        //    //    callback(result.ThreadedDiscussions);
-        //    //});
-        //}
-
-
-        //public void FetchDiscussions(int courseId, Action<List<ThreadedDiscussion>> callback)
-        //{
-        //    var request = new RestRequest("courses/" + courseId + "/threadeddiscussions", Method.GET);
-        //    request.AddParameter("expand", "topics", ParameterType.GetOrPost);
-        //    ExecuteAsync<ThreadedDiscussionResultList>(request, result =>
-        //    {
-        //        callback(result.ThreadedDiscussions);
-        //    });
-        //}
-
-        public class CurrentCoursesResults
-        {
-            public List<Course> CurrentCourses { get; set; }
-        }
-
-        public void FetchMyCurrentCourses(Action<List<Course>> callback)
-        {
-            var request = new RestRequest("me/currentcourses_moby", Method.GET);
-            ExecuteAsync<CurrentCoursesResults>(request, result =>
-            {
-                callback(result.CurrentCourses);
             });
         }
 

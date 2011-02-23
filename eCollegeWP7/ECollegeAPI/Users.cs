@@ -21,9 +21,9 @@ namespace ECollegeAPI
         public void FetchMe(Action<User> callback)
         {
             var request = new RestRequest("me", Method.GET);
-            ExecuteAsync<MeResult>(request, result =>
+            ExecuteAsync<User>(request,"me",result =>
             {
-                callback(result.Me);
+                callback(result);
             });
         }
 
@@ -32,9 +32,9 @@ namespace ECollegeAPI
         {
             var request = new RestRequest("courses/" + courseId + "/enrolledUsers", Method.GET);
 
-            ExecuteAsync<EnrolledUsersResultList>(request, result =>
+            ExecuteAsync<List<EnrolledUser>>(request,"enrolledUsers", result =>
             {
-                callback(result.EnrolledUsers);
+                callback(result);
             });
         }
     }

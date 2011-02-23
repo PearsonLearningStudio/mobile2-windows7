@@ -23,9 +23,9 @@ namespace ECollegeAPI
         {
             var request = new RestRequest("courses/" + courseId + "/dropboxBaskets", Method.GET);
 
-            ExecuteAsync<DropboxBasketsResultList>(request, result =>
+            ExecuteAsync<List<DropboxBasket>>(request,"dropboxBaskets", result =>
             {
-                callback(result.DropboxBaskets);
+                callback(result);
             });
         }
 
@@ -35,9 +35,9 @@ namespace ECollegeAPI
 
             request.AddParameter("submissionStudents", Convert.ToString(studentId), ParameterType.GetOrPost);
 
-            ExecuteAsync<DropboxBasketMessagesResultList>(request, result =>
+            ExecuteAsync<List<DropboxBasketMessage>>(request,"messages", result =>
             {
-                callback(result.Messages);
+                callback(result);
             });
         }
     }
