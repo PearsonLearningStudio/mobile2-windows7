@@ -30,7 +30,12 @@
             <!--Use 'Orientation="Horizontal"' to enable a panel that lays out horizontally-->
             <controls:PanoramaItem Header="activity">
                 <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Coming soon!"/>
+                    <Button x:Name="BtnShowDialog" Content="Show Dialog" Grid.Row="1" Click="BtnShowDialog_Click"/>
                 </Grid>
             </controls:PanoramaItem>
 

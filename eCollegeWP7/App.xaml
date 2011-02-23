@@ -5,6 +5,7 @@
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:conv="clr-namespace:eCollegeWP7.Util.Converters"
+    xmlns:wcontrols="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls"
     xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
     <!--Application Resources-->

@@ -14,6 +14,7 @@ using System.Diagnostics;
 using System.Collections.ObjectModel;
 using ECollegeAPI.Model;
 using eCollegeWP7.Util;
+using eCollegeWP7.Views.Dialogs;
 
 namespace eCollegeWP7.Views
 {
@@ -69,6 +70,12 @@ namespace eCollegeWP7.Views
         {
             var LspFilterPeople = sender as ListPicker;
             Model.PeopleCourseFilter = LspFilterPeople.SelectedItem as Course;
+        }
+
+        private void BtnShowDialog_Click(object sender, RoutedEventArgs e)
+        {
+            ErrorDialog ed = new ErrorDialog();
+            ed.Show();
         }
     }
 }
