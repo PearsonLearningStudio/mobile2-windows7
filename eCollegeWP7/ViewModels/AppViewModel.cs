@@ -16,30 +16,12 @@ namespace eCollegeWP7.ViewModels
 {
     public class AppViewModel : ViewModelBase
     {
-        public ECollegeClient API { get; set; }
-
-        private User _User;
-        public User User
+        private SessionViewModel _Session;
+        public SessionViewModel Session
         {
-            get { return _User; }
-            set { _User = value; this.OnPropertyChanged(() => this.User); }
+            get { return _Session; }
+            set { _Session = value; this.OnPropertyChanged(() => this.Session); }
         }
-
-
-        public void Login(string domain, string username, string password, Action<User> callback)
-        {
-            API = new ECollegeClient(domain, username, password, "30bb1d4f-2677-45d1-be13-339174404402");
-
-            API.FetchToken(t =>
-            {
-                Debug.WriteLine("Token is: " + t.AccessToken);
-                API.FetchMe(me =>
-                {
-                    this.User = me;
-                    Debug.WriteLine("Current User is: " + me.FirstName + " " + me.LastName);
-                    callback(me);
-                });
-            });
-        }
+        
     }
 }

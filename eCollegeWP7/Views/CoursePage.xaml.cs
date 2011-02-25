@@ -14,7 +14,7 @@ using ECollegeAPI.Model;
 
 namespace eCollegeWP7.Views
 {
-    public partial class CoursePage : PhoneApplicationPage
+    public partial class CoursePage : BasePage
     {
         public CourseViewModel Model { get { return this.DataContext as CourseViewModel; } }
 
@@ -23,9 +23,8 @@ namespace eCollegeWP7.Views
             InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        protected override void OnReady(System.Windows.Navigation.NavigationEventArgs e)
         {
-            base.OnNavigatedTo(e);
             IDictionary<string,string> parameters = this.NavigationContext.QueryString;
 
             int courseId = Int32.Parse(parameters["courseId"]);

@@ -62,7 +62,7 @@ namespace eCollegeWP7
                 //    }
                 //    else
                 //    {
-                //        AppViewModel.API.FetchEnrolledUsers(_PeopleCourseFilter.ID, (result) =>
+                //        AppViewModel.Session.Client().FetchEnrolledUsers(_PeopleCourseFilter.ID, (result) =>
                 //        {
                 //            var col = result.ToObservableCollection();
                 //            _peopleForCourse[_PeopleCourseFilter.ID] = col;
@@ -104,14 +104,14 @@ namespace eCollegeWP7
 
         public void LoadData()
         {
-            AppViewModel.API.FetchMyCurrentCourses(result =>
+            AppViewModel.Session.Client().FetchMyCurrentCourses(result =>
             {
                 var oc = new ObservableCollection<Course>();
                 foreach (var c in result) { oc.Add(c); }
                 this.MyCourses = oc;
 
                 var courseIds = (from c in oc select (long)c.ID).ToList<long>();
-                AppViewModel.API.FetchMyDiscussionTopics(courseIds, (tresult) =>
+                AppViewModel.Session.Client().FetchMyDiscussionTopics(courseIds, (tresult) =>
                 {
                     this.Topics = tresult;
                 });

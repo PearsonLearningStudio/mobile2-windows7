@@ -4,37 +4,24 @@ namespace ECollegeAPI.Model
 {
     public class Token
     {
-        private string _RefreshToken = string.Empty;
-        private string _AccessToken = string.Empty;
-        private double _ExpiresIn = 0;
-        private DateTime _Expires = DateTime.Now;
+        public string RefreshToken { get; set; }
+        public string AccessToken { get; set; }
+        public double ExpiresIn { get; set; }
+        public DateTime Expires { get; set; }
+        public DateTime CreatedAt { get; set; }
 
-        public string RefreshToken
+        public Token()
         {
-            get { return _RefreshToken; }
-            set { _RefreshToken = value; }
+            CreatedAt = DateTime.Now;
         }
 
-        public string AccessToken
+        public bool NeedsToBeRefreshed()
         {
-            get { return _AccessToken; }
-            set { _AccessToken = value; }
-        }
-
-        public double ExpiresIn
-        {
-            get { return _ExpiresIn; }
-            set
+            if (CreatedAt.AddSeconds(ExpiresIn) < DateTime.Now)
             {
-                Expires = DateTime.Now.AddSeconds(value);
-                _ExpiresIn = value;
+                return true;
             }
-        }
-
-        public DateTime Expires
-        {
-            get { return _Expires; }
-            set { _Expires = value; }
+            return false;
         }
     }
 }

@@ -30,7 +30,7 @@ namespace eCollegeWP7
 
         public DropboxViewModel(long courseId, long basketId)
         {
-            AppViewModel.API.FetchDropboxBasketMessages(AppViewModel.User.ID,courseId, basketId, result =>
+            AppViewModel.Session.Client().FetchDropboxBasketMessages(AppViewModel.Session.CurrentUser.ID,courseId, basketId, result =>
             {
 
                 //this.Messages = (from m in result where m.SubmissionStudent.ID == AppViewModel.User.ID select m).ToList().ToObservableCollection();

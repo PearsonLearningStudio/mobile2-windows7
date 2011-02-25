@@ -94,6 +94,10 @@
     <Compile Include="Util\TreeHelperExtensions.cs" />
     <Compile Include="ViewModels\AppViewModel.cs" />
     <Compile Include="ViewModels\DropboxViewModel.cs" />
+    <Compile Include="ViewModels\SessionViewModel.cs" />
+    <Compile Include="Views\BasePage.xaml.cs">
+      <DependentUpon>BasePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Dialogs\BaseDialog.xaml.cs">
       <DependentUpon>BaseDialog.xaml</DependentUpon>
     </Compile>
@@ -143,7 +147,7 @@
     <Compile Include="ViewModels\DiscussionViewModel.cs" />
     <Compile Include="ViewModels\CourseViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\ViewModelBase.cs" />
     <Compile Include="Views\DiscussionPage.xaml.cs">
       <DependentUpon>DiscussionPage.xaml</DependentUpon>
     </Compile>
@@ -153,6 +157,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="Views\BasePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Dialogs\BaseDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

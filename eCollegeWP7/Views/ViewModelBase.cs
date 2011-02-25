@@ -11,11 +11,10 @@ namespace eCollegeWP7
 {
     public abstract class ViewModelBase : INotifyPropertyChanged, IDisposable
     {
-        public AppViewModel AppViewModel { get { return App.AppViewModel; } }
 
-        protected ViewModelBase()
-        {
-        }
+        public ViewModelBase() { }
+
+        public AppViewModel AppViewModel { get { return App.Model; } }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

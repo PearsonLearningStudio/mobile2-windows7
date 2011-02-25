@@ -18,7 +18,7 @@ using eCollegeWP7.Views.Dialogs;
 
 namespace eCollegeWP7.Views
 {
-    public partial class MainPage : PhoneApplicationPage
+    public partial class MainPage : BasePage
     {
         public MainViewModel Model { get { return this.DataContext as MainViewModel; } }
 

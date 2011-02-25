@@ -19,29 +19,22 @@ namespace eCollegeWP7
 {
     public partial class App : Application
     {
-        private static AppViewModel appViewModel = null;
-
-        /// <summary>
-        /// A static ViewModel used by the views to bind against.
-        /// </summary>
-        /// <returns>The MainViewModel object.</returns>
-        public static AppViewModel AppViewModel
-        {
-            get
-            {
-                // Delay creation of the view model until necessary
-                if (appViewModel == null)
-                    appViewModel = new AppViewModel();
-
-                return appViewModel;
-            }
-        }
 
         /// <summary>
         /// Provides easy access to the root frame of the Phone Application.
         /// </summary>
         /// <returns>The root frame of the Phone Application.</returns>
         public PhoneApplicationFrame RootFrame { get; private set; }
+
+        private static AppViewModel _Model;
+        public static AppViewModel Model
+        {
+            get
+            {
+                if (_Model == null) _Model = new AppViewModel();
+                return _Model;
+            }
+        }
 
         /// <summary>
         /// Constructor for the Application object.
@@ -82,10 +75,10 @@ namespace eCollegeWP7
         // This code will not execute when the application is first launched
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
-            if (PhoneApplicationService.Current.State.ContainsKey("token") && AppViewModel.API == null)
-            {
-                Token savedToken = PhoneApplicationService.Current.State["token"] as Token;
-                AppViewModel.API = new ECollegeAPI.ECollegeClient(savedToken);
+            object session;
+            var state = PhoneApplicationService.Current.State;
+            if (state.TryGetValue("session", out session)) {
+                Model.Session = session as SessionViewModel;
             }
         }
 
@@ -93,9 +86,10 @@ namespace eCollegeWP7
         // This code will not execute when the application is closing
         private void Application_Deactivated(object sender, DeactivatedEventArgs e)
         {
-            if (AppViewModel.API != null && AppViewModel.API.CurrentToken != null)
+            if (Model.Session != null)
             {
-                PhoneApplicationService.Current.State["token"] = AppViewModel.API.CurrentToken;
+                var state = PhoneApplicationService.Current.State;
+                state["session"] = Model.Session;
             }
         }
 

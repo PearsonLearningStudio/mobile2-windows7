@@ -110,7 +110,7 @@ namespace eCollegeWP7
                 this.TopicHeaderID = discussionHeaderId;
                 this.TopicID = discussionId;
 
-                AppViewModel.API.FetchMyDiscussionTopicById(discussionHeaderId, (result) =>
+                AppViewModel.Session.Client().FetchMyDiscussionTopicById(discussionHeaderId, (result) =>
                 {
                     this.TopicHeader = result;
                     this.DiscussionTitle = result.Topic.Title;
@@ -124,7 +124,7 @@ namespace eCollegeWP7
                 this.ResponseHeaderID = discussionHeaderId;
                 this.ResponseID = discussionId;
 
-                AppViewModel.API.FetchMyDiscussionResponseById(discussionHeaderId, (result) =>
+                AppViewModel.Session.Client().FetchMyDiscussionResponseById(discussionHeaderId, (result) =>
                 {
                     this.ResponseHeader = result;
                     this.DiscussionTitle = result.Response.Title;
@@ -140,7 +140,7 @@ namespace eCollegeWP7
         {
             if (CurrentDiscussionType == DiscussionType.TopicAndResponses)
             {
-                AppViewModel.API.PostMyResponseToTopic(this.TopicID, responseTitle, responseText, (result) =>
+                AppViewModel.Session.Client().PostMyResponseToTopic(this.TopicID, responseTitle, responseText, (result) =>
                 {
                     if (result.ResponseStatus == RestSharp.ResponseStatus.Completed)
                     {
@@ -150,7 +150,7 @@ namespace eCollegeWP7
             }
             else if (CurrentDiscussionType == DiscussionType.ResponseAndResponses)
             {
-                AppViewModel.API.PostMyResponseToResponse(this.ResponseID, responseTitle, responseText, (result) =>
+                AppViewModel.Session.Client().PostMyResponseToResponse(this.ResponseID, responseTitle, responseText, (result) =>
                 {
                     if (result.ResponseStatus == RestSharp.ResponseStatus.Completed)
                     {
@@ -164,7 +164,7 @@ namespace eCollegeWP7
         {
             if (CurrentDiscussionType == DiscussionType.TopicAndResponses)
             {
-                AppViewModel.API.FetchMyDiscussionResponsesByTopic(TopicID, (result) =>
+                AppViewModel.Session.Client().FetchMyDiscussionResponsesByTopic(TopicID, (result) =>
                 {
                     var formattedResult = new ObservableCollection<DiscussionResponseHeader>();
                     foreach (var r in result) formattedResult.Add(r);
@@ -173,7 +173,7 @@ namespace eCollegeWP7
             }
             else if (CurrentDiscussionType == DiscussionType.ResponseAndResponses)
             {
-                AppViewModel.API.FetchMyDiscussionResponsesByResponse(ResponseID, (result) =>
+                AppViewModel.Session.Client().FetchMyDiscussionResponsesByResponse(ResponseID, (result) =>
                 {
                     var formattedResult = new ObservableCollection<DiscussionResponseHeader>();
                     foreach (var r in result) formattedResult.Add(r);

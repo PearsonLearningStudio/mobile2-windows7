@@ -11,29 +11,30 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using System.IO.IsolatedStorage;
+using eCollegeWP7.ViewModels;
 
 namespace eCollegeWP7.Views
 {
-    public partial class LoginPage : PhoneApplicationPage
+    public partial class LoginPage : BasePage
     {
         public LoginPage()
         {
             InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        protected override void OnReady(System.Windows.Navigation.NavigationEventArgs e)
         {
-            base.OnNavigatedTo(e);
             var settings = IsolatedStorageSettings.ApplicationSettings;
             bool remember;
+            SessionViewModel session;
 
-            if (settings.TryGetValue<bool>("remember", out remember))
+            if (settings.TryGetValue<bool>("remember", out remember) && settings.TryGetValue<SessionViewModel>("session",out session))
             {
                 if (remember)
                 {
-                    TxtUsername.Text = settings["username"] as string;
-                    TxtPassword.Password = settings["password"] as string;
-                    TxtDomain.Text = settings["domain"] as string;
+                    TxtUsername.Text = session.Username;
+                    TxtPassword.Password = session.Password;
+                    TxtDomain.Text = session.Domain;
                     ChkRememberMe.IsChecked = true;
                 }
                 else
@@ -47,30 +48,29 @@ namespace eCollegeWP7.Views
         {
             if (ChkRememberMe.IsChecked != true) {
                 var settings = IsolatedStorageSettings.ApplicationSettings;
-                settings["remember"] = false;
-                settings.Remove("username");
-                settings.Remove("password");
-                settings.Remove("domain");
+                settings.Remove("session");
+                settings.Remove("remember");
                 settings.Save();
             }
 
-            var username = TxtUsername.Text;
-            var password = TxtPassword.Password;
-            var domain = TxtDomain.Text;
+            App.Model.Session = new SessionViewModel
+            {
+                Username = TxtUsername.Text,
+                Password = TxtPassword.Password,
+                Domain = TxtDomain.Text
+            };
             var remember = ChkRememberMe.IsChecked;
 
-            App.AppViewModel.Login(domain,username, password, me =>
+            App.Model.Session.Login(result =>
             {
                 if (remember == true)
                 {
                     var settings = IsolatedStorageSettings.ApplicationSettings;
                     settings["remember"] = true;
-                    settings["username"] = username;
-                    settings["password"] = password;
-                    settings["domain"] = domain;
+                    settings["session"] = App.Model.Session;
                     settings.Save();
                 }
-                this.NavigationService.Navigate(new Uri("/Views/MainPage.xaml",UriKind.Relative));
+                this.NavigationService.Navigate(new Uri("/Views/MainPage.xaml", UriKind.Relative));
             });
         }
     }

@@ -15,7 +15,7 @@ using eCollegeWP7.Util;
 
 namespace eCollegeWP7.Views
 {
-    public partial class DiscussionPage : PhoneApplicationPage
+    public partial class DiscussionPage : BasePage
     {
         protected Grid GrdResponse { get { return this.FindVisualChild<Grid>("GrdResponse"); } }
         protected Button BtnShowAddResponse { get { return this.FindVisualChild<Button>("BtnShowAddResponse"); } }
@@ -27,11 +27,10 @@ namespace eCollegeWP7.Views
         public DiscussionPage()
         {
             InitializeComponent();
-        } 
+        }
 
-        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        protected override void OnReady(System.Windows.Navigation.NavigationEventArgs e)
         {
-            base.OnNavigatedTo(e);
             IDictionary<string, string> parameters = this.NavigationContext.QueryString;
 
             if (parameters.ContainsKey("topicHeaderId"))
