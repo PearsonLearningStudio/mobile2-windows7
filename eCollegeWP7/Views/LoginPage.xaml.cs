@@ -61,6 +61,14 @@ namespace eCollegeWP7.Views
             };
             var remember = ChkRememberMe.IsChecked;
 
+            if (remember == true)
+            {
+                var settings = IsolatedStorageSettings.ApplicationSettings;
+                settings["remember"] = true;
+                settings["session"] = App.Model.Session;
+                settings.Save();
+            }
+
             App.Model.Session.Login(result =>
             {
                 if (remember == true)

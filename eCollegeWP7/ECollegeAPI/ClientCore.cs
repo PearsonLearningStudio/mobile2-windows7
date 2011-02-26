@@ -27,8 +27,10 @@ namespace ECollegeAPI
 
     public partial class ECollegeClient
     {
-        
-        public const string RootUri = "https://m-api.ecollege.com/";
+
+        //public const string RootUri = "https://m-api.ecollege.com/";
+        public const string RootUri = "http://ecollegeapiproxy.heroku.com/";
+        //public const string RootUri = "http://192.168.1.2:4000/";
 
         readonly string _domain;
         readonly string _username;
@@ -86,6 +88,8 @@ namespace ECollegeAPI
         public void ExecuteAsync(RestRequest request, Action<RestResponse> callback)
         {
             var client = new RestClient(RootUri);
+            client.FollowRedirects = true;
+            client.MaxRedirects = 10;
             if (_authenticator != null) client.Authenticator = _authenticator;
             client.ExecuteAsync(request, (response) =>
             {
@@ -93,7 +97,7 @@ namespace ECollegeAPI
                 Debug.WriteLine("Request: " + request.Method + " - " + RootUri + request.Resource + " - " + paramString);
                 Debug.WriteLine("Status: " + response.StatusCode);
 
-                if (response.ContentType.Contains("json")) // == "application/json")
+                if (response.ContentType != null && response.ContentType.Contains("json")) // == "application/json")
                 {
                     var prettyResponse = PrettyPrint(response.Content);
                     Debug.WriteLine("Response: " + prettyResponse + "\n");

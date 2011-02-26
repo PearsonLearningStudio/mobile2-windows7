@@ -40,7 +40,10 @@ namespace eCollegeWP7.ViewModels
             set
             {
                 _CurrentToken = value;
-                _Client = new ECollegeClient(value);
+                if (_CurrentToken != null)
+                {
+                    _Client = new ECollegeClient(value);
+                }
             }
         }
 
