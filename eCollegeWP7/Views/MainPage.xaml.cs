@@ -16,6 +16,7 @@ using ECollegeAPI.Model;
 using eCollegeWP7.Util;
 using eCollegeWP7.Views.Dialogs;
 using eCollegeWP7.Exceptions;
+using eCollegeWP7.ViewModels;
 
 namespace eCollegeWP7.Views
 {
@@ -44,33 +45,17 @@ namespace eCollegeWP7.Views
              */
         }
 
-        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        protected override void OnReady(System.Windows.Navigation.NavigationEventArgs e)
         {
-            Model.LoadData();
-        }
+            IDictionary<string, string> parameters = this.NavigationContext.QueryString;
 
-        private void BtnOpenCourse_Click(object sender, RoutedEventArgs e)
-        {
-            var course = (sender as Button).DataContext as Course;
-            this.NavigationService.Navigate(new Uri("/Views/CoursePage.xaml?courseId=" + course.ID, UriKind.Relative));
-        }
+            string defaultPanoramaItem;
+            {
+                defaultPanoramaItem = "PanHome";
+            }
 
-        private void BtnDiscussion_Click(object sender, RoutedEventArgs e)
-        {
-            var theader = (sender as Button).DataContext as DiscussionTopicHeader;
-            this.NavigationService.Navigate(new Uri("/Views/DiscussionPage.xaml?topicId=" + theader.Topic.ID + "&topicHeaderId=" + theader.ID, UriKind.Relative));
-        }
-
-        private void LspFilterDiscussions_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var LspFilterDiscussions = sender as ListPicker;
-            Model.DiscussionCourseFilter = LspFilterDiscussions.SelectedItem as Course;
-        }
-
-        private void LspFilterPeople_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var LspFilterPeople = sender as ListPicker;
-            Model.PeopleCourseFilter = LspFilterPeople.SelectedItem as Course;
+            var defaultItem = PanMain.FindName(defaultPanoramaItem);
+            PanMain.DefaultItem = defaultItem;
         }
 
         private void BtnShowDialog_Click(object sender, RoutedEventArgs e)
@@ -82,6 +67,22 @@ namespace eCollegeWP7.Views
         private void BasePage_BackKeyPress(object sender, System.ComponentModel.CancelEventArgs e)
         {
             throw new AppExitException();
+        }
+
+        private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as HyperlinkButton;
+            var link = btn.DataContext as HomeLink;
+
+            if (link.LinkPath != null)
+            {
+                this.NavigationService.Navigate(new Uri(link.LinkPath, UriKind.Relative));
+            }
+            else
+            {
+                var defaultItem = PanMain.FindName(link.PanoramaItemName);
+                PanMain.DefaultItem = defaultItem;
+            }
         }
     }
 }

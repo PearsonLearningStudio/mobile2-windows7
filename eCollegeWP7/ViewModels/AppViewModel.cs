@@ -11,12 +11,14 @@ using System.Windows.Shapes;
 using ECollegeAPI;
 using ECollegeAPI.Model;
 using System.Diagnostics;
+using System.Collections.ObjectModel;
 
 namespace eCollegeWP7.ViewModels
 {
     public class AppViewModel : ViewModelBase
     {
         public User CurrentUser { get; set; }
+        public CoursesViewModel Courses { get; set; }
 
         public ECollegeClient Client { get; set; }
 
@@ -25,23 +27,28 @@ namespace eCollegeWP7.ViewModels
             Client = new ECollegeClient(AppResources.ClientString, AppResources.ClientID);
         }
 
+        protected void FetchInitialUserData(Action<bool> callback)
+        {
+            Client.FetchMe(me =>
+            {
+                Courses = new CoursesViewModel();
+                Courses.Load(res =>
+                {
+                    callback(true);
+                });
+            });
+        }
 
         public void Login(String grantToken, Action<bool> callback)
         {
             Client.SetupAuthentication(grantToken);
-            Client.FetchMe(me =>
-            {
-                callback(true);
-            });
+            FetchInitialUserData(callback);
         }
 
         public void Login(String username, String password, Action<bool> callback)
         {
             Client.SetupAuthentication(username, password);
-            Client.FetchMe(me =>
-            {
-                callback(true);
-            });
+            FetchInitialUserData(callback);
         }
         
     }

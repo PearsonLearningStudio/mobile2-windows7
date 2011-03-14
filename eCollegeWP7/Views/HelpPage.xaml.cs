@@ -16,19 +16,16 @@ using eCollegeWP7.ViewModels;
 
 namespace eCollegeWP7.Views
 {
-    public partial class DropboxPage : BasePage
+    public partial class HelpPage : BasePage
     {
-        protected DropboxViewModel Model { get { return this.DataContext as DropboxViewModel; } }
 
-        public DropboxPage()
+        public HelpPage()
         {
             InitializeComponent();
         }
 
         protected override void OnReady(System.Windows.Navigation.NavigationEventArgs e)
         {
-            IDictionary<string, string> parameters = this.NavigationContext.QueryString;
-            this.DataContext = new DropboxViewModel(Convert.ToInt64(parameters["courseId"]),Convert.ToInt64(parameters["basketId"]));
         }
 
     }

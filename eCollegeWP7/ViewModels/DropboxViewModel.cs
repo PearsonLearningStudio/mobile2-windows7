@@ -16,7 +16,7 @@ using ECollegeAPI.Model;
 using eCollegeWP7.Util;
 using System.Linq;
 
-namespace eCollegeWP7
+namespace eCollegeWP7.ViewModels
 {
 
     public class DropboxViewModel : ViewModelBase

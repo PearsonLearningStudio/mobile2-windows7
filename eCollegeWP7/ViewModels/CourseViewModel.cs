@@ -15,7 +15,7 @@ using System.Collections.ObjectModel;
 using ECollegeAPI.Model;
 using eCollegeWP7.Util;
 
-namespace eCollegeWP7
+namespace eCollegeWP7.ViewModels
 {
     public class CourseViewModel : ViewModelBase
     {

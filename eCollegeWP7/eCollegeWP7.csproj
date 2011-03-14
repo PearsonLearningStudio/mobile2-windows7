@@ -99,9 +99,25 @@
     <Compile Include="Util\MultiBinding\MultiBindings.cs" />
     <Compile Include="Util\TreeHelperExtensions.cs" />
     <Compile Include="ViewModels\AppViewModel.cs" />
+    <Compile Include="ViewModels\HomeViewModel.cs" />
+    <Compile Include="ViewModels\PeopleViewModel.cs" />
+    <Compile Include="ViewModels\DiscussionsViewModel.cs" />
+    <Compile Include="ViewModels\CoursesViewModel.cs" />
     <Compile Include="ViewModels\DropboxViewModel.cs" />
     <Compile Include="Views\BasePage.xaml.cs">
       <DependentUpon>BasePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HelpPage.xaml.cs">
+      <DependentUpon>HelpPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProfilePage.xaml.cs">
+      <DependentUpon>ProfilePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SecondaryPage.xaml.cs">
+      <DependentUpon>SecondaryPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Dialogs\BaseDialog.xaml.cs">
       <DependentUpon>BaseDialog.xaml</DependentUpon>
@@ -169,6 +185,22 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\SettingsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\HelpPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ProfilePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SecondaryPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Dialogs\BaseDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -218,6 +250,14 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="PanoramaBackground.png" />
+    <Content Include="Resources\Icons\ic_menu_help.png" />
+    <Content Include="Resources\Icons\ic_menu_activity.png" />
+    <Content Include="Resources\Icons\ic_menu_whats_due.png" />
+    <Content Include="Resources\Icons\ic_menu_discussions.png" />
+    <Content Include="Resources\Icons\ic_menu_courses.png" />
+    <Content Include="Resources\Icons\ic_menu_people.png" />
+    <Content Include="Resources\Icons\ic_menu_profile.png" />
+    <Content Include="Resources\Icons\ic_menu_settings.png" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup>

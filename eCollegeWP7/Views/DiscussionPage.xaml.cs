@@ -12,6 +12,7 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using ECollegeAPI.Model;
 using eCollegeWP7.Util;
+using eCollegeWP7.ViewModels;
 
 namespace eCollegeWP7.Views
 {
