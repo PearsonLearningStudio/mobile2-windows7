@@ -19,6 +19,13 @@ namespace eCollegeWP7.ViewModels
 {
     public class CoursesViewModel : ViewModelBase
     {
+        public Dictionary<long, Course> CourseIdMap { get; set; }
+
+        public CoursesViewModel()
+        {
+            CourseIdMap = new Dictionary<long, Course>();
+        }
+
         private ObservableCollection<Course> _MyCourses;
         public ObservableCollection<Course> MyCourses
         {
@@ -47,7 +54,10 @@ namespace eCollegeWP7.ViewModels
             AppViewModel.Client.FetchMyCurrentCourses(result =>
             {
                 var oc = new ObservableCollection<Course>();
-                foreach (var c in result) { oc.Add(c); }
+                foreach (var c in result) { 
+                    oc.Add(c);
+                    CourseIdMap[c.ID] = c;
+                }
                 this.MyCourses = oc;
                 callback(true);
             });

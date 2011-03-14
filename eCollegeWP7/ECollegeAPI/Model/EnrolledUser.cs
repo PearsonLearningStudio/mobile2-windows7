@@ -3,7 +3,6 @@ using System;
 
 namespace ECollegeAPI.Model
 {
-
     public class EnrolledUser
     {
         public long ID { get; set; }

@@ -23,6 +23,7 @@ namespace eCollegeWP7.Views
     public partial class MainPage : BasePage
     {
         public MainViewModel Model { get { return this.DataContext as MainViewModel; } }
+        protected ActivitiesViewModel ActivitiesViewModel { get; set; }
 
         // Constructor
         public MainPage()
@@ -37,12 +38,6 @@ namespace eCollegeWP7.Views
         // Load data for the ViewModel Items
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
-            /*
-            if (!App.ViewModel.IsDataLoaded)
-            {
-                App.ViewModel.LoadData();
-            }
-             */
         }
 
         protected override void OnReady(System.Windows.Navigation.NavigationEventArgs e)
@@ -82,6 +77,16 @@ namespace eCollegeWP7.Views
             {
                 var defaultItem = PanMain.FindName(link.PanoramaItemName);
                 PanMain.DefaultItem = defaultItem;
+            }
+        }
+
+        private void PanActivity_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (ActivitiesViewModel == null)
+            {
+                ActivitiesViewModel = new ActivitiesViewModel();
+                ActivitiesViewModel.Load();
+                (sender as PanoramaItem).DataContext = ActivitiesViewModel;
             }
         }
     }

@@ -11,6 +11,7 @@
     xmlns:mb="clr-namespace:eCollegeWP7.Util.MultiBinding"
     xmlns:v="clr-namespace:eCollegeWP7.Views"
     xmlns:vm="clr-namespace:eCollegeWP7.ViewModels"
+    xmlns:c="clr-namespace:eCollegeWP7.Views.Controls"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="800" 
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -57,15 +58,45 @@
 
             <!--Panorama item two-->
             <!--Use 'Orientation="Horizontal"' to enable a panel that lays out horizontally-->
-            <controls:PanoramaItem x:Name="PanActivity" Header="activity">
+            <controls:PanoramaItem x:Name="PanActivity" Header="activity" Loaded="PanActivity_Loaded">
                 <Grid>
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Coming soon!"/>
+                    <ItemsControl ItemsSource="{Binding Path=Activities}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <!--<Image Source="{Binding Path=IconPath}"/>-->
+                                    <Image Source="/Resources/Icons/ic_menu_help.png" Grid.RowSpan="3" VerticalAlignment="Top"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding Path=LineOne}"
+                                               Style="{StaticResource PhoneTextTitle2Style}"/>
+                                    <TextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" 
+                                               Style="{StaticResource PhoneTextNormalStyle}" 
+                                               Text="{Binding Path=LineTwo}"/>
+                                    <TextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" 
+                                               Style="{StaticResource PhoneTextSmallStyle}" 
+                                               Text="{Binding Path=LineThree}"/>
+                                    <TextBlock Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" 
+                                               Style="{StaticResource PhoneTextSubtleStyle}"
+                                               Text="{Binding Path=FriendlyDate}" />
+                                </Grid>                            
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </Grid>
             </controls:PanoramaItem>
 
             <controls:PanoramaItem x:Name="PanWhatsDue" Header="what's due">
                 <Grid>
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Coming soon!"/>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Waiting for API"/>
                 </Grid>
             </controls:PanoramaItem>
 

@@ -76,11 +76,16 @@
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
     <Compile Include="ECollegeAPI\Announcements.cs" />
+    <Compile Include="ECollegeAPI\Activities.cs" />
     <Compile Include="ECollegeAPI\Courses.cs" />
     <Compile Include="ECollegeAPI\Dropbox.cs" />
+    <Compile Include="ECollegeAPI\Model\ActivityStreamObject.cs" />
+    <Compile Include="ECollegeAPI\Model\ActivityStreamTarget.cs" />
     <Compile Include="ECollegeAPI\Model\Boilerplate\BasketItemLink.cs" />
     <Compile Include="ECollegeAPI\Model\Boilerplate\AttachmentLink.cs" />
     <Compile Include="ECollegeAPI\Model\Boilerplate\UserLink.cs" />
+    <Compile Include="ECollegeAPI\Model\ActivityStreamItem.cs" />
+    <Compile Include="ECollegeAPI\Model\ActivityStreamActor.cs" />
     <Compile Include="ECollegeAPI\Model\GrantToken.cs" />
     <Compile Include="ECollegeAPI\Model\DropboxAttachment.cs" />
     <Compile Include="ECollegeAPI\Model\DropboxBasketMessage.cs" />
@@ -99,6 +104,8 @@
     <Compile Include="Util\MultiBinding\MultiBindings.cs" />
     <Compile Include="Util\TreeHelperExtensions.cs" />
     <Compile Include="ViewModels\AppViewModel.cs" />
+    <Compile Include="ViewModels\ActivitiesViewModel.cs" />
+    <Compile Include="ViewModels\ActivityViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\PeopleViewModel.cs" />
     <Compile Include="ViewModels\DiscussionsViewModel.cs" />
@@ -107,6 +114,7 @@
     <Compile Include="Views\BasePage.xaml.cs">
       <DependentUpon>BasePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Controls\DynamicTextBlock.cs" />
     <Compile Include="Views\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
@@ -260,9 +268,7 @@
     <Content Include="Resources\Icons\ic_menu_settings.png" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Controls\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="AppResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
