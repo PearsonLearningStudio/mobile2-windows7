@@ -14,6 +14,7 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using eCollegeWP7.ViewModels;
 using ECollegeAPI.Model;
+using eCollegeWP7.Exceptions;
 
 namespace eCollegeWP7
 {
@@ -75,10 +76,10 @@ namespace eCollegeWP7
         // This code will not execute when the application is first launched
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
-            object session;
+            object grantToken;
             var state = PhoneApplicationService.Current.State;
-            if (state.TryGetValue("session", out session)) {
-                Model.Session = session as SessionViewModel;
+            if (state.TryGetValue("grantToken", out grantToken)) {
+                Model.Client.SetupAuthentication(grantToken.ToString());
             }
         }
 
@@ -86,11 +87,6 @@ namespace eCollegeWP7
         // This code will not execute when the application is closing
         private void Application_Deactivated(object sender, DeactivatedEventArgs e)
         {
-            if (Model.Session != null)
-            {
-                var state = PhoneApplicationService.Current.State;
-                state["session"] = Model.Session;
-            }
         }
 
         // Code to execute when the application is closing (eg, user hit Back)
@@ -112,6 +108,10 @@ namespace eCollegeWP7
         // Code to execute on Unhandled Exceptions
         private void Application_UnhandledException(object sender, ApplicationUnhandledExceptionEventArgs e)
         {
+            if (e.ExceptionObject is AppExitException)
+            {
+                return;
+            }
             if (System.Diagnostics.Debugger.IsAttached)
             {
                 // An unhandled exception has occurred; break into the debugger

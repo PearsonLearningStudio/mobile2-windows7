@@ -1,5 +1,5 @@
 ﻿<v:BasePage 
-    x:Class="eCollegeWP7.Views.LoginPage"
+    x:Class="eCollegeWP7.Views.SplashPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
@@ -9,39 +9,16 @@
     xmlns:v="clr-namespace:eCollegeWP7.Views"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
 
-        <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="{Binding Path=A.AppOwner, Source={StaticResource res}}" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock x:Name="PageTitle" Text="{Binding Path=A.AppName, Source={StaticResource res}}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
-        </StackPanel>
-
-        <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            
-            <StackPanel HorizontalAlignment="Stretch">
-                <TextBlock Text="username or email"/>
-                <TextBox x:Name="TxtUsername"/>
-
-                <TextBlock Text="password"/>
-                <PasswordBox x:Name="TxtPassword"/>
-                
-                <CheckBox x:Name="ChkRememberMe" Content="Remember Me?" IsChecked="True"/>
-
-                <Button x:Name="BtnSignIn" Content="sign in" Click="BtnSignIn_Click"/>
-            </StackPanel>
-            
-        </Grid>
+        <Image x:Name="ImageSplashScreen" Source="/SplashScreenImage.jpg" Stretch="Fill"/>
+        
     </Grid>
  
     <!--Sample code showing usage of ApplicationBar-->

@@ -60,15 +60,15 @@ namespace eCollegeWP7
         public CourseViewModel(int courseId)
         {
             this.CourseID = courseId;
-            AppViewModel.Session.Client().FetchAnnouncements(courseId, (result) =>
+            AppViewModel.Client.FetchAnnouncements(courseId, (result) =>
             {
                 this.Announcements = result.ToObservableCollection();
             });
-            AppViewModel.Session.Client().FetchMyDiscussionTopics(new List<long>() { courseId }, (result) =>
+            AppViewModel.Client.FetchMyDiscussionTopics(new List<long>() { courseId }, (result) =>
             {
                 this.UserTopics = result.ToObservableCollection();
             });
-            AppViewModel.Session.Client().FetchDropboxBaskets(courseId, (result) =>
+            AppViewModel.Client.FetchDropboxBaskets(courseId, (result) =>
             {
                 this.DropboxBaskets = result.ToObservableCollection();
             });

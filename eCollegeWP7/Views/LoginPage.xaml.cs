@@ -24,59 +24,30 @@ namespace eCollegeWP7.Views
 
         protected override void OnReady(System.Windows.Navigation.NavigationEventArgs e)
         {
-            var settings = IsolatedStorageSettings.ApplicationSettings;
-            bool remember;
-            SessionViewModel session;
 
-            if (settings.TryGetValue<bool>("remember", out remember) && settings.TryGetValue<SessionViewModel>("session",out session))
-            {
-                if (remember)
-                {
-                    TxtUsername.Text = session.Username;
-                    TxtPassword.Password = session.Password;
-                    ChkRememberMe.IsChecked = true;
-                }
-                else
-                {
-                    ChkRememberMe.IsChecked = false;
-                }
-            }
         }
 
         private void BtnSignIn_Click(object sender, RoutedEventArgs e)
         {
-            if (ChkRememberMe.IsChecked != true) {
-                var settings = IsolatedStorageSettings.ApplicationSettings;
-                settings.Remove("session");
-                settings.Remove("remember");
+            bool remember = ChkRememberMe.IsChecked.Value;
+
+            var settings = IsolatedStorageSettings.ApplicationSettings;
+            if (!remember)
+            {
+                settings.Remove("grantToken");
                 settings.Save();
             }
 
-            App.Model.Session = new SessionViewModel
+            App.Model.Login(TxtUsername.Text, TxtPassword.Password, result =>
             {
-                Username = TxtUsername.Text,
-                Password = TxtPassword.Password,
-            };
-            var remember = ChkRememberMe.IsChecked;
-
-            if (remember == true)
-            {
-                var settings = IsolatedStorageSettings.ApplicationSettings;
-                settings["remember"] = true;
-                settings["session"] = App.Model.Session;
-                settings.Save();
-            }
-
-            App.Model.Session.Login(result =>
-            {
-                if (remember == true)
-                {
-                    var settings = IsolatedStorageSettings.ApplicationSettings;
-                    settings["remember"] = true;
-                    settings["session"] = App.Model.Session;
-                    settings.Save();
+                if (result) {
+                    if (remember)
+                    {
+                        settings["grantToken"] = App.Model.Client.GrantToken;
+                        settings.Save();
+                    }
+                    this.NavigationService.Navigate(new Uri("/Views/MainPage.xaml", UriKind.Relative));
                 }
-                this.NavigationService.Navigate(new Uri("/Views/MainPage.xaml", UriKind.Relative));
             });
         }
     }

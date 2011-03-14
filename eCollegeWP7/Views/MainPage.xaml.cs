@@ -15,6 +15,7 @@ using System.Collections.ObjectModel;
 using ECollegeAPI.Model;
 using eCollegeWP7.Util;
 using eCollegeWP7.Views.Dialogs;
+using eCollegeWP7.Exceptions;
 
 namespace eCollegeWP7.Views
 {
@@ -76,6 +77,11 @@ namespace eCollegeWP7.Views
         {
             ErrorDialog ed = new ErrorDialog();
             ed.Show();
+        }
+
+        private void BasePage_BackKeyPress(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            throw new AppExitException();
         }
     }
 }

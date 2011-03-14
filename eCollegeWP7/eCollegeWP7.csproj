@@ -81,12 +81,14 @@
     <Compile Include="ECollegeAPI\Model\Boilerplate\BasketItemLink.cs" />
     <Compile Include="ECollegeAPI\Model\Boilerplate\AttachmentLink.cs" />
     <Compile Include="ECollegeAPI\Model\Boilerplate\UserLink.cs" />
+    <Compile Include="ECollegeAPI\Model\GrantToken.cs" />
     <Compile Include="ECollegeAPI\Model\DropboxAttachment.cs" />
     <Compile Include="ECollegeAPI\Model\DropboxBasketMessage.cs" />
     <Compile Include="ECollegeAPI\Model\DropboxBasket.cs" />
     <Compile Include="ECollegeAPI\Model\Role.cs" />
     <Compile Include="ECollegeAPI\Model\EnrolledUser.cs" />
     <Compile Include="ECollegeAPI\Users.cs" />
+    <Compile Include="Exceptions\AppExitException.cs" />
     <Compile Include="Util\Converters\FilterTopicByCourseConverter.cs" />
     <Compile Include="Util\Converters\HtmlToTextConverter.cs" />
     <Compile Include="Util\ListExtensions.cs" />
@@ -98,7 +100,6 @@
     <Compile Include="Util\TreeHelperExtensions.cs" />
     <Compile Include="ViewModels\AppViewModel.cs" />
     <Compile Include="ViewModels\DropboxViewModel.cs" />
-    <Compile Include="ViewModels\SessionViewModel.cs" />
     <Compile Include="Views\BasePage.xaml.cs">
       <DependentUpon>BasePage.xaml</DependentUpon>
     </Compile>
@@ -151,6 +152,9 @@
     <Compile Include="ViewModels\DiscussionViewModel.cs" />
     <Compile Include="ViewModels\CourseViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="Views\SplashPage.xaml.cs">
+      <DependentUpon>SplashPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ViewModelBase.cs" />
     <Compile Include="Views\DiscussionPage.xaml.cs">
       <DependentUpon>DiscussionPage.xaml</DependentUpon>
@@ -194,6 +198,10 @@
       <SubType>Designer</SubType>
     </DesignData>
     <Page Include="Views\DiscussionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SplashPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
