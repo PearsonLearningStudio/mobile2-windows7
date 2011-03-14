@@ -9,7 +9,6 @@
     xmlns:v="clr-namespace:eCollegeWP7.Views"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
-    Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480" RequiresLogin="False"
     shell:SystemTray.IsVisible="True">
@@ -23,8 +22,8 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="PEARSON" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock x:Name="PageTitle" Text="eCollege" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock x:Name="ApplicationTitle" Text="{Binding Path=A.AppOwner, Source={StaticResource res}}" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock x:Name="PageTitle" Text="{Binding Path=A.AppName, Source={StaticResource res}}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
@@ -36,9 +35,6 @@
 
                 <TextBlock Text="password"/>
                 <PasswordBox x:Name="TxtPassword"/>
-
-                <TextBlock Text="domain"/>
-                <TextBox x:Name="TxtDomain"/>
                 
                 <CheckBox x:Name="ChkRememberMe" Content="Remember Me?" IsChecked="True"/>
 

@@ -5,15 +5,17 @@
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:conv="clr-namespace:eCollegeWP7.Util.Converters"
+    xmlns:u="clr-namespace:eCollegeWP7.Util"
     xmlns:wcontrols="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls"
     xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
     <!--Application Resources-->
     <Application.Resources>
         <conv:FilterTopicByCourseConverter x:Key="FilterTopicByCourseConverter"/>
-        <conv:HtmlToTextConverter x:Key="HtmlToTextConverter"/>
+        <conv:HtmlToTextConverter x:Key="HtmlToTextConverter"/> 
+        <u:LocalizedResources x:Key="res"/>
     </Application.Resources>
-
+    
     <Application.ApplicationLifetimeObjects>
         <!--Required object that handles lifetime events for the application-->
         <shell:PhoneApplicationService 

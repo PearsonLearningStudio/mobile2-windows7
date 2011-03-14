@@ -18,6 +18,7 @@ namespace eCollegeWP7
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+
         protected void OnPropertyChanged(Expression<Func<object>> Property)
         {
             this.PropertyChanged.Notify(Property);
@@ -30,7 +31,7 @@ namespace eCollegeWP7
 
         protected virtual void OnDispose()
         {
-
         }
+
     }
 }

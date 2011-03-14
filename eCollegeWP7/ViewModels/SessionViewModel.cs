@@ -24,7 +24,6 @@ namespace eCollegeWP7.ViewModels
         {
         }
 
-        public string Domain { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
 
@@ -52,7 +51,7 @@ namespace eCollegeWP7.ViewModels
 
         public void Login(Action<bool> callback)
         {
-            _Client = new ECollegeClient(Domain, Username, Password, "30bb1d4f-2677-45d1-be13-339174404402");
+            _Client = new ECollegeClient(AppResources.ClientString, Username, Password, AppResources.ClientID);
             Client().FetchToken(t =>
             {
                 this.CurrentToken = t;

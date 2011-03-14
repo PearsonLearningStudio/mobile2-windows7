@@ -34,7 +34,6 @@ namespace eCollegeWP7.Views
                 {
                     TxtUsername.Text = session.Username;
                     TxtPassword.Password = session.Password;
-                    TxtDomain.Text = session.Domain;
                     ChkRememberMe.IsChecked = true;
                 }
                 else
@@ -57,7 +56,6 @@ namespace eCollegeWP7.Views
             {
                 Username = TxtUsername.Text,
                 Password = TxtPassword.Password,
-                Domain = TxtDomain.Text
             };
             var remember = ChkRememberMe.IsChecked;
 

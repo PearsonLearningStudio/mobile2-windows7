@@ -70,6 +70,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AppResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="ECollegeAPI\Announcements.cs" />
     <Compile Include="ECollegeAPI\Courses.cs" />
     <Compile Include="ECollegeAPI\Dropbox.cs" />
@@ -85,6 +90,7 @@
     <Compile Include="Util\Converters\FilterTopicByCourseConverter.cs" />
     <Compile Include="Util\Converters\HtmlToTextConverter.cs" />
     <Compile Include="Util\ListExtensions.cs" />
+    <Compile Include="Util\LocalizedResources.cs" />
     <Compile Include="Util\MultiBinding\BindingUtil.cs" />
     <Compile Include="Util\MultiBinding\IMultiValueConverter.cs" />
     <Compile Include="Util\MultiBinding\MultiBinding.cs" />
@@ -208,6 +214,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Controls\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AppResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
