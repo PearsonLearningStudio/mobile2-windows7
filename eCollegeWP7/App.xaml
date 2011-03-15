@@ -14,6 +14,10 @@
         <conv:FilterTopicByCourseConverter x:Key="FilterTopicByCourseConverter"/>
         <conv:HtmlToTextConverter x:Key="HtmlToTextConverter"/> 
         <u:LocalizedResources x:Key="res"/>
+        
+        <Style x:Key="StretchedContainerStyle" TargetType="ListBoxItem">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        </Style>
     </Application.Resources>
     
     <Application.ApplicationLifetimeObjects>

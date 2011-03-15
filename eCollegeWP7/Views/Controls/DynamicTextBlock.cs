@@ -103,6 +103,26 @@ namespace eCollegeWP7.Views.Controls
 
         #endregion
 
+
+
+
+        public Style TextStyle
+        {
+            get { return (Style)GetValue(TextStyleProperty); }
+            set { SetValue(TextStyleProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for TextStyle.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TextStyleProperty =
+            DependencyProperty.Register("TextStyle", typeof(Style), typeof(DynamicTextBlock),  new PropertyMetadata(null, new PropertyChangedCallback(OnTextStyleChanged)));
+
+        private static void OnTextStyleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var dtb = ((DynamicTextBlock)d);
+            dtb.textBlock.Style = e.NewValue as Style;
+            dtb.InvalidateMeasure();
+        }
+
         #region LineHeight (DependencyProperty)
 
         /// <summary>
@@ -206,7 +226,6 @@ namespace eCollegeWP7.Views.Controls
                 this.textBlock.Text = reducedText + "...";
                 textSize = base.MeasureOverride(unboundSize);
             }
-
             return base.MeasureOverride(availableSize);
         }
 
