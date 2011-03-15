@@ -12,6 +12,8 @@ using ECollegeAPI;
 using ECollegeAPI.Model;
 using System.Diagnostics;
 using System.Collections.ObjectModel;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace eCollegeWP7.ViewModels
 {
@@ -25,6 +27,16 @@ namespace eCollegeWP7.ViewModels
         public AppViewModel()
         {
             Client = new ECollegeClient(AppResources.ClientString, AppResources.ClientID);
+        }
+
+        protected void Reactivate(IDictionary<string,object> state)
+        {
+
+        }
+
+        protected void Deactivate(IDictionary<string, object> state)
+        {
+
         }
 
         protected void FetchInitialUserData(Action<bool> callback)

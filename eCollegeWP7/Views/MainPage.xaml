@@ -30,7 +30,7 @@
 
             <controls:PanoramaItem x:Name="PanNotifications" Header="notifications">
                 <Grid>
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Coming soon!"/>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Waiting for API"/>
                 </Grid>
             </controls:PanoramaItem>
 
@@ -58,7 +58,7 @@
 
             <!--Panorama item two-->
             <!--Use 'Orientation="Horizontal"' to enable a panel that lays out horizontally-->
-            <controls:PanoramaItem x:Name="PanActivity" Header="activity">
+            <controls:PanoramaItem x:Name="PanActivity" Header="activity" Padding="0">
                 <Grid>
                     <ListBox ItemsSource="{Binding Path=Activities}" ItemContainerStyle="{StaticResource StretchedContainerStyle}">
                         <ItemsControl.ItemTemplate>
