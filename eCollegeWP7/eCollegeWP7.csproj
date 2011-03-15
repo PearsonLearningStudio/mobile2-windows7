@@ -91,7 +91,7 @@
     <Compile Include="ECollegeAPI\Model\Grade.cs" />
     <Compile Include="ECollegeAPI\Model\GrantToken.cs" />
     <Compile Include="ECollegeAPI\Model\DropboxAttachment.cs" />
-    <Compile Include="ECollegeAPI\Model\DropboxBasketMessage.cs" />
+    <Compile Include="ECollegeAPI\Model\DropboxMessage.cs" />
     <Compile Include="ECollegeAPI\Model\DropboxBasket.cs" />
     <Compile Include="ECollegeAPI\Model\Role.cs" />
     <Compile Include="ECollegeAPI\Model\EnrolledUser.cs" />
@@ -116,7 +116,7 @@
     <Compile Include="ViewModels\PeopleViewModel.cs" />
     <Compile Include="ViewModels\DiscussionsViewModel.cs" />
     <Compile Include="ViewModels\CoursesViewModel.cs" />
-    <Compile Include="ViewModels\DropboxViewModel.cs" />
+    <Compile Include="ViewModels\DropboxMessageViewModel.cs" />
     <Compile Include="Views\BasePage.xaml.cs">
       <DependentUpon>BasePage.xaml</DependentUpon>
     </Compile>
@@ -142,8 +142,8 @@
     <Compile Include="Views\Dialogs\ErrorDialog.xaml.cs">
       <DependentUpon>ErrorDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DropboxPage.xaml.cs">
-      <DependentUpon>DropboxPage.xaml</DependentUpon>
+    <Compile Include="Views\DropboxMessagePage.xaml.cs">
+      <DependentUpon>DropboxMessagePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CoursePage.xaml.cs">
       <DependentUpon>CoursePage.xaml</DependentUpon>
@@ -230,7 +230,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DropboxPage.xaml">
+    <Page Include="Views\DropboxMessagePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

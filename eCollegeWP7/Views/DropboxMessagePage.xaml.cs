@@ -16,11 +16,12 @@ using eCollegeWP7.ViewModels;
 
 namespace eCollegeWP7.Views
 {
-    public partial class DropboxPage : BasePage
+    public partial class DropboxMessagePage : BasePage
     {
-        protected DropboxViewModel Model { get { return this.DataContext as DropboxViewModel; } }
+        protected DropboxMessageViewModel Model { get { return this.DataContext as DropboxMessageViewModel; } }
 
-        public DropboxPage() : base()
+        public DropboxMessagePage()
+            : base()
         {
             InitializeComponent();
         }
@@ -28,7 +29,7 @@ namespace eCollegeWP7.Views
         protected override void OnReady(System.Windows.Navigation.NavigationEventArgs e)
         {
             IDictionary<string, string> parameters = this.NavigationContext.QueryString;
-            this.DataContext = new DropboxViewModel(Convert.ToInt64(parameters["courseId"]),Convert.ToInt64(parameters["basketId"]));
+            this.DataContext = new DropboxMessageViewModel(Convert.ToInt64(parameters["courseId"]), Convert.ToInt64(parameters["basketId"]), Convert.ToInt64(parameters["messageId"]));
         }
 
     }

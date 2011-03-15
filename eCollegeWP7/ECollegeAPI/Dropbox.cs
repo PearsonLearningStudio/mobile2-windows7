@@ -29,15 +29,25 @@ namespace ECollegeAPI
             });
         }
 
-        public void FetchDropboxBasketMessages(long studentId, long courseId, long basketId, Action<List<DropboxBasketMessage>> callback)
+        public void FetchDropboxMessages(long studentId, long courseId, long basketId, Action<List<DropboxMessage>> callback)
         {
             var request = new RestRequest("courses/" + courseId + "/dropboxBaskets/" + basketId + "/messages", Method.GET);
 
             request.AddParameter("submissionStudents", Convert.ToString(studentId), ParameterType.GetOrPost);
 
-            ExecuteAsync<List<DropboxBasketMessage>>(request,"messages", result =>
+            ExecuteAsync<List<DropboxMessage>>(request,"messages", result =>
             {
                 callback(result);
+            });
+        }
+
+        public void FetchDropboxMessage(long courseId, long basketId, long messageId, Action<DropboxMessage> callback)
+        {
+            var request = new RestRequest("courses/" + courseId + "/dropboxBaskets/" + basketId + "/messages/" + messageId, Method.GET);
+
+            ExecuteAsync<List<DropboxMessage>>(request, "messages", result =>
+            {
+                callback(result[0]);
             });
         }
     }

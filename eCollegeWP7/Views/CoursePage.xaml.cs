@@ -38,12 +38,5 @@ namespace eCollegeWP7.Views
             this.NavigationService.Navigate(new Uri("/Views/DiscussionPage.xaml?topicId=" + theader.Topic.ID + "&userTopicId=" + theader.ID, UriKind.Relative));
         }
 
-        private void BtnDropboxBasket_Click(object sender, RoutedEventArgs e)
-        {
-            var BtnDropboxBasket = sender as Button;
-            var basket = BtnDropboxBasket.DataContext as DropboxBasket;
-            this.NavigationService.Navigate(new Uri("/Views/DropboxPage.xaml?courseId=" + Model.CourseID + "&basketId=" + basket.ID, UriKind.Relative));
-        }
-
     }
 }

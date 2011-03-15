@@ -60,6 +60,7 @@ namespace eCollegeWP7.ViewModels
             {
                 LineOne = "Dropbox: " + item.Target.Title;
                 IconPath = "/Resources/Icons/ic_menu_help.png";
+                NavigationPath = "/Views/DropboxMessagePage.xaml?courseId=" + item.Object.CourseId + "&basketId=" + item.Target.ReferenceId + "&messageId=" + item.Object.ReferenceId;
             }
             else
             {

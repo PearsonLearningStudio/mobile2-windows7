@@ -41,14 +41,6 @@ namespace eCollegeWP7.ViewModels
             set { _UserTopics = value; this.OnPropertyChanged(() => this.UserTopics); }
         }
 
-        private ObservableCollection<DropboxBasket> _DropboxBaskets;
-        public ObservableCollection<DropboxBasket> DropboxBaskets
-        {
-            get { return _DropboxBaskets; }
-            set { _DropboxBaskets = value; this.OnPropertyChanged(() => this.DropboxBaskets); }
-        }
-        
-
         //private ObservableCollection<ThreadedDiscussion> _ThreadedDiscussions;
         //public ObservableCollection<ThreadedDiscussion> ThreadedDiscussions
         //{
@@ -68,12 +60,6 @@ namespace eCollegeWP7.ViewModels
             {
                 this.UserTopics = result.ToObservableCollection();
             });
-            AppViewModel.Client.FetchDropboxBaskets(courseId, (result) =>
-            {
-                this.DropboxBaskets = result.ToObservableCollection();
-            });
-
-
         }
 
     }
