@@ -29,7 +29,7 @@ namespace eCollegeWP7.Util.Converters
                 output += node.InnerText;
             }
 
-            return output.Trim();
+            return HttpUtility.HtmlDecode(output.Trim());
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

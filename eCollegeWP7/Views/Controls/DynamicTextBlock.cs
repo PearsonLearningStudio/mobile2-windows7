@@ -207,27 +207,75 @@ namespace eCollegeWP7.Views.Controls
             bool wrapping = this.TextWrapping == TextWrapping.Wrap;
 
             Size unboundSize = wrapping ? new Size(availableSize.Width, double.PositiveInfinity) : new Size(double.PositiveInfinity, availableSize.Height);
-            string reducedText = this.Text;
-
-            // set the text and measure it to see if it fits without alteration
-            this.textBlock.Text = reducedText;
-            Size textSize = base.MeasureOverride(unboundSize);
-
-            while (wrapping ? textSize.Height > availableSize.Height : textSize.Width > availableSize.Width)
-            {
-                int prevLength = reducedText.Length;
-                reducedText = this.ReduceText(reducedText);
-
-                if (reducedText.Length == prevLength)
-                {
-                    break;
-                }
-
-                this.textBlock.Text = reducedText + "...";
-                textSize = base.MeasureOverride(unboundSize);
-            }
+            this.textBlock.Text = GetDesiredText(this.Text, 0, -1, availableSize, unboundSize, wrapping);
             return base.MeasureOverride(availableSize);
         }
+
+        protected string GetDesiredText(string sourceText, int min, int max, Size availableSize, Size unboundSize, bool wrapping)
+        {
+            if (sourceText == null) return null;
+
+            if (max == -1) //see if the entire thing can fit
+            {
+                this.textBlock.Text = sourceText;
+                var fullTextSize = base.MeasureOverride(unboundSize);
+                if ((wrapping && (fullTextSize.Height > availableSize.Height)) || (!wrapping && (fullTextSize.Width > availableSize.Width)))
+                {
+                    return GetDesiredText(sourceText, min, sourceText.Length, availableSize, unboundSize, wrapping);
+                }
+                else
+                {
+                    return sourceText;
+                }
+            }
+
+            int length = min + (int)(Math.Floor((max - min) / 2.0));
+            var clippedText = sourceText.Substring(0, length);
+            var clippedTextWithEllipse = clippedText + "...";
+            this.textBlock.Text = clippedTextWithEllipse;
+            var textSize = base.MeasureOverride(unboundSize);
+
+            if ( (wrapping && (textSize.Height > availableSize.Height)) || (!wrapping && (textSize.Width > availableSize.Width)) )
+            {
+                return GetDesiredText(sourceText, min, length, availableSize, unboundSize, wrapping);
+            }
+            else
+            {
+                if (length >= (max - 1)) return clippedTextWithEllipse;
+                return GetDesiredText(sourceText, length, max, availableSize, unboundSize, wrapping);
+            }
+        }
+
+
+
+        //protected override Size MeasureOverride(Size availableSize)
+        //{
+        //    // just to make the code easier to read
+        //    bool wrapping = this.TextWrapping == TextWrapping.Wrap;
+
+        //    Size unboundSize = wrapping ? new Size(availableSize.Width, double.PositiveInfinity) : new Size(double.PositiveInfinity, availableSize.Height);
+        //    string reducedText = this.Text;
+
+        //    // set the text and measure it to see if it fits without alteration
+        //    this.textBlock.Text = reducedText;
+        //    Size textSize = base.MeasureOverride(unboundSize);
+
+        //    while (wrapping ? textSize.Height > availableSize.Height : textSize.Width > availableSize.Width)
+        //    {
+        //        int prevLength = reducedText.Length;
+        //        reducedText = this.ReduceText(reducedText);
+
+        //        if (reducedText.Length == prevLength)
+        //        {
+        //            break;
+        //        }
+
+        //        this.textBlock.Text = reducedText + "...";
+        //        textSize = base.MeasureOverride(unboundSize);
+        //    }
+        //    return base.MeasureOverride(availableSize);
+        //}
+
 
         /// <summary>
         /// Reduces the length of the text. Derived classes can override this to use different techniques 
