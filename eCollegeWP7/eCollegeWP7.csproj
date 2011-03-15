@@ -77,6 +77,7 @@
     </Compile>
     <Compile Include="ECollegeAPI\Announcements.cs" />
     <Compile Include="ECollegeAPI\Activities.cs" />
+    <Compile Include="ECollegeAPI\Grades.cs" />
     <Compile Include="ECollegeAPI\Courses.cs" />
     <Compile Include="ECollegeAPI\Dropbox.cs" />
     <Compile Include="ECollegeAPI\Model\ActivityStreamObject.cs" />
@@ -86,6 +87,8 @@
     <Compile Include="ECollegeAPI\Model\Boilerplate\UserLink.cs" />
     <Compile Include="ECollegeAPI\Model\ActivityStreamItem.cs" />
     <Compile Include="ECollegeAPI\Model\ActivityStreamActor.cs" />
+    <Compile Include="ECollegeAPI\Model\GradebookItem.cs" />
+    <Compile Include="ECollegeAPI\Model\Grade.cs" />
     <Compile Include="ECollegeAPI\Model\GrantToken.cs" />
     <Compile Include="ECollegeAPI\Model\DropboxAttachment.cs" />
     <Compile Include="ECollegeAPI\Model\DropboxBasketMessage.cs" />
@@ -108,6 +111,7 @@
     <Compile Include="ViewModels\AppViewModel.cs" />
     <Compile Include="ViewModels\ActivitiesViewModel.cs" />
     <Compile Include="ViewModels\ActivityViewModel.cs" />
+    <Compile Include="ViewModels\GradeViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\PeopleViewModel.cs" />
     <Compile Include="ViewModels\DiscussionsViewModel.cs" />
@@ -117,6 +121,9 @@
       <DependentUpon>BasePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Controls\DynamicTextBlock.cs" />
+    <Compile Include="Views\GradePage.xaml.cs">
+      <DependentUpon>GradePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
@@ -194,6 +201,10 @@
     <Page Include="Views\BasePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GradePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\SettingsPage.xaml">
       <Generator>MSBuild:Compile</Generator>

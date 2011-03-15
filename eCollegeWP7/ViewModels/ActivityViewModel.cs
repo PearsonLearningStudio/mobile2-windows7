@@ -27,6 +27,7 @@ namespace eCollegeWP7.ViewModels
         public string LineThree { get; set; }
         public string IconPath { get; set; }
         public string FriendlyDate { get; set; }
+        public string NavigationPath { get; set; }
 
         public ActivityViewModel(ActivityStreamItem item) : base()
         {
@@ -41,16 +42,19 @@ namespace eCollegeWP7.ViewModels
             {
                 LineOne = "Title: " + item.Target.Title;
                 IconPath = "/Resources/Icons/ic_menu_help.png";
+                NavigationPath = "/Views/DiscussionPage.xaml?topicId=" + item.Object.ReferenceId;
             }
             else if ("thread-post" == item.Object.ObjectType)
             {
                 LineOne = "Re: " + item.Target.Title;
                 IconPath = "/Resources/Icons/ic_menu_help.png";
+                NavigationPath = "/Views/DiscussionPage.xaml?responseId=" + item.Object.ReferenceId;
             } 
             else if ("grade" == item.Object.ObjectType) 
             {
                 LineOne = "Grade: " + item.Target.Title;
                 IconPath = "/Resources/Icons/ic_menu_help.png";
+                NavigationPath = "/Views/GradePage.xaml?courseId=" + item.Object.CourseId + "&gradebookItemGuid=" + item.Target.ReferenceId;
             }
             else if ("dropbox-submission" == item.Object.ObjectType)
             {

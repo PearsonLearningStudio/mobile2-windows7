@@ -34,11 +34,11 @@ namespace eCollegeWP7.Views
         {
             IDictionary<string, string> parameters = this.NavigationContext.QueryString;
 
-            if (parameters.ContainsKey("userTopicId"))
+            if (parameters.ContainsKey("topicId"))
             {
-                this.DataContext = new DiscussionViewModel(parameters["userTopicId"],parameters["topicId"],DiscussionType.TopicAndResponses);
-            } else if (parameters.ContainsKey("userResponseId")) {
-                this.DataContext = new DiscussionViewModel(parameters["userResponseId"],parameters["responseId"],DiscussionType.ResponseAndResponses);
+                this.DataContext = new DiscussionViewModel(parameters["topicId"],DiscussionType.TopicAndResponses);
+            } else if (parameters.ContainsKey("responseId")) {
+                this.DataContext = new DiscussionViewModel(parameters["responseId"],DiscussionType.ResponseAndResponses);
             }
 
         }

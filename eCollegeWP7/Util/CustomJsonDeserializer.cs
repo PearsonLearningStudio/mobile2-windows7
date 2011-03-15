@@ -174,8 +174,17 @@ namespace eCollegeWP7.Util
                     prop.SetValue(x, uri, null);
                 }
                 else if (type == typeof(string))
-                {
-                    string raw = value.AsString();
+                { 
+                    //string raw = value is string ? value.AsString() : value.ToString();
+                    string raw;
+                    if (value.Type == JTokenType.String)
+                    {
+                        raw = value.AsString();
+                    }
+                    else
+                    {
+                        raw = value.ToString().Replace("\"", string.Empty);
+                    }
                     prop.SetValue(x, raw, null);
                 }
                 else if (type == typeof(DateTime))

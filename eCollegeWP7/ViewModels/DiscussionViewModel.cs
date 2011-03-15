@@ -25,11 +25,11 @@ namespace eCollegeWP7.ViewModels
 
     public class DiscussionViewModel : ViewModelBase
     {
-        private string _userTopicId;
-        public string userTopicId
+        private string _UserTopicID;
+        public string UserTopicID
         {
-            get { return _userTopicId; }
-            set { _userTopicId = value; this.OnPropertyChanged(() => this.userTopicId); }
+            get { return _UserTopicID; }
+            set { _UserTopicID = value; this.OnPropertyChanged(() => this.UserTopicID); }
         }
 
         private string _TopicID;
@@ -52,11 +52,11 @@ namespace eCollegeWP7.ViewModels
             set { _ResponseID = value; this.OnPropertyChanged(() => this.ResponseID); }
         }
 
-        private string _userResponseId;
-        public string userResponseId
+        private string _UserResponseID;
+        public string UserResponseID
         {
-            get { return _userResponseId; }
-            set { _userResponseId = value; this.OnPropertyChanged(() => this.userResponseId); }
+            get { return _UserResponseID; }
+            set { _UserResponseID = value; this.OnPropertyChanged(() => this.UserResponseID); }
         }
 
         private UserDiscussionResponse _UserResponse;
@@ -101,16 +101,16 @@ namespace eCollegeWP7.ViewModels
             set { _DiscussionResponseCount = value; this.OnPropertyChanged(() => this.DiscussionResponseCount); }
         }
 
-        public DiscussionViewModel(string discussionHeaderId, string discussionId, DiscussionType dt)
+        public DiscussionViewModel(string discussionId, DiscussionType dt)
         {
             CurrentDiscussionType = dt;
 
             if (CurrentDiscussionType == DiscussionType.TopicAndResponses)
             {
-                this.userTopicId = discussionHeaderId;
                 this.TopicID = discussionId;
+                this.UserTopicID = AppViewModel.CurrentUser.ID + "-" + this.TopicID;
 
-                AppViewModel.Client.FetchMyDiscussionTopicById(discussionHeaderId, (result) =>
+                AppViewModel.Client.FetchMyDiscussionTopicById(UserTopicID, (result) =>
                 {
                     this.UserTopic = result;
                     this.DiscussionTitle = result.Topic.Title;
@@ -121,10 +121,10 @@ namespace eCollegeWP7.ViewModels
 
             if (CurrentDiscussionType == DiscussionType.ResponseAndResponses)
             {
-                this.userResponseId = discussionHeaderId;
                 this.ResponseID = discussionId;
+                this.UserResponseID = AppViewModel.CurrentUser.ID + "-" + this.ResponseID;
 
-                AppViewModel.Client.FetchMyDiscussionResponseById(discussionHeaderId, (result) =>
+                AppViewModel.Client.FetchMyDiscussionResponseById(UserResponseID, (result) =>
                 {
                     this.UserResponse = result;
                     this.DiscussionTitle = result.Response.Title;

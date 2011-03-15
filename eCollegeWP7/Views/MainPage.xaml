@@ -60,34 +60,40 @@
             <!--Use 'Orientation="Horizontal"' to enable a panel that lays out horizontally-->
             <controls:PanoramaItem x:Name="PanActivity" Header="activity" Margin="0,0,-25,0">
                 <Grid>
-                    <ListBox ItemsSource="{Binding Path=Activities}" ItemContainerStyle="{StaticResource StretchedContainerStyle}">
+                    <ListBox x:Name="LstActivity"  ItemsSource="{Binding Path=Activities}" ItemContainerStyle="{StaticResource StretchedContainerStyle}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Grid HorizontalAlignment="Stretch">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                    </Grid.RowDefinitions>
-                                    <!--<Image Source="{Binding Path=IconPath}"/>-->
-                                    <Image Source="/Resources/Icons/ic_menu_help.png" Grid.RowSpan="3" VerticalAlignment="Top"/>
-                                    <c:DynamicTextBlock Grid.Column="1" Text="{Binding Path=LineOne}" HorizontalAlignment="Left"
+                                <Button Click="BtnActivity_Click">
+                                    <Button.Template>
+                                        <ControlTemplate>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <!--<Image Source="{Binding Path=IconPath}"/>-->
+                                                <Image Source="/Resources/Icons/ic_menu_help.png" Grid.RowSpan="3" VerticalAlignment="Top"/>
+                                                <c:DynamicTextBlock Grid.Column="1" Text="{Binding Path=LineOne}" HorizontalAlignment="Left"
                                                TextStyle="{StaticResource PhoneTextTitle2Style}"/>
-                                    <c:DynamicTextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Left" 
+                                                <c:DynamicTextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Left" 
                                                TextStyle="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" MaxHeight="70" 
                                                Text="{Binding Path=LineTwo,Converter={StaticResource HtmlToTextConverter}}"/>
-                                    <TextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" HorizontalAlignment="Left"
+                                                <TextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" HorizontalAlignment="Left"
                                                Style="{StaticResource PhoneTextSmallStyle}" 
                                                Text="{Binding Path=LineThree}"/>
-                                    <TextBlock Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" 
+                                                <TextBlock Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" 
                                                Style="{StaticResource PhoneTextSubtleStyle}"
                                                Text="{Binding Path=FriendlyDate}" />
-                                </Grid>
+                                            </Grid>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ListBox>

@@ -43,6 +43,7 @@ namespace eCollegeWP7.ViewModels
         {
             Client.FetchMe(me =>
             {
+                CurrentUser = me;
                 Courses = new CoursesViewModel();
                 Courses.Load(res =>
                 {

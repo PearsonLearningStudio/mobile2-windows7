@@ -98,5 +98,16 @@ namespace eCollegeWP7.Views
                 }
             }
         }
+
+        private void BtnActivity_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as Button;
+            var vm = btn.DataContext as ActivityViewModel;
+
+            if (vm.NavigationPath != null)
+            {
+                this.NavigationService.Navigate(new Uri(vm.NavigationPath, UriKind.Relative));
+            }
+        }
     }
 }

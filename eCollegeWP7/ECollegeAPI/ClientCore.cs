@@ -29,8 +29,8 @@ namespace ECollegeAPI
             public Action<RestResponse> Callback { get; set; }
         }
 
-        //public const string RootUri = "https://m-api.ecollege.com/";
-        public const string RootUri = "http://ecollegeapiproxy.heroku.com/";
+        public const string RootUri = "https://m-api.ecollege.com/";
+        //public const string RootUri = "http://ecollegeapiproxy.heroku.com/";
         //public const string RootUri = "http://192.168.1.2:4000/";
 
         readonly string _clientString;
