@@ -34,8 +34,8 @@ namespace eCollegeWP7.ViewModels
             set { _Announcements = value; this.OnPropertyChanged(() => this.Announcements); }
         }
 
-        private ObservableCollection<DiscussionTopicHeader> _UserTopics;
-        public ObservableCollection<DiscussionTopicHeader> UserTopics
+        private ObservableCollection<UserDiscussionTopic> _UserTopics;
+        public ObservableCollection<UserDiscussionTopic> UserTopics
         {
             get { return _UserTopics; }
             set { _UserTopics = value; this.OnPropertyChanged(() => this.UserTopics); }

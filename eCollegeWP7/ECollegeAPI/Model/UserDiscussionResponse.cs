@@ -12,7 +12,7 @@ using ECollegeAPI.Model.Boilerplate;
 
 namespace ECollegeAPI.Model
 {
-    public class DiscussionResponseHeader
+    public class UserDiscussionResponse
     {
         public string ID { get; set; }
         public bool MarkedAsRead { get; set; }

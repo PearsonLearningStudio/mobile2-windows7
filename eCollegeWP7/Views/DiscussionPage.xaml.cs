@@ -34,19 +34,19 @@ namespace eCollegeWP7.Views
         {
             IDictionary<string, string> parameters = this.NavigationContext.QueryString;
 
-            if (parameters.ContainsKey("topicHeaderId"))
+            if (parameters.ContainsKey("userTopicId"))
             {
-                this.DataContext = new DiscussionViewModel(parameters["topicHeaderId"],parameters["topicId"],DiscussionType.TopicAndResponses);
-            } else if (parameters.ContainsKey("responseHeaderId")) {
-                this.DataContext = new DiscussionViewModel(parameters["responseHeaderId"],parameters["responseId"],DiscussionType.ResponseAndResponses);
+                this.DataContext = new DiscussionViewModel(parameters["userTopicId"],parameters["topicId"],DiscussionType.TopicAndResponses);
+            } else if (parameters.ContainsKey("userResponseId")) {
+                this.DataContext = new DiscussionViewModel(parameters["userResponseId"],parameters["responseId"],DiscussionType.ResponseAndResponses);
             }
 
         }
 
         private void BtnResponse_Click(object sender, RoutedEventArgs e)
         {
-            var rheader = (sender as Button).DataContext as DiscussionResponseHeader;
-            this.NavigationService.Navigate(new Uri("/Views/DiscussionPage.xaml?responseId=" + rheader.Response.ID + "&responseHeaderId=" + rheader.ID, UriKind.Relative));
+            var rheader = (sender as Button).DataContext as UserDiscussionResponse;
+            this.NavigationService.Navigate(new Uri("/Views/DiscussionPage.xaml?responseId=" + rheader.Response.ID + "&userResponseId=" + rheader.ID, UriKind.Relative));
         }
 
         private void BtnShowAddResponse_Click(object sender, RoutedEventArgs e)

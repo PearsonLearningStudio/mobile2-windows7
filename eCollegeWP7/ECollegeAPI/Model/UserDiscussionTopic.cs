@@ -11,7 +11,7 @@ using System.Windows.Shapes;
 
 namespace ECollegeAPI.Model
 {
-    public class DiscussionTopicHeader
+    public class UserDiscussionTopic
     {
         public string ID { get; set; }
         public DiscussionTopic Topic { get; set; }

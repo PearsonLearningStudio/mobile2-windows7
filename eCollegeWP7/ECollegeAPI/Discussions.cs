@@ -26,52 +26,52 @@ namespace ECollegeAPI
     public partial class ECollegeClient
     {
 
-        public void FetchMyDiscussionTopics(List<long> courseIds, Action<List<DiscussionTopicHeader>> callback)
+        public void FetchMyDiscussionTopics(List<long> courseIds, Action<List<UserDiscussionTopic>> callback)
         {
             var courseString = String.Join(";", (from cid in courseIds select (cid + "")).ToArray());
             var request = new RestRequest("me/userTopics?courses=" + courseString, Method.GET);
 
-            ExecuteAsync<List<DiscussionTopicHeader>>(request, "userTopics", result =>
+            ExecuteAsync<List<UserDiscussionTopic>>(request, "userTopics", result =>
             {
                 callback(result);
             });
         }
 
-        public void FetchMyDiscussionResponsesByTopic(string topicId, Action<List<DiscussionResponseHeader>> callback)
+        public void FetchMyDiscussionResponsesByTopic(string topicId, Action<List<UserDiscussionResponse>> callback)
         {
             var request = new RestRequest("me/topics/" + topicId + "/userresponses", Method.GET);
 
-            ExecuteAsync<List<DiscussionResponseHeader>>(request,"userResponses", result =>
+            ExecuteAsync<List<UserDiscussionResponse>>(request,"userResponses", result =>
             {
                 callback(result);
             });
         }
 
-        public void FetchMyDiscussionResponsesByResponse(string responseId, Action<List<DiscussionResponseHeader>> callback)
+        public void FetchMyDiscussionResponsesByResponse(string responseId, Action<List<UserDiscussionResponse>> callback)
         {
             var request = new RestRequest("me/responses/" + responseId + "/userresponses", Method.GET);
 
-            ExecuteAsync<List<DiscussionResponseHeader>>(request,"userResponses", result =>
+            ExecuteAsync<List<UserDiscussionResponse>>(request,"userResponses", result =>
             {
                 callback(result);
             });
         }
 
-        public void FetchMyDiscussionTopicById(string topicHeaderId, Action<DiscussionTopicHeader> callback)
+        public void FetchMyDiscussionTopicById(string userTopicId, Action<UserDiscussionTopic> callback)
         {
-            var request = new RestRequest("me/usertopics/" + topicHeaderId, Method.GET);
+            var request = new RestRequest("me/usertopics/" + userTopicId, Method.GET);
 
-            ExecuteAsync<List<DiscussionTopicHeader>>(request, "userTopics", result =>
+            ExecuteAsync<List<UserDiscussionTopic>>(request, "userTopics", result =>
             {
                 callback(result.First());
             });
         }
 
-        public void FetchMyDiscussionResponseById(string responseHeaderId, Action<DiscussionResponseHeader> callback)
+        public void FetchMyDiscussionResponseById(string userResponseId, Action<UserDiscussionResponse> callback)
         {
-            var request = new RestRequest("me/userresponses/" + responseHeaderId, Method.GET);
+            var request = new RestRequest("me/userresponses/" + userResponseId, Method.GET);
 
-            ExecuteAsync<List<DiscussionResponseHeader>>(request,"userResponses", result =>
+            ExecuteAsync<List<UserDiscussionResponse>>(request,"userResponses", result =>
             {
                 callback(result.First());
             });

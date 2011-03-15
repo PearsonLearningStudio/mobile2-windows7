@@ -21,8 +21,8 @@ namespace eCollegeWP7.ViewModels
     public class DiscussionsViewModel : ViewModelBase
     {
 
-        private List<DiscussionTopicHeader> _Topics;
-        public List<DiscussionTopicHeader> Topics
+        private List<UserDiscussionTopic> _Topics;
+        public List<UserDiscussionTopic> Topics
         {
             get { return _Topics; }
             set { _Topics = value; this.OnPropertyChanged(() => this.Topics); }

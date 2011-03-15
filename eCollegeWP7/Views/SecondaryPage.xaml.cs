@@ -55,8 +55,8 @@ namespace eCollegeWP7.Views
 
         private void BtnDiscussion_Click(object sender, RoutedEventArgs e)
         {
-            var theader = (sender as Button).DataContext as DiscussionTopicHeader;
-            this.NavigationService.Navigate(new Uri("/Views/DiscussionPage.xaml?topicId=" + theader.Topic.ID + "&topicHeaderId=" + theader.ID, UriKind.Relative));
+            var theader = (sender as Button).DataContext as UserDiscussionTopic;
+            this.NavigationService.Navigate(new Uri("/Views/DiscussionPage.xaml?topicId=" + theader.Topic.ID + "&userTopicId=" + theader.ID, UriKind.Relative));
         }
 
         private void LspFilterDiscussions_SelectionChanged(object sender, SelectionChangedEventArgs e)

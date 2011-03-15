@@ -21,7 +21,7 @@ namespace eCollegeWP7.Util.Converters
 
         public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            var topics = values[0] as List<DiscussionTopicHeader>;
+            var topics = values[0] as List<UserDiscussionTopic>;
             var course = values[1] as Course;
 
             if (course == null || course.ID == -1 || topics == null) //c.ID == -1 means all topics
@@ -30,7 +30,7 @@ namespace eCollegeWP7.Util.Converters
             }
             else
             {
-                return (from t in topics where t.Topic.ContainerInfo.CourseID.Equals(course.ID) select t).ToList<DiscussionTopicHeader>();
+                return (from t in topics where t.Topic.ContainerInfo.CourseID.Equals(course.ID) select t).ToList<UserDiscussionTopic>();
             }
         }
 

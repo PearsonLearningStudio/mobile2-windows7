@@ -25,11 +25,11 @@ namespace eCollegeWP7.ViewModels
 
     public class DiscussionViewModel : ViewModelBase
     {
-        private string _TopicHeaderID;
-        public string TopicHeaderID
+        private string _userTopicId;
+        public string userTopicId
         {
-            get { return _TopicHeaderID; }
-            set { _TopicHeaderID = value; this.OnPropertyChanged(() => this.TopicHeaderID); }
+            get { return _userTopicId; }
+            set { _userTopicId = value; this.OnPropertyChanged(() => this.userTopicId); }
         }
 
         private string _TopicID;
@@ -38,11 +38,11 @@ namespace eCollegeWP7.ViewModels
             set { _TopicID = value; this.OnPropertyChanged(()=>this.TopicID); }
         }
 
-        private DiscussionTopicHeader _TopicHeader;
-        public DiscussionTopicHeader TopicHeader
+        private UserDiscussionTopic _UserTopic;
+        public UserDiscussionTopic UserTopic
         {
-            get { return _TopicHeader; }
-            set { _TopicHeader = value; this.OnPropertyChanged(() => this.TopicHeader); }
+            get { return _UserTopic; }
+            set { _UserTopic = value; this.OnPropertyChanged(() => this.UserTopic); }
         }
 
         private string _ResponseID;
@@ -52,22 +52,22 @@ namespace eCollegeWP7.ViewModels
             set { _ResponseID = value; this.OnPropertyChanged(() => this.ResponseID); }
         }
 
-        private string _ResponseHeaderID;
-        public string ResponseHeaderID
+        private string _userResponseId;
+        public string userResponseId
         {
-            get { return _ResponseHeaderID; }
-            set { _ResponseHeaderID = value; this.OnPropertyChanged(() => this.ResponseHeaderID); }
+            get { return _userResponseId; }
+            set { _userResponseId = value; this.OnPropertyChanged(() => this.userResponseId); }
         }
 
-        private DiscussionResponseHeader _ResponseHeader;
-        public DiscussionResponseHeader ResponseHeader
+        private UserDiscussionResponse _UserResponse;
+        public UserDiscussionResponse UserResponse
         {
-            get { return _ResponseHeader; }
-            set { _ResponseHeader = value; this.OnPropertyChanged(() => this.ResponseHeader); }
+            get { return _UserResponse; }
+            set { _UserResponse = value; this.OnPropertyChanged(() => this.UserResponse); }
         }
 
-        private ObservableCollection<DiscussionResponseHeader> _Responses;
-        public ObservableCollection<DiscussionResponseHeader> Responses
+        private ObservableCollection<UserDiscussionResponse> _Responses;
+        public ObservableCollection<UserDiscussionResponse> Responses
         {
             get { return _Responses; }
             set { _Responses = value; this.OnPropertyChanged(() => this.Responses); }
@@ -107,12 +107,12 @@ namespace eCollegeWP7.ViewModels
 
             if (CurrentDiscussionType == DiscussionType.TopicAndResponses)
             {
-                this.TopicHeaderID = discussionHeaderId;
+                this.userTopicId = discussionHeaderId;
                 this.TopicID = discussionId;
 
                 AppViewModel.Client.FetchMyDiscussionTopicById(discussionHeaderId, (result) =>
                 {
-                    this.TopicHeader = result;
+                    this.UserTopic = result;
                     this.DiscussionTitle = result.Topic.Title;
                     this.DiscussionDescription = result.Topic.Description;
                     this.DiscussionResponseCount = result.ChildResponseCounts.TotalResponseCount;
@@ -121,12 +121,12 @@ namespace eCollegeWP7.ViewModels
 
             if (CurrentDiscussionType == DiscussionType.ResponseAndResponses)
             {
-                this.ResponseHeaderID = discussionHeaderId;
+                this.userResponseId = discussionHeaderId;
                 this.ResponseID = discussionId;
 
                 AppViewModel.Client.FetchMyDiscussionResponseById(discussionHeaderId, (result) =>
                 {
-                    this.ResponseHeader = result;
+                    this.UserResponse = result;
                     this.DiscussionTitle = result.Response.Title;
                     this.DiscussionDescription = result.Response.Description;
                     this.DiscussionResponseCount = result.ChildResponseCounts.TotalResponseCount;
@@ -166,7 +166,7 @@ namespace eCollegeWP7.ViewModels
             {
                 AppViewModel.Client.FetchMyDiscussionResponsesByTopic(TopicID, (result) =>
                 {
-                    var formattedResult = new ObservableCollection<DiscussionResponseHeader>();
+                    var formattedResult = new ObservableCollection<UserDiscussionResponse>();
                     foreach (var r in result) formattedResult.Add(r);
                     this.Responses = formattedResult;
                 });
@@ -175,7 +175,7 @@ namespace eCollegeWP7.ViewModels
             {
                 AppViewModel.Client.FetchMyDiscussionResponsesByResponse(ResponseID, (result) =>
                 {
-                    var formattedResult = new ObservableCollection<DiscussionResponseHeader>();
+                    var formattedResult = new ObservableCollection<UserDiscussionResponse>();
                     foreach (var r in result) formattedResult.Add(r);
                     this.Responses = formattedResult;
                 });
