@@ -35,7 +35,7 @@ namespace eCollegeWP7.ViewModels
 
         protected void SetupFromItem(ActivityStreamItem item)
         {
-            FriendlyDate = "yesterday";
+            FriendlyDate = DateTimeUtil.FriendlyDate(item.PostedTime);
 
             if ("thread-topic" == item.Object.ObjectType)
             {

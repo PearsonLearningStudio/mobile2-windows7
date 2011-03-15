@@ -12,7 +12,8 @@
     <!--Application Resources-->
     <Application.Resources>
         <conv:FilterTopicByCourseConverter x:Key="FilterTopicByCourseConverter"/>
-        <conv:HtmlToTextConverter x:Key="HtmlToTextConverter"/> 
+        <conv:HtmlToTextConverter x:Key="HtmlToTextConverter"/>
+        <conv:FriendlyDateConverter x:Key="FriendlyDateConverter"/>
         <u:LocalizedResources x:Key="res"/>
         
         <Style x:Key="StretchedContainerStyle" TargetType="ListBoxItem">

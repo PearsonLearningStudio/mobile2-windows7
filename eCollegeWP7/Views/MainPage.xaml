@@ -76,12 +76,12 @@
                                     </Grid.RowDefinitions>
                                     <!--<Image Source="{Binding Path=IconPath}"/>-->
                                     <Image Source="/Resources/Icons/ic_menu_help.png" Grid.RowSpan="3" VerticalAlignment="Top"/>
-                                    <c:DynamicTextBlock Grid.Column="1" Text="{Binding Path=LineOne}"
+                                    <c:DynamicTextBlock Grid.Column="1" Text="{Binding Path=LineOne}" HorizontalAlignment="Left"
                                                TextStyle="{StaticResource PhoneTextTitle2Style}"/>
-                                    <TextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" 
+                                    <TextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Left" 
                                                Style="{StaticResource PhoneTextNormalStyle}" 
-                                               Text="{Binding Path=LineTwo}"/>
-                                    <TextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" 
+                                               Text="{Binding Path=LineTwo,Converter={StaticResource HtmlToTextConverter}}"/>
+                                    <TextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" HorizontalAlignment="Left"
                                                Style="{StaticResource PhoneTextSmallStyle}" 
                                                Text="{Binding Path=LineThree}"/>
                                     <TextBlock Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" 
