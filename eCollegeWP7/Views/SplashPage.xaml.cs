@@ -16,7 +16,7 @@ namespace eCollegeWP7.Views
 {
     public partial class SplashPage : BasePage
     {
-        public SplashPage()
+        public SplashPage() : base()
         {
             InitializeComponent();
         }

@@ -19,7 +19,7 @@ namespace eCollegeWP7.Views
     {
         public CourseViewModel Model { get { return this.DataContext as CourseViewModel; } }
 
-        public CoursePage()
+        public CoursePage() : base()
         {
             InitializeComponent();
         }

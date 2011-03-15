@@ -26,7 +26,7 @@ namespace eCollegeWP7.Views
         protected ActivitiesViewModel ActivitiesViewModel { get; set; }
 
         // Constructor
-        public MainPage()
+        public MainPage() : base()
         {
             InitializeComponent();
 
@@ -45,23 +45,21 @@ namespace eCollegeWP7.Views
             IDictionary<string, string> parameters = this.NavigationContext.QueryString;
 
             string defaultPanoramaItem;
+
+            if (!parameters.TryGetValue("defaultPanoramaItem", out defaultPanoramaItem))
             {
                 defaultPanoramaItem = "PanHome";
             }
 
-            var defaultItem = PanMain.FindName(defaultPanoramaItem);
+            var defaultItem = PanMain.FindName(defaultPanoramaItem) as PanoramaItem;
             PanMain.DefaultItem = defaultItem;
+            UpdateSelectedPanoramaItem(defaultItem);
         }
 
         private void BtnShowDialog_Click(object sender, RoutedEventArgs e)
         {
             ErrorDialog ed = new ErrorDialog();
             ed.Show();
-        }
-
-        private void BasePage_BackKeyPress(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            throw new AppExitException();
         }
 
         private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
@@ -80,13 +78,24 @@ namespace eCollegeWP7.Views
             }
         }
 
-        private void PanActivity_Loaded(object sender, RoutedEventArgs e)
+        private void PanMain_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (ActivitiesViewModel == null)
+            UpdateSelectedPanoramaItem(PanMain.SelectedItem as PanoramaItem);
+        }
+
+        protected void UpdateSelectedPanoramaItem(PanoramaItem selectedItem)
+        {
+            if (selectedItem != null)
             {
-                ActivitiesViewModel = new ActivitiesViewModel();
-                ActivitiesViewModel.Load();
-                (sender as PanoramaItem).DataContext = ActivitiesViewModel;
+                if (selectedItem.Name == "PanActivity")
+                {
+                    if (ActivitiesViewModel == null)
+                    {
+                        ActivitiesViewModel = new ActivitiesViewModel();
+                        ActivitiesViewModel.Load();
+                        selectedItem.DataContext = ActivitiesViewModel;
+                    }
+                }
             }
         }
     }

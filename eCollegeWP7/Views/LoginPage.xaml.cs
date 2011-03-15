@@ -17,7 +17,7 @@ namespace eCollegeWP7.Views
 {
     public partial class LoginPage : BasePage
     {
-        public LoginPage()
+        public LoginPage() : base()
         {
             InitializeComponent();
         }

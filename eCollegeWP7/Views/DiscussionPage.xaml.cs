@@ -25,7 +25,7 @@ namespace eCollegeWP7.Views
         protected TextBox TxtResponseTitle { get { return this.FindVisualChild<TextBox>("TxtResponseTitle"); } }
         protected DiscussionViewModel Model { get { return this.DataContext as DiscussionViewModel; } }
 
-        public DiscussionPage()
+        public DiscussionPage() : base()
         {
             InitializeComponent();
         }

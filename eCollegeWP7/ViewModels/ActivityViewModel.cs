@@ -20,61 +20,60 @@ namespace eCollegeWP7.ViewModels
 {
     public class ActivityViewModel : ViewModelBase
     {
-        private ActivityStreamItem _item;
+        private ActivityStreamItem item;
 
-        public string LineOne
-        {
-            get
-            {
-                if ("thread-topic" == _item.Object.ObjectType) return "Title: " + _item.Target.Title;
-                if ("thread-post" == _item.Object.ObjectType) return "Re: " + _item.Target.Title;
-                if ("grade" == _item.Object.ObjectType) return "Grade: " + _item.Target.Title;
-                if ("dropbox-submission" == _item.Object.ObjectType) return "Dropbox: " + _item.Target.Title;
-                return _item.Object.ObjectType + ": " + _item.Target.Title;
-            }
-        }
-
-        public string LineTwo
-        {
-            get
-            {
-                return _item.Object.Summary;
-            }
-        }
-        public string LineThree
-        {
-            get
-            {
-                Course c;
-                if (AppViewModel.Courses.CourseIdMap.TryGetValue(_item.Object.CourseId, out c))
-                {
-                    return c.Title + " (" + c.DisplayCourseCode + ")";
-                }
-                else
-                {
-                    return "Unknown Course";
-                }
-            }
-        }
-
-        public string IconPath
-        {
-            get
-            {
-                if ("thread-topic" == _item.Object.ObjectType) return "/Resources/Icons/ic_menu_help.png";
-                if ("thread-post" == _item.Object.ObjectType) return "/Resources/Icons/ic_menu_help.png";
-                if ("grade" == _item.Object.ObjectType) return "/Resources/Icons/ic_menu_help.png";
-                if ("dropbox-submission" == _item.Object.ObjectType) return "/Resources/Icons/ic_menu_help.png";
-                return "/Resources/Icons/ic_menu_help.png";
-            }
-        }
-
+        public string LineOne { get; set; }
+        public string LineTwo { get; set; }
+        public string LineThree { get; set; }
+        public string IconPath { get; set; }
         public string FriendlyDate { get; set; }
 
         public ActivityViewModel(ActivityStreamItem item) : base()
         {
-            _item = item;
+            SetupFromItem(item);
+        }
+
+        protected void SetupFromItem(ActivityStreamItem item)
+        {
             FriendlyDate = "yesterday";
+
+            if ("thread-topic" == item.Object.ObjectType)
+            {
+                LineOne = "Title: " + item.Target.Title;
+                IconPath = "/Resources/Icons/ic_menu_help.png";
+            }
+            else if ("thread-post" == item.Object.ObjectType)
+            {
+                LineOne = "Re: " + item.Target.Title;
+                IconPath = "/Resources/Icons/ic_menu_help.png";
+            } 
+            else if ("grade" == item.Object.ObjectType) 
+            {
+                LineOne = "Grade: " + item.Target.Title;
+                IconPath = "/Resources/Icons/ic_menu_help.png";
+            }
+            else if ("dropbox-submission" == item.Object.ObjectType)
+            {
+                LineOne = "Dropbox: " + item.Target.Title;
+                IconPath = "/Resources/Icons/ic_menu_help.png";
+            }
+            else
+            {
+                LineOne = item.Object.ObjectType + ": " + item.Target.Title;
+                IconPath = "/Resources/Icons/ic_menu_help.png";
+            }
+
+            LineTwo = item.Object.Summary;
+
+            Course c;
+            if (AppViewModel.Courses.CourseIdMap.TryGetValue(item.Object.CourseId, out c))
+            {
+                LineThree = c.Title + " (" + c.DisplayCourseCode + ")";
+            }
+            else
+            {
+                LineThree = "Unknown Course";
+            }
         }
 
     }

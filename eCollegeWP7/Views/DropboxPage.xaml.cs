@@ -20,7 +20,7 @@ namespace eCollegeWP7.Views
     {
         protected DropboxViewModel Model { get { return this.DataContext as DropboxViewModel; } }
 
-        public DropboxPage()
+        public DropboxPage() : base()
         {
             InitializeComponent();
         }

@@ -26,7 +26,7 @@ namespace eCollegeWP7.Views
         protected DiscussionsViewModel DiscussionsViewModel { get; set; }
 
         // Constructor
-        public SecondaryPage()
+        public SecondaryPage() : base()
         {
             InitializeComponent();
         }
@@ -36,12 +36,15 @@ namespace eCollegeWP7.Views
             IDictionary<string, string> parameters = this.NavigationContext.QueryString;
 
             string defaultPanoramaItem;
+
+            if (!parameters.TryGetValue("defaultPanoramaItem", out defaultPanoramaItem))
             {
-                defaultPanoramaItem = "PanCourses";
+                defaultPanoramaItem = "PanHome";
             }
 
-            var defaultItem = PanMain.FindName(defaultPanoramaItem);
+            var defaultItem = PanMain.FindName(defaultPanoramaItem) as PanoramaItem;
             PanMain.DefaultItem = defaultItem;
+            UpdateSelectedPanoramaItem(defaultItem);
         }
 
         private void BtnOpenCourse_Click(object sender, RoutedEventArgs e)
@@ -68,23 +71,32 @@ namespace eCollegeWP7.Views
             //Model.PeopleCourseFilter = LspFilterPeople.SelectedItem as Course;
         }
 
-        private void PanDiscussions_Loaded(object sender, RoutedEventArgs e)
+        protected void UpdateSelectedPanoramaItem(PanoramaItem selectedItem)
         {
-            if (DiscussionsViewModel == null)
+            if (selectedItem != null)
             {
-                DiscussionsViewModel = new DiscussionsViewModel();
-                DiscussionsViewModel.Load();
-                (sender as PanoramaItem).DataContext = DiscussionsViewModel;
+                if (selectedItem.Name == "PanDiscussions")
+                {
+                    if (DiscussionsViewModel == null)
+                    {
+                        DiscussionsViewModel = new DiscussionsViewModel();
+                        DiscussionsViewModel.Load();
+                        selectedItem.DataContext = DiscussionsViewModel;
+                    }
+                }
+                else if (selectedItem.Name == "PanCourses")
+                {
+                    if (selectedItem.DataContext == null || !(selectedItem.DataContext is CoursesViewModel))
+                    {
+                        selectedItem.DataContext = App.Model.Courses;
+                    }
+                }
             }
         }
 
-        private void PanCourses_Loaded(object sender, RoutedEventArgs e)
+        private void PanMain_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var panCourses = sender as PanoramaItem;
-            if (panCourses.DataContext == null || !(panCourses.DataContext is CoursesViewModel))
-            {
-                panCourses.DataContext = App.Model.Courses;
-            }
+            UpdateSelectedPanoramaItem(PanMain.SelectedItem as PanoramaItem);
         }
     }
 }

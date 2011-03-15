@@ -21,12 +21,12 @@
     <Grid x:Name="LayoutRoot" Background="Transparent">
 
         <!--Panorama control-->
-        <controls:Panorama x:Name="PanMain" Title="eCollege">
+        <controls:Panorama x:Name="PanMain" Title="eCollege" SelectionChanged="PanMain_SelectionChanged">
             <controls:Panorama.Background>
                 <ImageBrush ImageSource="../PanoramaBackground.png"/>
             </controls:Panorama.Background>
 
-            <controls:PanoramaItem x:Name="PanDiscussions" Header="discussions" Loaded="PanDiscussions_Loaded">
+            <controls:PanoramaItem x:Name="PanDiscussions" Header="discussions">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -85,7 +85,7 @@
 
             <!--Panorama item two-->
             <!--Use 'Orientation="Horizontal"' to enable a panel that lays out horizontally-->
-            <controls:PanoramaItem x:Name="PanCourses" Header="courses" Loaded="PanCourses_Loaded">
+            <controls:PanoramaItem x:Name="PanCourses" Header="courses">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>

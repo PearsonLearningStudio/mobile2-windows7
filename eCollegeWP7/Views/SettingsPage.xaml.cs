@@ -19,7 +19,7 @@ namespace eCollegeWP7.Views
     public partial class SettingsPage : BasePage
     {
 
-        public SettingsPage()
+        public SettingsPage() : base()
         {
             InitializeComponent();
         }

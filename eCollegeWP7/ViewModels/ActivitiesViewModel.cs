@@ -20,6 +20,9 @@ namespace eCollegeWP7.ViewModels
 {
     public class ActivitiesViewModel : ViewModelBase
     {
+
+        protected BackgroundWorker _loadingWorker;
+
         private ObservableCollection<ActivityViewModel> _Activities;
         public ObservableCollection<ActivityViewModel> Activities
         {
@@ -39,19 +42,35 @@ namespace eCollegeWP7.ViewModels
                 if (callback != null) callback(true);
                 return;
             }
+            else if (_loadingWorker != null)
+            {
+                _loadingWorker.RunWorkerCompleted += (s, e) =>
+                {
+                    callback(true);
+                };
+                return;
+            }
 
             AppViewModel.Client.FetchMyWhatsHappeningFeed( (tresult) =>
             {
-                ObservableCollection<ActivityViewModel> data = new ObservableCollection<ActivityViewModel>();
-
-                foreach (var item in tresult)
+                _loadingWorker = new BackgroundWorker();
+                _loadingWorker.DoWork += (s, e) =>
                 {
-                    data.Add(new ActivityViewModel(item));
-                }
-                this.Activities = data;
-                if (callback != null) callback(true);
+                    ObservableCollection<ActivityViewModel> data = new ObservableCollection<ActivityViewModel>();
+                    foreach (var item in tresult)
+                    {
+                        data.Add(new ActivityViewModel(item));
+                    }
+                    e.Result = data;
+                };
+                _loadingWorker.RunWorkerCompleted += (s, e) =>
+                {
+                    this.Activities = e.Result as ObservableCollection<ActivityViewModel>;
+                    _loadingWorker = null;
+                    if (callback != null) callback(true);
+                };
+                _loadingWorker.RunWorkerAsync();
             });
         }
-
     }
 }

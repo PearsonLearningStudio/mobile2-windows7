@@ -19,7 +19,7 @@ namespace eCollegeWP7.Views
     public partial class ProfilePage : BasePage
     {
 
-        public ProfilePage()
+        public ProfilePage() : base()
         {
             InitializeComponent();
         }

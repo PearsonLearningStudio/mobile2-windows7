@@ -19,7 +19,7 @@ namespace eCollegeWP7.Views
     public partial class HelpPage : BasePage
     {
 
-        public HelpPage()
+        public HelpPage() : base()
         {
             InitializeComponent();
         }
