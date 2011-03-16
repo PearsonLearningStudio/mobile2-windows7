@@ -92,7 +92,7 @@ namespace eCollegeWP7.Views
                     if (ActivitiesViewModel == null)
                     {
                         ActivitiesViewModel = new ActivitiesViewModel();
-                        ActivitiesViewModel.Load();
+                        ActivitiesViewModel.Load(false);
                         selectedItem.DataContext = ActivitiesViewModel;
                     }
                 }
@@ -107,6 +107,14 @@ namespace eCollegeWP7.Views
             if (vm.NavigationPath != null)
             {
                 this.NavigationService.Navigate(new Uri(vm.NavigationPath, UriKind.Relative));
+            }
+        }
+
+        private void BtnLoadMore_Click(object sender, RoutedEventArgs e)
+        {
+            if (ActivitiesViewModel != null)
+            {
+                ActivitiesViewModel.Load(true);
             }
         }
     }

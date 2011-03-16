@@ -44,7 +44,7 @@
                             <HyperlinkButton Click="HyperlinkButton_Click">
                                 <HyperlinkButton.Template>
                                     <ControlTemplate>
-                                        <StackPanel Orientation="Horizontal" Margin="5">
+                                        <StackPanel Orientation="Horizontal" Margin="5" Background="Transparent">
                                             <Image Source="{Binding Path=IconPath}"/>
                                             <TextBlock Text="{Binding Path=Title}" VerticalAlignment="Center"/>
                                         </StackPanel>
@@ -60,7 +60,20 @@
             <!--Use 'Orientation="Horizontal"' to enable a panel that lays out horizontally-->
             <controls:PanoramaItem x:Name="PanActivity" Header="activity" Margin="0,0,-25,0">
                 <Grid>
-                    <ListBox x:Name="LstActivity"  ItemsSource="{Binding Path=Activities}" ItemContainerStyle="{StaticResource StretchedContainerStyle}">
+                    <ListBox x:Name="LstActivity" ItemsSource="{Binding Path=Activities}" ItemContainerStyle="{StaticResource StretchedContainerStyle}">
+                        <ListBox.Template>
+                            <ControlTemplate TargetType="ListBox">
+                                <ScrollViewer x:Name="ScrollViewer" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Foreground="{TemplateBinding Foreground}" Padding="{TemplateBinding Padding}">
+                                    <StackPanel>
+                                        <ItemsPresenter/>
+
+                                        <Button x:Name="BtnLoadMore" Click="BtnLoadMore_Click"
+                                                 Visibility="{Binding Path=CanLoadMore, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                                 HorizontalAlignment="Stretch" Content="Load More"/>
+                                    </StackPanel>
+                                </ScrollViewer>
+                            </ControlTemplate>
+                        </ListBox.Template>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Button Click="BtnActivity_Click">

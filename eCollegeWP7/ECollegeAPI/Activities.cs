@@ -34,8 +34,8 @@ namespace ECollegeAPI
         {
             string resource = "me/whatshappeningfeed";
 
-            //resource += "?types=thread-topic,thread-post,grade,dropbox-submission";
-            resource += "?types=dropbox-submission";
+            resource += "?types=thread-topic,thread-post,grade,dropbox-submission";
+            //resource += "?types=dropbox-submission";
 
             if (since.HasValue) {
                 resource += "&since=" + since.Value.ToString("MM/dd/yyyy");

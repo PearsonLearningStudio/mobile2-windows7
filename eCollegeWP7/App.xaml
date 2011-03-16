@@ -14,6 +14,7 @@
         <conv:FilterTopicByCourseConverter x:Key="FilterTopicByCourseConverter"/>
         <conv:HtmlToTextConverter x:Key="HtmlToTextConverter"/>
         <conv:FriendlyDateConverter x:Key="FriendlyDateConverter"/>
+        <conv:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <u:LocalizedResources x:Key="res"/>
         
         <Style x:Key="StretchedContainerStyle" TargetType="ListBoxItem">

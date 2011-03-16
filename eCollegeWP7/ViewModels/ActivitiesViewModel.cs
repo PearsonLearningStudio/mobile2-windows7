@@ -20,6 +20,13 @@ namespace eCollegeWP7.ViewModels
 {
     public class ActivitiesViewModel : ViewModelBase
     {
+        private bool _CanLoadMore = false;
+        public bool CanLoadMore
+        {
+            get { return _CanLoadMore; }
+            set { _CanLoadMore = value; this.OnPropertyChanged(() => this.CanLoadMore); }
+        }
+
 
         protected BackgroundWorker _loadingWorker;
 
@@ -30,28 +37,25 @@ namespace eCollegeWP7.ViewModels
             set { _Activities = value; this.OnPropertyChanged(() => this.Activities); }
         }
 
-        public void Load()
+        public void Load(bool all)
         {
-            Load(null);
+            Load(all,null);
         }
 
-        public void Load(Action<bool> callback)
+        public void Load(bool all, Action<bool> callback)
         {
-            if (Activities != null)
+            DateTime? since = null;
+
+            if (all)
             {
-                if (callback != null) callback(true);
-                return;
+                CanLoadMore = false;
             }
-            else if (_loadingWorker != null)
+            else
             {
-                _loadingWorker.RunWorkerCompleted += (s, e) =>
-                {
-                    callback(true);
-                };
-                return;
+                since = DateTime.Today.AddDays(-14.0);
             }
 
-            AppViewModel.Client.FetchMyWhatsHappeningFeed( (tresult) =>
+            AppViewModel.Client.FetchMyWhatsHappeningFeed(since, (tresult) =>
             {
                 _loadingWorker = new BackgroundWorker();
                 _loadingWorker.DoWork += (s, e) =>
@@ -66,6 +70,7 @@ namespace eCollegeWP7.ViewModels
                 _loadingWorker.RunWorkerCompleted += (s, e) =>
                 {
                     this.Activities = e.Result as ObservableCollection<ActivityViewModel>;
+                    this.CanLoadMore = all ? false : true;
                     _loadingWorker = null;
                     if (callback != null) callback(true);
                 };
