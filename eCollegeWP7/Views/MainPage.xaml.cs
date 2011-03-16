@@ -24,6 +24,7 @@ namespace eCollegeWP7.Views
     {
         public MainViewModel Model { get { return this.DataContext as MainViewModel; } }
         protected ActivitiesViewModel ActivitiesViewModel { get; set; }
+        protected bool _alreadyNavigatedTo = false;
 
         // Constructor
         public MainPage() : base()
@@ -42,18 +43,21 @@ namespace eCollegeWP7.Views
 
         protected override void OnReady(System.Windows.Navigation.NavigationEventArgs e)
         {
-            IDictionary<string, string> parameters = this.NavigationContext.QueryString;
-
-            string defaultPanoramaItem;
-
-            if (!parameters.TryGetValue("defaultPanoramaItem", out defaultPanoramaItem))
+            if (!_alreadyNavigatedTo)
             {
-                defaultPanoramaItem = "PanHome";
-            }
+                IDictionary<string, string> parameters = this.NavigationContext.QueryString;
 
-            var defaultItem = PanMain.FindName(defaultPanoramaItem) as PanoramaItem;
-            PanMain.DefaultItem = defaultItem;
-            UpdateSelectedPanoramaItem(defaultItem);
+                string defaultPanoramaItem;
+
+                if (!parameters.TryGetValue("defaultPanoramaItem", out defaultPanoramaItem))
+                {
+                    defaultPanoramaItem = "PanHome";
+                }
+                var defaultItem = PanMain.FindName(defaultPanoramaItem) as PanoramaItem;
+                PanMain.DefaultItem = defaultItem;
+                UpdateSelectedPanoramaItem(defaultItem);
+                _alreadyNavigatedTo = true;
+            }
         }
 
         private void BtnShowDialog_Click(object sender, RoutedEventArgs e)

@@ -22,8 +22,8 @@ namespace eCollegeWP7.Views
 {
     public partial class SecondaryPage : BasePage
     {
-
         protected DiscussionsViewModel DiscussionsViewModel { get; set; }
+        protected bool _alreadyNavigatedTo = false;
 
         // Constructor
         public SecondaryPage() : base()
@@ -33,18 +33,22 @@ namespace eCollegeWP7.Views
 
         protected override void OnReady(System.Windows.Navigation.NavigationEventArgs e)
         {
-            IDictionary<string, string> parameters = this.NavigationContext.QueryString;
-
-            string defaultPanoramaItem;
-
-            if (!parameters.TryGetValue("defaultPanoramaItem", out defaultPanoramaItem))
+            if (!_alreadyNavigatedTo)
             {
-                defaultPanoramaItem = "PanHome";
-            }
+                IDictionary<string, string> parameters = this.NavigationContext.QueryString;
 
-            var defaultItem = PanMain.FindName(defaultPanoramaItem) as PanoramaItem;
-            PanMain.DefaultItem = defaultItem;
-            UpdateSelectedPanoramaItem(defaultItem);
+                string defaultPanoramaItem;
+
+                if (!parameters.TryGetValue("defaultPanoramaItem", out defaultPanoramaItem))
+                {
+                    defaultPanoramaItem = "PanHome";
+                }
+
+                var defaultItem = PanMain.FindName(defaultPanoramaItem) as PanoramaItem;
+                PanMain.DefaultItem = defaultItem;
+                UpdateSelectedPanoramaItem(defaultItem);
+                _alreadyNavigatedTo = true;
+            }
         }
 
         private void BtnOpenCourse_Click(object sender, RoutedEventArgs e)
