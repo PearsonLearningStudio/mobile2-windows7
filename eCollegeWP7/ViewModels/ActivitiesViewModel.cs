@@ -15,6 +15,7 @@ using System.Collections.ObjectModel;
 using ECollegeAPI.Model;
 using eCollegeWP7.Util;
 using System.Linq;
+using ECollegeAPI.Services.Activities;
 
 namespace eCollegeWP7.ViewModels
 {
@@ -55,13 +56,13 @@ namespace eCollegeWP7.ViewModels
                 since = DateTime.Today.AddDays(-14.0);
             }
 
-            AppViewModel.Client.FetchMyWhatsHappeningFeed(since, (tresult) =>
+            App.BuildService(new FetchMyWhatsHappeningFeedService(since)).Execute((service) =>
             {
                 _loadingWorker = new BackgroundWorker();
                 _loadingWorker.DoWork += (s, e) =>
                 {
                     ObservableCollection<ActivityViewModel> data = new ObservableCollection<ActivityViewModel>();
-                    foreach (var item in tresult)
+                    foreach (var item in service.Result)
                     {
                         data.Add(new ActivityViewModel(item));
                     }

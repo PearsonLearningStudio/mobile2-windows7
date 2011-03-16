@@ -15,6 +15,7 @@ using System.Collections.ObjectModel;
 using ECollegeAPI.Model;
 using eCollegeWP7.Util;
 using System.Linq;
+using ECollegeAPI.Services.Grades;
 
 namespace eCollegeWP7.ViewModels
 {
@@ -43,14 +44,14 @@ namespace eCollegeWP7.ViewModels
             this.CourseID = courseId;
             this.GradebookItemGuid = gradebookItemGuid;
 
-            App.Model.Client.FetchGradebookItemByGuid(CourseID, GradebookItemGuid, res =>
+            App.BuildService(new FetchGradebookItemByGuidService(CourseID, GradebookItemGuid)).Execute(service =>
             {
-                this.GradebookItem = res;
+                this.GradebookItem = service.Result;
             });
 
-            App.Model.Client.FetchMyGradebookItemGrade(CourseID, GradebookItemGuid, res =>
+            App.BuildService(new FetchMyGradebookItemGradeService(CourseID, GradebookItemGuid)).Execute(service =>
             {
-                this.Grade = res;
+                this.Grade = service.Result;
             });
         }
 

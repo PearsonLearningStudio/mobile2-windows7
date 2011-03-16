@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eCollegeWP7", "eCollegeWP7\eCollegeWP7.csproj", "{FE54886F-AD77-43F8-9507-9165D5DC4661}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECollegeAPI", "ECollegeAPI\ECollegeAPI.csproj", "{1DFD53FF-C8D0-4ED8-9CF1-3662C71936A4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{FE54886F-AD77-43F8-9507-9165D5DC4661}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE54886F-AD77-43F8-9507-9165D5DC4661}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FE54886F-AD77-43F8-9507-9165D5DC4661}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{1DFD53FF-C8D0-4ED8-9CF1-3662C71936A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DFD53FF-C8D0-4ED8-9CF1-3662C71936A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DFD53FF-C8D0-4ED8-9CF1-3662C71936A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DFD53FF-C8D0-4ED8-9CF1-3662C71936A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -15,6 +15,7 @@ using System.Collections.ObjectModel;
 using ECollegeAPI.Model;
 using eCollegeWP7.Util;
 using System.Linq;
+using ECollegeAPI.Services.Dropbox;
 
 namespace eCollegeWP7.ViewModels
 {
@@ -31,9 +32,9 @@ namespace eCollegeWP7.ViewModels
 
         public DropboxMessageViewModel(long courseId, long basketId, long messageId)
         {
-            AppViewModel.Client.FetchDropboxMessage(courseId, basketId, messageId, result =>
+            App.BuildService(new FetchDropboxMessageService(courseId, basketId, messageId)).Execute(service =>
             {
-                this.Message = result;
+                this.Message = service.Result;
             });
         }
 

@@ -10,11 +10,13 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ECollegeAPI.Services;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using eCollegeWP7.ViewModels;
 using ECollegeAPI.Model;
 using eCollegeWP7.Exceptions;
+using eCollegeWP7.Util;
 
 namespace eCollegeWP7
 {
@@ -35,6 +37,11 @@ namespace eCollegeWP7
                 if (_Model == null) _Model = new AppViewModel();
                 return _Model;
             }
+        }
+
+        public static ServiceCallTask<T> BuildService<T>(T service) where T : BaseService
+        {
+            return new ServiceCallTask<T>(Model.Client,service);
         }
 
         /// <summary>

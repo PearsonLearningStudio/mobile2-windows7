@@ -75,27 +75,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="ECollegeAPI\Announcements.cs" />
-    <Compile Include="ECollegeAPI\Activities.cs" />
-    <Compile Include="ECollegeAPI\Grades.cs" />
-    <Compile Include="ECollegeAPI\Courses.cs" />
-    <Compile Include="ECollegeAPI\Dropbox.cs" />
-    <Compile Include="ECollegeAPI\Model\ActivityStreamObject.cs" />
-    <Compile Include="ECollegeAPI\Model\ActivityStreamTarget.cs" />
-    <Compile Include="ECollegeAPI\Model\Boilerplate\BasketItemLink.cs" />
-    <Compile Include="ECollegeAPI\Model\Boilerplate\AttachmentLink.cs" />
-    <Compile Include="ECollegeAPI\Model\Boilerplate\UserLink.cs" />
-    <Compile Include="ECollegeAPI\Model\ActivityStreamItem.cs" />
-    <Compile Include="ECollegeAPI\Model\ActivityStreamActor.cs" />
-    <Compile Include="ECollegeAPI\Model\GradebookItem.cs" />
-    <Compile Include="ECollegeAPI\Model\Grade.cs" />
-    <Compile Include="ECollegeAPI\Model\GrantToken.cs" />
-    <Compile Include="ECollegeAPI\Model\DropboxAttachment.cs" />
-    <Compile Include="ECollegeAPI\Model\DropboxMessage.cs" />
-    <Compile Include="ECollegeAPI\Model\DropboxBasket.cs" />
-    <Compile Include="ECollegeAPI\Model\Role.cs" />
-    <Compile Include="ECollegeAPI\Model\EnrolledUser.cs" />
-    <Compile Include="ECollegeAPI\Users.cs" />
     <Compile Include="Exceptions\AppExitException.cs" />
     <Compile Include="Util\Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Util\Converters\FriendlyDateConverter.cs" />
@@ -108,6 +87,7 @@
     <Compile Include="Util\MultiBinding\IMultiValueConverter.cs" />
     <Compile Include="Util\MultiBinding\MultiBinding.cs" />
     <Compile Include="Util\MultiBinding\MultiBindings.cs" />
+    <Compile Include="Util\ServiceCallTask.cs" />
     <Compile Include="Util\TreeHelperExtensions.cs" />
     <Compile Include="ViewModels\AppViewModel.cs" />
     <Compile Include="ViewModels\ActivitiesViewModel.cs" />
@@ -149,31 +129,9 @@
     <Compile Include="Views\CoursePage.xaml.cs">
       <DependentUpon>CoursePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ECollegeAPI\ClientCore.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ECollegeAPI\Discussions.cs" />
-    <Compile Include="ECollegeAPI\Model\Announcement.cs" />
-    <Compile Include="ECollegeAPI\Model\Author.cs" />
-    <Compile Include="ECollegeAPI\Model\Boilerplate\ParentUserResponseLinkContainer.cs" />
-    <Compile Include="ECollegeAPI\Model\Boilerplate\ParentUserTopicLinkContainer.cs" />
-    <Compile Include="ECollegeAPI\Model\Boilerplate\TopicLink.cs" />
-    <Compile Include="ECollegeAPI\Model\Boilerplate\CourseLink.cs" />
-    <Compile Include="ECollegeAPI\Model\Boilerplate\InstructorLink.cs" />
-    <Compile Include="ECollegeAPI\Model\Boilerplate\LinkContainer.cs" />
-    <Compile Include="ECollegeAPI\Model\Boilerplate\StudentLink.cs" />
-    <Compile Include="ECollegeAPI\Model\Boilerplate\TeacherAssistantLink.cs" />
-    <Compile Include="ECollegeAPI\Model\Boilerplate\TermLink.cs" />
-    <Compile Include="ECollegeAPI\Model\ContainerInfo.cs" />
-    <Compile Include="ECollegeAPI\Model\DiscussionResponse.cs" />
-    <Compile Include="ECollegeAPI\Model\UserDiscussionResponse.cs" />
-    <Compile Include="ECollegeAPI\Model\Course.cs" />
-    <Compile Include="ECollegeAPI\Model\ResponseCount.cs" />
-    <Compile Include="ECollegeAPI\Model\Token.cs" />
-    <Compile Include="ECollegeAPI\Model\User.cs" />
-    <Compile Include="ECollegeAPI\Model\DiscussionTopic.cs" />
-    <Compile Include="ECollegeAPI\Model\UserDiscussionTopic.cs" />
     <Compile Include="Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
@@ -181,7 +139,6 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Util\CustomJsonDeserializer.cs" />
     <Compile Include="Util\NotificationExtensions.cs" />
     <Compile Include="ViewModels\DiscussionViewModel.cs" />
     <Compile Include="ViewModels\CourseViewModel.cs" />
@@ -282,7 +239,12 @@
     <Content Include="Resources\Icons\ic_menu_settings.png" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ECollegeAPI\ECollegeAPI.csproj">
+      <Project>{1DFD53FF-C8D0-4ED8-9CF1-3662C71936A4}</Project>
+      <Name>ECollegeAPI</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="AppResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

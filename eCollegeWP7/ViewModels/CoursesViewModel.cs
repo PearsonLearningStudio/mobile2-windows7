@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using ECollegeAPI.Model;
 using eCollegeWP7.Util;
+using ECollegeAPI.Services.Courses;
 
 namespace eCollegeWP7.ViewModels
 {
@@ -51,10 +52,11 @@ namespace eCollegeWP7.ViewModels
 
         public void Load(Action<bool> callback)
         {
-            AppViewModel.Client.FetchMyCurrentCourses(result =>
+            App.BuildService(new FetchMyCurrentCoursesService()).Execute(service =>
             {
                 var oc = new ObservableCollection<Course>();
-                foreach (var c in result) { 
+                foreach (var c in service.Result)
+                { 
                     oc.Add(c);
                     CourseIdMap[c.ID] = c;
                 }

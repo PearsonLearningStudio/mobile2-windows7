@@ -14,6 +14,7 @@ using System.Diagnostics;
 using System.Collections.ObjectModel;
 using System.Collections;
 using System.Collections.Generic;
+using ECollegeAPI.Services.Users;
 
 namespace eCollegeWP7.ViewModels
 {
@@ -41,14 +42,11 @@ namespace eCollegeWP7.ViewModels
 
         protected void FetchInitialUserData(Action<bool> callback)
         {
-            Client.FetchMe(me =>
+            App.BuildService(new FetchMeService()).Execute(service =>
             {
-                CurrentUser = me;
+                CurrentUser = service.Result;
                 Courses = new CoursesViewModel();
-                Courses.Load(res =>
-                {
-                    callback(true);
-                });
+                Courses.Load(res => callback(true));
             });
         }
 

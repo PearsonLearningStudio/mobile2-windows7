@@ -15,6 +15,7 @@ using System.Collections.ObjectModel;
 using ECollegeAPI.Model;
 using eCollegeWP7.Util;
 using System.Linq;
+using ECollegeAPI.Services.Discussions;
 
 namespace eCollegeWP7.ViewModels
 {
@@ -53,9 +54,9 @@ namespace eCollegeWP7.ViewModels
             }
 
             var courseIds = (from c in AppViewModel.Courses.MyCourses select (long)c.ID).ToList<long>();
-            AppViewModel.Client.FetchMyDiscussionTopics(courseIds, (tresult) =>
+            App.BuildService(new FetchMyDiscussionTopicsService(courseIds)).Execute(service =>
             {
-                this.Topics = tresult;
+                this.Topics = service.Result;
                 if (callback != null) callback(true);
             });
         }

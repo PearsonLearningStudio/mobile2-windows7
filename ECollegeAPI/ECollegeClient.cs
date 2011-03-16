@@ -11,13 +11,14 @@ using System.Windows.Shapes;
 using RestSharp;
 using ECollegeAPI.Model;
 using System.Collections.Generic;
+using System.Collections;
 using System.Diagnostics;
 using Newtonsoft.Json;
 using System.Text;
 using System.IO;
-using eCollegeWP7.Util;
-using ECollegeAPI.Model;
+using ECollegeAPI.Util;
 using ECollegeAPI.Model.Boilerplate;
+using ECollegeAPI.Services;
 
 namespace ECollegeAPI
 {
@@ -37,7 +38,7 @@ namespace ECollegeAPI
         readonly string _clientId;
 
         private bool _loginInProgress = false;
-        private Queue<PendingExecuteRequest> _pendingRequests = new Queue<PendingExecuteRequest>();
+        private Queue<Action> _pendingServiceCalls = new Queue<Action>();
 
         private string _username;
         private string _password;
@@ -72,95 +73,39 @@ namespace ECollegeAPI
             return JsonConvert.SerializeObject(jsonObject, Formatting.Indented);
         }
 
-        public void ExecuteAsync<T>(RestRequest request, Action<T> callback) where T : new()
+        public void ExecuteService<T>(T service, Action<T> successCallback) where T : BaseService
         {
-            ExecuteAsync(request, true, null, callback);
+            ExecuteService<T>(service, successCallback, null, null);
         }
 
-        public void ExecuteAsync<T>(RestRequest request, string rootElement, Action<T> callback) where T : new()
+        public void ExecuteService<T>(T service, Action<T> successCallback, Action<T, RestResponse> failureCallback) where T : BaseService
         {
-            ExecuteAsync<T>(request, true, rootElement, callback);
+            ExecuteService<T>(service, successCallback, failureCallback, null);
         }
 
-        public void ExecuteAsync<T>(RestRequest request, bool needsAuthentication, string rootElement, Action<T> callback) where T : new()
-        {
-            ExecuteAsync(request,needsAuthentication, restresponse => {
-                var jsonDeserializer = new CustomJsonDeserializer();
-
-                if (rootElement != null)
-                {
-                    jsonDeserializer.RootElement = rootElement;
-                }
-
-                try {
-                    T result = jsonDeserializer.Deserialize<T>(restresponse);
-                    callback(result);
-                } catch (Exception e) {
-                    Debugger.Break();
-                }
-            });
-        }
-
-        protected void PrepareAuthentication()
-        {
-
-            if (_grantToken == null)
-            {
-                FetchGrant((gtok) =>
-                {
-                    FetchToken((tok) =>
-                    {
-                        ResumeRequests();
-                    });
-                });
-            }
-            else
-            {
-                FetchToken((tok) =>
-                {
-                    ResumeRequests();
-                });
-            }
-
-        }
-
-        protected void ResumeRequests()
-        {
-            _loginInProgress = false;
-            while (_pendingRequests.Count > 0)
-            {
-                var pending = _pendingRequests.Dequeue();
-                ExecuteAsync(pending.Request, pending.Callback);
-            }
-        }
-
-        public void ExecuteAsync(RestRequest request, Action<RestResponse> callback)
-        {
-            ExecuteAsync(request, true, callback);
-        }
-
-        public void ExecuteAsync(RestRequest request, bool needsAuthentication, Action<RestResponse> callback)
+        public void ExecuteService<T>(T service, Action<T> successCallback, Action<T,RestResponse> failureCallback, Action<T> finallyCallback) where T : BaseService
         {
             var client = new RestClient(RootUri);
             client.FollowRedirects = true;
             client.MaxRedirects = 10;
 
-            if (needsAuthentication && (_currentToken == null || _currentToken.NeedsToBeRefreshed()))
+            if (service.IsAuthenticationRequired && (_currentToken == null || _currentToken.NeedsToBeRefreshed()))
             {
                 if (!_loginInProgress)
                 {
                     _loginInProgress = true;
                     PrepareAuthentication();
                 }
-                _pendingRequests.Enqueue(new PendingExecuteRequest
-                {
-                    Request = request,
-                    Callback = callback
-                });
+                _pendingServiceCalls.Enqueue(
+                    () => ExecuteService(service, successCallback, failureCallback, finallyCallback));
                 return;
             }
 
             if (_authenticator != null) client.Authenticator = _authenticator;
+
+            var request = new RestRequest(service.Resource,service.RequestMethod);
+            service.PrepareRequest(request);
+
             client.ExecuteAsync(request, (response) =>
             {
                 var paramString = JsonConvert.SerializeObject(request.Parameters, Formatting.Indented);
@@ -179,24 +124,67 @@ namespace ECollegeAPI
 
                 if (response.ResponseStatus == ResponseStatus.Error)
                 {
+                    if (failureCallback != null) failureCallback(service, response);
                     OnClientErrorReturned(response);
+                    if (finallyCallback != null) finallyCallback(service);
                 }
                 else if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.Created && response.StatusCode != HttpStatusCode.NoContent && response.StatusCode != HttpStatusCode.NotModified)
                 {
+                    if (failureCallback != null) failureCallback(service, response);
                     OnServerErrorReturned(response);
+                    if (finallyCallback != null) finallyCallback(service);
                 }
                 else
                 {
                     var dispatcher = Deployment.Current.Dispatcher;
                     dispatcher.BeginInvoke(() =>
                     {
-                        callback(response);
+                        service.ProcessResponse(response);
+                        successCallback(service);
+                        if (finallyCallback != null) finallyCallback(service);
                     });
                 }
 
                 Debug.WriteLine("\n\n");
 
             });
+
+        }
+
+        protected void PrepareAuthentication()
+        {
+            if (_grantToken == null)
+            {
+                ExecuteService(new FetchGrantService(_clientString, _clientId, _username, _password), fgs =>
+                {
+                    _grantToken = fgs.Result.AccessToken;
+                    ExecuteService(new FetchTokenService(_grantToken), fts =>
+                    {
+                        _currentToken = fts.Result;
+                        _authenticator = new ECollegeClientAuthenticator(_currentToken.AccessToken);
+                        ResumeServices();
+                    });
+                });
+            }
+            else
+            {
+                ExecuteService(new FetchTokenService(_grantToken), fts =>
+                {
+                    _currentToken = fts.Result;
+                    _authenticator = new ECollegeClientAuthenticator(_currentToken.AccessToken);
+                    ResumeServices();
+                });
+            }
+        }
+
+        protected void ResumeServices()
+        {
+            _loginInProgress = false;
+            while (_pendingServiceCalls.Count > 0)
+            {
+                var pendingService = _pendingServiceCalls.Dequeue();
+                pendingService();
+            }
         }
 
         protected void OnClientErrorReturned(RestResponse response)
@@ -210,32 +198,6 @@ namespace ECollegeAPI
         {
             Debug.WriteLine("ERROR!" + response.StatusCode);
             Debugger.Break();
-        }
-
-        public void FetchToken(Action<Token> callback)
-        {
-            var request = new RestRequest("authorize/token?access_grant=" + _grantToken,Method.GET);
-            ExecuteAsync<Token>(request,false,null,(token) =>
-            {
-                _currentToken = token;
-                _authenticator = new ECollegeClientAuthenticator(token.AccessToken);
-                callback(token);
-            });
-        }
-
-        public void FetchGrant(Action<GrantToken> callback)
-        {
-            var request = new RestRequest("authorize/grant", Method.POST);
-            request.AddParameter("clientString", _clientString, ParameterType.GetOrPost);
-            request.AddParameter("client_id", _clientId, ParameterType.GetOrPost);
-            request.AddParameter("userLogin", _username, ParameterType.GetOrPost);
-            request.AddParameter("password", _password, ParameterType.GetOrPost);
-
-            ExecuteAsync<GrantToken>(request,false,null,(gtoken) =>
-            {
-                _grantToken = gtoken.AccessToken;
-                callback(gtoken);
-            });
         }
 
         private class ECollegeClientAuthenticator : IAuthenticator

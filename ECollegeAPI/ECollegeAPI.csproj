@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1DFD53FF-C8D0-4ED8-9CF1-3662C71936A4}</ProjectGuid>
+    <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ECollegeAPI</RootNamespace>
+    <AssemblyName>ECollegeAPI</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <TargetFrameworkProfile>WindowsPhone</TargetFrameworkProfile>
+    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
+    <SilverlightApplication>false</SilverlightApplication>
+    <ValidateXaml>true</ValidateXaml>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json.Silverlight">
+      <HintPath>..\eCollegeWP7\Newtonsoft.Json.Silverlight.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp.WindowsPhone">
+      <HintPath>..\eCollegeWP7\RestSharp.WindowsPhone.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows" />
+    <Reference Include="system" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Net" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ECollegeClient.cs" />
+    <Compile Include="Model\ActivityStreamActor.cs" />
+    <Compile Include="Model\ActivityStreamItem.cs" />
+    <Compile Include="Model\ActivityStreamObject.cs" />
+    <Compile Include="Model\ActivityStreamTarget.cs" />
+    <Compile Include="Model\Announcement.cs" />
+    <Compile Include="Model\Author.cs" />
+    <Compile Include="Model\Boilerplate\AttachmentLink.cs" />
+    <Compile Include="Model\Boilerplate\BasketItemLink.cs" />
+    <Compile Include="Model\Boilerplate\CourseLink.cs" />
+    <Compile Include="Model\Boilerplate\InstructorLink.cs" />
+    <Compile Include="Model\Boilerplate\LinkContainer.cs" />
+    <Compile Include="Model\Boilerplate\ParentUserResponseLinkContainer.cs" />
+    <Compile Include="Model\Boilerplate\ParentUserTopicLinkContainer.cs" />
+    <Compile Include="Model\Boilerplate\StudentLink.cs" />
+    <Compile Include="Model\Boilerplate\TeacherAssistantLink.cs" />
+    <Compile Include="Model\Boilerplate\TermLink.cs" />
+    <Compile Include="Model\Boilerplate\TopicLink.cs" />
+    <Compile Include="Model\Boilerplate\UserLink.cs" />
+    <Compile Include="Model\ContainerInfo.cs" />
+    <Compile Include="Model\Course.cs" />
+    <Compile Include="Model\DiscussionResponse.cs" />
+    <Compile Include="Model\DiscussionTopic.cs" />
+    <Compile Include="Model\DropboxAttachment.cs" />
+    <Compile Include="Model\DropboxBasket.cs" />
+    <Compile Include="Model\DropboxMessage.cs" />
+    <Compile Include="Model\EnrolledUser.cs" />
+    <Compile Include="Model\Grade.cs" />
+    <Compile Include="Model\GradebookItem.cs" />
+    <Compile Include="Model\GrantToken.cs" />
+    <Compile Include="Model\ResponseCount.cs" />
+    <Compile Include="Model\Role.cs" />
+    <Compile Include="Model\Token.cs" />
+    <Compile Include="Model\User.cs" />
+    <Compile Include="Model\UserDiscussionResponse.cs" />
+    <Compile Include="Model\UserDiscussionTopic.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Activities\FetchMyWhatsHappeningFeedService.cs" />
+    <Compile Include="Services\BaseService.cs" />
+    <Compile Include="Services\Announcements\FetchAnnouncementsService.cs" />
+    <Compile Include="Services\Courses\FetchMyCoursesService.cs" />
+    <Compile Include="Services\Courses\FetchMyCurrentCoursesService.cs" />
+    <Compile Include="Services\Discussions\FetchMyDiscussionResponseByIdService.cs" />
+    <Compile Include="Services\Discussions\FetchMyDiscussionResponsesByResponseService.cs" />
+    <Compile Include="Services\Discussions\FetchMyDiscussionResponsesByTopicService.cs" />
+    <Compile Include="Services\Discussions\FetchMyDiscussionTopicByIdService.cs" />
+    <Compile Include="Services\Discussions\PostMyResponseToResponseService.cs" />
+    <Compile Include="Services\Discussions\PostMyResponseToTopicService.cs" />
+    <Compile Include="Services\Dropbox\FetchDropboxMessageService.cs" />
+    <Compile Include="Services\Dropbox\FetchDropboxMessagesService.cs" />
+    <Compile Include="Services\Discussions\FetchMyDiscussionTopicsService.cs" />
+    <Compile Include="Services\FetchGrantService.cs" />
+    <Compile Include="Services\FetchTokenService.cs" />
+    <Compile Include="Services\Dropbox\FetchDropboxBasketsService.cs" />
+    <Compile Include="Services\Users\FetchEnrolledUsersService.cs" />
+    <Compile Include="Services\Grades\FetchGradebookItemByGuidService.cs" />
+    <Compile Include="Services\Users\FetchMeService.cs" />
+    <Compile Include="Services\Grades\FetchMyGradebookItemGradeService.cs" />
+    <Compile Include="Util\CustomJsonDeserializer.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
+  <ProjectExtensions />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

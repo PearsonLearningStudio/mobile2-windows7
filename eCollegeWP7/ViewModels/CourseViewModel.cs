@@ -13,7 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using ECollegeAPI.Model;
+using ECollegeAPI.Services.Discussions;
 using eCollegeWP7.Util;
+using ECollegeAPI.Services.Announcements;
 
 namespace eCollegeWP7.ViewModels
 {
@@ -52,13 +54,14 @@ namespace eCollegeWP7.ViewModels
         public CourseViewModel(int courseId)
         {
             this.CourseID = courseId;
-            AppViewModel.Client.FetchAnnouncements(courseId, (result) =>
+            App.BuildService(new FetchAnnouncementsService(courseId)).Execute((service) =>
             {
-                this.Announcements = result.ToObservableCollection();
+                this.Announcements = service.Result.ToObservableCollection();
             });
-            AppViewModel.Client.FetchMyDiscussionTopics(new List<long>() { courseId }, (result) =>
+            var task = App.BuildService(new FetchMyDiscussionTopicsService(new List<long>() {courseId}));
+            task.Execute((service) =>
             {
-                this.UserTopics = result.ToObservableCollection();
+                this.UserTopics = service.Result.ToObservableCollection();
             });
         }
 

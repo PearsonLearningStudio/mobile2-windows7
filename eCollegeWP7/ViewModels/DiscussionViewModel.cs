@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using ECollegeAPI.Model;
 using eCollegeWP7.Util;
+using ECollegeAPI.Services.Discussions;
 
 namespace eCollegeWP7.ViewModels
 {
@@ -110,12 +111,12 @@ namespace eCollegeWP7.ViewModels
                 this.TopicID = discussionId;
                 this.UserTopicID = AppViewModel.CurrentUser.ID + "-" + this.TopicID;
 
-                AppViewModel.Client.FetchMyDiscussionTopicById(UserTopicID, (result) =>
+                App.BuildService(new FetchMyDiscussionTopicByIdService(UserTopicID)).Execute(service =>
                 {
-                    this.UserTopic = result;
-                    this.DiscussionTitle = result.Topic.Title;
-                    this.DiscussionDescription = result.Topic.Description;
-                    this.DiscussionResponseCount = result.ChildResponseCounts.TotalResponseCount;
+                    this.UserTopic = service.Result;
+                    this.DiscussionTitle = service.Result.Topic.Title;
+                    this.DiscussionDescription = service.Result.Topic.Description;
+                    this.DiscussionResponseCount = service.Result.ChildResponseCounts.TotalResponseCount;
                 });
             }
 
@@ -124,12 +125,12 @@ namespace eCollegeWP7.ViewModels
                 this.ResponseID = discussionId;
                 this.UserResponseID = AppViewModel.CurrentUser.ID + "-" + this.ResponseID;
 
-                AppViewModel.Client.FetchMyDiscussionResponseById(UserResponseID, (result) =>
+                App.BuildService(new FetchMyDiscussionResponseByIdService(UserResponseID)).Execute(service =>
                 {
-                    this.UserResponse = result;
-                    this.DiscussionTitle = result.Response.Title;
-                    this.DiscussionDescription = result.Response.Description;
-                    this.DiscussionResponseCount = result.ChildResponseCounts.TotalResponseCount;
+                    this.UserResponse = service.Result;
+                    this.DiscussionTitle = service.Result.Response.Title;
+                    this.DiscussionDescription = service.Result.Response.Description;
+                    this.DiscussionResponseCount = service.Result.ChildResponseCounts.TotalResponseCount;
                 });
             }
 
@@ -140,23 +141,13 @@ namespace eCollegeWP7.ViewModels
         {
             if (CurrentDiscussionType == DiscussionType.TopicAndResponses)
             {
-                AppViewModel.Client.PostMyResponseToTopic(this.TopicID, responseTitle, responseText, (result) =>
-                {
-                    if (result.ResponseStatus == RestSharp.ResponseStatus.Completed)
-                    {
-                        FetchResponses();
-                    }
-                });
+                App.BuildService(new PostMyResponseToTopicService(this.TopicID, responseTitle, responseText)).Execute(
+                    service => FetchResponses());
             }
             else if (CurrentDiscussionType == DiscussionType.ResponseAndResponses)
             {
-                AppViewModel.Client.PostMyResponseToResponse(this.ResponseID, responseTitle, responseText, (result) =>
-                {
-                    if (result.ResponseStatus == RestSharp.ResponseStatus.Completed)
-                    {
-                        FetchResponses();
-                    }
-                });
+                App.BuildService(new PostMyResponseToResponseService(this.ResponseID, responseTitle, responseText)).Execute(
+                    service => FetchResponses());
             }
         }
 
@@ -164,19 +155,19 @@ namespace eCollegeWP7.ViewModels
         {
             if (CurrentDiscussionType == DiscussionType.TopicAndResponses)
             {
-                AppViewModel.Client.FetchMyDiscussionResponsesByTopic(TopicID, (result) =>
+                App.BuildService(new FetchMyDiscussionResponsesByTopicService(TopicID)).Execute(service =>
                 {
                     var formattedResult = new ObservableCollection<UserDiscussionResponse>();
-                    foreach (var r in result) formattedResult.Add(r);
+                    foreach (var r in service.Result) formattedResult.Add(r);
                     this.Responses = formattedResult;
                 });
             }
             else if (CurrentDiscussionType == DiscussionType.ResponseAndResponses)
             {
-                AppViewModel.Client.FetchMyDiscussionResponsesByResponse(ResponseID, (result) =>
+                App.BuildService(new FetchMyDiscussionResponsesByResponseService(ResponseID)).Execute(service =>
                 {
                     var formattedResult = new ObservableCollection<UserDiscussionResponse>();
-                    foreach (var r in result) formattedResult.Add(r);
+                    foreach (var r in service.Result) formattedResult.Add(r);
                     this.Responses = formattedResult;
                 });
             }

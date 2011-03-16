@@ -27,7 +27,7 @@ using RestSharp.Deserializers;
 using System.Diagnostics;
 using Newtonsoft.Json;
 
-namespace eCollegeWP7.Util
+namespace ECollegeAPI.Util
 {
     public class CustomJsonDeserializer : IDeserializer
     {
@@ -71,6 +71,7 @@ namespace eCollegeWP7.Util
             }
             catch (Exception e)
             {
+                Debug.WriteLine(e.ToString());
                 Debugger.Break();
             }
 
@@ -271,6 +272,7 @@ namespace eCollegeWP7.Util
             }
             catch (Exception e)
             {
+                Debug.WriteLine(e.ToString());
                 Debugger.Break();
             }
 
