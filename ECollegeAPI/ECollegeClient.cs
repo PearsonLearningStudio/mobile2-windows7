@@ -106,10 +106,11 @@ namespace ECollegeAPI
             var request = new RestRequest(service.Resource,service.RequestMethod);
             service.PrepareRequest(request);
 
+            var paramString = JsonConvert.SerializeObject(request.Parameters, Formatting.Indented);
+            Debug.WriteLine("Request: " + request.Method + " - " + RootUri + request.Resource + " - " + paramString);
+
             client.ExecuteAsync(request, (response) =>
             {
-                var paramString = JsonConvert.SerializeObject(request.Parameters, Formatting.Indented);
-                Debug.WriteLine("Request: " + request.Method + " - " + RootUri + request.Resource + " - " + paramString);
                 Debug.WriteLine("Status: " + response.StatusCode);
 
                 if (response.ContentType != null && response.ContentType.Contains("json")) // == "application/json")
@@ -150,6 +151,12 @@ namespace ECollegeAPI
             });
 
         }
+        
+        protected void AuthenticationFailed(BaseService service, RestResponse r)
+        {
+            Debug.WriteLine("Auth Failed");
+            _loginInProgress = false;
+        }
 
         protected void PrepareAuthentication()
         {
@@ -163,8 +170,8 @@ namespace ECollegeAPI
                         _currentToken = fts.Result;
                         _authenticator = new ECollegeClientAuthenticator(_currentToken.AccessToken);
                         ResumeServices();
-                    });
-                });
+                    }, AuthenticationFailed);
+                }, AuthenticationFailed);
             }
             else
             {
@@ -173,7 +180,7 @@ namespace ECollegeAPI
                     _currentToken = fts.Result;
                     _authenticator = new ECollegeClientAuthenticator(_currentToken.AccessToken);
                     ResumeServices();
-                });
+                }, AuthenticationFailed);
             }
         }
 

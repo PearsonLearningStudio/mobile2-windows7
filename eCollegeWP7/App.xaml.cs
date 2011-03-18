@@ -11,6 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ECollegeAPI.Services;
+using eCollegeWP7.Views;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using eCollegeWP7.ViewModels;
@@ -139,7 +140,7 @@ namespace eCollegeWP7
 
             // Create the frame but don't set it as RootVisual yet; this allows the splash
             // screen to remain active until the application is ready to render.
-            RootFrame = new PhoneApplicationFrame();
+            RootFrame = new MainFrame();
             RootFrame.Navigated += CompleteInitializePhoneApplication;
 
             // Handle navigation failures

@@ -67,13 +67,25 @@ namespace eCollegeWP7.Util
 
         public ServiceCallTask<T> Execute()
         {
-            _client.ExecuteService(_service,_successHandler,_failureHandler,_finallyHandler);
-            return this;
+            return Execute(_successHandler);
         }
 
         public ServiceCallTask<T> Execute(Action<T> successHandler)
         {
-            _client.ExecuteService(_service, successHandler, _failureHandler, _finallyHandler);
+            if (_progressIndicatorEnabled)
+            {
+                App.Model.PendingServiceCalls++;
+            }
+
+            _client.ExecuteService(_service, successHandler, _failureHandler, (service) =>
+            {
+                if (_progressIndicatorEnabled)
+                {
+                    App.Model.PendingServiceCalls--;
+                }
+                if (_finallyHandler != null)
+                    _finallyHandler(service);
+            });
             return this;
         }
     }

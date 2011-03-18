@@ -77,6 +77,7 @@
     </Compile>
     <Compile Include="Exceptions\AppExitException.cs" />
     <Compile Include="Util\Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Util\Converters\NonZeroToVisibilityConverter.cs" />
     <Compile Include="Util\Converters\FriendlyDateConverter.cs" />
     <Compile Include="Util\Converters\FilterTopicByCourseConverter.cs" />
     <Compile Include="Util\Converters\HtmlToTextConverter.cs" />
@@ -98,12 +99,13 @@
     <Compile Include="ViewModels\DiscussionsViewModel.cs" />
     <Compile Include="ViewModels\CoursesViewModel.cs" />
     <Compile Include="ViewModels\DropboxMessageViewModel.cs" />
-    <Compile Include="Views\BasePage.xaml.cs">
-      <DependentUpon>BasePage.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Views\BasePage.cs" />
     <Compile Include="Views\Controls\DynamicTextBlock.cs" />
     <Compile Include="Views\GradePage.xaml.cs">
       <DependentUpon>GradePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainFrame.xaml.cs">
+      <DependentUpon>MainFrame.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
@@ -156,13 +158,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
-    <Page Include="Views\BasePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\GradePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MainFrame.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SettingsPage.xaml">
       <Generator>MSBuild:Compile</Generator>

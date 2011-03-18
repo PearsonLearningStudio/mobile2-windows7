@@ -31,6 +31,8 @@ namespace ECollegeAPI.Services
             this._password = password;
             Resource = "authorize/grant";
             RequestMethod = RestSharp.Method.POST;
+            IsAuthenticationRequired = false;
+            IsCacheable = false;
         }
 
         public override void PrepareRequest(RestSharp.RestRequest req)

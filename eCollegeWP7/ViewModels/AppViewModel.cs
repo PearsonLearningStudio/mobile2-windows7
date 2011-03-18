@@ -20,6 +20,15 @@ namespace eCollegeWP7.ViewModels
 {
     public class AppViewModel : ViewModelBase
     {
+
+        private int _PendingServiceCalls = 0;
+        public int PendingServiceCalls
+        {
+            get { return _PendingServiceCalls; }
+            set { _PendingServiceCalls = value; this.OnPropertyChanged(() => this.PendingServiceCalls); }
+        }
+        
+
         public User CurrentUser { get; set; }
         public CoursesViewModel Courses { get; set; }
 

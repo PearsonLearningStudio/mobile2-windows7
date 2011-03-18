@@ -59,6 +59,9 @@
             <!--Panorama item two-->
             <!--Use 'Orientation="Horizontal"' to enable a panel that lays out horizontally-->
             <controls:PanoramaItem x:Name="PanActivity" Header="activity" Margin="0,0,-25,0">
+                <controls:PanoramaItem.DataContext>
+                    <vm:ActivitiesViewModel/>
+                </controls:PanoramaItem.DataContext>
                 <Grid>
                     <ListBox x:Name="LstActivity" ItemsSource="{Binding Path=Activities}" ItemContainerStyle="{StaticResource StretchedContainerStyle}">
                         <ListBox.Template>

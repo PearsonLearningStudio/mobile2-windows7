@@ -29,6 +29,8 @@ namespace eCollegeWP7.ViewModels
         }
 
 
+        public bool LoadStarted { get; set; }
+
         protected BackgroundWorker _loadingWorker;
 
         private ObservableCollection<ActivityViewModel> _Activities;
@@ -45,6 +47,7 @@ namespace eCollegeWP7.ViewModels
 
         public void Load(bool all, Action<bool> callback)
         {
+            LoadStarted = true;
             DateTime? since = null;
 
             if (all)

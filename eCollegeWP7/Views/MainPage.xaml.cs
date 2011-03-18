@@ -23,7 +23,6 @@ namespace eCollegeWP7.Views
     public partial class MainPage : BasePage
     {
         public MainViewModel Model { get { return this.DataContext as MainViewModel; } }
-        protected ActivitiesViewModel ActivitiesViewModel { get; set; }
         protected bool _alreadyNavigatedTo = false;
 
         // Constructor
@@ -93,11 +92,11 @@ namespace eCollegeWP7.Views
             {
                 if (selectedItem.Name == "PanActivity")
                 {
-                    if (ActivitiesViewModel == null)
+                    var activitiesVM = (ActivitiesViewModel)selectedItem.DataContext;
+                    if (!activitiesVM.LoadStarted)
                     {
-                        ActivitiesViewModel = new ActivitiesViewModel();
-                        ActivitiesViewModel.Load(false);
-                        selectedItem.DataContext = ActivitiesViewModel;
+                        activitiesVM.Load(false);
+                        selectedItem.DataContext = activitiesVM;
                     }
                 }
             }
@@ -116,10 +115,9 @@ namespace eCollegeWP7.Views
 
         private void BtnLoadMore_Click(object sender, RoutedEventArgs e)
         {
-            if (ActivitiesViewModel != null)
-            {
-                ActivitiesViewModel.Load(true);
-            }
+            var btn = sender as Button;
+            var activitiesVM = (ActivitiesViewModel)btn.DataContext;
+            activitiesVM.Load(true);
         }
     }
 }
