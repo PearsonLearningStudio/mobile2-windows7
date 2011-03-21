@@ -67,8 +67,8 @@ namespace eCollegeWP7.ViewModels
             set { _UserResponse = value; this.OnPropertyChanged(() => this.UserResponse); }
         }
 
-        private ObservableCollection<UserDiscussionResponse> _Responses;
-        public ObservableCollection<UserDiscussionResponse> Responses
+        private ObservableCollection<DiscussionViewModel> _Responses;
+        public ObservableCollection<DiscussionViewModel> Responses
         {
             get { return _Responses; }
             set { _Responses = value; this.OnPropertyChanged(() => this.Responses); }
@@ -243,8 +243,8 @@ namespace eCollegeWP7.ViewModels
             {
                 App.BuildService(new FetchMyDiscussionResponsesByTopicService(TopicID)).Execute(service =>
                 {
-                    var formattedResult = new ObservableCollection<UserDiscussionResponse>();
-                    foreach (var r in service.Result) formattedResult.Add(r);
+                    var formattedResult = new ObservableCollection<DiscussionViewModel>();
+                    foreach (var r in service.Result) formattedResult.Add(new DiscussionViewModel(r));
                     this.Responses = formattedResult;
                 });
             }
@@ -252,8 +252,8 @@ namespace eCollegeWP7.ViewModels
             {
                 App.BuildService(new FetchMyDiscussionResponsesByResponseService(ResponseID)).Execute(service =>
                 {
-                    var formattedResult = new ObservableCollection<UserDiscussionResponse>();
-                    foreach (var r in service.Result) formattedResult.Add(r);
+                    var formattedResult = new ObservableCollection<DiscussionViewModel>();
+                    foreach (var r in service.Result) formattedResult.Add(new DiscussionViewModel(r));
                     this.Responses = formattedResult;
                 });
             }

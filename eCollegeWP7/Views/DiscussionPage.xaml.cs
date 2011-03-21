@@ -40,7 +40,7 @@ namespace eCollegeWP7.Views
             } else if (parameters.ContainsKey("responseId")) {
                 this.DataContext = new DiscussionViewModel(parameters["responseId"],DiscussionType.ResponseAndResponses);
             }
-
+            Model.FetchResponses();
         }
 
         private void BtnResponse_Click(object sender, RoutedEventArgs e)
