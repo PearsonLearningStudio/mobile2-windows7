@@ -14,7 +14,7 @@
             <Border x:Name="ClientArea" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" HorizontalAlignment="{TemplateBinding HorizontalAlignment}" VerticalAlignment="{TemplateBinding VerticalAlignment}">
                 <Grid HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
                     <ContentPresenter Grid.Row="1" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}"/>
-                    <ProgressBar HorizontalAlignment="Stretch" IsIndeterminate="True" VerticalAlignment="Top"
+                    <ProgressBar HorizontalAlignment="Stretch" IsIndeterminate="True" VerticalAlignment="Top" Style="{StaticResource PerformanceProgressBar}"
                                  Visibility="{Binding Path=PendingServiceCalls, Converter={StaticResource NonZeroVisibilityConverter}}"
                                  />
                 </Grid>

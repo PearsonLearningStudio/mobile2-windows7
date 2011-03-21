@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
@@ -77,15 +78,21 @@ namespace eCollegeWP7.Util
                 App.Model.PendingServiceCalls++;
             }
 
-            _client.ExecuteService(_service, successHandler, _failureHandler, (service) =>
-            {
-                if (_progressIndicatorEnabled)
-                {
-                    App.Model.PendingServiceCalls--;
-                }
-                if (_finallyHandler != null)
-                    _finallyHandler(service);
-            });
+
+            var worker = new BackgroundWorker();
+            worker.DoWork += (s, e) =>
+                                 {
+                                     _client.ExecuteService(_service, successHandler, _failureHandler, (service) =>
+                                     {
+                                         if (_progressIndicatorEnabled)
+                                         {
+                                             App.Model.PendingServiceCalls--;
+                                         }
+                                         if (_finallyHandler != null)
+                                             _finallyHandler(service);
+                                     });
+                                 };
+            worker.RunWorkerAsync();
             return this;
         }
     }

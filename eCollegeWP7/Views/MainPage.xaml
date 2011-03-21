@@ -82,7 +82,7 @@
                                 <Button Click="BtnActivity_Click">
                                     <Button.Template>
                                         <ControlTemplate>
-                                            <Grid>
+                                            <Grid Height="130">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="Auto"/>
                                                     <ColumnDefinition Width="*"/>
@@ -91,7 +91,7 @@
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="Auto"/>
                                                     <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="*"/>
                                                 </Grid.RowDefinitions>
                                                 <!--<Image Source="{Binding Path=IconPath}"/>-->
                                                 <Image Source="/Resources/Icons/ic_menu_help.png" Grid.RowSpan="3" VerticalAlignment="Top"/>

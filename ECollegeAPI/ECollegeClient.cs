@@ -131,16 +131,23 @@ namespace ECollegeAPI
                 }
                 else if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.Created && response.StatusCode != HttpStatusCode.NoContent && response.StatusCode != HttpStatusCode.NotModified)
                 {
-                    if (failureCallback != null) failureCallback(service, response);
+                    var dispatcher = Deployment.Current.Dispatcher;
+                    dispatcher.BeginInvoke(() => 
+                    {
+                        if (failureCallback != null) failureCallback(service, response);
+                    });
                     OnServerErrorReturned(response);
-                    if (finallyCallback != null) finallyCallback(service);
+                    dispatcher.BeginInvoke(() =>
+                    {
+                        if (finallyCallback != null) finallyCallback(service);
+                    });
                 }
                 else
                 {
+                    service.ProcessResponse(response);
                     var dispatcher = Deployment.Current.Dispatcher;
                     dispatcher.BeginInvoke(() =>
                     {
-                        service.ProcessResponse(response);
                         successCallback(service);
                         if (finallyCallback != null) finallyCallback(service);
                     });

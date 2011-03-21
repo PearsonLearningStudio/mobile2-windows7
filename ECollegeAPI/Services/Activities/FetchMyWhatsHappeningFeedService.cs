@@ -15,8 +15,8 @@ namespace ECollegeAPI.Services.Activities
         {
             Resource = "me/whatshappeningfeed";
 
-            //Resource += "?types=thread-topic,thread-post,grade,dropbox-submission";
-            Resource += "?types=dropbox-submission";
+            Resource += "?types=thread-topic,thread-post,grade,dropbox-submission";
+            //Resource += "?types=dropbox-submission";
 
             if (since.HasValue)
             {

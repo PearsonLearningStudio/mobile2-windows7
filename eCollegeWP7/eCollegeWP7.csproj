@@ -88,6 +88,7 @@
     <Compile Include="Util\MultiBinding\IMultiValueConverter.cs" />
     <Compile Include="Util\MultiBinding\MultiBinding.cs" />
     <Compile Include="Util\MultiBinding\MultiBindings.cs" />
+    <Compile Include="Util\RelativeAnimatingContentControl.cs" />
     <Compile Include="Util\ServiceCallTask.cs" />
     <Compile Include="Util\TreeHelperExtensions.cs" />
     <Compile Include="ViewModels\AppViewModel.cs" />
