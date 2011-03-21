@@ -12,6 +12,12 @@ namespace ECollegeAPI.Model
         public string LastName { get; set; }
         public string EmailAddress { get; set; }
         public string ClientString { get; set; }
+
+        public string DisplayName
+        {
+            get { return FirstName + " " + LastName; }
+        }
+
         public List<UserLink> Links;
     }
 }

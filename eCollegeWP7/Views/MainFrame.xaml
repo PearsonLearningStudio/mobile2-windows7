@@ -13,8 +13,20 @@
         <ControlTemplate TargetType="phone:PhoneApplicationFrame">
             <Border x:Name="ClientArea" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" HorizontalAlignment="{TemplateBinding HorizontalAlignment}" VerticalAlignment="{TemplateBinding VerticalAlignment}">
                 <Grid HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid HorizontalAlignment="Stretch">
+                        <TextBlock x:Name="ApplicationTitle" VerticalAlignment="Center" HorizontalAlignment="Left" Visibility="{Binding Path=Content.ShowAppName, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                   Text="{Binding Path=A.AppName, Source={StaticResource res}}" Style="{StaticResource PhoneTextNormalStyle}"/>
+                        <TextBlock x:Name="TxtCurrentUser" VerticalAlignment="Center" HorizontalAlignment="Right" MouseLeftButtonDown="TxtCurrentUser_MouseLeftButtonDown" 
+                                   Text="{Binding Path=CurrentUser.DisplayName}" Style="{StaticResource PhoneTextNormalStyle}"/>
+                    </Grid>
+                    
                     <ContentPresenter Grid.Row="1" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}"/>
-                    <ProgressBar HorizontalAlignment="Stretch" IsIndeterminate="True" VerticalAlignment="Top" Style="{StaticResource PerformanceProgressBar}"
+                    <ProgressBar Grid.RowSpan="2" HorizontalAlignment="Stretch" IsIndeterminate="True" VerticalAlignment="Top" Style="{StaticResource PerformanceProgressBar}"
                                  Visibility="{Binding Path=PendingServiceCalls, Converter={StaticResource NonZeroVisibilityConverter}}"
                                  />
                 </Grid>

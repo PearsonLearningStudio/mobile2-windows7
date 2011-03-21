@@ -27,9 +27,15 @@ namespace eCollegeWP7.ViewModels
             get { return _PendingServiceCalls; }
             set { _PendingServiceCalls = value; this.OnPropertyChanged(() => this.PendingServiceCalls); }
         }
-        
 
-        public User CurrentUser { get; set; }
+
+        private User _CurrentUser;
+        public User CurrentUser
+        {
+            get { return _CurrentUser; }
+            set { _CurrentUser = value; this.OnPropertyChanged(() => this.CurrentUser); }
+        }
+        
         public CoursesViewModel Courses { get; set; }
 
         public ECollegeClient Client { get; set; }

@@ -21,6 +21,19 @@ namespace eCollegeWP7.Views
             set { SetValue(CloseOnBackButtonProperty, value); }
         }
 
+
+
+        public bool ShowAppName
+        {
+            get { return (bool)GetValue(ShowAppNameProperty); }
+            set { SetValue(ShowAppNameProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ShowAppName.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ShowAppNameProperty =
+            DependencyProperty.Register("ShowAppName", typeof(bool), typeof(BasePage), new PropertyMetadata(true));
+        
+
         // Using a DependencyProperty as the backing store for CloseOnBackButton.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CloseOnBackButtonProperty =
             DependencyProperty.Register("CloseOnBackButton", typeof(bool), typeof(BasePage), new PropertyMetadata(false));

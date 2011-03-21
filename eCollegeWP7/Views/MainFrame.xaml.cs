@@ -27,5 +27,10 @@ namespace eCollegeWP7.Views
             this.DataContext = App.Model;
             Debug.WriteLine("frame loaded");
         }
+
+        private void TxtCurrentUser_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.Navigate(new Uri("/Views/ProfilePage.xaml", UriKind.Relative));
+        }
     }
 }

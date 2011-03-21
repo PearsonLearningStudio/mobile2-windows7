@@ -14,10 +14,9 @@
     xmlns:c="clr-namespace:eCollegeWP7.Views.Controls"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="800" 
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
-    FontSize="{StaticResource PhoneFontSizeNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"  ShowAppName="False"
     Foreground="{StaticResource PhoneForegroundBrush}" CloseOnBackButton="True"
-    SupportedOrientations="Portrait"  Orientation="Portrait"
-    shell:SystemTray.IsVisible="False">
+    SupportedOrientations="Portrait"  Orientation="Portrait">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
