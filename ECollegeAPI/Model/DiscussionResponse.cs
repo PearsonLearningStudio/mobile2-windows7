@@ -16,7 +16,7 @@ namespace ECollegeAPI.Model
         public long ID { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public Author Author { get; set; }
+        public User Author { get; set; }
         public DateTime PostedDate { get; set; }
     }
 }

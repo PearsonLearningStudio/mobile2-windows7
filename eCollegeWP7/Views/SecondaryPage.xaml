@@ -19,7 +19,7 @@
 	</v:BasePage.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="Transparent">
+    <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneBackgroundBrush}">
 
         <!--Panorama control-->
         <controls:Panorama x:Name="PanMain" Title="{Binding Path=A.AppName, Source={StaticResource res}}" SelectionChanged="PanMain_SelectionChanged">
@@ -91,8 +91,9 @@
                                                 <TextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" HorizontalAlignment="Left"
                                                     Style="{StaticResource PhoneTextSmallStyle}" 
                                                     Text="{Binding Path=MyResponsesLine}"/>
-                                                <TextBlock Grid.Column="2" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalAlignment="Right" 
-                                                    Style="{StaticResource PhoneTextLargeStyle}"
+                                                <TextBlock Grid.Column="2" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalAlignment="Right"
+                                                    FontFamily="{StaticResource PhoneFontFamilyLight}"
+                                                    FontSize="{StaticResource PhoneFontSizeExtraLarge}"
                                                     Text="{Binding Path=UnreadResponseCount}" />
                                             </Grid>
                                         </ControlTemplate>

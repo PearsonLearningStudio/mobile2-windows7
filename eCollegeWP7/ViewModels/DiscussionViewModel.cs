@@ -130,6 +130,7 @@ namespace eCollegeWP7.ViewModels
             set { _UnreadResponseCount = value; this.OnPropertyChanged(() => this.UnreadResponseCount); }
         }
 
+        public string AuthorName { get; set; }
         public string NavigationPath { get; set; }
 
         protected void SetupFromTopic(UserDiscussionTopic ud)
@@ -153,6 +154,7 @@ namespace eCollegeWP7.ViewModels
             this.UnreadResponseCount = ud.ChildResponseCounts.UnreadResponseCount;
             this.TotalResponsesLine = CalculateTotalResponsesLine(this.DiscussionResponseCount);
             this.MyResponsesLine = CalculateMyResponsesLine(ud.ChildResponseCounts.PersonalResponseCount);
+            this.AuthorName = ud.Response.Author.DisplayName;
             this.NavigationPath = "/Views/DiscussionPage.xaml?responseId=" + ud.Response.ID;
         }
 

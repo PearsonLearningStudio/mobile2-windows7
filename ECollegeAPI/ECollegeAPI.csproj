@@ -60,7 +60,6 @@
     <Compile Include="Model\ActivityStreamObject.cs" />
     <Compile Include="Model\ActivityStreamTarget.cs" />
     <Compile Include="Model\Announcement.cs" />
-    <Compile Include="Model\Author.cs" />
     <Compile Include="Model\Boilerplate\AttachmentLink.cs" />
     <Compile Include="Model\Boilerplate\BasketItemLink.cs" />
     <Compile Include="Model\Boilerplate\CourseLink.cs" />

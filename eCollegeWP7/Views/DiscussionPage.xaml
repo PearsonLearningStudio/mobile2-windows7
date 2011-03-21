@@ -6,15 +6,14 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:v="clr-namespace:eCollegeWP7.Views"
-    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    xmlns:v="clr-namespace:eCollegeWP7.Views" xmlns:c="clr-namespace:eCollegeWP7.Views.Controls" FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="Transparent">
+    <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneBackgroundBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -33,43 +32,66 @@
                     <ControlTemplate TargetType="ListBox">
                         <ScrollViewer x:Name="ScrollViewer" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Foreground="{TemplateBinding Foreground}" Padding="{TemplateBinding Padding}">
                             <StackPanel>
-                                <Border HorizontalAlignment="Stretch" BorderBrush="Beige" BorderThickness="3">
-                                    <StackPanel>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock>Title:</TextBlock>
-                                            <TextBlock Text="{Binding Path=DiscussionTitle}"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Vertical">
-                                            <TextBlock>Description:</TextBlock>
-                                            <TextBlock Text="{Binding Path=DiscussionDescription,Converter={StaticResource HtmlToTextConverter}}"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock>Response Count:</TextBlock>
-                                            <TextBlock Text="{Binding Path=DiscussionResponseCount}"/>
-                                        </StackPanel>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Column="1" Grid.RowSpan="4" VerticalAlignment="Top" HorizontalAlignment="Right"
+                                            FontFamily="{StaticResource PhoneFontFamilyLight}" Margin="5"
+                                            FontSize="{StaticResource PhoneFontSizeExtraLarge}"
+                                            Text="{Binding Path=UnreadResponseCount}" />
+                                    
+                                    <c:DynamicTextBlock Grid.Column="0" 
+                                            Text="{Binding Path=DiscussionTitle}" HorizontalAlignment="Left"
+                                            TextStyle="{StaticResource PhoneTextTitle2Style}"/>
+                                    
+                                    <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Left" 
+                                            Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="NoWrap"
+                                            Text="{Binding Path=AuthorName}"/>
+                                    
+                                    <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left"
+                                            Style="{StaticResource PhoneTextSmallStyle}" 
+                                            Text="{Binding Path=TotalResponsesLine}"/>
 
-                                        <Button x:Name="BtnShowAddResponse" Content="Add Response" Click="BtnShowAddResponse_Click"/>
+                                    <Border Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" HorizontalAlignment="Left" >
+                                        <Border.OpacityMask>
+                                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                                <GradientStop Offset="0" Color="#FF000008"/>
+                                                <GradientStop Offset="1.0" Color="#00000000"/>
+                                            </LinearGradientBrush>
+                                        </Border.OpacityMask>
+                                        <TextBlock 
+                                            Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" MaxHeight="60"
+                                            Text="{Binding Path=DiscussionDescription, Converter={StaticResource HtmlToTextConverter}}"/>
+                                    </Border>
+                                </Grid>
 
-                                        <Grid x:Name="GrdResponse" Height="300" Visibility="Collapsed">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="Auto"/>
-                                            </Grid.RowDefinitions>
-                                            <TextBox Grid.Row="0" x:Name="TxtResponseTitle" AcceptsReturn="True"/>
-                                            <TextBox Grid.Row="1" x:Name="TxtResponse" AcceptsReturn="True"/>
-                                            <Grid Grid.Row="2">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*"/>
-                                                    <ColumnDefinition Width="*"/>
-                                                </Grid.ColumnDefinitions>
-                                                <Button x:Name="BtnAddResponse" Content="Add" Click="BtnAddResponse_Click"/>
-                                                <Button x:Name="BtnCancelResponse" Grid.Column="1" Content="Cancel" Click="BtnCancelResponse_Click"/>
-                                            </Grid>
-                                        </Grid>
+                                <Button x:Name="BtnShowAddResponse" Content="Add Response" Click="BtnShowAddResponse_Click"/>
 
-                                    </StackPanel>
-                                </Border>
+                                <Grid x:Name="GrdResponse" Height="300" Visibility="Collapsed">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBox Grid.Row="0" x:Name="TxtResponseTitle" AcceptsReturn="True"/>
+                                    <TextBox Grid.Row="1" x:Name="TxtResponse" AcceptsReturn="True"/>
+                                    <Grid Grid.Row="2">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Button x:Name="BtnAddResponse" Content="Add" Click="BtnAddResponse_Click"/>
+                                        <Button x:Name="BtnCancelResponse" Grid.Column="1" Content="Cancel" Click="BtnCancelResponse_Click"/>
+                                    </Grid>
+                                </Grid>
                                 <ItemsPresenter/>
                             </StackPanel>
                         </ScrollViewer>
@@ -81,19 +103,19 @@
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock>Author:</TextBlock>
-                                    <TextBlock Text="{Binding Path=Response.Author.Email}"/>
+                                    <TextBlock Text="{Binding Path=UserResponse.Response.Author.Email}"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock>Title:</TextBlock>
-                                    <TextBlock Text="{Binding Path=Response.Title}"/>
+                                    <TextBlock Text="{Binding Path=UserResponse.Response.Title}"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock>Description:</TextBlock>
-                                    <TextBlock Text="{Binding Path=Response.Description,Converter={StaticResource HtmlToTextConverter}}"/>
+                                    <TextBlock Text="{Binding Path=UserResponse.Response.Description,Converter={StaticResource HtmlToTextConverter}}"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock>Response Count:</TextBlock>
-                                    <TextBlock Text="{Binding Path=ChildResponseCounts.TotalResponseCount}"/>
+                                    <TextBlock Text="{Binding Path=UserResponse.ChildResponseCounts.TotalResponseCount}"/>
                                 </StackPanel>
                             </StackPanel>
                         </Button>
