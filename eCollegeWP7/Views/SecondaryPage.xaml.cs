@@ -22,7 +22,7 @@ namespace eCollegeWP7.Views
 {
     public partial class SecondaryPage : BasePage
     {
-        protected DiscussionsViewModel DiscussionsViewModel { get; set; }
+        protected DiscussionsViewModel _discussionsViewModel = new DiscussionsViewModel();
         protected bool _alreadyNavigatedTo = false;
 
         // Constructor
@@ -66,7 +66,25 @@ namespace eCollegeWP7.Views
         private void LspFilterDiscussions_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var LspFilterDiscussions = sender as ListPicker;
-            DiscussionsViewModel.DiscussionCourseFilter = LspFilterDiscussions.SelectedItem as Course;
+
+            if (LspFilterDiscussions.Tag == null)
+            {
+                LspFilterDiscussions.Tag = "NotFirstInit";
+                var lspItems = LspFilterDiscussions.ItemsSource as ObservableCollection<Course>;
+                if (_discussionsViewModel.DiscussionCourseFilter != CoursesViewModel.AllCoursesPlaceholder && lspItems != null)
+                {
+                    for (int i = 0; i < lspItems.Count; i++)
+                    {
+                        if (lspItems[i] == _discussionsViewModel.DiscussionCourseFilter)
+                        {
+                            LspFilterDiscussions.SelectedIndex = i;
+                            LspFilterDiscussions.SelectedItem = lspItems[i];
+                            return;
+                        }
+                    }
+                }
+            }
+            _discussionsViewModel.DiscussionCourseFilter = LspFilterDiscussions.SelectedItem as Course;
         }
 
         private void LspFilterPeople_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -81,12 +99,8 @@ namespace eCollegeWP7.Views
             {
                 if (selectedItem.Name == "PanDiscussions")
                 {
-                    if (DiscussionsViewModel == null)
-                    {
-                        DiscussionsViewModel = new DiscussionsViewModel();
-                        DiscussionsViewModel.Load();
-                        selectedItem.DataContext = DiscussionsViewModel;
-                    }
+                    _discussionsViewModel.Load();
+                    selectedItem.DataContext = _discussionsViewModel;
                 }
                 else if (selectedItem.Name == "PanCourses")
                 {
@@ -101,6 +115,16 @@ namespace eCollegeWP7.Views
         private void PanMain_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             UpdateSelectedPanoramaItem(PanMain.SelectedItem as PanoramaItem);
+        }
+
+        private void LspFilterDiscussions_Loaded(object sender, RoutedEventArgs e) {
+            var LspFilterDiscussions = sender as ListPicker;
+
+        }
+
+        private void PnlListHeader_Loaded(object sender, RoutedEventArgs e)
+        {
+            (sender as StackPanel).DataContext = _discussionsViewModel;
         }
     }
 }

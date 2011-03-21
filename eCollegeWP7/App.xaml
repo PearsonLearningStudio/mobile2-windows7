@@ -16,6 +16,9 @@
         <conv:FriendlyDateConverter x:Key="FriendlyDateConverter"/>
         <conv:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <conv:NonZeroVisibilityConverter x:Key="NonZeroVisibilityConverter"/>
+        <conv:ToLowerConverter x:Key="ToLowerConverter"/>
+        <conv:ToUpperConverter x:Key="ToUpperConverter"/>
+        <conv:CourseIdToCourseNameConverter x:Key="CourseIdToCourseNameConverter"/>
         <u:LocalizedResources x:Key="res"/>
         
         <Style x:Key="StretchedContainerStyle" TargetType="ListBoxItem">

@@ -44,11 +44,14 @@ namespace eCollegeWP7.ViewModels
             get
             {
                 var res = new ObservableCollection<Course>();
-                res.Add(new Course() { ID = -1, Title = "All Courses" });
+                res.Add(_AllCoursesPlaceholder);
                 if (MyCourses != null) { foreach (var c in MyCourses) res.Add(c); }
                 return res;
             }
         }
+
+        private static Course _AllCoursesPlaceholder = new Course() {ID = -1, Title = "All Courses"};
+        public static Course AllCoursesPlaceholder { get { return _AllCoursesPlaceholder; } }
 
         public void Load(Action<bool> callback)
         {

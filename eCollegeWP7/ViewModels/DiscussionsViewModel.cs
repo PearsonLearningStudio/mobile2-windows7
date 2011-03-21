@@ -21,19 +21,20 @@ namespace eCollegeWP7.ViewModels
 {
     public class DiscussionsViewModel : ViewModelBase
     {
+        private bool _loadStarted = false;
 
-        private List<UserDiscussionTopic> _Topics;
-        public List<UserDiscussionTopic> Topics
-        {
-            get { return _Topics; }
-            set { _Topics = value; this.OnPropertyChanged(() => this.Topics); }
-        }
-
-        private Course _DiscussionCourseFilter;
+        private Course _DiscussionCourseFilter = CoursesViewModel.AllCoursesPlaceholder;
         public Course DiscussionCourseFilter
         {
             get { return _DiscussionCourseFilter; }
             set { _DiscussionCourseFilter = value; this.OnPropertyChanged(() => this.DiscussionCourseFilter); }
+        }
+
+        private List<Group<UserDiscussionTopic>> _TopicsByCourse;
+        public List<Group<UserDiscussionTopic>> TopicsByCourse
+        {
+            get { return _TopicsByCourse; }
+            set { _TopicsByCourse = value; this.OnPropertyChanged(() => this.TopicsByCourse); }
         }
 
         public DiscussionsViewModel()
@@ -47,16 +48,22 @@ namespace eCollegeWP7.ViewModels
 
         public void Load(Action<bool> callback)
         {
-            if (_Topics != null)
+            if (_loadStarted)
             {
                 if (callback != null) callback(true);
                 return;
             }
 
+            _loadStarted = true;
+
             var courseIds = (from c in AppViewModel.Courses.MyCourses select (long)c.ID).ToList<long>();
             App.BuildService(new FetchMyDiscussionTopicsService(courseIds)).Execute(service =>
             {
-                this.Topics = service.Result;
+                this.TopicsByCourse = (from t in service.Result
+                                       group t by t.Topic.ContainerInfo.CourseID
+                                           into r
+                                           orderby r.Key
+                                           select new Group<UserDiscussionTopic>(r.Key, r)).ToList();
                 if (callback != null) callback(true);
             });
         }

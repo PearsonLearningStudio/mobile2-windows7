@@ -77,11 +77,15 @@
     </Compile>
     <Compile Include="Exceptions\AppExitException.cs" />
     <Compile Include="Util\Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Util\Converters\CourseIdToCourseNameConverter.cs" />
+    <Compile Include="Util\Converters\ToUpperConverter.cs" />
+    <Compile Include="Util\Converters\ToLowerConverter.cs" />
     <Compile Include="Util\Converters\NonZeroToVisibilityConverter.cs" />
     <Compile Include="Util\Converters\FriendlyDateConverter.cs" />
     <Compile Include="Util\Converters\FilterTopicByCourseConverter.cs" />
     <Compile Include="Util\Converters\HtmlToTextConverter.cs" />
     <Compile Include="Util\DateTimeUtil.cs" />
+    <Compile Include="Util\Group.cs" />
     <Compile Include="Util\ListExtensions.cs" />
     <Compile Include="Util\LocalizedResources.cs" />
     <Compile Include="Util\MultiBinding\BindingUtil.cs" />
