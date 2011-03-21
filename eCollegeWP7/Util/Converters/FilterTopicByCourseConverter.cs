@@ -13,6 +13,7 @@ using System.Windows.Data;
 using ECollegeAPI.Model;
 using System.Collections.Generic;
 using System.Linq;
+using eCollegeWP7.ViewModels;
 
 namespace eCollegeWP7.Util.Converters
 {
@@ -21,7 +22,7 @@ namespace eCollegeWP7.Util.Converters
 
         public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            var topicsByCourse = values[0] as List<Group<UserDiscussionTopic>>;
+            var topicsByCourse = values[0] as List<Group<DiscussionViewModel>>;
             var course = values[1] as Course;
 
             if (course == null || course.ID == -1 || topicsByCourse == null) //c.ID == -1 means all topics
@@ -37,8 +38,8 @@ namespace eCollegeWP7.Util.Converters
                 //                          select new Group<UserDiscussionTopic>(r.Key, r);
 
                 var res = from t in topicsByCourse
-                          where t.Items[0].Topic.ContainerInfo.CourseID == course.ID
-                          select new Group<UserDiscussionTopic>(t.GroupId,t.Items);
+                          where t.Items[0].UserTopic.Topic.ContainerInfo.CourseID == course.ID
+                          select new Group<DiscussionViewModel>(t.GroupId, t.Items);
 
 
                 return res;

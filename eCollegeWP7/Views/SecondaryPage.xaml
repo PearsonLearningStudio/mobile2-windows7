@@ -9,8 +9,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:mb="clr-namespace:eCollegeWP7.Util.MultiBinding"
-    xmlns:v="clr-namespace:eCollegeWP7.Views"
-    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="800" 
+    xmlns:v="clr-namespace:eCollegeWP7.Views" xmlns:c="clr-namespace:eCollegeWP7.Views.Controls" mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="800" 
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}" ShowAppName="False"
@@ -25,7 +24,7 @@
         <!--Panorama control-->
         <controls:Panorama x:Name="PanMain" Title="{Binding Path=A.AppName, Source={StaticResource res}}" SelectionChanged="PanMain_SelectionChanged">
             <controls:Panorama.Background>
-                <ImageBrush ImageSource="../PanoramaBackground.png"/>
+                <ImageBrush ImageSource="/Resources/panorama-bg.png"/>
             </controls:Panorama.Background>
 
             <controls:PanoramaItem x:Name="PanDiscussions" Header="discussions">
@@ -67,7 +66,41 @@
                         </toolkit:LongListSelector.GroupHeaderTemplate>
                         <toolkit:LongListSelector.ItemTemplate>
                             <DataTemplate>
-                                <Button x:Name="BtnDiscussion" Click="BtnDiscussion_Click" HorizontalAlignment="Stretch">
+
+                                <Button Click="BtnDiscussion_Click">
+                                    <Button.Template>
+                                        <ControlTemplate>
+                                            <Grid Height="130">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="*"/>
+                                                </Grid.RowDefinitions>
+                                                <Image Grid.RowSpan="2" VerticalAlignment="Top" Source="/Resources/Icons/ic_menu_help.png"/>
+                                                <c:DynamicTextBlock Grid.Column="1" 
+                                                    Text="{Binding Path=DiscussionTitle}" HorizontalAlignment="Left"
+                                                    TextStyle="{StaticResource PhoneTextTitle2Style}"/>
+                                                <c:DynamicTextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Left" 
+                                                    TextStyle="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" MaxHeight="70" 
+                                                    Text="{Binding Path=TotalResponsesLine}"/>
+                                                <TextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" HorizontalAlignment="Left"
+                                                    Style="{StaticResource PhoneTextSmallStyle}" 
+                                                    Text="{Binding Path=MyResponsesLine}"/>
+                                                <TextBlock Grid.Column="2" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalAlignment="Right" 
+                                                    Style="{StaticResource PhoneTextLargeStyle}"
+                                                    Text="{Binding Path=UnreadResponseCount}" />
+                                            </Grid>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+
+
+                                <!--<Button x:Name="BtnDiscussion" Click="BtnDiscussion_Click" HorizontalAlignment="Stretch">
                                     <StackPanel HorizontalAlignment="Stretch">
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                                             <TextBlock>Title:</TextBlock>
@@ -82,7 +115,7 @@
                                             <TextBlock Text="{Binding Path=ChildResponseCounts.TotalResponseCount}"/>
                                         </StackPanel>
                                     </StackPanel>
-                                </Button>
+                                </Button>-->
                             </DataTemplate>
                         </toolkit:LongListSelector.ItemTemplate>
                     </toolkit:LongListSelector>

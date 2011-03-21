@@ -30,8 +30,8 @@ namespace eCollegeWP7.ViewModels
             set { _DiscussionCourseFilter = value; this.OnPropertyChanged(() => this.DiscussionCourseFilter); }
         }
 
-        private List<Group<UserDiscussionTopic>> _TopicsByCourse;
-        public List<Group<UserDiscussionTopic>> TopicsByCourse
+        private List<Group<DiscussionViewModel>> _TopicsByCourse;
+        public List<Group<DiscussionViewModel>> TopicsByCourse
         {
             get { return _TopicsByCourse; }
             set { _TopicsByCourse = value; this.OnPropertyChanged(() => this.TopicsByCourse); }
@@ -60,10 +60,10 @@ namespace eCollegeWP7.ViewModels
             App.BuildService(new FetchMyDiscussionTopicsService(courseIds)).Execute(service =>
             {
                 this.TopicsByCourse = (from t in service.Result
-                                       group t by t.Topic.ContainerInfo.CourseID
+                                       group new DiscussionViewModel(t) by t.Topic.ContainerInfo.CourseID
                                            into r
                                            orderby r.Key
-                                           select new Group<UserDiscussionTopic>(r.Key, r)).ToList();
+                                           select new Group<DiscussionViewModel>(r.Key, r)).ToList();
                 if (callback != null) callback(true);
             });
         }

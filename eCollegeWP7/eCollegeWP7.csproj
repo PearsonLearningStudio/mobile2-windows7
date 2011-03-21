@@ -244,6 +244,8 @@
     <Content Include="Resources\Icons\ic_menu_people.png" />
     <Content Include="Resources\Icons\ic_menu_profile.png" />
     <Content Include="Resources\Icons\ic_menu_settings.png" />
+    <Content Include="Resources\panorama-bg-new.png" />
+    <Content Include="Resources\panorama-bg.png" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup>

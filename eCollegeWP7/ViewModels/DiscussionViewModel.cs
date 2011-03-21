@@ -102,6 +102,100 @@ namespace eCollegeWP7.ViewModels
             set { _DiscussionResponseCount = value; this.OnPropertyChanged(() => this.DiscussionResponseCount); }
         }
 
+        private string _IconPath;
+        public string IconPath
+        {
+            get { return _IconPath; }
+            set { _IconPath = value; this.OnPropertyChanged(() => this.IconPath); }
+        }
+
+        private string _TotalResponsesLine;
+        public string TotalResponsesLine
+        {
+            get { return _TotalResponsesLine; }
+            set { _TotalResponsesLine = value; this.OnPropertyChanged(() => this.TotalResponsesLine); }
+        }
+        
+        private string _MyResponsesLine;
+        public string MyResponsesLine
+        {
+            get { return _MyResponsesLine; }
+            set { _MyResponsesLine = value; this.OnPropertyChanged(() => this.MyResponsesLine); }
+        }
+
+        private long _UnreadResponseCount;
+        public long UnreadResponseCount
+        {
+            get { return _UnreadResponseCount; }
+            set { _UnreadResponseCount = value; this.OnPropertyChanged(() => this.UnreadResponseCount); }
+        }
+
+        public string NavigationPath { get; set; }
+
+        protected void SetupFromTopic(UserDiscussionTopic ud)
+        {
+            this.UserTopic = ud;
+            this.DiscussionTitle = ud.Topic.Title;
+            this.DiscussionDescription = ud.Topic.Description;
+            this.DiscussionResponseCount = ud.ChildResponseCounts.TotalResponseCount;
+            this.UnreadResponseCount = ud.ChildResponseCounts.UnreadResponseCount;
+            this.TotalResponsesLine = CalculateTotalResponsesLine(this.DiscussionResponseCount);
+            this.MyResponsesLine = CalculateMyResponsesLine(ud.ChildResponseCounts.PersonalResponseCount);
+            this.NavigationPath = "/Views/DiscussionPage.xaml?topicId=" + ud.Topic.ID;
+        }
+
+        protected  void SetupFromResponse(UserDiscussionResponse ud)
+        {
+            this.UserResponse = ud;
+            this.DiscussionTitle = ud.Response.Title;
+            this.DiscussionDescription = ud.Response.Description;
+            this.DiscussionResponseCount = ud.ChildResponseCounts.TotalResponseCount;
+            this.UnreadResponseCount = ud.ChildResponseCounts.UnreadResponseCount;
+            this.TotalResponsesLine = CalculateTotalResponsesLine(this.DiscussionResponseCount);
+            this.MyResponsesLine = CalculateMyResponsesLine(ud.ChildResponseCounts.PersonalResponseCount);
+            this.NavigationPath = "/Views/DiscussionPage.xaml?responseId=" + ud.Response.ID;
+        }
+
+        protected string CalculateTotalResponsesLine(long count)
+        {
+            if (count == 0)
+            {
+                return "No responses";
+            } else if (count == 1)
+            {
+                return "1 total response";
+            } else
+            {
+                return count + " total responses";
+            }
+        }
+
+        protected string CalculateMyResponsesLine(long count)
+        {
+            if (count == 0)
+            {
+                return null;
+            }
+            else if (count == 1)
+            {
+                return "1 response by you";
+            }
+            else
+            {
+                return count + " responses by you";
+            }
+        }
+
+        public DiscussionViewModel(UserDiscussionTopic ut)
+        {
+            SetupFromTopic(ut);
+        }
+        
+        public DiscussionViewModel(UserDiscussionResponse ur)
+        {
+            SetupFromResponse(ur);
+        }
+
         public DiscussionViewModel(string discussionId, DiscussionType dt)
         {
             CurrentDiscussionType = dt;
@@ -113,10 +207,7 @@ namespace eCollegeWP7.ViewModels
 
                 App.BuildService(new FetchMyDiscussionTopicByIdService(UserTopicID)).Execute(service =>
                 {
-                    this.UserTopic = service.Result;
-                    this.DiscussionTitle = service.Result.Topic.Title;
-                    this.DiscussionDescription = service.Result.Topic.Description;
-                    this.DiscussionResponseCount = service.Result.ChildResponseCounts.TotalResponseCount;
+                    SetupFromTopic(service.Result);
                 });
             }
 
@@ -127,14 +218,9 @@ namespace eCollegeWP7.ViewModels
 
                 App.BuildService(new FetchMyDiscussionResponseByIdService(UserResponseID)).Execute(service =>
                 {
-                    this.UserResponse = service.Result;
-                    this.DiscussionTitle = service.Result.Response.Title;
-                    this.DiscussionDescription = service.Result.Response.Description;
-                    this.DiscussionResponseCount = service.Result.ChildResponseCounts.TotalResponseCount;
+                    SetupFromResponse(service.Result);
                 });
             }
-
-            FetchResponses();
         }
 
         public void PostResponse(string responseTitle, string responseText)
@@ -151,7 +237,7 @@ namespace eCollegeWP7.ViewModels
             }
         }
 
-        protected void FetchResponses()
+        public void FetchResponses()
         {
             if (CurrentDiscussionType == DiscussionType.TopicAndResponses)
             {
