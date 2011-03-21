@@ -23,7 +23,7 @@
     <Grid x:Name="LayoutRoot" Background="Transparent">
 
         <!--Panorama control-->
-        <controls:Panorama x:Name="PanMain" Title="eCollege" SelectionChanged="PanMain_SelectionChanged">
+        <controls:Panorama x:Name="PanMain" Title="{Binding Path=A.AppName, Source={StaticResource res}}" SelectionChanged="PanMain_SelectionChanged">
             <controls:Panorama.Background>
                 <ImageBrush ImageSource="../PanoramaBackground.png"/>
             </controls:Panorama.Background>
