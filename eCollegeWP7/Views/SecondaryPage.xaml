@@ -99,24 +99,7 @@
                                         </ControlTemplate>
                                     </Button.Template>
                                 </Button>
-
-
-                                <!--<Button x:Name="BtnDiscussion" Click="BtnDiscussion_Click" HorizontalAlignment="Stretch">
-                                    <StackPanel HorizontalAlignment="Stretch">
-                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-                                            <TextBlock>Title:</TextBlock>
-                                            <TextBlock Text="{Binding Path=Topic.Title}"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
-                                            <TextBlock>Description:</TextBlock>
-                                            <TextBlock TextWrapping="Wrap" Text="{Binding Path=Topic.Description,Converter={StaticResource HtmlToTextConverter}}"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-                                            <TextBlock>Response Count:</TextBlock>
-                                            <TextBlock Text="{Binding Path=ChildResponseCounts.TotalResponseCount}"/>
-                                        </StackPanel>
-                                    </StackPanel>
-                                </Button>-->
+                                
                             </DataTemplate>
                         </toolkit:LongListSelector.ItemTemplate>
                     </toolkit:LongListSelector>
@@ -127,29 +110,25 @@
             <!--Use 'Orientation="Horizontal"' to enable a panel that lays out horizontally-->
             <controls:PanoramaItem x:Name="PanCourses" Header="courses">
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
+                    <!--<Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Number Of Courses"/>
-                    <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Path=MyCourses.Count}"/>
-                    <ListBox Grid.Row="2" ItemsSource="{Binding Path=MyCourses}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="progress"/>
+                        <ProgressBar Grid.Column="1" HorizontalAlignment="Stretch" Value="50"/>
+                    </Grid>-->
+                    <ListBox Grid.Row="2" ItemsSource="{Binding Path=MyCourses}" ItemContainerStyle="{StaticResource StretchedContainerStyle}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Border BorderBrush="Azure" BorderThickness="2">
-                                    <StackPanel>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock>ID:</TextBlock>
-                                            <TextBlock Text="{Binding Path=ID}"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock>Title:</TextBlock>
-                                            <TextBlock Text="{Binding Path=Title}"/>
-                                        </StackPanel>
-                                        <Button x:Name="BtnOpenCourse" Content="Open" Click="BtnOpenCourse_Click"/>
-                                    </StackPanel>
-                                </Border>
+                                <StackPanel Margin="0,0,0,10">
+                                    <TextBlock Text="{Binding Path=Title}" Style="{StaticResource PhoneTextTitle2Style}"/>
+                                    <TextBlock Text="{Binding Path=DisplayCourseCode}" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
