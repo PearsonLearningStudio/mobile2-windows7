@@ -30,7 +30,8 @@
                     <conv:ToUpperConverter x:Key="ToUpperConverter"/>
                     <conv:CourseIdToCourseNameConverter x:Key="CourseIdToCourseNameConverter"/>
                     <conv:AppResourceConverter x:Key="AppResourceConverter"/>
-                    
+                    <conv:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
+
                     <u:LocalizedResources x:Key="res"/>
 
                     <Style x:Key="StretchedContainerStyle" TargetType="ListBoxItem">

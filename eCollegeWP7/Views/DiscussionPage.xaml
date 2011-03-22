@@ -31,7 +31,7 @@
                 <ListBox.Template>
                     <ControlTemplate TargetType="ListBox">
                         <ScrollViewer x:Name="ScrollViewer" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Foreground="{TemplateBinding Foreground}" Padding="{TemplateBinding Padding}">
-                            <StackPanel>
+                            <StackPanel Visibility="{Binding Path=DiscussionTitle,Converter={StaticResource NotNullToVisibilityConverter}}">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
