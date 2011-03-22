@@ -24,7 +24,14 @@ namespace eCollegeWP7.Util.Converters
                 Course c;
                 if (App.Model.Courses.CourseIdMap.TryGetValue(v,out c))
                 {
-                    return c.Title.ToUpper();
+                    if ("ToUpper".Equals(parameter)) 
+                    {
+                        return c.Title.ToUpper();
+                    }
+                    if ("ToLower".Equals(parameter)) {
+                        return c.Title.ToLower();
+                    }
+                    return c.Title;
                 }
             }
             return "Unknown Course";

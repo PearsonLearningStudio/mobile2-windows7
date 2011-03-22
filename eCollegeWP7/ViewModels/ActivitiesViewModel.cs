@@ -21,6 +21,7 @@ namespace eCollegeWP7.ViewModels
 {
     public class ActivitiesViewModel : ViewModelBase
     {
+
         private bool _CanLoadMore = false;
         public bool CanLoadMore
         {
@@ -28,8 +29,8 @@ namespace eCollegeWP7.ViewModels
             set { _CanLoadMore = value; this.OnPropertyChanged(() => this.CanLoadMore); }
         }
 
-
         public bool LoadStarted { get; set; }
+        public long? CourseID { get; set; }
 
         protected BackgroundWorker _loadingWorker;
 
@@ -59,7 +60,7 @@ namespace eCollegeWP7.ViewModels
                 since = DateTime.Today.AddDays(-14.0);
             }
 
-            App.BuildService(new FetchMyWhatsHappeningFeedService(since)).Execute((service) =>
+            App.BuildService(new FetchMyWhatsHappeningFeedService(since,CourseID)).Execute((service) =>
             {
                 _loadingWorker = new BackgroundWorker();
                 _loadingWorker.DoWork += (s, e) =>

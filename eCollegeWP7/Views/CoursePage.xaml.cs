@@ -34,8 +34,24 @@ namespace eCollegeWP7.Views
 
         private void BtnDiscussion_Click(object sender, RoutedEventArgs e)
         {
-            var theader = (sender as Button).DataContext as UserDiscussionTopic;
-            this.NavigationService.Navigate(new Uri("/Views/DiscussionPage.xaml?topicId=" + theader.Topic.ID + "&userTopicId=" + theader.ID, UriKind.Relative));
+            var dis = (sender as Button).DataContext as DiscussionViewModel;
+            this.NavigationService.Navigate(new Uri(dis.NavigationPath, UriKind.Relative));
+        }
+
+        private void BtnLoadMore_Click(object sender, RoutedEventArgs e)
+        {
+            Model.Activities.Load(true);
+        }
+
+        private void BtnActivity_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as Button;
+            var vm = (ActivityViewModel)btn.DataContext;
+
+            if (vm.NavigationPath != null)
+            {
+                this.NavigationService.Navigate(new Uri(vm.NavigationPath, UriKind.Relative));
+            }
         }
 
     }

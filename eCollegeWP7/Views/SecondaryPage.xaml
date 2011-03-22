@@ -61,7 +61,7 @@
                         </toolkit:LongListSelector.ListHeaderTemplate>
                         <toolkit:LongListSelector.GroupHeaderTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding GroupId, Converter={StaticResource CourseIdToCourseNameConverter}}"  FontSize="18" />
+                                <TextBlock Text="{Binding GroupId, Converter={StaticResource CourseIdToCourseNameConverter}, ConverterParameter=ToUpper}"  FontSize="18" />
                             </DataTemplate>
                         </toolkit:LongListSelector.GroupHeaderTemplate>
                         <toolkit:LongListSelector.ItemTemplate>
@@ -125,10 +125,16 @@
                     <ListBox Grid.Row="2" ItemsSource="{Binding Path=MyCourses}" ItemContainerStyle="{StaticResource StretchedContainerStyle}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Margin="0,0,0,10">
-                                    <TextBlock Text="{Binding Path=Title}" Style="{StaticResource PhoneTextTitle2Style}"/>
-                                    <TextBlock Text="{Binding Path=DisplayCourseCode}" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                                </StackPanel>
+                                <Button x:Name="BtnOpenCourse" Click="BtnOpenCourse_Click">
+                                    <Button.Template>
+                                        <ControlTemplate>
+                                            <StackPanel Margin="0,0,0,10">
+                                                <TextBlock Text="{Binding Path=Title}" Style="{StaticResource PhoneTextTitle2Style}"/>
+                                                <TextBlock Text="{Binding Path=DisplayCourseCode}" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                            </StackPanel>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>

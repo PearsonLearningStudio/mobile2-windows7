@@ -7,8 +7,7 @@
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:v="clr-namespace:eCollegeWP7.Views"
-    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
+    xmlns:v="clr-namespace:eCollegeWP7.Views" xmlns:c="clr-namespace:eCollegeWP7.Views.Controls" mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -17,16 +16,14 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneBackgroundBrush}">
         <!--Pivot Control-->
-        <controls:Pivot Title="{Binding Path=A.AppName, Source={StaticResource res}}">
-
-            <controls:PivotItem Header="dropbox">
-                <Grid>
-                </Grid>
-            </controls:PivotItem>
-
+        <controls:Pivot Title="{Binding Path=CourseID, Converter={StaticResource CourseIdToCourseNameConverter}, ConverterParameter=ToLower}">
+            <controls:Pivot.Background>
+                <ImageBrush ImageSource="/Resources/panorama-bg.png"/>
+            </controls:Pivot.Background>
+            
             <controls:PivotItem Header="announcements">
                 <Grid>
-                    <ListBox ItemsSource="{Binding Announcements}">
+                    <ListBox ItemsSource="{Binding Announcements}" ItemContainerStyle="{StaticResource StretchedContainerStyle}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel>
@@ -53,26 +50,55 @@
                 </Grid>
             </controls:PivotItem>
 
-            <controls:PivotItem Header="discussions">
+            <controls:PivotItem Header="activity">
                 <Grid>
-                    <ListBox ItemsSource="{Binding UserTopics}">
+                    <ListBox x:Name="LstActivity" ItemsSource="{Binding Path=Activities.Activities}" ItemContainerStyle="{StaticResource StretchedContainerStyle}">
+                        <ListBox.Template>
+                            <ControlTemplate TargetType="ListBox">
+                                <ScrollViewer x:Name="ScrollViewer" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Foreground="{TemplateBinding Foreground}" Padding="{TemplateBinding Padding}">
+                                    <StackPanel>
+                                        <ItemsPresenter/>
+
+                                        <Button x:Name="BtnLoadMore" Click="BtnLoadMore_Click"
+                                                 Visibility="{Binding Path=CanLoadMore, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                                 HorizontalAlignment="Stretch" Content="Load More"/>
+                                    </StackPanel>
+                                </ScrollViewer>
+                            </ControlTemplate>
+                        </ListBox.Template>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Button x:Name="BtnDiscussion" Click="BtnDiscussion_Click">
-                                    <StackPanel>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock>Title:</TextBlock>
-                                            <TextBlock Text="{Binding Path=Topic.Title}"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Vertical">
-                                            <TextBlock>Description:</TextBlock>
-                                            <TextBlock Text="{Binding Path=Topic.Description,Converter={StaticResource HtmlToTextConverter}}"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock>Response Count:</TextBlock>
-                                            <TextBlock Text="{Binding Path=ChildResponseCounts.TotalResponseCount}"/>
-                                        </StackPanel>
-                                    </StackPanel>
+                                <Button x:Name="BtnActivity" Click="BtnActivity_Click">
+                                    <Button.Template>
+                                        <ControlTemplate>
+                                            <Grid Height="130">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="*"/>
+                                                </Grid.RowDefinitions>
+
+                                                <Button Template="{Binding IconTemplate, Converter={StaticResource AppResourceConverter}}" Grid.RowSpan="2" VerticalAlignment="Top"/>
+
+                                                <c:DynamicTextBlock Grid.Column="1" Text="{Binding Path=LineOne}" HorizontalAlignment="Left"
+                                               TextStyle="{StaticResource PhoneTextTitle2Style}"/>
+                                                <c:DynamicTextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Left" 
+                                               TextStyle="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" MaxHeight="70" 
+                                               Text="{Binding Path=LineTwo,Converter={StaticResource HtmlToTextConverter}}"/>
+                                                <TextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" HorizontalAlignment="Left"
+                                               Style="{StaticResource PhoneTextSmallStyle}" 
+                                               Text="{Binding Path=LineThree}"/>
+                                                <TextBlock Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" 
+                                               Style="{StaticResource PhoneTextSubtleStyle}"
+                                               Text="{Binding Path=FriendlyDate}" />
+                                            </Grid>
+                                        </ControlTemplate>
+                                    </Button.Template>
                                 </Button>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
@@ -80,20 +106,65 @@
                 </Grid>
             </controls:PivotItem>
 
-            <controls:PivotItem Header="progress">
-                <Grid/>
+            <controls:PivotItem Header="dropbox">
+                <Grid>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Coming soon!"/>
+                </Grid>
             </controls:PivotItem>
-
-            <controls:PivotItem Header="people">
-                <Grid/>
-            </controls:PivotItem>
-
-            <controls:PivotItem Header="activity">
-                <Grid/>
+            
+            <controls:PivotItem Header="discussions">
+                <Grid>
+                    <ListBox ItemsSource="{Binding CourseTopics}" ItemContainerStyle="{StaticResource StretchedContainerStyle}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button Click="BtnDiscussion_Click">
+                                    <Button.Template>
+                                        <ControlTemplate>
+                                            <Grid Height="130">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="*"/>
+                                                </Grid.RowDefinitions>
+                                                <Button Grid.RowSpan="2" VerticalAlignment="Top" Template="{Binding Path=IconTemplate, Converter={StaticResource AppResourceConverter}}"/>
+                                                <c:DynamicTextBlock Grid.Column="1" 
+                                                    Text="{Binding Path=DiscussionTitle}" HorizontalAlignment="Left"
+                                                    TextStyle="{StaticResource PhoneTextTitle2Style}"/>
+                                                <c:DynamicTextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Left" 
+                                                    TextStyle="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" MaxHeight="70" 
+                                                    Text="{Binding Path=TotalResponsesLine}"/>
+                                                <TextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" HorizontalAlignment="Left"
+                                                    Style="{StaticResource PhoneTextSmallStyle}" 
+                                                    Text="{Binding Path=MyResponsesLine}"/>
+                                                <TextBlock Grid.Column="2" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalAlignment="Right"
+                                                    FontFamily="{StaticResource PhoneFontFamilyLight}"
+                                                    FontSize="{StaticResource PhoneFontSizeExtraLarge}"
+                                                    Text="{Binding Path=UnreadResponseCount}" />
+                                            </Grid>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ListBox>
+                </Grid>
             </controls:PivotItem>
 
             <controls:PivotItem Header="gradebook">
-                <Grid/>
+                <Grid>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Coming soon!"/>
+                </Grid>
+            </controls:PivotItem>
+
+            <controls:PivotItem Header="people">
+                <Grid>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Coming soon!"/>
+                </Grid>
             </controls:PivotItem>
 
         </controls:Pivot>

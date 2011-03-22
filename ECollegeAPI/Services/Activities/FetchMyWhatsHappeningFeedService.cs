@@ -8,15 +8,22 @@ namespace ECollegeAPI.Services.Activities
     {
         public List<ActivityStreamItem> Result { get; set; }
         
-        public FetchMyWhatsHappeningFeedService() : this(null) {}
+        public FetchMyWhatsHappeningFeedService() : this(null,null) {}
 
-        public FetchMyWhatsHappeningFeedService(DateTime? since)
+        public FetchMyWhatsHappeningFeedService(DateTime? since) : this(since,null) {}
+
+        public FetchMyWhatsHappeningFeedService(DateTime? since, long? courseId)
             : base()
         {
             Resource = "me/whatshappeningfeed";
 
             Resource += "?types=thread-topic,thread-post,grade,dropbox-submission";
             //Resource += "?types=dropbox-submission";
+
+            if (courseId.HasValue)
+            {
+                Resource += "&courseid=" + courseId;
+            }
 
             if (since.HasValue)
             {

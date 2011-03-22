@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,8 +23,8 @@ namespace eCollegeWP7.ViewModels
     public class CourseViewModel : ViewModelBase
     {
 
-        private int _CourseID;
-        public int CourseID
+        private long _CourseID;
+        public long CourseID
         {
             get { return _CourseID; }
             set { _CourseID = value; this.OnPropertyChanged(() => this.CourseID); }
@@ -36,19 +37,19 @@ namespace eCollegeWP7.ViewModels
             set { _Announcements = value; this.OnPropertyChanged(() => this.Announcements); }
         }
 
-        private ObservableCollection<UserDiscussionTopic> _UserTopics;
-        public ObservableCollection<UserDiscussionTopic> UserTopics
+        private ObservableCollection<DiscussionViewModel> _CourseTopics;
+        public ObservableCollection<DiscussionViewModel> CourseTopics
         {
-            get { return _UserTopics; }
-            set { _UserTopics = value; this.OnPropertyChanged(() => this.UserTopics); }
+            get { return _CourseTopics; }
+            set { _CourseTopics = value; this.OnPropertyChanged(() => this.CourseTopics); }
         }
 
-        //private ObservableCollection<ThreadedDiscussion> _ThreadedDiscussions;
-        //public ObservableCollection<ThreadedDiscussion> ThreadedDiscussions
-        //{
-        //    get { return _ThreadedDiscussions; }
-        //    set { _ThreadedDiscussions = value; this.OnPropertyChanged(() => this.ThreadedDiscussions); }
-        //}
+        private ActivitiesViewModel _Activities;
+        public ActivitiesViewModel Activities
+        {
+            get { return _Activities; }
+            set { _Activities = value; this.OnPropertyChanged(() => this.Activities); }
+        }
         
 
         public CourseViewModel(int courseId)
@@ -61,8 +62,11 @@ namespace eCollegeWP7.ViewModels
             var task = App.BuildService(new FetchMyDiscussionTopicsService(new List<long>() {courseId}));
             task.Execute((service) =>
             {
-                this.UserTopics = service.Result.ToObservableCollection();
+                this.CourseTopics = (from t in service.Result select new DiscussionViewModel(t)).ToList().ToObservableCollection();
             });
+            this.Activities = new ActivitiesViewModel();
+            this.Activities.CourseID = courseId;
+            this.Activities.Load(false);
         }
 
     }
