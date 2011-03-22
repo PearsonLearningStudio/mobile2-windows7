@@ -143,6 +143,7 @@ namespace eCollegeWP7.ViewModels
             this.TotalResponsesLine = CalculateTotalResponsesLine(this.DiscussionResponseCount);
             this.MyResponsesLine = CalculateMyResponsesLine(ud.ChildResponseCounts.PersonalResponseCount);
             this.NavigationPath = "/Views/DiscussionPage.xaml?topicId=" + ud.Topic.ID;
+            this.IconPath = "/Resources/Icons/ic_menu_help.png";
         }
 
         protected  void SetupFromResponse(UserDiscussionResponse ud)
@@ -156,6 +157,7 @@ namespace eCollegeWP7.ViewModels
             this.MyResponsesLine = CalculateMyResponsesLine(ud.ChildResponseCounts.PersonalResponseCount);
             this.AuthorName = ud.Response.Author.DisplayName;
             this.NavigationPath = "/Views/DiscussionPage.xaml?responseId=" + ud.Response.ID;
+            this.IconPath = "/Resources/Icons/ic_menu_help.png";
         }
 
         protected string CalculateTotalResponsesLine(long count)

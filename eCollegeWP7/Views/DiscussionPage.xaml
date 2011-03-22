@@ -27,7 +27,7 @@
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
 
-            <ListBox ItemsSource="{Binding Responses}">
+            <ListBox ItemsSource="{Binding Responses}" ItemContainerStyle="{StaticResource StretchedContainerStyle}">
                 <ListBox.Template>
                     <ControlTemplate TargetType="ListBox">
                         <ScrollViewer x:Name="ScrollViewer" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Foreground="{TemplateBinding Foreground}" Padding="{TemplateBinding Padding}">
@@ -60,17 +60,27 @@
                                             Style="{StaticResource PhoneTextSmallStyle}" 
                                             Text="{Binding Path=TotalResponsesLine}"/>
 
-                                    <Border Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" HorizontalAlignment="Left" >
-                                        <Border.OpacityMask>
-                                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                <GradientStop Offset="0" Color="#FF000008"/>
-                                                <GradientStop Offset="1.0" Color="#00000000"/>
-                                            </LinearGradientBrush>
-                                        </Border.OpacityMask>
-                                        <TextBlock 
+                                    <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Border x:Name="BdrDescription" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                                            <Border.OpacityMask>
+                                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                                    <GradientStop Offset="0" Color="#FF000008"/>
+                                                    <GradientStop Offset="1.0" Color="#00000000"/>
+                                                </LinearGradientBrush>
+                                            </Border.OpacityMask>
+                                            <TextBlock x:Name="LblDescription"
                                             Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" MaxHeight="60"
                                             Text="{Binding Path=DiscussionDescription, Converter={StaticResource HtmlToTextConverter}}"/>
-                                    </Border>
+                                        </Border>
+                                        
+                                        <ToggleButton x:Name="TglExpandDescription" Content="+" Grid.Column="1" VerticalAlignment="Top" Click="TglExpandDescription_Click">
+                                        </ToggleButton>
+                                    </Grid>
                                 </Grid>
 
                                 <Button x:Name="BtnShowAddResponse" Content="Add Response" Click="BtnShowAddResponse_Click"/>
@@ -100,24 +110,46 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Button x:Name="BtnResponse" Click="BtnResponse_Click">
-                            <StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock>Author:</TextBlock>
-                                    <TextBlock Text="{Binding Path=UserResponse.Response.Author.Email}"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock>Title:</TextBlock>
-                                    <TextBlock Text="{Binding Path=UserResponse.Response.Title}"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Vertical">
-                                    <TextBlock>Description:</TextBlock>
-                                    <TextBlock Text="{Binding Path=UserResponse.Response.Description,Converter={StaticResource HtmlToTextConverter}}"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock>Response Count:</TextBlock>
-                                    <TextBlock Text="{Binding Path=UserResponse.ChildResponseCounts.TotalResponseCount}"/>
-                                </StackPanel>
-                            </StackPanel>
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Image Grid.RowSpan="3" VerticalAlignment="Top" Source="{Binding Path=IconPath}"/>
+
+                                        <TextBlock Grid.Column="2" Grid.RowSpan="4" VerticalAlignment="Top" HorizontalAlignment="Right"
+                                            FontFamily="{StaticResource PhoneFontFamilyLight}" Margin="5"
+                                            FontSize="{StaticResource PhoneFontSizeExtraLarge}"
+                                            Text="{Binding Path=UnreadResponseCount}" />
+
+                                        <c:DynamicTextBlock Grid.Column="1" 
+                                            Text="{Binding Path=DiscussionTitle}" HorizontalAlignment="Left"
+                                            TextStyle="{StaticResource PhoneTextTitle2Style}"/>
+
+                                        <TextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Left" 
+                                            Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="NoWrap"
+                                            Text="{Binding Path=AuthorName}"/>
+
+                                        <TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left"
+                                            Style="{StaticResource PhoneTextSmallStyle}" 
+                                            Text="{Binding Path=TotalResponsesLine}"/>
+
+                                        <c:DynamicTextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top"
+                                            TextStyle="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" MaxHeight="60"
+                                            Text="{Binding Path=DiscussionDescription, Converter={StaticResource HtmlToTextConverter}}"/>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Button.Template>
                         </Button>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

@@ -13,6 +13,7 @@ using Microsoft.Phone.Controls;
 using ECollegeAPI.Model;
 using eCollegeWP7.Util;
 using eCollegeWP7.ViewModels;
+using System.Windows.Controls.Primitives;
 
 namespace eCollegeWP7.Views
 {
@@ -45,8 +46,8 @@ namespace eCollegeWP7.Views
 
         private void BtnResponse_Click(object sender, RoutedEventArgs e)
         {
-            var rheader = (sender as Button).DataContext as UserDiscussionResponse;
-            this.NavigationService.Navigate(new Uri("/Views/DiscussionPage.xaml?responseId=" + rheader.Response.ID + "&userResponseId=" + rheader.ID, UriKind.Relative));
+            var dvm = (sender as Button).DataContext as DiscussionViewModel;
+            this.NavigationService.Navigate(new Uri(dvm.NavigationPath, UriKind.Relative));
         }
 
         private void BtnShowAddResponse_Click(object sender, RoutedEventArgs e)
@@ -70,6 +71,27 @@ namespace eCollegeWP7.Views
             var responseText = TxtResponse.Text;
             TxtResponse.Text = "";
             Model.PostResponse(responseTitle, responseText);
+        }
+
+        private object _originalDiscussionOpacityMask;
+        private object _originalDiscussionMaxHeight;
+
+        private void TglExpandDescription_Click(object sender, RoutedEventArgs e)
+        {
+            var TglExpandDescription = sender as ToggleButton;
+            var BdrDescription = this.FindVisualChild<Border>("BdrDescription");
+            var LblDescription = this.FindVisualChild<TextBlock>("LblDescription");
+
+            if (TglExpandDescription.IsChecked.Value)
+            {
+                _originalDiscussionOpacityMask = BdrDescription.GetValue(Border.OpacityMaskProperty);
+                _originalDiscussionMaxHeight = LblDescription.GetValue(TextBlock.MaxHeightProperty);
+                BdrDescription.SetValue(Border.OpacityMaskProperty, DependencyProperty.UnsetValue);
+                LblDescription.SetValue(TextBlock.MaxHeightProperty, DependencyProperty.UnsetValue);
+            } else {
+                BdrDescription.SetValue(Border.OpacityMaskProperty, _originalDiscussionOpacityMask);
+                LblDescription.SetValue(TextBlock.MaxHeightProperty, _originalDiscussionMaxHeight);
+            }
         }
 
     }
