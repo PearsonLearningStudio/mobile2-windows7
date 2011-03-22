@@ -83,7 +83,7 @@
                                     </Grid>
                                 </Grid>
 
-                                <Button x:Name="BtnShowAddResponse" Content="Add Response" Click="BtnShowAddResponse_Click"/>
+                                <Button x:Name="BtnShowPostResponse" Content="Post a Response" Click="BtnShowPostResponse_Click"/>
 
                                 <Grid x:Name="GrdResponse" Height="300" Visibility="Collapsed">
                                     <Grid.RowDefinitions>
@@ -98,8 +98,8 @@
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
-                                        <Button x:Name="BtnAddResponse" Content="Add" Click="BtnAddResponse_Click"/>
-                                        <Button x:Name="BtnCancelResponse" Grid.Column="1" Content="Cancel" Click="BtnCancelResponse_Click"/>
+                                        <Button x:Name="BtnCancelResponse" Content="Cancel" Click="BtnCancelResponse_Click"/>
+                                        <Button x:Name="BtnPostResponse" Grid.Column="1" Content="Post" Click="BtnPostResponse_Click"/>
                                     </Grid>
                                 </Grid>
                                 <ItemsPresenter/>

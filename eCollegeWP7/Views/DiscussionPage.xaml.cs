@@ -20,8 +20,8 @@ namespace eCollegeWP7.Views
     public partial class DiscussionPage : BasePage
     {
         protected Grid GrdResponse { get { return this.FindVisualChild<Grid>("GrdResponse"); } }
-        protected Button BtnShowAddResponse { get { return this.FindVisualChild<Button>("BtnShowAddResponse"); } }
-        protected Button BtnAddResponse { get { return this.FindVisualChild<Button>("BtnAddResponse"); } }
+        protected Button BtnShowPostResponse { get { return this.FindVisualChild<Button>("BtnShowPostResponse"); } }
+        protected Button BtnPostResponse { get { return this.FindVisualChild<Button>("BtnPostResponse"); } }
         protected TextBox TxtResponse { get { return this.FindVisualChild<TextBox>("TxtResponse"); } }
         protected TextBox TxtResponseTitle { get { return this.FindVisualChild<TextBox>("TxtResponseTitle"); } }
         protected DiscussionViewModel Model { get { return this.DataContext as DiscussionViewModel; } }
@@ -50,22 +50,22 @@ namespace eCollegeWP7.Views
             this.NavigationService.Navigate(new Uri(dvm.NavigationPath, UriKind.Relative));
         }
 
-        private void BtnShowAddResponse_Click(object sender, RoutedEventArgs e)
+        private void BtnShowPostResponse_Click(object sender, RoutedEventArgs e)
         {
             GrdResponse.Visibility = Visibility.Visible;
-            BtnShowAddResponse.Visibility = Visibility.Collapsed;
+            BtnShowPostResponse.Visibility = Visibility.Collapsed;
         }
 
         private void BtnCancelResponse_Click(object sender, RoutedEventArgs e)
         {
             GrdResponse.Visibility = Visibility.Collapsed;
-            BtnShowAddResponse.Visibility = Visibility.Visible;
+            BtnShowPostResponse.Visibility = Visibility.Visible;
         }
 
-        private void BtnAddResponse_Click(object sender, RoutedEventArgs e)
+        private void BtnPostResponse_Click(object sender, RoutedEventArgs e)
         {
             GrdResponse.Visibility = Visibility.Collapsed;
-            BtnShowAddResponse.Visibility = Visibility.Visible;
+            BtnShowPostResponse.Visibility = Visibility.Visible;
             var responseTitle = TxtResponseTitle.Text;
             TxtResponseTitle.Text = "";
             var responseText = TxtResponse.Text;
