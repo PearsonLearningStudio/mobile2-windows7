@@ -17,6 +17,7 @@ using ECollegeAPI.Model;
 using ECollegeAPI.Services.Discussions;
 using eCollegeWP7.Util;
 using ECollegeAPI.Services.Announcements;
+using ECollegeAPI.Services.Courses;
 
 namespace eCollegeWP7.ViewModels
 {
@@ -37,6 +38,12 @@ namespace eCollegeWP7.ViewModels
             set { _CourseID = value; this.OnPropertyChanged(() => this.CourseID); }
         }
 
+        private ObservableCollection<User> _Instructors;
+        public ObservableCollection<User> Instructors
+        {
+            get { return _Instructors; }
+            set { _Instructors = value; this.OnPropertyChanged(() => this.Instructors); }
+        }
 
         private ObservableCollection<LinkViewModel> _CourseLinks;
         public ObservableCollection<LinkViewModel> CourseLinks
@@ -50,6 +57,10 @@ namespace eCollegeWP7.ViewModels
             this.CourseID = courseId;
             this.Course = App.Model.Courses.CourseIdMap[courseId];
 
+            App.BuildService(new FetchInstructorsForCourseService(courseId)).Execute(service =>
+            {
+                this.Instructors = service.Result.ToObservableCollection();
+            });
 
             var links = new ObservableCollection<LinkViewModel>();
 

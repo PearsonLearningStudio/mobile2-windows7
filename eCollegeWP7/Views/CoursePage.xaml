@@ -25,7 +25,14 @@
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,10,0,28">
             <TextBlock Text="{Binding Path=Course.Title, Converter={StaticResource ToLowerConverter}}" Margin="9,0,0,0" Foreground="{StaticResource PhoneAccentBrush}" Style="{StaticResource PhoneTextTitle1Style}"/>
             <TextBlock Text="{Binding Path=Course.DisplayCourseCode}" Margin="12,0,0,0" Style="{StaticResource PhoneTextLargeStyle}"/>
-            <TextBlock Text="Dr Foo" Margin="12,0,0,0" Style="{StaticResource PhoneTextNormalStyle}"/>
+            
+            <ItemsControl ItemsSource="{Binding Path=Instructors}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding DisplayName}" Margin="12,0,0,0" Style="{StaticResource PhoneTextNormalStyle}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->

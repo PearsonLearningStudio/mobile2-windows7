@@ -93,6 +93,7 @@
     <Compile Include="Services\Activities\FetchMyWhatsHappeningFeedService.cs" />
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\Announcements\FetchAnnouncementsService.cs" />
+    <Compile Include="Services\Courses\FetchInstructorsForCourseService.cs" />
     <Compile Include="Services\Courses\FetchMyCoursesService.cs" />
     <Compile Include="Services\Courses\FetchMyCurrentCoursesService.cs" />
     <Compile Include="Services\Discussions\FetchMyDiscussionResponseByIdService.cs" />
