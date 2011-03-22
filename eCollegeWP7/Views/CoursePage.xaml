@@ -16,13 +16,15 @@
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneBackgroundBrush}">
-        
-        <controls:Panorama x:Name="PanMain" Title="{Binding Path=A.AppName, Source={StaticResource res}}">
-            <controls:Panorama.Background>
-                <ImageBrush ImageSource="/Resources/panorama-bg.png"/>
-            </controls:Panorama.Background>
+        <!--Pivot Control-->
+        <controls:Pivot Title="{Binding Path=A.AppName, Source={StaticResource res}}">
 
-            <controls:PanoramaItem x:Name="PanAnnouncements" Header="announcements">
+            <controls:PivotItem Header="dropbox">
+                <Grid>
+                </Grid>
+            </controls:PivotItem>
+
+            <controls:PivotItem Header="announcements">
                 <Grid>
                     <ListBox ItemsSource="{Binding Announcements}">
                         <ItemsControl.ItemTemplate>
@@ -49,27 +51,9 @@
                         </ItemsControl.ItemTemplate>
                     </ListBox>
                 </Grid>
-            </controls:PanoramaItem>
+            </controls:PivotItem>
 
-            <controls:PanoramaItem x:Name="PanActivity" Header="activity">
-                <Grid>
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Coming Soon!"/>
-                </Grid>
-            </controls:PanoramaItem>
-
-            <controls:PanoramaItem x:Name="PanGradebook" Header="gradebook">
-                <Grid>
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Coming Soon!"/>
-                </Grid>
-            </controls:PanoramaItem>
-
-            <controls:PanoramaItem x:Name="PanDropbox" Header="dropbox">
-                <Grid>
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Coming Soon!"/>
-                </Grid>
-            </controls:PanoramaItem>
-
-            <controls:PanoramaItem x:Name="PanDiscussions" Header="discussions">
+            <controls:PivotItem Header="discussions">
                 <Grid>
                     <ListBox ItemsSource="{Binding UserTopics}">
                         <ItemsControl.ItemTemplate>
@@ -94,15 +78,25 @@
                         </ItemsControl.ItemTemplate>
                     </ListBox>
                 </Grid>
-            </controls:PanoramaItem>
+            </controls:PivotItem>
 
-            <controls:PanoramaItem x:Name="PanPeople" Header="people">
-                <Grid>
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Coming Soon!"/>
-                </Grid>
-            </controls:PanoramaItem>
-        </controls:Panorama>
-        
+            <controls:PivotItem Header="progress">
+                <Grid/>
+            </controls:PivotItem>
+
+            <controls:PivotItem Header="people">
+                <Grid/>
+            </controls:PivotItem>
+
+            <controls:PivotItem Header="activity">
+                <Grid/>
+            </controls:PivotItem>
+
+            <controls:PivotItem Header="gradebook">
+                <Grid/>
+            </controls:PivotItem>
+
+        </controls:Pivot>
     </Grid>
 
     <!--Sample code showing usage of ApplicationBar-->
