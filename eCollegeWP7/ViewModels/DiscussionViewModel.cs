@@ -102,13 +102,6 @@ namespace eCollegeWP7.ViewModels
             set { _DiscussionResponseCount = value; this.OnPropertyChanged(() => this.DiscussionResponseCount); }
         }
 
-        private string _IconPath;
-        public string IconPath
-        {
-            get { return _IconPath; }
-            set { _IconPath = value; this.OnPropertyChanged(() => this.IconPath); }
-        }
-
         private string _TotalResponsesLine;
         public string TotalResponsesLine
         {
@@ -132,6 +125,7 @@ namespace eCollegeWP7.ViewModels
 
         public string AuthorName { get; set; }
         public string NavigationPath { get; set; }
+        public string IconTemplate { get; set; }
 
         protected void SetupFromTopic(UserDiscussionTopic ud)
         {
@@ -143,7 +137,7 @@ namespace eCollegeWP7.ViewModels
             this.TotalResponsesLine = CalculateTotalResponsesLine(this.DiscussionResponseCount);
             this.MyResponsesLine = CalculateMyResponsesLine(ud.ChildResponseCounts.PersonalResponseCount);
             this.NavigationPath = "/Views/DiscussionPage.xaml?topicId=" + ud.Topic.ID;
-            this.IconPath = "/Resources/Icons/ic_menu_help.png";
+            this.IconTemplate = "IconHelp";
         }
 
         protected  void SetupFromResponse(UserDiscussionResponse ud)
@@ -157,7 +151,7 @@ namespace eCollegeWP7.ViewModels
             this.MyResponsesLine = CalculateMyResponsesLine(ud.ChildResponseCounts.PersonalResponseCount);
             this.AuthorName = ud.Response.Author.DisplayName;
             this.NavigationPath = "/Views/DiscussionPage.xaml?responseId=" + ud.Response.ID;
-            this.IconPath = "/Resources/Icons/ic_menu_help.png";
+            this.IconTemplate = "IconHelp";
         }
 
         protected string CalculateTotalResponsesLine(long count)

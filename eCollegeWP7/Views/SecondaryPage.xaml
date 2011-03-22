@@ -81,7 +81,7 @@
                                                     <RowDefinition Height="Auto"/>
                                                     <RowDefinition Height="*"/>
                                                 </Grid.RowDefinitions>
-                                                <Image Grid.RowSpan="2" VerticalAlignment="Top" Source="{Binding Path=IconPath}"/>
+                                                <Button Grid.RowSpan="2" VerticalAlignment="Top" Template="{Binding Path=IconTemplate, Converter={StaticResource AppResourceConverter}}"/>
                                                 <c:DynamicTextBlock Grid.Column="1" 
                                                     Text="{Binding Path=DiscussionTitle}" HorizontalAlignment="Left"
                                                     TextStyle="{StaticResource PhoneTextTitle2Style}"/>

@@ -44,7 +44,7 @@
                                 <HyperlinkButton.Template>
                                     <ControlTemplate>
                                         <StackPanel Orientation="Horizontal" Margin="5" Background="Transparent">
-                                            <Image Source="{Binding Path=IconPath}"/>
+                                            <Button Template="{Binding IconTemplate, Converter={StaticResource AppResourceConverter}}"/>
                                             <TextBlock Text="{Binding Path=Title}" VerticalAlignment="Center"/>
                                         </StackPanel>
                                     </ControlTemplate>
@@ -92,8 +92,9 @@
                                                     <RowDefinition Height="Auto"/>
                                                     <RowDefinition Height="*"/>
                                                 </Grid.RowDefinitions>
-                                                <!--<Image Source="{Binding Path=IconPath}"/>-->
-                                                <Image Source="/Resources/Icons/ic_menu_help.png" Grid.RowSpan="3" VerticalAlignment="Top"/>
+
+                                                <Button Template="{Binding IconTemplate, Converter={StaticResource AppResourceConverter}}" Grid.RowSpan="2" VerticalAlignment="Top"/>
+                                                
                                                 <c:DynamicTextBlock Grid.Column="1" Text="{Binding Path=LineOne}" HorizontalAlignment="Left"
                                                TextStyle="{StaticResource PhoneTextTitle2Style}"/>
                                                 <c:DynamicTextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Left" 

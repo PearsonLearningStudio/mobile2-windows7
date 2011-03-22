@@ -22,7 +22,7 @@ namespace eCollegeWP7.ViewModels
     public class HomeLink
     {
         public string Title { get; set; }
-        public string IconPath { get; set; }
+        public string IconTemplate { get; set; }
         public string PanoramaItemName { get; set; }
         public string LinkPath { get; set; }
     }
@@ -39,49 +39,49 @@ namespace eCollegeWP7.ViewModels
             links.Add(new HomeLink()
             {
                 Title = "activity",
-                IconPath = "/Resources/Icons/ic_menu_activity.png",
+                IconTemplate = "IconActivity",
                 PanoramaItemName = "PanActivity"
             });
             links.Add(new HomeLink()
             {
                 Title = "what's due",
-                IconPath = "/Resources/Icons/ic_menu_whats_due.png",
+                IconTemplate = "IconWhatsDue",
                 PanoramaItemName = "PanWhatsDue"
             });
             links.Add(new HomeLink()
             {
                 Title = "discussions",
-                IconPath = "/Resources/Icons/ic_menu_discussions.png",
+                IconTemplate = "IconDiscussions",
                 LinkPath = "/Views/SecondaryPage.xaml?defaultPanoramaItem=PanDiscussions"
             });
             links.Add(new HomeLink()
             {
                 Title = "courses",
-                IconPath = "/Resources/Icons/ic_menu_courses.png",
+                IconTemplate = "IconCourses",
                 LinkPath = "/Views/SecondaryPage.xaml?defaultPanoramaItem=PanCourses"
             });
             links.Add(new HomeLink()
             {
                 Title = "people",
-                IconPath = "/Resources/Icons/ic_menu_people.png",
+                IconTemplate = "IconPeople",
                 LinkPath = "/Views/SecondaryPage.xaml?defaultPanoramaItem=PanPeople"
             });
             links.Add(new HomeLink()
             {
                 Title = "my profile",
-                IconPath = "/Resources/Icons/ic_menu_profile.png",
+                IconTemplate = "IconProfile",
                 LinkPath = "/Views/ProfilePage.xaml"
             });
             links.Add(new HomeLink()
             {
                 Title = "help",
-                IconPath = "/Resources/Icons/ic_menu_help.png",
+                IconTemplate = "IconHelp",
                 LinkPath = "/Views/HelpPage.xaml"
             });
             links.Add(new HomeLink()
             {
                 Title = "settings",
-                IconPath = "/Resources/Icons/ic_menu_settings.png",
+                IconTemplate = "IconSettings",
                 LinkPath = "/Views/SettingsPage.xaml"
             });
 

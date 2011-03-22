@@ -125,7 +125,7 @@
                                             <RowDefinition Height="*"/>
                                         </Grid.RowDefinitions>
 
-                                        <Image Grid.RowSpan="3" VerticalAlignment="Top" Source="{Binding Path=IconPath}"/>
+                                        <Button Grid.RowSpan="3" VerticalAlignment="Top" Template="{Binding Path=IconTemplate, Converter={StaticResource AppResourceConverter}}"/>
 
                                         <TextBlock Grid.Column="2" Grid.RowSpan="4" VerticalAlignment="Top" HorizontalAlignment="Right"
                                             FontFamily="{StaticResource PhoneFontFamilyLight}" Margin="5"
