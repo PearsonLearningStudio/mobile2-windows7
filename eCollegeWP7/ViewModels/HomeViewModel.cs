@@ -19,70 +19,63 @@ using System.Linq;
 
 namespace eCollegeWP7.ViewModels
 {
-    public class HomeLink
-    {
-        public string Title { get; set; }
-        public string IconTemplate { get; set; }
-        public string PanoramaItemName { get; set; }
-        public string LinkPath { get; set; }
-    }
-
     public class HomeViewModel : ViewModelBase
     {
 
-        public ObservableCollection<HomeLink> HomeLinks { get; set; }
+        public ObservableCollection<LinkViewModel> HomeLinks { get; set; }
+
         public HomeViewModel()
         {
 
-            var links = new ObservableCollection<HomeLink>();
+            var links = new ObservableCollection<LinkViewModel>();
 
-            links.Add(new HomeLink()
+            links.Add(new LinkViewModel()
             {
                 Title = "activity",
                 IconTemplate = "IconActivity",
                 PanoramaItemName = "PanActivity"
             });
-            links.Add(new HomeLink()
+            links.Add(new LinkViewModel()
             {
                 Title = "what's due",
                 IconTemplate = "IconWhatsDue",
                 PanoramaItemName = "PanWhatsDue"
             });
-            links.Add(new HomeLink()
+            links.Add(new LinkViewModel()
             {
                 Title = "discussions",
                 IconTemplate = "IconDiscussions",
-                LinkPath = "/Views/SecondaryPage.xaml?defaultPanoramaItem=PanDiscussions"
+                NavigationPath = "/Views/SecondaryPage.xaml?defaultPanoramaItem=PanDiscussions"
             });
-            links.Add(new HomeLink()
+            links.Add(new LinkViewModel()
             {
                 Title = "courses",
                 IconTemplate = "IconCourses",
-                LinkPath = "/Views/SecondaryPage.xaml?defaultPanoramaItem=PanCourses"
+                NavigationPath = "/Views/SecondaryPage.xaml?defaultPanoramaItem=PanCourses"
             });
-            links.Add(new HomeLink()
+            links.Add(new LinkViewModel()
             {
                 Title = "people",
                 IconTemplate = "IconPeople",
-                LinkPath = "/Views/SecondaryPage.xaml?defaultPanoramaItem=PanPeople"
+                NavigationPath = "/Views/SecondaryPage.xaml?defaultPanoramaItem=PanPeople"
             });
-            links.Add(new HomeLink()
+            links.Add(new LinkViewModel()
             {
                 Title = "my profile",
                 IconTemplate = "IconProfile",
-                LinkPath = "/Views/ProfilePage.xaml"
+                NavigationPath = "/Views/ProfilePage.xaml"
             });
-            links.Add(new HomeLink()
+            links.Add(new LinkViewModel()
             {
                 Title = "help",
                 IconTemplate = "IconHelp",
-                LinkPath = "/Views/HelpPage.xaml"
+                NavigationPath = "/Views/HelpPage.xaml"
             });
-            links.Add(new HomeLink()
+            links.Add(new LinkViewModel()
             {
                 Title = "settings",
                 IconTemplate = "IconSettings",
-                LinkPath = "/Views/SettingsPage.xaml"
+                NavigationPath = "/Views/SettingsPage.xaml"
             });
 
             HomeLinks = links;

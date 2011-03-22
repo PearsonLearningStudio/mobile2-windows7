@@ -19,13 +19,10 @@
     SupportedOrientations="Portrait"  Orientation="Portrait">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneBackgroundBrush}">
+    <Grid x:Name="LayoutRoot">
 
         <!--Panorama control-->
-        <controls:Panorama x:Name="PanMain" Title="{Binding Path=A.AppName, Source={StaticResource res}}" SelectionChanged="PanMain_SelectionChanged">
-            <controls:Panorama.Background>
-                <ImageBrush ImageSource="/Resources/panorama-bg.png"/>
-            </controls:Panorama.Background>
+        <controls:Panorama x:Name="PanMain" Background="{StaticResource PanoramaPageBackground}" Title="{Binding Path=A.AppName, Source={StaticResource res}}" SelectionChanged="PanMain_SelectionChanged">
 
             <controls:PanoramaItem x:Name="PanNotifications" Header="notifications">
                 <Grid>

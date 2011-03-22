@@ -16,6 +16,11 @@
                 <ResourceDictionary Source="Resources/ThemeResources.xaml"/>
                 <ResourceDictionary Source="Resources/PerformanceProgressBar.xaml"/>
                 <ResourceDictionary>
+
+
+                    <ImageBrush x:Key="PanoramaPageBackground" ImageSource="/Resources/background_branded.png"/>
+                    <ImageBrush x:Key="DefaultPageBackground" ImageSource="/Resources/background_main.png"/>
+
                     <conv:FilterTopicByCourseConverter x:Key="FilterTopicByCourseConverter"/>
                     <conv:HtmlToTextConverter x:Key="HtmlToTextConverter"/>
                     <conv:FriendlyDateConverter x:Key="FriendlyDateConverter"/>
@@ -31,70 +36,6 @@
                     <Style x:Key="StretchedContainerStyle" TargetType="ListBoxItem">
                         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                     </Style>
-
-                    <ControlTemplate x:Key="IconHelp" TargetType="Button">
-                        <Canvas Width="48" Height="48" Background="{StaticResource PhoneBackgroundBrush}">
-                            <Canvas.OpacityMask>
-                                <ImageBrush ImageSource="/Resources/Icons/ic_menu_help.png" Stretch="None"/>
-                            </Canvas.OpacityMask>
-                        </Canvas>
-                    </ControlTemplate>
-
-                    <ControlTemplate x:Key="IconActivity" TargetType="Button">
-                        <Canvas Width="48" Height="48" Background="{StaticResource PhoneBackgroundBrush}">
-                            <Canvas.OpacityMask>
-                                <ImageBrush ImageSource="/Resources/Icons/ic_menu_activity.png" Stretch="None"/>
-                            </Canvas.OpacityMask>
-                        </Canvas>
-                    </ControlTemplate>
-
-                    <ControlTemplate x:Key="IconCourses" TargetType="Button">
-                        <Canvas Width="48" Height="48" Background="{StaticResource PhoneBackgroundBrush}">
-                            <Canvas.OpacityMask>
-                                <ImageBrush ImageSource="/Resources/Icons/ic_menu_courses.png" Stretch="None"/>
-                            </Canvas.OpacityMask>
-                        </Canvas>
-                    </ControlTemplate>
-
-                    <ControlTemplate x:Key="IconDiscussions" TargetType="Button">
-                        <Canvas Width="48" Height="48" Background="{StaticResource PhoneBackgroundBrush}">
-                            <Canvas.OpacityMask>
-                                <ImageBrush ImageSource="/Resources/Icons/ic_menu_discussions.png" Stretch="None"/>
-                            </Canvas.OpacityMask>
-                        </Canvas>
-                    </ControlTemplate>
-
-                    <ControlTemplate x:Key="IconPeople" TargetType="Button">
-                        <Canvas Width="48" Height="48" Background="{StaticResource PhoneBackgroundBrush}">
-                            <Canvas.OpacityMask>
-                                <ImageBrush ImageSource="/Resources/Icons/ic_menu_people.png" Stretch="None"/>
-                            </Canvas.OpacityMask>
-                        </Canvas>
-                    </ControlTemplate>
-
-                    <ControlTemplate x:Key="IconProfile" TargetType="Button">
-                        <Canvas Width="48" Height="48" Background="{StaticResource PhoneBackgroundBrush}">
-                            <Canvas.OpacityMask>
-                                <ImageBrush ImageSource="/Resources/Icons/ic_menu_profile.png" Stretch="None"/>
-                            </Canvas.OpacityMask>
-                        </Canvas>
-                    </ControlTemplate>
-                    
-                    <ControlTemplate x:Key="IconSettings" TargetType="Button">
-                        <Canvas Width="48" Height="48" Background="{StaticResource PhoneBackgroundBrush}">
-                            <Canvas.OpacityMask>
-                                <ImageBrush ImageSource="/Resources/Icons/ic_menu_settings.png" Stretch="None"/>
-                            </Canvas.OpacityMask>
-                        </Canvas>
-                    </ControlTemplate>
-                    
-                    <ControlTemplate x:Key="IconWhatsDue" TargetType="Button">
-                        <Canvas Width="48" Height="48" Background="{StaticResource PhoneBackgroundBrush}">
-                            <Canvas.OpacityMask>
-                                <ImageBrush ImageSource="/Resources/Icons/ic_menu_whats_due.png" Stretch="None"/>
-                            </Canvas.OpacityMask>
-                        </Canvas>
-                    </ControlTemplate>
 
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>

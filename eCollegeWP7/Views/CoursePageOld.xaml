@@ -1,0 +1,182 @@
+﻿<v:BasePage 
+    x:Class="eCollegeWP7.Views.CoursePageOld"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:v="clr-namespace:eCollegeWP7.Views" xmlns:c="clr-namespace:eCollegeWP7.Views.Controls" mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait"  Orientation="Portrait">
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot">
+        <!--Pivot Control-->
+        <controls:Pivot Background="{StaticResource PanoramaPageBackground}" Title="{Binding Path=CourseID, Converter={StaticResource CourseIdToCourseNameConverter}, ConverterParameter=ToLower}">
+            
+            <controls:PivotItem Header="announcements">
+                <Grid>
+                    <ListBox ItemsSource="{Binding Announcements}" ItemContainerStyle="{StaticResource StretchedContainerStyle}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock>ID:</TextBlock>
+                                        <TextBlock Text="{Binding Path=ID}"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock>Text:</TextBlock>
+                                        <TextBlock Text="{Binding Path=Text}"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock>Subject:</TextBlock>
+                                        <TextBlock Text="{Binding Path=Subject}"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock>Submitter:</TextBlock>
+                                        <TextBlock Text="{Binding Path=Submitter}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </controls:PivotItem>
+
+            <controls:PivotItem Header="activity">
+                <Grid>
+                    <ListBox x:Name="LstActivity" ItemsSource="{Binding Path=Activities.Activities}" ItemContainerStyle="{StaticResource StretchedContainerStyle}">
+                        <ListBox.Template>
+                            <ControlTemplate TargetType="ListBox">
+                                <ScrollViewer x:Name="ScrollViewer" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Foreground="{TemplateBinding Foreground}" Padding="{TemplateBinding Padding}">
+                                    <StackPanel>
+                                        <ItemsPresenter/>
+
+                                        <Button x:Name="BtnLoadMore" Click="BtnLoadMore_Click"
+                                                 Visibility="{Binding Path=CanLoadMore, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                                 HorizontalAlignment="Stretch" Content="Load More"/>
+                                    </StackPanel>
+                                </ScrollViewer>
+                            </ControlTemplate>
+                        </ListBox.Template>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button x:Name="BtnActivity" Click="BtnActivity_Click">
+                                    <Button.Template>
+                                        <ControlTemplate>
+                                            <Grid Height="130">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="*"/>
+                                                </Grid.RowDefinitions>
+
+                                                <Button Template="{Binding IconTemplate, Converter={StaticResource AppResourceConverter}}" Grid.RowSpan="2" VerticalAlignment="Top"/>
+
+                                                <c:DynamicTextBlock Grid.Column="1" Text="{Binding Path=LineOne}" HorizontalAlignment="Left"
+                                               TextStyle="{StaticResource PhoneTextTitle2Style}"/>
+                                                <c:DynamicTextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Left" 
+                                               TextStyle="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" MaxHeight="70" 
+                                               Text="{Binding Path=LineTwo,Converter={StaticResource HtmlToTextConverter}}"/>
+                                                <TextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" HorizontalAlignment="Left"
+                                               Style="{StaticResource PhoneTextSmallStyle}" 
+                                               Text="{Binding Path=LineThree}"/>
+                                                <TextBlock Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" 
+                                               Style="{StaticResource PhoneTextSubtleStyle}"
+                                               Text="{Binding Path=FriendlyDate}" />
+                                            </Grid>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </controls:PivotItem>
+
+            <controls:PivotItem Header="dropbox">
+                <Grid>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Coming soon!"/>
+                </Grid>
+            </controls:PivotItem>
+            
+            <controls:PivotItem Header="discussions">
+                <Grid>
+                    <ListBox ItemsSource="{Binding CourseTopics}" ItemContainerStyle="{StaticResource StretchedContainerStyle}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button Click="BtnDiscussion_Click">
+                                    <Button.Template>
+                                        <ControlTemplate>
+                                            <Grid Height="130">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="*"/>
+                                                </Grid.RowDefinitions>
+                                                <Button Grid.RowSpan="2" VerticalAlignment="Top" Template="{Binding Path=IconTemplate, Converter={StaticResource AppResourceConverter}}"/>
+                                                <c:DynamicTextBlock Grid.Column="1" 
+                                                    Text="{Binding Path=DiscussionTitle}" HorizontalAlignment="Left"
+                                                    TextStyle="{StaticResource PhoneTextTitle2Style}"/>
+                                                <c:DynamicTextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Left" 
+                                                    TextStyle="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" MaxHeight="70" 
+                                                    Text="{Binding Path=TotalResponsesLine}"/>
+                                                <TextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" HorizontalAlignment="Left"
+                                                    Style="{StaticResource PhoneTextSmallStyle}" 
+                                                    Text="{Binding Path=MyResponsesLine}"/>
+                                                <TextBlock Grid.Column="2" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalAlignment="Right"
+                                                    FontFamily="{StaticResource PhoneFontFamilyLight}"
+                                                    FontSize="{StaticResource PhoneFontSizeExtraLarge}"
+                                                    Text="{Binding Path=UnreadResponseCount}" />
+                                            </Grid>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </controls:PivotItem>
+
+            <controls:PivotItem Header="gradebook">
+                <Grid>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Coming soon!"/>
+                </Grid>
+            </controls:PivotItem>
+
+            <controls:PivotItem Header="people">
+                <Grid>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Coming soon!"/>
+                </Grid>
+            </controls:PivotItem>
+
+        </controls:Pivot>
+    </Grid>
+
+    <!--Sample code showing usage of ApplicationBar-->
+    <!--<phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+            <shell:ApplicationBarIconButton x:Name="appbar_button1" IconUri="/Images/appbar_button1.png" Text="Button 1"/>
+            <shell:ApplicationBarIconButton x:Name="appbar_button2" IconUri="/Images/appbar_button2.png" Text="Button 2"/>
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem x:Name="menuItem1" Text="MenuItem 1"/>
+                <shell:ApplicationBarMenuItem x:Name="menuItem2" Text="MenuItem 2"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>-->
+
+</v:BasePage>

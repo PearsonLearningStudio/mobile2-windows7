@@ -16,12 +16,11 @@ using eCollegeWP7.ViewModels;
 
 namespace eCollegeWP7.Views
 {
-    public partial class CoursePage : BasePage
+    public partial class CourseDiscussionsPage : BasePage
     {
+        public CourseDiscussionsViewModel Model { get { return this.DataContext as CourseDiscussionsViewModel; } }
 
-        public CourseViewModel Model { get { return this.DataContext as CourseViewModel; } }
-
-        public CoursePage()
+        public CourseDiscussionsPage()
             : base()
         {
             InitializeComponent();
@@ -32,19 +31,13 @@ namespace eCollegeWP7.Views
             IDictionary<string, string> parameters = this.NavigationContext.QueryString;
 
             int courseId = Int32.Parse(parameters["courseId"]);
-            this.DataContext = new CourseViewModel(courseId);
+            this.DataContext = new CourseDiscussionsViewModel(courseId);
         }
 
-        private void BtnCourseLink_Click(object sender, RoutedEventArgs e)
+        private void BtnDiscussion_Click(object sender, RoutedEventArgs e)
         {
-            var btn = sender as HyperlinkButton;
-            var link = btn.DataContext as LinkViewModel;
-
-            if (link.NavigationPath != null)
-            {
-                this.NavigationService.Navigate(new Uri(link.NavigationPath, UriKind.Relative));
-            }
+            var dis = (sender as Button).DataContext as DiscussionViewModel;
+            this.NavigationService.Navigate(new Uri(dis.NavigationPath, UriKind.Relative));
         }
-
     }
 }

@@ -23,6 +23,13 @@ namespace eCollegeWP7.ViewModels
     public class CourseViewModel : ViewModelBase
     {
 
+        private Course _Course;
+        public Course Course
+        {
+            get { return _Course; }
+            set { _Course = value; this.OnPropertyChanged(() => this.Course); }
+        }
+        
         private long _CourseID;
         public long CourseID
         {
@@ -30,43 +37,60 @@ namespace eCollegeWP7.ViewModels
             set { _CourseID = value; this.OnPropertyChanged(() => this.CourseID); }
         }
 
-        private ObservableCollection<Announcement> _Announcements;
-        public ObservableCollection<Announcement> Announcements
+
+        private ObservableCollection<LinkViewModel> _CourseLinks;
+        public ObservableCollection<LinkViewModel> CourseLinks
         {
-            get { return _Announcements; }
-            set { _Announcements = value; this.OnPropertyChanged(() => this.Announcements); }
+            get { return _CourseLinks; }
+            set { _CourseLinks = value; this.OnPropertyChanged(() => this.CourseLinks); }
         }
 
-        private ObservableCollection<DiscussionViewModel> _CourseTopics;
-        public ObservableCollection<DiscussionViewModel> CourseTopics
-        {
-            get { return _CourseTopics; }
-            set { _CourseTopics = value; this.OnPropertyChanged(() => this.CourseTopics); }
-        }
-
-        private ActivitiesViewModel _Activities;
-        public ActivitiesViewModel Activities
-        {
-            get { return _Activities; }
-            set { _Activities = value; this.OnPropertyChanged(() => this.Activities); }
-        }
-        
-
-        public CourseViewModel(int courseId)
+        public CourseViewModel(long courseId)
         {
             this.CourseID = courseId;
-            App.BuildService(new FetchAnnouncementsService(courseId)).Execute((service) =>
+            this.Course = App.Model.Courses.CourseIdMap[courseId];
+
+
+            var links = new ObservableCollection<LinkViewModel>();
+
+            links.Add(new LinkViewModel()
             {
-                this.Announcements = service.Result.ToObservableCollection();
+                Title = "announcements",
+                NavigationPath = "/Views/CourseAnnouncementsPage.xaml?courseId=" + courseId
             });
-            var task = App.BuildService(new FetchMyDiscussionTopicsService(new List<long>() {courseId}));
-            task.Execute((service) =>
+
+            links.Add(new LinkViewModel()
             {
-                this.CourseTopics = (from t in service.Result select new DiscussionViewModel(t)).ToList().ToObservableCollection();
+                Title = "activity",
+                NavigationPath = "/Views/CourseActivitiesPage.xaml?courseId=" + courseId
             });
-            this.Activities = new ActivitiesViewModel();
-            this.Activities.CourseID = courseId;
-            this.Activities.Load(false);
+
+            links.Add(new LinkViewModel()
+            {
+                Title = "dropbox",
+                NavigationPath = "/Views/CourseDropboxMessagesPage.xaml?courseId=" + courseId
+            });
+
+            links.Add(new LinkViewModel()
+            {
+                Title = "discussions",
+                NavigationPath = "/Views/CourseDiscussionsPage.xaml?courseId=" + courseId
+            });
+
+            links.Add(new LinkViewModel()
+            {
+                Title = "gradebook",
+                NavigationPath = "/Views/CourseGradebookPage.xaml?courseId=" + courseId
+            });
+
+            links.Add(new LinkViewModel()
+            {
+                Title = "people",
+                NavigationPath = "/Views/CoursePeoplePage.xaml?courseId=" + courseId
+            });
+
+            CourseLinks = links;
+
         }
 
     }

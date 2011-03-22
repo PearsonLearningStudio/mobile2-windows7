@@ -99,6 +99,9 @@
     <Compile Include="ViewModels\AppViewModel.cs" />
     <Compile Include="ViewModels\ActivitiesViewModel.cs" />
     <Compile Include="ViewModels\ActivityViewModel.cs" />
+    <Compile Include="ViewModels\AnnouncementsViewModel.cs" />
+    <Compile Include="ViewModels\CourseDiscussionsViewModel.cs" />
+    <Compile Include="ViewModels\LinkViewModel.cs" />
     <Compile Include="ViewModels\GradeViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\PeopleViewModel.cs" />
@@ -107,6 +110,27 @@
     <Compile Include="ViewModels\DropboxMessageViewModel.cs" />
     <Compile Include="Views\BasePage.cs" />
     <Compile Include="Views\Controls\DynamicTextBlock.cs" />
+    <Compile Include="Views\CoursePage.xaml.cs">
+      <DependentUpon>CoursePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CoursePeoplePage.xaml.cs">
+      <DependentUpon>CoursePeoplePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CourseGradebookPage.xaml.cs">
+      <DependentUpon>CourseGradebookPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CourseDiscussionsPage.xaml.cs">
+      <DependentUpon>CourseDiscussionsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CourseDropboxMessagesPage.xaml.cs">
+      <DependentUpon>CourseDropboxMessagesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CourseActivitiesPage.xaml.cs">
+      <DependentUpon>CourseActivitiesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CourseAnnouncementsPage.xaml.cs">
+      <DependentUpon>CourseAnnouncementsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\GradePage.xaml.cs">
       <DependentUpon>GradePage.xaml</DependentUpon>
     </Compile>
@@ -134,8 +158,8 @@
     <Compile Include="Views\DropboxMessagePage.xaml.cs">
       <DependentUpon>DropboxMessagePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CoursePage.xaml.cs">
-      <DependentUpon>CoursePage.xaml</DependentUpon>
+    <Compile Include="Views\CoursePageOld.xaml.cs">
+      <DependentUpon>CoursePageOld.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -172,6 +196,34 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Resource>
+    <Page Include="Views\CoursePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\CoursePeoplePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\CourseGradebookPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\CourseDiscussionsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\CourseDropboxMessagesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\CourseActivitiesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\CourseAnnouncementsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\GradePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -208,7 +260,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\CoursePage.xaml">
+    <Page Include="Views\CoursePageOld.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -245,6 +297,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="PanoramaBackground.png" />
+    <Content Include="Resources\background_branded.png" />
+    <Content Include="Resources\background_main.png" />
     <Content Include="Resources\Icons\ic_menu_help.png" />
     <Content Include="Resources\Icons\ic_menu_activity.png" />
     <Content Include="Resources\Icons\ic_menu_whats_due.png" />
@@ -253,7 +307,6 @@
     <Content Include="Resources\Icons\ic_menu_people.png" />
     <Content Include="Resources\Icons\ic_menu_profile.png" />
     <Content Include="Resources\Icons\ic_menu_settings.png" />
-    <Content Include="Resources\panorama-bg.png" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup>

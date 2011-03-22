@@ -68,11 +68,11 @@ namespace eCollegeWP7.Views
         private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
         {
             var btn = sender as HyperlinkButton;
-            var link = btn.DataContext as HomeLink;
+            var link = btn.DataContext as LinkViewModel;
 
-            if (link.LinkPath != null)
+            if (link.NavigationPath != null)
             {
-                this.NavigationService.Navigate(new Uri(link.LinkPath, UriKind.Relative));
+                this.NavigationService.Navigate(new Uri(link.NavigationPath, UriKind.Relative));
             }
             else
             {
