@@ -137,7 +137,7 @@ namespace eCollegeWP7.ViewModels
             this.TotalResponsesLine = CalculateTotalResponsesLine(this.DiscussionResponseCount);
             this.MyResponsesLine = CalculateMyResponsesLine(ud.ChildResponseCounts.PersonalResponseCount);
             this.NavigationPath = "/Views/DiscussionPage.xaml?topicId=" + ud.Topic.ID;
-            this.IconTemplate = "IconHelp";
+            this.IconTemplate = CalculateIconFromResponseCounts(ud.ChildResponseCounts);
         }
 
         protected  void SetupFromResponse(UserDiscussionResponse ud)
@@ -151,7 +151,20 @@ namespace eCollegeWP7.ViewModels
             this.MyResponsesLine = CalculateMyResponsesLine(ud.ChildResponseCounts.PersonalResponseCount);
             this.AuthorName = ud.Response.Author.DisplayName;
             this.NavigationPath = "/Views/DiscussionPage.xaml?responseId=" + ud.Response.ID;
-            this.IconTemplate = "IconHelp";
+            this.IconTemplate = CalculateIconFromResponseCounts(ud.ChildResponseCounts);
+        }
+
+        protected  string CalculateIconFromResponseCounts(ResponseCount rc)
+        {
+            if (rc.Last24HourResponseCount >= 10)
+            {
+                return "IconDiscussionsHotTopic";
+            }
+            if (rc.UnreadResponseCount == 0)
+            {
+                return "IconDiscussionsNoResponses";
+            }
+            return "IconDiscussionsResponses";
         }
 
         protected string CalculateTotalResponsesLine(long count)
