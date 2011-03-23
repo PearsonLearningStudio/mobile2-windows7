@@ -298,17 +298,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="PanoramaBackground.png" />
+    <Content Include="Resources\Icons\icon_discussions_hot_topic.png" />
+    <Content Include="Resources\Icons\icon_discussions_no_responses.png" />
     <Content Include="Resources\background_branded.png" />
     <Content Include="Resources\background_main.png" />
-    <Resource Include="Resources\Icons\icon_announcement.png" />
-    <Resource Include="Resources\Icons\icon_assignment.png" />
-    <Resource Include="Resources\Icons\icon_course.png" />
-    <Resource Include="Resources\Icons\icon_discussions_hot_topic.png" />
-    <Resource Include="Resources\Icons\icon_discussions_no_responses.png" />
-    <Resource Include="Resources\Icons\icon_discussions_responses.png" />
-    <Resource Include="Resources\Icons\icon_dropbox.png" />
-    <Resource Include="Resources\Icons\icon_exam.png" />
-    <Resource Include="Resources\Icons\icon_grade.png" />
+    <Content Include="Resources\Icons\icon_announcement.png" />
+    <Content Include="Resources\Icons\icon_assignment.png" />
+    <Content Include="Resources\Icons\icon_course.png" />
+    <Content Include="Resources\Icons\icon_dropbox.png" />
+    <Content Include="Resources\Icons\icon_exam.png" />
+    <Content Include="Resources\Icons\icon_grade.png" />
+    <Content Include="Resources\Icons\discussions_responses.png" />
+    <Content Include="Resources\Icons\icon_discussions_responses.png" />
     <Content Include="Resources\Icons\ic_menu_help.png" />
     <Content Include="Resources\Icons\ic_menu_activity.png" />
     <Content Include="Resources\Icons\ic_menu_whats_due.png" />

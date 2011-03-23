@@ -14,10 +14,20 @@
     mc:Ignorable="d" d:DesignHeight="800" d:DesignWidth="480">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="Transparent">
+    <Grid x:Name="LayoutRoot" Background="Black">
 
+        
         <Image x:Name="ImageSplashScreen" Source="/SplashScreenImage.jpg" Stretch="Fill"/>
         
+        <!--<Canvas Width="48" Height="48" Background="{StaticResource PhoneAccentBrush}">
+            <Canvas.OpacityMask>
+                <ImageBrush ImageSource="/eCollegeWP7;component/Resources/Icons/icon_discussions_responses.png" Stretch="None"/>
+            </Canvas.OpacityMask>
+        </Canvas>-->
+
+        <!--
+        <Image Stretch="None" Source="/eCollegeWP7;component/Resources/Icons/icon_discussions_responses.png"/>
+        -->
     </Grid>
  
     <!--Sample code showing usage of ApplicationBar-->
