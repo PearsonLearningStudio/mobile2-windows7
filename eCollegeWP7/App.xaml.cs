@@ -84,17 +84,16 @@ namespace eCollegeWP7
         // This code will not execute when the application is first launched
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
-            object grantToken;
             var state = PhoneApplicationService.Current.State;
-            if (state.TryGetValue("grantToken", out grantToken)) {
-                Model.Client.SetupAuthentication(grantToken.ToString());
-            }
+            Model.Activate(state);
         }
 
         // Code to execute when the application is deactivated (sent to background)
         // This code will not execute when the application is closing
         private void Application_Deactivated(object sender, DeactivatedEventArgs e)
         {
+            var state = PhoneApplicationService.Current.State;
+            Model.Deactivate(state);
         }
 
         // Code to execute when the application is closing (eg, user hit Back)

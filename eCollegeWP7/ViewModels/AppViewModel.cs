@@ -45,14 +45,30 @@ namespace eCollegeWP7.ViewModels
             Client = new ECollegeClient(AppResources.ClientString, AppResources.ClientID);
         }
 
-        protected void Reactivate(IDictionary<string,object> state)
+        public void Activate(IDictionary<string,object> state)
         {
-
+            object storedCurrentUser;
+            if (state.TryGetValue("CurrentUser", out storedCurrentUser))
+            {
+                CurrentUser = state["CurrentUser"] as User;
+            }
+            object storedCourses;
+            if (state.TryGetValue("Courses", out storedCourses))
+            {
+                Courses = state["Courses"] as CoursesViewModel;
+            } 
+            object grantToken;
+            if (state.TryGetValue("grantToken", out grantToken) && grantToken != null)
+            {
+                Client.SetupAuthentication(grantToken.ToString());
+            }
         }
 
-        protected void Deactivate(IDictionary<string, object> state)
+        public void Deactivate(IDictionary<string, object> state)
         {
-
+            state["grantToken"] = Client.GrantToken;
+            state["CurrentUser"] = CurrentUser;
+            state["Courses"] = Courses;
         }
 
         protected void FetchInitialUserData(Action<bool> callback)
