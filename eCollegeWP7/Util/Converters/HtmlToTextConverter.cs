@@ -16,11 +16,11 @@ namespace eCollegeWP7.Util.Converters
     public class HtmlToTextConverter : IValueConverter
     {
 
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public static string StripHtml(string html)
         {
-            if (value == null) return null;
+            if (html == null) return null;
             HtmlDocument doc = new HtmlDocument();
-            doc.LoadHtml(value.ToString());
+            doc.LoadHtml(html);
 
             var output = "";
 
@@ -30,6 +30,12 @@ namespace eCollegeWP7.Util.Converters
             }
 
             return HttpUtility.HtmlDecode(output.Trim());
+        }
+
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            if (value == null) return null;
+            return StripHtml(value.ToString());
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

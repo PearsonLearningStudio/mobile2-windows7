@@ -52,6 +52,13 @@ namespace eCollegeWP7.ViewModels
             set { _CourseLinks = value; this.OnPropertyChanged(() => this.CourseLinks); }
         }
 
+        private AnnouncementsViewModel _AnnouncementVM;
+        public AnnouncementsViewModel AnnouncementVM
+        {
+            get { return _AnnouncementVM; }
+            set { _AnnouncementVM = value; this.OnPropertyChanged(() => this.AnnouncementVM); }
+        }
+        
         public CourseViewModel(long courseId)
         {
             this.CourseID = courseId;
@@ -61,6 +68,8 @@ namespace eCollegeWP7.ViewModels
             {
                 this.Instructors = service.Result.ToObservableCollection();
             });
+
+            this.AnnouncementVM = new AnnouncementsViewModel(courseId);
 
             var links = new ObservableCollection<LinkViewModel>();
 

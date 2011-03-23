@@ -8,9 +8,18 @@ namespace ECollegeAPI.Services.Announcements
         public List<Announcement> Result { get; set; }
 
         public FetchAnnouncementsService(long courseId)
+            : this(courseId,true)
+        {
+        }
+
+        public FetchAnnouncementsService(long courseId, bool excludeInactive)
             : base()
         {
             Resource = "courses/" + courseId + "/announcements";
+            if (excludeInactive)
+            {
+                Resource += "?excludeInactive=true";
+            }
         }
 
         public override void ProcessResponse(RestSharp.RestResponse resp)

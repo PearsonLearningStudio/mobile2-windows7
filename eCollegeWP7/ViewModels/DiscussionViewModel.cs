@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,6 +16,7 @@ using System.Collections.ObjectModel;
 using ECollegeAPI.Model;
 using eCollegeWP7.Util;
 using ECollegeAPI.Services.Discussions;
+using eCollegeWP7.Util.Converters;
 
 namespace eCollegeWP7.ViewModels
 {
@@ -130,8 +132,8 @@ namespace eCollegeWP7.ViewModels
         protected void SetupFromTopic(UserDiscussionTopic ud)
         {
             this.UserTopic = ud;
-            this.DiscussionTitle = ud.Topic.Title;
-            this.DiscussionDescription = ud.Topic.Description;
+            this.DiscussionTitle = HttpUtility.HtmlDecode(ud.Topic.Title);
+            this.DiscussionDescription = HtmlToTextConverter.StripHtml(ud.Topic.Description);
             this.DiscussionResponseCount = ud.ChildResponseCounts.TotalResponseCount;
             this.UnreadResponseCount = ud.ChildResponseCounts.UnreadResponseCount;
             this.TotalResponsesLine = CalculateTotalResponsesLine(this.DiscussionResponseCount);
@@ -143,8 +145,8 @@ namespace eCollegeWP7.ViewModels
         protected  void SetupFromResponse(UserDiscussionResponse ud)
         {
             this.UserResponse = ud;
-            this.DiscussionTitle = ud.Response.Title;
-            this.DiscussionDescription = ud.Response.Description;
+            this.DiscussionTitle = HttpUtility.HtmlDecode(ud.Response.Title);
+            this.DiscussionDescription = HtmlToTextConverter.StripHtml(ud.Response.Description);
             this.DiscussionResponseCount = ud.ChildResponseCounts.TotalResponseCount;
             this.UnreadResponseCount = ud.ChildResponseCounts.UnreadResponseCount;
             this.TotalResponsesLine = CalculateTotalResponsesLine(this.DiscussionResponseCount);

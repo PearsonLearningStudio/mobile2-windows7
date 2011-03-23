@@ -37,7 +37,19 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <ItemsControl ItemsSource="{Binding Path=CourseLinks}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Border Background="#44000000" Visibility="{Binding Path=AnnouncementVM.Announcements,Converter={StaticResource NotNullToVisibilityConverter}}" Padding="10">
+                <StackPanel>
+                    <TextBlock Text="{Binding Path=AnnouncementVM.Announcements[0].Subject}" FontFamily="{StaticResource PhoneFontFamilySemiBold}" Foreground="{StaticResource PhoneContrastForegroundBrush}"/>
+                    <TextBlock Margin="5,0,0,0" Text="{Binding Path=AnnouncementVM.Announcements[0].Text}" Foreground="{StaticResource PhoneContrastForegroundBrush}"/>
+                </StackPanel>
+            </Border>
+
+            <ItemsControl Grid.Row="1" ItemsSource="{Binding Path=CourseLinks}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <HyperlinkButton x:Name="BtnCourseLink" Click="BtnCourseLink_Click">
