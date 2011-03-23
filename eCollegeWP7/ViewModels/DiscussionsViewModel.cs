@@ -62,10 +62,20 @@ namespace eCollegeWP7.ViewModels
                 this.TopicsByCourse = (from t in service.Result
                                        group new DiscussionViewModel(t) by t.Topic.ContainerInfo.CourseID
                                            into r
-                                           orderby r.Key
+                                           orderby GetCourseTitle(r.Key)
                                            select new Group<DiscussionViewModel>(r.Key, r)).ToList();
                 if (callback != null) callback(true);
             });
+        }
+
+        private string GetCourseTitle(long courseId)
+        {
+            Course c = App.Model.Courses.CourseIdMap[courseId];
+            if (c != null)
+            {
+                return c.Title;
+            }
+            return null;
         }
 
     }
