@@ -79,11 +79,11 @@ namespace eCollegeWP7.ViewModels
                 NavigationPath = "/Views/CourseAnnouncementsPage.xaml?courseId=" + courseId
             });
 
-            links.Add(new LinkViewModel()
-            {
-                Title = "activity",
-                NavigationPath = "/Views/CourseActivitiesPage.xaml?courseId=" + courseId
-            });
+            //links.Add(new LinkViewModel()
+            //{
+            //    Title = "activity",
+            //    NavigationPath = "/Views/CourseActivitiesPage.xaml?courseId=" + courseId
+            //});
 
             links.Add(new LinkViewModel()
             {
@@ -91,11 +91,11 @@ namespace eCollegeWP7.ViewModels
                 NavigationPath = "/Views/CourseDropboxMessagesPage.xaml?courseId=" + courseId
             });
 
-            links.Add(new LinkViewModel()
-            {
-                Title = "discussions",
-                NavigationPath = "/Views/CourseDiscussionsPage.xaml?courseId=" + courseId
-            });
+            //links.Add(new LinkViewModel()
+            //{
+            //    Title = "discussions",
+            //    NavigationPath = "/Views/CourseDiscussionsPage.xaml?courseId=" + courseId
+            //});
 
             links.Add(new LinkViewModel()
             {
