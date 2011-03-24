@@ -56,6 +56,7 @@
                                             FontFamily="{StaticResource PhoneFontFamilyLight}"
                                             FontSize="{StaticResource PhoneFontSizeExtraLarge}"
                                             Foreground="{StaticResource PhoneSubtleBrush}"
+                                            Visibility="{Binding Path=UnreadResponseCount, Converter={StaticResource NonZeroVisibilityConverter}}"
                                             Text="{Binding Path=UnreadResponseCount}" />
                                     </StackPanel>
 
@@ -148,6 +149,7 @@
                                             FontFamily="{StaticResource PhoneFontFamilyLight}"
                                             FontSize="{StaticResource PhoneFontSizeExtraLarge}"
                                             Foreground="{StaticResource PhoneSubtleBrush}"
+                                            Visibility="{Binding Path=UnreadResponseCount, Converter={StaticResource NonZeroVisibilityConverter}}"
                                             Text="{Binding Path=UnreadResponseCount}" />
                                         </StackPanel>
 

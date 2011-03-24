@@ -19,8 +19,13 @@ namespace eCollegeWP7.Util.Converters
         {
             if (value is int)
             {
-                var valuei = (int)value;
-                if (valuei > 0) return Visibility.Visible;
+                var v = (int)value;
+                if (v > 0) return Visibility.Visible;
+            }
+            if (value is long)
+            {
+                var v = (long)value;
+                if (v > 0) return Visibility.Visible;
             }
             return Visibility.Collapsed;
         }
