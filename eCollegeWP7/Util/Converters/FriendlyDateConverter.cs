@@ -19,7 +19,7 @@ namespace eCollegeWP7.Util.Converters
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            if (value == null) return "???";
+            if (value == null) return null;
             if (!(value is DateTime)) return "not a date";
             return DateTimeUtil.FriendlyDate((DateTime)value);
         }

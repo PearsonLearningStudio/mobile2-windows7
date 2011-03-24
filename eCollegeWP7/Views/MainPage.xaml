@@ -30,7 +30,7 @@
                 </Grid>
             </controls:PanoramaItem>
 
-            <controls:PanoramaItem x:Name="PanHome" Header="home" Padding="30,0,0,0">
+            <controls:PanoramaItem x:Name="PanHome" Padding="30,0,0,0">
                 <controls:PanoramaItem.DataContext>
                     <vm:HomeViewModel/>
                 </controls:PanoramaItem.DataContext>

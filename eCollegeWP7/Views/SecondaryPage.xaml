@@ -12,17 +12,17 @@
     xmlns:v="clr-namespace:eCollegeWP7.Views" xmlns:c="clr-namespace:eCollegeWP7.Views.Controls" mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="800" 
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
-    Foreground="{StaticResource PhoneForegroundBrush}" ShowAppName="False"
+    Foreground="{StaticResource PhoneForegroundBrush}" ShowAppName="True"
     SupportedOrientations="Portrait"  Orientation="Portrait">
-	<v:BasePage.Resources>
+    <v:BasePage.Resources>
 
-	</v:BasePage.Resources>
+    </v:BasePage.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot">
 
         <!--Panorama control-->
-        <controls:Panorama x:Name="PanMain" Background="{StaticResource PanoramaPageBackground}" Title="{Binding Path=A.AppName, Source={StaticResource res}}" SelectionChanged="PanMain_SelectionChanged">
+        <controls:Panorama x:Name="PanMain" Background="{StaticResource PanoramaPageBackground}" SelectionChanged="PanMain_SelectionChanged">
 
             <controls:PanoramaItem x:Name="PanDiscussions" Header="discussions">
                 <Grid>
@@ -88,15 +88,24 @@
                                                 <TextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" HorizontalAlignment="Left"
                                                     Style="{StaticResource PhoneTextSmallStyle}" 
                                                     Text="{Binding Path=MyResponsesLine}"/>
-                                                <TextBlock Grid.Column="2" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalAlignment="Right"
-                                                    FontFamily="{StaticResource PhoneFontFamilyLight}"
-                                                    FontSize="{StaticResource PhoneFontSizeExtraLarge}"
-                                                    Text="{Binding Path=UnreadResponseCount}" />
+
+
+                                                <StackPanel Grid.Column="2" Grid.RowSpan="3" Margin="5" VerticalAlignment="Top" HorizontalAlignment="Right">
+                                                    <TextBlock Style="{StaticResource PhoneTextNormalStyle}" HorizontalAlignment="Right"
+                                                        Visibility="{Binding DiscussionDate, Converter={StaticResource NotNullToVisibilityConverter}}"
+                                                        Text="{Binding Path=DiscussionDate, Converter={StaticResource FriendlyDateConverter}}" />
+                                                    <TextBlock HorizontalAlignment="Right" Margin="0,0,10,0"
+                                                        FontFamily="{StaticResource PhoneFontFamilyLight}"
+                                                        FontSize="{StaticResource PhoneFontSizeExtraLarge}"
+                                                        Foreground="{StaticResource PhoneSubtleBrush}"
+                                                        Text="{Binding Path=UnreadResponseCount}" />
+                                                </StackPanel>
+                                                
                                             </Grid>
                                         </ControlTemplate>
                                     </Button.Template>
                                 </Button>
-                                
+
                             </DataTemplate>
                         </toolkit:LongListSelector.ItemTemplate>
                     </toolkit:LongListSelector>

@@ -34,6 +34,7 @@
                             <StackPanel Visibility="{Binding Path=DiscussionTitle,Converter={StaticResource NotNullToVisibilityConverter}}">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
@@ -43,24 +44,35 @@
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
-                                    <TextBlock Grid.Column="1" Grid.RowSpan="4" VerticalAlignment="Top" HorizontalAlignment="Right"
-                                            FontFamily="{StaticResource PhoneFontFamilyLight}" Margin="5"
+
+                                    <Button Grid.RowSpan="2" VerticalAlignment="Top" Template="{Binding Path=IconTemplate, Converter={StaticResource AppResourceConverter}}"/>
+
+
+                                    <StackPanel Grid.Column="2" Grid.RowSpan="4" Margin="5" VerticalAlignment="Top" HorizontalAlignment="Right">
+                                        <TextBlock Style="{StaticResource PhoneTextNormalStyle}" HorizontalAlignment="Right"
+                                            Visibility="{Binding DiscussionDate, Converter={StaticResource NotNullToVisibilityConverter}}"
+                                            Text="{Binding Path=DiscussionDate, Converter={StaticResource FriendlyDateConverter}}" />
+                                        <TextBlock HorizontalAlignment="Right" Margin="0,0,10,0"
+                                            FontFamily="{StaticResource PhoneFontFamilyLight}"
                                             FontSize="{StaticResource PhoneFontSizeExtraLarge}"
+                                            Foreground="{StaticResource PhoneSubtleBrush}"
                                             Text="{Binding Path=UnreadResponseCount}" />
+                                    </StackPanel>
+
+
+                                    <TextBlock Grid.Column="1" 
+                                            Text="{Binding Path=DiscussionTitle}" HorizontalAlignment="Left" TextWrapping="Wrap"
+                                            Style="{StaticResource PhoneTextTitle2Style}"/>
                                     
-                                    <c:DynamicTextBlock Grid.Column="0" 
-                                            Text="{Binding Path=DiscussionTitle}" HorizontalAlignment="Left"
-                                            TextStyle="{StaticResource PhoneTextTitle2Style}"/>
-                                    
-                                    <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Left" 
+                                    <TextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Left" 
                                             Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="NoWrap"
                                             Text="{Binding Path=AuthorName}"/>
                                     
-                                    <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left"
+                                    <TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left"
                                             Style="{StaticResource PhoneTextSmallStyle}" 
                                             Text="{Binding Path=TotalResponsesLine}"/>
 
-                                    <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                                    <Grid Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Stretch">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="Auto"/>
@@ -70,11 +82,12 @@
                                             <Border.OpacityMask>
                                                 <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                                                     <GradientStop Offset="0" Color="#FF000008"/>
+                                                    <GradientStop Offset="0.5" Color="#FF000008"/>
                                                     <GradientStop Offset="1.0" Color="#00000000"/>
                                                 </LinearGradientBrush>
                                             </Border.OpacityMask>
                                             <TextBlock x:Name="LblDescription"
-                                            Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" MaxHeight="60"
+                                            Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" MaxHeight="120"
                                             Text="{Binding Path=DiscussionDescription}"/>
                                         </Border>
                                         
@@ -127,10 +140,16 @@
 
                                         <Button Grid.RowSpan="3" VerticalAlignment="Top" Template="{Binding Path=IconTemplate, Converter={StaticResource AppResourceConverter}}"/>
 
-                                        <TextBlock Grid.Column="2" Grid.RowSpan="4" VerticalAlignment="Top" HorizontalAlignment="Right"
-                                            FontFamily="{StaticResource PhoneFontFamilyLight}" Margin="5"
+                                        <StackPanel Grid.Column="2" Grid.RowSpan="4" Margin="5" VerticalAlignment="Top" HorizontalAlignment="Right">
+                                            <TextBlock Style="{StaticResource PhoneTextNormalStyle}" HorizontalAlignment="Right"
+                                            Visibility="{Binding DiscussionDate, Converter={StaticResource NotNullToVisibilityConverter}}"
+                                            Text="{Binding Path=DiscussionDate, Converter={StaticResource FriendlyDateConverter}}" />
+                                            <TextBlock HorizontalAlignment="Right" Margin="0,0,10,0"
+                                            FontFamily="{StaticResource PhoneFontFamilyLight}"
                                             FontSize="{StaticResource PhoneFontSizeExtraLarge}"
+                                            Foreground="{StaticResource PhoneSubtleBrush}"
                                             Text="{Binding Path=UnreadResponseCount}" />
+                                        </StackPanel>
 
                                         <c:DynamicTextBlock Grid.Column="1" 
                                             Text="{Binding Path=DiscussionTitle}" HorizontalAlignment="Left"

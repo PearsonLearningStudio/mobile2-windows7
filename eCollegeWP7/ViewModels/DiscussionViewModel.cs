@@ -83,6 +83,13 @@ namespace eCollegeWP7.ViewModels
             set { _CurrentDiscussionType = value; this.OnPropertyChanged(() => this.CurrentDiscussionType); }
         }
 
+        private DateTime? _DiscussionDate;
+        public DateTime? DiscussionDate
+        {
+            get { return _DiscussionDate; }
+            set { _DiscussionDate = value; this.OnPropertyChanged(() => this.DiscussionDate); }
+        }
+
         private string _DiscussionTitle;
         public string DiscussionTitle
         {
@@ -125,13 +132,26 @@ namespace eCollegeWP7.ViewModels
             set { _UnreadResponseCount = value; this.OnPropertyChanged(() => this.UnreadResponseCount); }
         }
 
-        public string AuthorName { get; set; }
+        private string _IconTemplate;
+        public string IconTemplate
+        {
+            get { return _IconTemplate; }
+            set { _IconTemplate = value; this.OnPropertyChanged(() => this.IconTemplate); }
+        }
+
+        private string _AuthorName;
+        public string AuthorName
+        {
+            get { return _AuthorName; }
+            set { _AuthorName = value; this.OnPropertyChanged(() => this.AuthorName); }
+        }
+        
         public string NavigationPath { get; set; }
-        public string IconTemplate { get; set; }
 
         protected void SetupFromTopic(UserDiscussionTopic ud)
         {
             this.UserTopic = ud;
+            this.DiscussionDate = null;//no date for topics
             this.DiscussionTitle = HttpUtility.HtmlDecode(ud.Topic.Title);
             this.DiscussionDescription = HtmlToTextConverter.StripHtml(ud.Topic.Description);
             this.DiscussionResponseCount = ud.ChildResponseCounts.TotalResponseCount;
@@ -145,6 +165,7 @@ namespace eCollegeWP7.ViewModels
         protected  void SetupFromResponse(UserDiscussionResponse ud)
         {
             this.UserResponse = ud;
+            this.DiscussionDate = ud.Response.PostedDate;
             this.DiscussionTitle = HttpUtility.HtmlDecode(ud.Response.Title);
             this.DiscussionDescription = HtmlToTextConverter.StripHtml(ud.Response.Description);
             this.DiscussionResponseCount = ud.ChildResponseCounts.TotalResponseCount;
@@ -162,7 +183,7 @@ namespace eCollegeWP7.ViewModels
             {
                 return "IconDiscussionsHotTopic";
             }
-            if (rc.UnreadResponseCount == 0)
+            if (rc.TotalResponseCount == 0)
             {
                 return "IconDiscussionsNoResponses";
             }
