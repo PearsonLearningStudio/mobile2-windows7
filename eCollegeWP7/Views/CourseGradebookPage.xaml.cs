@@ -35,6 +35,17 @@ namespace eCollegeWP7.Views
             this.DataContext = new GradesViewModel(courseId);
         }
 
+        private void BtnGrade_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as Button;
+            var ug = btn.DataContext as UserGradebookItem;
+
+            if (ug.Grade != null)
+            {
+                this.NavigationService.Navigate(new Uri("/Views/GradePage.xaml?courseId=" + Model.CourseID + "&gradebookItemGuid=" + ug.GradebookItem.ID, UriKind.Relative));
+            }
+        }
+
 
     }
 }

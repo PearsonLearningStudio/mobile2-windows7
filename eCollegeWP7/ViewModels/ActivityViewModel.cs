@@ -35,36 +35,35 @@ namespace eCollegeWP7.ViewModels
         protected void SetupFromItem(ActivityStreamItem item)
         {
             FriendlyDate = DateTimeUtil.FriendlyDate(item.PostedTime);
-            IconTemplate = "IconHelp";
 
             if ("thread-topic" == item.Object.ObjectType)
             {
                 LineOne = "Title: " + item.Target.Title;
-                //IconPath = "/Resources/Icons/ic_menu_help.png";
+                IconTemplate = "IconDiscussionsResponses";
                 NavigationPath = "/Views/DiscussionPage.xaml?topicId=" + item.Object.ReferenceId;
             }
             else if ("thread-post" == item.Object.ObjectType)
             {
                 LineOne = "Re: " + item.Target.Title;
-                //IconPath = "/Resources/Icons/ic_menu_help.png";
+                IconTemplate = "IconDiscussionsResponses";
                 NavigationPath = "/Views/DiscussionPage.xaml?responseId=" + item.Object.ReferenceId;
             } 
             else if ("grade" == item.Object.ObjectType) 
             {
                 LineOne = "Grade: " + item.Target.Title;
-                //IconPath = "/Resources/Icons/ic_menu_help.png";
+                IconTemplate = "IconGrade";
                 NavigationPath = "/Views/GradePage.xaml?courseId=" + item.Object.CourseId + "&gradebookItemGuid=" + item.Target.ReferenceId;
             }
             else if ("dropbox-submission" == item.Object.ObjectType)
             {
                 LineOne = "Dropbox: " + item.Target.Title;
-                //IconPath = "/Resources/Icons/ic_menu_help.png";
+                IconTemplate = "IconDropbox";
                 NavigationPath = "/Views/DropboxMessagePage.xaml?courseId=" + item.Object.CourseId + "&basketId=" + item.Target.ReferenceId + "&messageId=" + item.Object.ReferenceId;
             }
             else
             {
                 LineOne = item.Object.ObjectType + ": " + item.Target.Title;
-                //IconPath = "/Resources/Icons/ic_menu_help.png";
+                IconTemplate = "IconHelp";
             }
 
             LineTwo = item.Object.Summary;

@@ -33,7 +33,7 @@
             <ListBox ItemsSource="{Binding UserGrades}" ItemContainerStyle="{StaticResource StretchedContainerStyle}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Button x:Name="BtnGrade">
+                        <Button x:Name="BtnGrade" Click="BtnGrade_Click">
                             <Button.Template>
                                 <ControlTemplate>
                                     <Grid Height="100">
@@ -60,7 +60,7 @@
                                             Visibility="{Binding Path=Grade, Converter={StaticResource IsNullToVisibilityConverter}}"
                                             Text="No grade yet"/>
 
-                                        <StackPanel Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Center" Orientation="Horizontal"
+                                        <StackPanel Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Top" Orientation="Horizontal"
                                             Visibility="{Binding Path=Grade, Converter={StaticResource NotNullToVisibilityConverter}}">
 
                                             <TextBlock

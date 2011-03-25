@@ -301,6 +301,17 @@ THE SOURCE CODE IS PROVIDED "AS IS", WITH NO WARRANTIES OR INDEMNITIES.
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <Style x:Key="PhoneLightContrastButtonStyle" TargetType="Button">
+        <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeNormal}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource PhoneContrastForegroundBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource PhoneContrastForegroundBrush}"/>
+        <Setter Property="Background">
+            <Setter.Value>
+                <SolidColorBrush Color="{StaticResource PhoneContrastBackgroundColor}" Opacity=".4"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
     <ControlTemplate x:Key="IconHelp" TargetType="Button">
         <Canvas Width="48" Height="48" Background="{StaticResource PhoneAccentBrush}">
@@ -366,13 +377,25 @@ THE SOURCE CODE IS PROVIDED "AS IS", WITH NO WARRANTIES OR INDEMNITIES.
         </Canvas>
     </ControlTemplate>
 
-
-    <ControlTemplate x:Key="IconDiscussionsHotTopic" TargetType="Button">
+    <ControlTemplate x:Key="IconGrade" TargetType="Button">
         <Canvas Width="48" Height="48" Background="{StaticResource PhoneAccentBrush}">
             <Canvas.OpacityMask>
-                <ImageBrush ImageSource="/Resources/Icons/icon_discussions_hot_topic.png" Stretch="None"/>
+                <ImageBrush ImageSource="/Resources/Icons/icon_grade.png" Stretch="None"/>
             </Canvas.OpacityMask>
         </Canvas>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="IconDropbox" TargetType="Button">
+        <Canvas Width="48" Height="48" Background="{StaticResource PhoneAccentBrush}">
+            <Canvas.OpacityMask>
+                <ImageBrush ImageSource="/Resources/Icons/icon_dropbox.png" Stretch="None"/>
+            </Canvas.OpacityMask>
+        </Canvas>
+    </ControlTemplate>
+
+
+    <ControlTemplate x:Key="IconDiscussionsHotTopic" TargetType="Button">
+        <Image Width="48" Height="48" Source="/Resources/Icons/icon_discussions_hot_topic_orange.png" Stretch="None"/>
     </ControlTemplate>
     
     <ControlTemplate x:Key="IconDiscussionsNoResponses" TargetType="Button">

@@ -36,7 +36,23 @@ namespace eCollegeWP7.ViewModels
             set { _GradebookItem = value; this.OnPropertyChanged(() => this.GradebookItem); }
         }
 
-        public long CourseID { get; set; }
+        private long _CourseID;
+        public long CourseID
+        {
+            get { return _CourseID; }
+            set
+            {
+                _CourseID = value;
+                this.OnPropertyChanged(() => this.CourseID); this.OnPropertyChanged(() => this.Course);
+            }
+        }
+
+        private Course _Course;
+        public Course Course
+        {
+            get { return AppViewModel.Courses.CourseIdMap[CourseID]; }
+        }
+
         public string GradebookItemGuid { get; set; }
 
         public GradeViewModel(long courseId, string gradebookItemGuid)

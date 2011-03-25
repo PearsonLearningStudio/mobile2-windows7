@@ -304,7 +304,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="PanoramaBackground.png" />
+    <Content Include="Resources\background_branded_signon.png" />
     <Content Include="Resources\Icons\icon_discussions_hot_topic.png" />
+    <Content Include="Resources\Icons\icon_discussions_hot_topic_orange.png" />
     <Content Include="Resources\Icons\icon_discussions_no_responses.png" />
     <Content Include="Resources\background_branded.png" />
     <Content Include="Resources\background_main.png" />
