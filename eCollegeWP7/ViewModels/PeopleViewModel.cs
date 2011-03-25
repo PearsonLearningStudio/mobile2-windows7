@@ -20,46 +20,30 @@ namespace eCollegeWP7.ViewModels
 {
     public class PeopleViewModel : ViewModelBase
     {
-
-        private Course _PeopleCourseFilter;
-        public Course PeopleCourseFilter
+        
+        private long? _CourseID;
+        public long? CourseID
         {
-            get { return _PeopleCourseFilter; }
-            set
-            {
-                // Stalled until the enrolledusers api stops returning "Access to that resource is denied"
-                //_PeopleCourseFilter = value;
-                //if (_PeopleCourseFilter != null)
-                //{
-                //    if (_peopleForCourse.ContainsKey(_PeopleCourseFilter.ID))
-                //    {
-                //        FilteredPeople = _peopleForCourse[_PeopleCourseFilter.ID];
-                //    }
-                //    else
-                //    {
-                //        AppViewModel.Client.FetchEnrolledUsers(_PeopleCourseFilter.ID, (result) =>
-                //        {
-                //            var col = result.ToObservableCollection();
-                //            _peopleForCourse[_PeopleCourseFilter.ID] = col;
-                //            FilteredPeople = col;
-                //        });
-                //    }
-                //}
-                //else
-                //{
-                //    FilteredPeople = null;
-                //}
-                //this.OnPropertyChanged(() => this.PeopleCourseFilter); 
-            }
+            get { return _CourseID; }
+            set { _CourseID = value;
+                this.OnPropertyChanged(() => this.CourseID); this.OnPropertyChanged(() => this.Course); }
         }
 
-        private ObservableCollection<EnrolledUser> _FilteredPeople;
-        public ObservableCollection<EnrolledUser> FilteredPeople
+        private Course _Course;
+        public Course Course
         {
-            get { return _FilteredPeople; }
-            set { _FilteredPeople = value; this.OnPropertyChanged(() => this.FilteredPeople); }
+            get { return CourseID.HasValue ? AppViewModel.Courses.CourseIdMap[CourseID.Value] : null; }
         }
 
-        private Dictionary<long, ObservableCollection<EnrolledUser>> _peopleForCourse = new Dictionary<long, ObservableCollection<EnrolledUser>>();
+        public PeopleViewModel(long courseId)
+        {
+            this.CourseID = courseId;
+
+            //App.BuildService(new FetchAnnouncementsService(courseId)).Execute((service) =>
+            //{
+            //    this.Announcements = service.Result.ToObservableCollection();
+            //});
+        }
+
     }
 }

@@ -101,6 +101,8 @@
     <Compile Include="ViewModels\ActivitiesViewModel.cs" />
     <Compile Include="ViewModels\ActivityViewModel.cs" />
     <Compile Include="ViewModels\AnnouncementsViewModel.cs" />
+    <Compile Include="ViewModels\GradesViewModel.cs" />
+    <Compile Include="ViewModels\DropboxMessagesViewModel.cs" />
     <Compile Include="ViewModels\CourseDiscussionsViewModel.cs" />
     <Compile Include="ViewModels\LinkViewModel.cs" />
     <Compile Include="ViewModels\GradeViewModel.cs" />
@@ -120,13 +122,13 @@
     <Compile Include="Views\CourseGradebookPage.xaml.cs">
       <DependentUpon>CourseGradebookPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CourseDiscussionsPage.xaml.cs">
+    <Compile Include="Views\Archived\CourseDiscussionsPage.xaml.cs">
       <DependentUpon>CourseDiscussionsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CourseDropboxMessagesPage.xaml.cs">
       <DependentUpon>CourseDropboxMessagesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CourseActivitiesPage.xaml.cs">
+    <Compile Include="Views\Archived\CourseActivitiesPage.xaml.cs">
       <DependentUpon>CourseActivitiesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CourseAnnouncementsPage.xaml.cs">
@@ -158,9 +160,6 @@
     </Compile>
     <Compile Include="Views\DropboxMessagePage.xaml.cs">
       <DependentUpon>DropboxMessagePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\CoursePageOld.xaml.cs">
-      <DependentUpon>CoursePageOld.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -209,7 +208,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\CourseDiscussionsPage.xaml">
+    <Page Include="Views\Archived\CourseDiscussionsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -217,7 +216,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\CourseActivitiesPage.xaml">
+    <Page Include="Views\Archived\CourseActivitiesPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -260,10 +259,6 @@
     <Page Include="Views\DropboxMessagePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\CoursePageOld.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\LoginPage.xaml">
       <SubType>Designer</SubType>

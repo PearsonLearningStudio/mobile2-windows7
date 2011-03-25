@@ -18,6 +18,7 @@ namespace eCollegeWP7.Views
 {
     public partial class CoursePeoplePage : BasePage
     {
+        public PeopleViewModel Model { get { return this.DataContext as PeopleViewModel; } }
 
         public CoursePeoplePage()
             : base()
@@ -27,6 +28,10 @@ namespace eCollegeWP7.Views
 
         protected override void OnReady(System.Windows.Navigation.NavigationEventArgs e)
         {
+            IDictionary<string, string> parameters = this.NavigationContext.QueryString;
+
+            int courseId = Int32.Parse(parameters["courseId"]);
+            this.DataContext = new PeopleViewModel(courseId);
         }
 
     }

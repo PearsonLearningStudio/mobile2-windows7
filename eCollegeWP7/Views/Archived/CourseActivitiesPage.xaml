@@ -1,5 +1,5 @@
 ﻿<v:BasePage 
-    x:Class="eCollegeWP7.Views.CourseActivitiesPage"
+    x:Class="eCollegeWP7.Views.Archived.CourseActivitiesPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
@@ -22,6 +22,10 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock Text="{Binding Path=Course.DisplayCourseCode}" 
+                       FontSize="{StaticResource PhoneFontSizeLarge}"
+                       FontFamily="{StaticResource PhoneFontFamilySemiBold}"
+                       Margin="12,0,0,0"/>
             <TextBlock x:Name="PageTitle" Text="activities" Margin="9,-7,0,0" Foreground="{StaticResource PhoneAccentBrush}" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 

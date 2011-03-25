@@ -23,6 +23,10 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock Text="{Binding Path=Course.DisplayCourseCode}" 
+                       FontSize="{StaticResource PhoneFontSizeLarge}"
+                       FontFamily="{StaticResource PhoneFontFamilySemiBold}"
+                       Margin="12,0,0,0"/>
             <TextBlock x:Name="PageTitle" Text="gradebook" Margin="9,-7,0,0" Foreground="{StaticResource PhoneAccentBrush}" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 

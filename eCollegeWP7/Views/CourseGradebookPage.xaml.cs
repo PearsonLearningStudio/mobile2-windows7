@@ -19,6 +19,8 @@ namespace eCollegeWP7.Views
     public partial class CourseGradebookPage : BasePage
     {
 
+        public GradesViewModel Model { get { return this.DataContext as GradesViewModel; } }
+
         public CourseGradebookPage()
             : base()
         {
@@ -27,7 +29,12 @@ namespace eCollegeWP7.Views
 
         protected override void OnReady(System.Windows.Navigation.NavigationEventArgs e)
         {
+            IDictionary<string, string> parameters = this.NavigationContext.QueryString;
+
+            int courseId = Int32.Parse(parameters["courseId"]);
+            this.DataContext = new GradesViewModel(courseId);
         }
+
 
     }
 }

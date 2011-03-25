@@ -20,7 +20,7 @@ using ECollegeAPI.Services.Activities;
 
 namespace eCollegeWP7.ViewModels
 {
-    public class AnnouncementsViewModel : ViewModelBase
+    public class GradesViewModel : ViewModelBase
     {
 
         private long? _CourseID;
@@ -31,28 +31,20 @@ namespace eCollegeWP7.ViewModels
                 this.OnPropertyChanged(() => this.CourseID); this.OnPropertyChanged(() => this.Course); }
         }
 
-
         private Course _Course;
         public Course Course
         {
             get { return CourseID.HasValue ? AppViewModel.Courses.CourseIdMap[CourseID.Value] : null; }
         }
 
-        private ObservableCollection<Announcement> _Announcements;
-        public ObservableCollection<Announcement> Announcements
-        {
-            get { return _Announcements; }
-            set { _Announcements = value; this.OnPropertyChanged(() => this.Announcements); }
-        }
-
-        public AnnouncementsViewModel(long courseId)
+        public GradesViewModel(long courseId)
         {
             this.CourseID = courseId;
 
-            App.BuildService(new FetchAnnouncementsService(courseId)).Execute((service) =>
-            {
-                this.Announcements = service.Result.ToObservableCollection();
-            });
+            //App.BuildService(new FetchAnnouncementsService(courseId)).Execute((service) =>
+            //{
+            //    this.Announcements = service.Result.ToObservableCollection();
+            //});
         }
 
     }

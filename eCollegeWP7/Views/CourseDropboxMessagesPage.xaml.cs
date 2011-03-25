@@ -19,6 +19,8 @@ namespace eCollegeWP7.Views
     public partial class CourseDropboxMessagesPage : BasePage
     {
 
+        public DropboxMessagesViewModel Model { get { return this.DataContext as DropboxMessagesViewModel; } }
+
         public CourseDropboxMessagesPage()
             : base()
         {
@@ -27,6 +29,10 @@ namespace eCollegeWP7.Views
 
         protected override void OnReady(System.Windows.Navigation.NavigationEventArgs e)
         {
+            IDictionary<string, string> parameters = this.NavigationContext.QueryString;
+
+            int courseId = Int32.Parse(parameters["courseId"]);
+            this.DataContext = new DropboxMessagesViewModel(courseId);
         }
 
     }

@@ -14,7 +14,7 @@ using ECollegeAPI.Model;
 using eCollegeWP7.Util;
 using eCollegeWP7.ViewModels;
 
-namespace eCollegeWP7.Views
+namespace eCollegeWP7.Views.Archived
 {
     public partial class CourseActivitiesPage : BasePage
     {

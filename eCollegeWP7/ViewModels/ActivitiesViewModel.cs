@@ -30,7 +30,21 @@ namespace eCollegeWP7.ViewModels
         }
 
         public bool LoadStarted { get; set; }
-        public long? CourseID { get; set; }
+
+        private long? _CourseID;
+        public long? CourseID
+        {
+            get { return _CourseID; }
+            set { _CourseID = value;
+                this.OnPropertyChanged(() => this.CourseID); this.OnPropertyChanged(() => this.Course); }
+        }
+        
+
+        private Course _Course;
+        public Course Course
+        {
+            get { return CourseID.HasValue ? AppViewModel.Courses.CourseIdMap[CourseID.Value] : null; }
+        }
 
         protected BackgroundWorker _loadingWorker;
 
