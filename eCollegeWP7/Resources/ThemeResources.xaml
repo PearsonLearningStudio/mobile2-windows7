@@ -120,8 +120,10 @@ THE SOURCE CODE IS PROVIDED "AS IS", WITH NO WARRANTIES OR INDEMNITIES.
     <System:Double x:Key="PhoneDarkThemeOpacity">0</System:Double>
     <System:Double x:Key="PhoneLightThemeOpacity">1</System:Double>
 
-    <!-- Red -->
+    <!-- Blue -->
     <Color x:Key="PhoneAccentColor">#FF347BAD</Color>
+    <Color x:Key="PhoneDarkAccentColor">#FF292D6A</Color>
+    
     <SolidColorBrush x:Key="PhoneForegroundBrush" Color="{StaticResource PhoneForegroundColor}"/>
 
     <SolidColorBrush x:Key="PhoneBackgroundBrush" Color="{StaticResource PhoneBackgroundColor}"/>
@@ -167,6 +169,7 @@ THE SOURCE CODE IS PROVIDED "AS IS", WITH NO WARRANTIES OR INDEMNITIES.
     <SolidColorBrush x:Key="PhoneChromeBrush" Color="{StaticResource PhoneChromeColor}"/>
 
     <SolidColorBrush x:Key="PhoneAccentBrush" Color="{StaticResource PhoneAccentColor}"/>
+    <SolidColorBrush x:Key="PhoneDarkAccentBrush" Color="{StaticResource PhoneDarkAccentColor}"/>
 
 
     <!-- Deprecated brushes -->
@@ -225,7 +228,7 @@ THE SOURCE CODE IS PROVIDED "AS IS", WITH NO WARRANTIES OR INDEMNITIES.
     <System:Double x:Key="PhoneFontSizeExtraExtraLarge">72</System:Double>
     <!--140pt-->
     <System:Double x:Key="PhoneFontSizeHuge">186.667</System:Double>
-
+    
     <!-- TextBlock styles -->
 
     <Style x:Key="PhoneTextBlockBase" TargetType="TextBlock">
@@ -312,6 +315,22 @@ THE SOURCE CODE IS PROVIDED "AS IS", WITH NO WARRANTIES OR INDEMNITIES.
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <Style x:Key="PhoneDarkAccentButtonStyle" TargetType="Button">
+        <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeNormal}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource PhoneContrastForegroundBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource PhoneContrastForegroundBrush}"/>
+        <Setter Property="Background" Value="{StaticResource PhoneDarkAccentBrush}"/>
+    </Style>
+
+    <System:Double x:Key="PhoneTop">40</System:Double>
+    <Thickness x:Key="PhoneTopMargin">0,40,0,0</Thickness>
+    
+    <Style x:Key="PhoneTextCurrentUserStyle" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilyNormal}"/>
+        <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeMedium}"/>
+        <Setter Property="Foreground" Value="{StaticResource PhoneForegroundBrush}"/>
+    </Style>
 
     <ControlTemplate x:Key="IconHelp" TargetType="Button">
         <Canvas Width="48" Height="48" Background="{StaticResource PhoneAccentBrush}">
@@ -392,6 +411,7 @@ THE SOURCE CODE IS PROVIDED "AS IS", WITH NO WARRANTIES OR INDEMNITIES.
             </Canvas.OpacityMask>
         </Canvas>
     </ControlTemplate>
+    
 
 
     <ControlTemplate x:Key="IconDiscussionsHotTopic" TargetType="Button">

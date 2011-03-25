@@ -11,6 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using System.Diagnostics;
+using eCollegeWP7.Util;
 
 namespace eCollegeWP7.Views
 {
@@ -31,6 +32,12 @@ namespace eCollegeWP7.Views
         private void TxtCurrentUser_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.Navigate(new Uri("/Views/ProfilePage.xaml", UriKind.Relative));
+        }
+
+        private void TxtCurrentUser_Loaded(object sender, RoutedEventArgs e)
+        {
+            var TxtCurrentUser = sender as TextBlock;
+            TxtCurrentUser.Style = Application.Current.Resources["PhoneTextCurrentUserStyle"] as Style;
         }
     }
 }

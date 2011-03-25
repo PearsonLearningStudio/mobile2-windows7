@@ -7,23 +7,23 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:v="clr-namespace:eCollegeWP7.Views"
+    Foreground="{StaticResource PhoneForegroundBrush}"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
-    FontSize="{StaticResource PhoneFontSizeNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}" ShowAppName="False" ShowUserName="False"
     SupportedOrientations="Portrait" Orientation="Portrait" CloseOnBackButton="True"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="{StaticResource DefaultPageBackground}">
+    <Grid x:Name="LayoutRoot" Background="{StaticResource LoginPageBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="{Binding Path=A.AppOwner, Source={StaticResource res}}" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock x:Name="PageTitle" Text="{Binding Path=A.AppName, Source={StaticResource res}}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,60,12,60">
+            <Image Source="/Resources/logo_large.png" Stretch="None" HorizontalAlignment="Center"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
@@ -38,7 +38,7 @@
                 
                 <CheckBox x:Name="ChkRememberMe" Content="Remember Me?" IsChecked="True"/>
 
-                <Button x:Name="BtnSignIn" Content="sign in" Click="BtnSignIn_Click"/>
+                <Button x:Name="BtnSignIn" Style="{StaticResource PhoneDarkAccentButtonStyle}" Content="sign in" Click="BtnSignIn_Click"/>
             </StackPanel>
             
         </Grid>

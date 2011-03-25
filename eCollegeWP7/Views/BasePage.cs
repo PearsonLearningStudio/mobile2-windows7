@@ -21,13 +21,22 @@ namespace eCollegeWP7.Views
             set { SetValue(CloseOnBackButtonProperty, value); }
         }
 
-
-
         public bool ShowAppName
         {
             get { return (bool)GetValue(ShowAppNameProperty); }
             set { SetValue(ShowAppNameProperty, value); }
         }
+
+        public bool ShowUserName
+        {
+            get { return (bool)GetValue(ShowUserNameProperty); }
+            set { SetValue(ShowUserNameProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ShowUserName.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ShowUserNameProperty =
+            DependencyProperty.Register("ShowUserName", typeof(bool), typeof(BasePage), new PropertyMetadata(true));
+
 
         // Using a DependencyProperty as the backing store for ShowAppName.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ShowAppNameProperty =

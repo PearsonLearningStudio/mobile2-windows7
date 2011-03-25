@@ -20,6 +20,7 @@
 
                     <ImageBrush x:Key="PanoramaPageBackground" ImageSource="/Resources/background_branded.png"/>
                     <ImageBrush x:Key="DefaultPageBackground" ImageSource="/Resources/background_main.png"/>
+                    <ImageBrush x:Key="LoginPageBackground" ImageSource="/Resources/background_branded_signon.png"/>
 
                     <conv:FilterTopicByCourseConverter x:Key="FilterTopicByCourseConverter"/>
                     <conv:HtmlToTextConverter x:Key="HtmlToTextConverter"/>
