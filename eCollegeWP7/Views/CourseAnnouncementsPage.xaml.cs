@@ -34,5 +34,15 @@ namespace eCollegeWP7.Views
             this.DataContext = new AnnouncementsViewModel(courseId);
         }
 
+        private void BtnAnnouncement_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as Button;
+            var ann = btn.DataContext as Announcement;
+
+            this.NavigationService.Navigate(
+                new Uri("/Views/AnnouncementPage.xaml?courseId=" + Model.CourseID + "&announcementId=" + ann.ID,
+                        UriKind.Relative));
+        }
+
     }
 }

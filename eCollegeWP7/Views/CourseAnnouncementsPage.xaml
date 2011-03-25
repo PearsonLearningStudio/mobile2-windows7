@@ -33,27 +33,31 @@
             <ListBox ItemsSource="{Binding Announcements}" ItemContainerStyle="{StaticResource StretchedContainerStyle}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
+                        <Button x:Name="BtnAnnouncement" Click="BtnAnnouncement_Click">
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <Grid Height="140">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
 
-                        <Grid Height="140">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-
-                            <c:DynamicTextBlock 
+                                        <c:DynamicTextBlock 
                                             Text="{Binding Path=Subject}" HorizontalAlignment="Left"
                                             TextStyle="{StaticResource PhoneTextTitle2Style}"/>
 
-                            <TextBlock Grid.Row="1" HorizontalAlignment="Left" 
+                                        <TextBlock Grid.Row="1" HorizontalAlignment="Left" 
                                             Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="NoWrap"
                                             Text="{Binding Path=Submitter}"/>
 
-                            <c:DynamicTextBlock Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top"
+                                        <c:DynamicTextBlock Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top"
                                             TextStyle="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" MaxHeight="60"
                                             Text="{Binding Path=Text, Converter={StaticResource HtmlToTextConverter}}"/>
-                        </Grid>
-                        
+                                    </Grid>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ListBox>

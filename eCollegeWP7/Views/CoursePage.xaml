@@ -45,12 +45,20 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Border Background="#44000000" Visibility="{Binding Path=AnnouncementVM.Announcements,Converter={StaticResource NotNullToVisibilityConverter}}" Padding="10">
-                <StackPanel>
-                    <TextBlock Text="{Binding Path=AnnouncementVM.Announcements[0].Subject}" FontFamily="{StaticResource PhoneFontFamilySemiBold}" Foreground="{StaticResource PhoneContrastForegroundBrush}"/>
-                    <TextBlock Margin="5,0,0,0" Text="{Binding Path=AnnouncementVM.Announcements[0].Text}" Foreground="{StaticResource PhoneContrastForegroundBrush}"/>
-                </StackPanel>
-            </Border>
+            <Button x:Name="BtnLatestAnnouncement" Visibility="{Binding Path=AnnouncementVM.Announcements,Converter={StaticResource NotNullToVisibilityConverter}}" Click="BtnLatestAnnouncement_Click">
+                <Button.Template>
+                    <ControlTemplate>
+                        <Border Background="#44000000" Padding="10">
+                            <StackPanel>
+                                <TextBlock Text="{Binding Path=AnnouncementVM.Announcements[0].Subject}" FontSize="{StaticResource PhoneFontSizeNormal}"
+                                           FontFamily="{StaticResource PhoneFontFamilySemiBold}" Foreground="{StaticResource PhoneContrastForegroundBrush}"/>
+                                <TextBlock Margin="5,0,0,0" Text="{Binding Path=AnnouncementVM.Announcements[0].Text}" FontSize="{StaticResource PhoneFontSizeNormal}"
+                                           Foreground="{StaticResource PhoneContrastForegroundBrush}"/>
+                            </StackPanel>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
 
             <ItemsControl Grid.Row="1" ItemsSource="{Binding Path=CourseLinks}">
                 <ItemsControl.ItemTemplate>

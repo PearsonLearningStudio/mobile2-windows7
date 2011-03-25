@@ -46,5 +46,14 @@ namespace eCollegeWP7.Views
             }
         }
 
+        private void BtnLatestAnnouncement_Click(object sender, RoutedEventArgs e)
+        {
+            var ann = Model.AnnouncementVM.Announcements[0];
+
+            this.NavigationService.Navigate(
+                new Uri("/Views/AnnouncementPage.xaml?courseId=" + Model.CourseID + "&announcementId=" + ann.ID,
+                        UriKind.Relative));
+        }
+
     }
 }

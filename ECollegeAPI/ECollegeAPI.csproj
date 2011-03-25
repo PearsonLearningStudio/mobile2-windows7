@@ -91,6 +91,7 @@
     <Compile Include="Model\UserDiscussionTopic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Activities\FetchMyWhatsHappeningFeedService.cs" />
+    <Compile Include="Services\Announcements\FetchAnnouncementService.cs" />
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\Announcements\FetchAnnouncementsService.cs" />
     <Compile Include="Services\Courses\FetchInstructorsForCourseService.cs" />

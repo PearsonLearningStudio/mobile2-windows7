@@ -18,7 +18,7 @@ namespace eCollegeWP7.Views
 {
     public partial class AnnouncementPage : BasePage
     {
-        protected DropboxMessageViewModel Model { get { return this.DataContext as DropboxMessageViewModel; } }
+        protected AnnouncementViewModel Model { get { return this.DataContext as AnnouncementViewModel; } }
 
         public AnnouncementPage()
             : base()
@@ -29,7 +29,9 @@ namespace eCollegeWP7.Views
         protected override void OnReady(System.Windows.Navigation.NavigationEventArgs e)
         {
             IDictionary<string, string> parameters = this.NavigationContext.QueryString;
-            this.DataContext = new DropboxMessageViewModel(Convert.ToInt64(parameters["courseId"]), Convert.ToInt64(parameters["basketId"]), Convert.ToInt64(parameters["messageId"]));
+            this.DataContext = new AnnouncementViewModel(Convert.ToInt64(parameters["courseId"]),
+                                                         Convert.ToInt64(parameters["announcementId"]));
+
         }
 
     }
