@@ -7,8 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
-    xmlns:v="clr-namespace:eCollegeWP7.Views"
-    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    xmlns:v="clr-namespace:eCollegeWP7.Views" xmlns:c="clr-namespace:eCollegeWP7.Views.Controls" FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
@@ -35,24 +34,27 @@
             <ListBox ItemsSource="{Binding Announcements}" ItemContainerStyle="{StaticResource StretchedContainerStyle}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock>ID:</TextBlock>
-                                <TextBlock Text="{Binding Path=ID}"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock>Text:</TextBlock>
-                                <TextBlock Text="{Binding Path=Text}"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock>Subject:</TextBlock>
-                                <TextBlock Text="{Binding Path=Subject}"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock>Submitter:</TextBlock>
-                                <TextBlock Text="{Binding Path=Submitter}"/>
-                            </StackPanel>
-                        </StackPanel>
+
+                        <Grid Height="140">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <c:DynamicTextBlock 
+                                            Text="{Binding Path=Subject}" HorizontalAlignment="Left"
+                                            TextStyle="{StaticResource PhoneTextTitle2Style}"/>
+
+                            <TextBlock Grid.Row="1" HorizontalAlignment="Left" 
+                                            Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="NoWrap"
+                                            Text="{Binding Path=Submitter}"/>
+
+                            <c:DynamicTextBlock Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top"
+                                            TextStyle="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" MaxHeight="60"
+                                            Text="{Binding Path=Text, Converter={StaticResource HtmlToTextConverter}}"/>
+                        </Grid>
+                        
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ListBox>
