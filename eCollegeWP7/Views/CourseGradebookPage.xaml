@@ -60,7 +60,7 @@
                                             Visibility="{Binding Path=Grade, Converter={StaticResource IsNullToVisibilityConverter}}"
                                             Text="No grade yet"/>
 
-                                        <StackPanel Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Top" Orientation="Horizontal"
+                                        <StackPanel Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Top" Orientation="Horizontal" Margin="0,-5,0,0"
                                             Visibility="{Binding Path=Grade, Converter={StaticResource NotNullToVisibilityConverter}}">
 
                                             <TextBlock
