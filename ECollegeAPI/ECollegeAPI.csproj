@@ -62,6 +62,7 @@
     <Compile Include="Model\Announcement.cs" />
     <Compile Include="Model\Boilerplate\AttachmentLink.cs" />
     <Compile Include="Model\Boilerplate\BasketItemLink.cs" />
+    <Compile Include="Model\Boilerplate\GradeLink.cs" />
     <Compile Include="Model\Boilerplate\CourseLink.cs" />
     <Compile Include="Model\Boilerplate\InstructorLink.cs" />
     <Compile Include="Model\Boilerplate\LinkContainer.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Model\Boilerplate\TopicLink.cs" />
     <Compile Include="Model\Boilerplate\UserLink.cs" />
     <Compile Include="Model\ContainerInfo.cs" />
+    <Compile Include="Model\UserGradebookItem.cs" />
     <Compile Include="Model\Course.cs" />
     <Compile Include="Model\DiscussionResponse.cs" />
     <Compile Include="Model\DiscussionTopic.cs" />
@@ -109,6 +111,7 @@
     <Compile Include="Services\FetchGrantService.cs" />
     <Compile Include="Services\FetchTokenService.cs" />
     <Compile Include="Services\Dropbox\FetchDropboxBasketsService.cs" />
+    <Compile Include="Services\Grades\FetchMyUserGradebookItemsService.cs" />
     <Compile Include="Services\Users\FetchEnrolledUsersService.cs" />
     <Compile Include="Services\Grades\FetchGradebookItemByGuidService.cs" />
     <Compile Include="Services\Users\FetchMeService.cs" />

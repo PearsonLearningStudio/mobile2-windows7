@@ -78,6 +78,9 @@
     <Compile Include="Exceptions\AppExitException.cs" />
     <Compile Include="Util\Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Util\Converters\AppResourceConverter.cs" />
+    <Compile Include="Util\Converters\StringFormatConverter.cs" />
+    <Compile Include="Util\Converters\IsNullToVisibilityConverter.cs" />
+    <Compile Include="Util\Converters\CustomDateConverter.cs" />
     <Compile Include="Util\Converters\NotNullToVisibilityConverter.cs" />
     <Compile Include="Util\Converters\CourseIdToCourseNameConverter.cs" />
     <Compile Include="Util\Converters\ToUpperConverter.cs" />

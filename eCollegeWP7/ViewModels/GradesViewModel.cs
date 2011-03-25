@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using ECollegeAPI.Model;
 using ECollegeAPI.Services.Announcements;
+using ECollegeAPI.Services.Grades;
 using eCollegeWP7.Util;
 using System.Linq;
 using ECollegeAPI.Services.Activities;
@@ -37,14 +38,22 @@ namespace eCollegeWP7.ViewModels
             get { return CourseID.HasValue ? AppViewModel.Courses.CourseIdMap[CourseID.Value] : null; }
         }
 
+        private ObservableCollection<UserGradebookItem> _UserGrades;
+        public ObservableCollection<UserGradebookItem> UserGrades
+        {
+            get { return _UserGrades; }
+            set { _UserGrades = value; this.OnPropertyChanged(() => this.UserGrades); }
+        }
+        
+
         public GradesViewModel(long courseId)
         {
             this.CourseID = courseId;
 
-            //App.BuildService(new FetchAnnouncementsService(courseId)).Execute((service) =>
-            //{
-            //    this.Announcements = service.Result.ToObservableCollection();
-            //});
+            App.BuildService(new FetchMyUserGradebookItemsService(courseId)).Execute((service) =>
+            {
+                this.UserGrades = service.Result.ToObservableCollection();
+            });
         }
 
     }

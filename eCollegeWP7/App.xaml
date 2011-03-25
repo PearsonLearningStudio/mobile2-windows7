@@ -31,6 +31,9 @@
                     <conv:CourseIdToCourseNameConverter x:Key="CourseIdToCourseNameConverter"/>
                     <conv:AppResourceConverter x:Key="AppResourceConverter"/>
                     <conv:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
+                    <conv:IsNullToVisibilityConverter x:Key="IsNullToVisibilityConverter"/>
+                    <conv:CustomDateConverter x:Key="CustomDateConverter"/>
+                    <conv:StringFormatConverter x:Key="StringFormatConverter"/>
 
                     <u:LocalizedResources x:Key="res"/>
 

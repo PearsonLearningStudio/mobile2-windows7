@@ -11,7 +11,7 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
-    mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480">
+    mc:Ignorable="d" d:DesignHeight="800" d:DesignWidth="480">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="{StaticResource DefaultPageBackground}">
@@ -30,7 +30,62 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Coming soon!"/>
+            <ListBox ItemsSource="{Binding UserGrades}" ItemContainerStyle="{StaticResource StretchedContainerStyle}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button x:Name="BtnGrade">
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <Grid Height="100">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        
+                                        <c:DynamicTextBlock 
+                                            Text="{Binding Path=GradebookItem.Title}" HorizontalAlignment="Left"
+                                            TextStyle="{StaticResource PhoneTextTitle2Style}"/>
+
+                                        <TextBlock Grid.Row="1" HorizontalAlignment="Left" 
+                                            Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="NoWrap"
+                                            Visibility="{Binding Path=Grade, Converter={StaticResource NotNullToVisibilityConverter}}"
+                                            Text="{Binding Path=Grade.UpdatedDate, Converter={StaticResource CustomDateConverter},ConverterParameter='M/d/yy'}"/>
+
+                                        <TextBlock Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top"
+                                            Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" MaxHeight="60"
+                                            Visibility="{Binding Path=Grade, Converter={StaticResource IsNullToVisibilityConverter}}"
+                                            Text="No grade yet"/>
+
+                                        <StackPanel Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Center" Orientation="Horizontal"
+                                            Visibility="{Binding Path=Grade, Converter={StaticResource NotNullToVisibilityConverter}}">
+
+                                            <TextBlock
+                                                FontFamily="{StaticResource PhoneFontFamilyLight}"
+                                                FontSize="{StaticResource PhoneFontSizeExtraLarge}"
+                                                Foreground="{StaticResource PhoneSubtleBrush}"
+                                                Text="{Binding Path=Grade.Points, Converter={StaticResource StringFormatConverter},ConverterParameter='\{0:0.##\}'}" />
+                                            <TextBlock
+                                                FontFamily="{StaticResource PhoneFontFamilyLight}"
+                                                FontSize="{StaticResource PhoneFontSizeExtraLarge}"
+                                                Foreground="{StaticResource PhoneSubtleBrush}"
+                                                Text="/" />
+                                            <TextBlock
+                                                FontFamily="{StaticResource PhoneFontFamilyLight}"
+                                                FontSize="{StaticResource PhoneFontSizeExtraLarge}"
+                                                Foreground="{StaticResource PhoneSubtleBrush}"
+                                                Text="{Binding Path=GradebookItem.PointsPossible, Converter={StaticResource StringFormatConverter},ConverterParameter='\{0:0.##\}'}" />
+                                        </StackPanel>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ListBox>
         </Grid>
     </Grid>
 
