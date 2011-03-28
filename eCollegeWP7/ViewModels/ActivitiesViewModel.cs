@@ -38,7 +38,6 @@ namespace eCollegeWP7.ViewModels
             set { _CourseID = value;
                 this.OnPropertyChanged(() => this.CourseID); this.OnPropertyChanged(() => this.Course); }
         }
-        
 
         private Course _Course;
         public Course Course
@@ -47,12 +46,26 @@ namespace eCollegeWP7.ViewModels
         }
 
         protected BackgroundWorker _loadingWorker;
+        protected string _typeFilter;
 
         private ObservableCollection<ActivityViewModel> _Activities;
         public ObservableCollection<ActivityViewModel> Activities
         {
             get { return _Activities; }
             set { _Activities = value; this.OnPropertyChanged(() => this.Activities); }
+        }
+
+        public ActivitiesViewModel() : this(-1, null) {}
+
+        public ActivitiesViewModel(long courseId) : this(courseId,null) {}
+
+        public ActivitiesViewModel(long courseId, string typeFilter)
+        {
+            if (courseId > 0)
+            {
+                this.CourseID = courseId;
+            }
+            this._typeFilter = typeFilter;
         }
 
         public void Load(bool all)
@@ -74,7 +87,7 @@ namespace eCollegeWP7.ViewModels
                 since = DateTime.Today.AddDays(-14.0);
             }
 
-            App.BuildService(new FetchMyWhatsHappeningFeedService(since,CourseID)).Execute((service) =>
+            App.BuildService(new FetchMyWhatsHappeningFeedService(since,CourseID,_typeFilter)).Execute((service) =>
             {
                 _loadingWorker = new BackgroundWorker();
                 _loadingWorker.DoWork += (s, e) =>

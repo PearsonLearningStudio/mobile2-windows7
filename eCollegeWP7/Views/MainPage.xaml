@@ -81,38 +81,7 @@
                         </ListBox.Template>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Button Click="BtnActivity_Click">
-                                    <Button.Template>
-                                        <ControlTemplate>
-                                            <Grid Height="130">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                    <ColumnDefinition Width="*"/>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                </Grid.ColumnDefinitions>
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="*"/>
-                                                </Grid.RowDefinitions>
-
-                                                <Button Template="{Binding IconTemplate, Converter={StaticResource AppResourceConverter}}" Grid.RowSpan="2" VerticalAlignment="Top"/>
-                                                
-                                                <c:DynamicTextBlock Grid.Column="1" Text="{Binding Path=LineOne}" HorizontalAlignment="Left"
-                                               TextStyle="{StaticResource PhoneTextTitle2Style}"/>
-                                                <c:DynamicTextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Left" 
-                                               TextStyle="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" MaxHeight="70" 
-                                               Text="{Binding Path=LineTwo,Converter={StaticResource HtmlToTextConverter}}"/>
-                                                <TextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" HorizontalAlignment="Left"
-                                               Style="{StaticResource PhoneTextSmallStyle}" 
-                                               Text="{Binding Path=LineThree}"/>
-                                                <TextBlock Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" 
-                                               Style="{StaticResource PhoneTextSubtleStyle}"
-                                               Text="{Binding Path=FriendlyDate}" />
-                                            </Grid>
-                                        </ControlTemplate>
-                                    </Button.Template>
-                                </Button>
+                                <Button Click="BtnActivity_Click" Template="{StaticResource ActivityStreamItemTemplate}"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ListBox>

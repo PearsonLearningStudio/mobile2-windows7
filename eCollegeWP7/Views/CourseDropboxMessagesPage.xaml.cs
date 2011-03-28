@@ -19,7 +19,7 @@ namespace eCollegeWP7.Views
     public partial class CourseDropboxMessagesPage : BasePage
     {
 
-        public DropboxMessagesViewModel Model { get { return this.DataContext as DropboxMessagesViewModel; } }
+        public ActivitiesViewModel Model { get { return this.DataContext as ActivitiesViewModel; } }
 
         public CourseDropboxMessagesPage()
             : base()
@@ -32,8 +32,19 @@ namespace eCollegeWP7.Views
             IDictionary<string, string> parameters = this.NavigationContext.QueryString;
 
             int courseId = Int32.Parse(parameters["courseId"]);
-            this.DataContext = new DropboxMessagesViewModel(courseId);
+            this.DataContext = new ActivitiesViewModel(courseId, "dropbox-submission");
+            Model.Load(true);
         }
 
+        private void BtnActivity_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as Button;
+            var vm = (ActivityViewModel)btn.DataContext;
+
+            if (vm.NavigationPath != null)
+            {
+                this.NavigationService.Navigate(new Uri(vm.NavigationPath, UriKind.Relative));
+            }
+        }
     }
 }

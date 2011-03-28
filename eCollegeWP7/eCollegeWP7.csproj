@@ -106,7 +106,6 @@
     <Compile Include="ViewModels\AnnouncementsViewModel.cs" />
     <Compile Include="ViewModels\AnnouncementViewModel.cs" />
     <Compile Include="ViewModels\GradesViewModel.cs" />
-    <Compile Include="ViewModels\DropboxMessagesViewModel.cs" />
     <Compile Include="ViewModels\CourseDiscussionsViewModel.cs" />
     <Compile Include="ViewModels\LinkViewModel.cs" />
     <Compile Include="ViewModels\GradeViewModel.cs" />

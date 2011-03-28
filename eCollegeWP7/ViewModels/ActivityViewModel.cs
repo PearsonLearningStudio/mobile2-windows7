@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,6 +24,7 @@ namespace eCollegeWP7.ViewModels
         public string LineOne { get; set; }
         public string LineTwo { get; set; }
         public string LineThree { get; set; }
+        public string Title { get; set; }
         public string IconTemplate { get; set; }
         public string FriendlyDate { get; set; }
         public string NavigationPath { get; set; }
@@ -35,7 +37,7 @@ namespace eCollegeWP7.ViewModels
         protected void SetupFromItem(ActivityStreamItem item)
         {
             FriendlyDate = DateTimeUtil.FriendlyDate(item.PostedTime);
-
+            Title = item.Target.Title;
             if ("thread-topic" == item.Object.ObjectType)
             {
                 LineOne = "Title: " + item.Target.Title;
@@ -59,6 +61,7 @@ namespace eCollegeWP7.ViewModels
                 LineOne = "Dropbox: " + item.Target.Title;
                 IconTemplate = "IconDropbox";
                 NavigationPath = "/Views/DropboxMessagePage.xaml?courseId=" + item.Object.CourseId + "&basketId=" + item.Target.ReferenceId + "&messageId=" + item.Object.ReferenceId;
+                NavigationPath += "&title=" + HttpUtility.UrlEncode(item.Target.Title);
             }
             else
             {

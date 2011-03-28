@@ -32,8 +32,7 @@ namespace eCollegeWP7.Views.Archived
             IDictionary<string, string> parameters = this.NavigationContext.QueryString;
 
             int courseId = Int32.Parse(parameters["courseId"]);
-            this.DataContext = new ActivitiesViewModel();
-            Model.CourseID = courseId;
+            this.DataContext = new ActivitiesViewModel(courseId);
             Model.Load(false);
         }
 

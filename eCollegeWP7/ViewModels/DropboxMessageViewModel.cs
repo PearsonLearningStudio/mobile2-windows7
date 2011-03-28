@@ -22,6 +22,22 @@ namespace eCollegeWP7.ViewModels
 
     public class DropboxMessageViewModel : ViewModelBase
     {
+        private long _CourseID;
+        public long CourseID
+        {
+            get { return _CourseID; }
+            set
+            {
+                _CourseID = value;
+                this.OnPropertyChanged(() => this.CourseID); this.OnPropertyChanged(() => this.Course);
+            }
+        }
+
+        private Course _Course;
+        public Course Course
+        {
+            get { return AppViewModel.Courses.CourseIdMap[CourseID]; }
+        }
 
         private DropboxMessage _Message;
         public DropboxMessage Message
@@ -32,6 +48,7 @@ namespace eCollegeWP7.ViewModels
 
         public DropboxMessageViewModel(long courseId, long basketId, long messageId)
         {
+            this.CourseID = courseId;
             App.BuildService(new FetchDropboxMessageService(courseId, basketId, messageId)).Execute(service =>
             {
                 this.Message = service.Result;

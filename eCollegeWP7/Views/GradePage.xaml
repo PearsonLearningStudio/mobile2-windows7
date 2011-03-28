@@ -75,7 +75,7 @@
 
             <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" Margin="0,0,0,20">
                 <TextBlock Text="Comments:"/>
-                <TextBlock Text="{Binding Path=Grade.Comments}" TextWrapping="Wrap"/>
+                <TextBlock Text="{Binding Path=Grade.Comments, Converter={StaticResource HtmlToTextConverter}}" TextWrapping="Wrap"/>
             </StackPanel>
 
             <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Path=Grade.UpdatedDate, Converter={StaticResource FriendlyDateConverter}, ConverterParameter='long'}"/>
