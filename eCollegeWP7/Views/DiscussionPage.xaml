@@ -106,8 +106,8 @@
                                         <RowDefinition Height="*"/>
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
-                                    <TextBox Grid.Row="0" x:Name="TxtResponseTitle" AcceptsReturn="True"/>
-                                    <TextBox Grid.Row="1" x:Name="TxtResponse" AcceptsReturn="True"/>
+                                    <c:WatermarkTextBox Grid.Row="0" x:Name="TxtResponseTitle" AcceptsReturn="True" Watermark="Subject"/>
+                                    <c:WatermarkTextBox Grid.Row="1" x:Name="TxtResponse" AcceptsReturn="True" Watermark="Message"/>
                                     <Grid Grid.Row="2">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>

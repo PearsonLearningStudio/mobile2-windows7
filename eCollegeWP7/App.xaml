@@ -35,6 +35,7 @@
                     <conv:IsNullToVisibilityConverter x:Key="IsNullToVisibilityConverter"/>
                     <conv:CustomDateConverter x:Key="CustomDateConverter"/>
                     <conv:StringFormatConverter x:Key="StringFormatConverter"/>
+                    <conv:IsBlankToVisibilityConverter x:Key="IsBlankToVisibilityConverter"/>
 
                     <u:LocalizedResources x:Key="res"/>
 

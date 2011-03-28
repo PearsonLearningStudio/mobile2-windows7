@@ -54,7 +54,18 @@ namespace eCollegeWP7.Views
         {
             GrdResponse.Visibility = Visibility.Visible;
             BtnShowPostResponse.Visibility = Visibility.Collapsed;
-            TxtResponseTitle.Focus();
+
+            var scroller = this.FindVisualChild<ScrollViewer>();
+
+            if (scroller != null)
+            {
+                var t = BtnShowPostResponse.TransformToVisual(scroller);
+                var offset = t.Transform(new Point(0, 0));
+
+                scroller.ScrollToVerticalOffset(offset.Y);
+            }
+
+            //TxtResponseTitle.Focus();
         }
 
         private void BtnCancelResponse_Click(object sender, RoutedEventArgs e)

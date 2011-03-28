@@ -78,8 +78,9 @@
     <Compile Include="Exceptions\AppExitException.cs" />
     <Compile Include="Util\Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Util\Converters\AppResourceConverter.cs" />
-    <Compile Include="Util\Converters\StringFormatConverter.cs" />
     <Compile Include="Util\Converters\IsNullToVisibilityConverter.cs" />
+    <Compile Include="Util\Converters\StringFormatConverter.cs" />
+    <Compile Include="Util\Converters\IsBlankToVisibilityConverter.cs" />
     <Compile Include="Util\Converters\CustomDateConverter.cs" />
     <Compile Include="Util\Converters\NotNullToVisibilityConverter.cs" />
     <Compile Include="Util\Converters\CourseIdToCourseNameConverter.cs" />
@@ -118,6 +119,9 @@
     <Compile Include="Views\Controls\DynamicTextBlock.cs" />
     <Compile Include="Views\AnnouncementPage.xaml.cs">
       <DependentUpon>AnnouncementPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\WatermarkTextBox.xaml.cs">
+      <DependentUpon>WatermarkTextBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CoursePage.xaml.cs">
       <DependentUpon>CoursePage.xaml</DependentUpon>
@@ -205,6 +209,10 @@
     <Page Include="Views\AnnouncementPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Controls\WatermarkTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CoursePage.xaml">
       <Generator>MSBuild:Compile</Generator>
