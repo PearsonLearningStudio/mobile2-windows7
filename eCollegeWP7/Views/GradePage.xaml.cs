@@ -37,5 +37,10 @@ namespace eCollegeWP7.Views
 
         }
 
+        private void BtnViewAllCourseGrades_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new Uri("/Views/CourseGradebookPage.xaml?courseId=" + Model.CourseID, UriKind.Relative));
+        }
+
     }
 }

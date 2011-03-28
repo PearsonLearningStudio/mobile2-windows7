@@ -80,7 +80,7 @@
 
             <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Path=Grade.UpdatedDate, Converter={StaticResource FriendlyDateConverter}, ConverterParameter='long'}"/>
 
-            <Button Grid.Row="5" Grid.ColumnSpan="2" Margin="0,20,0,0" Style="{StaticResource PhoneLightContrastButtonStyle}"
+            <Button x:Name="BtnViewAllCourseGrades" Click="BtnViewAllCourseGrades_Click" Grid.Row="5" Grid.ColumnSpan="2" Margin="0,20,0,0" Style="{StaticResource PhoneLightContrastButtonStyle}"
                 Content="View All Course Grades" HorizontalAlignment="Stretch"/>
 
         </Grid>
