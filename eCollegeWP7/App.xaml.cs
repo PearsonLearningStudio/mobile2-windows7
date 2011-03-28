@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Net;
 using System.Windows;
@@ -76,7 +77,21 @@ namespace eCollegeWP7
 
         public static void SignOut()
         {
-            
+            ((App)Current).InternalSignOut();
+        }
+
+        private void InternalSignOut()
+        {
+            var result = MessageBox.Show(AppResources.SignoutPromptMessage, AppResources.SignoutPromptTitle, MessageBoxButton.OKCancel);
+
+            if (result == MessageBoxResult.OK)
+            {
+                var settings = IsolatedStorageSettings.ApplicationSettings;
+                settings.Remove("grantToken");
+                settings.Save();
+                _Model = new AppViewModel();
+                RootFrame.Navigate(new Uri("/Views/LoginPage.xaml", UriKind.Relative));
+            }
         }
 
         // Code to execute when the application is launching (eg, from Start)

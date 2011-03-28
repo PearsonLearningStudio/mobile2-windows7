@@ -129,4 +129,10 @@
   <data name="ClientString" xml:space="preserve">
     <value>ctstate</value>
   </data>
+  <data name="SignoutPromptMessage" xml:space="preserve">
+    <value>Are you sure you would like to sign out?</value>
+  </data>
+  <data name="SignoutPromptTitle" xml:space="preserve">
+    <value>Sign Out</value>
+  </data>
 </root>

@@ -95,5 +95,23 @@ namespace eCollegeWP7 {
                 return ResourceManager.GetString("ClientString", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you would like to sign out?.
+        /// </summary>
+        public static string SignoutPromptMessage {
+            get {
+                return ResourceManager.GetString("SignoutPromptMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sign Out.
+        /// </summary>
+        public static string SignoutPromptTitle {
+            get {
+                return ResourceManager.GetString("SignoutPromptTitle", resourceCulture);
+            }
+        }
     }
 }
