@@ -315,6 +315,13 @@ THE SOURCE CODE IS PROVIDED "AS IS", WITH NO WARRANTIES OR INDEMNITIES.
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style x:Key="PhoneAccentButtonStyle" TargetType="Button">
+        <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeNormal}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource PhoneContrastForegroundBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource PhoneContrastForegroundBrush}"/>
+        <Setter Property="Background" Value="{StaticResource PhoneAccentBrush}"/>
+    </Style>
     
     <Style x:Key="PhoneDarkAccentButtonStyle" TargetType="Button">
         <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeNormal}"/>

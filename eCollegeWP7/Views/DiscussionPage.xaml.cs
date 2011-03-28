@@ -54,6 +54,7 @@ namespace eCollegeWP7.Views
         {
             GrdResponse.Visibility = Visibility.Visible;
             BtnShowPostResponse.Visibility = Visibility.Collapsed;
+            TxtResponseTitle.Focus();
         }
 
         private void BtnCancelResponse_Click(object sender, RoutedEventArgs e)

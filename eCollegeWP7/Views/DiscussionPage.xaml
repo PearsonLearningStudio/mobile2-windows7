@@ -113,8 +113,8 @@
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
-                                        <Button x:Name="BtnCancelResponse" Content="Cancel" Click="BtnCancelResponse_Click"/>
-                                        <Button x:Name="BtnPostResponse" Grid.Column="1" Content="Post" Click="BtnPostResponse_Click"/>
+                                        <Button x:Name="BtnCancelResponse" Content="cancel" Style="{StaticResource PhoneLightContrastButtonStyle}" Click="BtnCancelResponse_Click"/>
+                                        <Button x:Name="BtnPostResponse" Grid.Column="1" Content="post" Style="{StaticResource PhoneAccentButtonStyle}" Click="BtnPostResponse_Click"/>
                                     </Grid>
                                 </Grid>
                                 <ItemsPresenter/>
