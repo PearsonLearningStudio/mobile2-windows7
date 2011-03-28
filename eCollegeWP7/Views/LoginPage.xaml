@@ -30,10 +30,10 @@
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             
             <StackPanel HorizontalAlignment="Stretch">
-                <TextBlock Text="username or email"/>
+                <TextBlock Margin="12,0,0,0" Text="username or email"/>
                 <TextBox x:Name="TxtUsername"/>
 
-                <TextBlock Text="password"/>
+                <TextBlock Margin="12,0,0,0" Text="password"/>
                 <PasswordBox x:Name="TxtPassword"/>
                 
                 <CheckBox x:Name="ChkRememberMe" Content="Remember Me?" IsChecked="True"/>

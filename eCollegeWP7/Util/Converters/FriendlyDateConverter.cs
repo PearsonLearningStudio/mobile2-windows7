@@ -21,6 +21,12 @@ namespace eCollegeWP7.Util.Converters
         {
             if (value == null) return null;
             if (!(value is DateTime)) return "not a date";
+
+            if ("long".Equals(parameter))
+            {
+                return DateTimeUtil.LongFriendlyDate((DateTime) value);
+            }
+
             return DateTimeUtil.FriendlyDate((DateTime)value);
         }
 

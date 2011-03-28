@@ -35,5 +35,33 @@ namespace eCollegeWP7.Util
                 return dt.ToString("MMM d");
             }
         }
+
+        /*  Today 12:34 PM
+            Yesterday 12:34 PM
+            February 13 12:34 PM
+            December 13, 2010 12:34 PM
+            */
+
+        public static string LongFriendlyDate(DateTime dt)
+        {
+            var dtStr = dt.ToString("MMM d yyyy");
+
+            if (DateTime.Today.ToString("MMM d yyyy") == dtStr)
+            {
+                return "Today " + dt.ToString("h:mm tt");
+            }
+            if (DateTime.Today.AddDays(-1.0).ToString("MMM d yyyy") == dtStr)
+            {
+                return "Yesterday " + dt.ToString("h:mm tt");
+            }
+            if (dt.Year != DateTime.Today.Year)
+            {
+                return dt.ToString("MMMM d, yyyy h:mm tt");
+            }
+            else
+            {
+                return dt.ToString("MMMM d h:mm tt");
+            }
+        }
     }
 }
