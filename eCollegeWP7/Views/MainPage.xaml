@@ -48,7 +48,7 @@
                                     <ControlTemplate>
                                         <StackPanel Orientation="Horizontal" Margin="10" Background="Transparent">
                                             <Button Margin="0,5,5,0" VerticalAlignment="Center" Template="{Binding IconTemplate, Converter={StaticResource AppResourceConverter}}"/>
-                                            <TextBlock VerticalAlignment="Center" Foreground="{Binding LinkForeground, Converter={StaticResource AppResourceConverter}}" 
+                                            <TextBlock VerticalAlignment="Center"
                                                        Text="{Binding Path=Title}" Style="{StaticResource PhoneTextTitle2Style}"/>
                                         </StackPanel>
                                     </ControlTemplate>

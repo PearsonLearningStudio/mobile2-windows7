@@ -53,12 +53,12 @@ namespace eCollegeWP7.ViewModels
                 IconTemplate = "IconCourses",
                 NavigationPath = "/Views/SecondaryPage.xaml?defaultPanoramaItem=PanCourses"
             });
-            links.Add(new LinkViewModel()
-            {
-                Title = "people",
-                IconTemplate = "IconPeople",
-                NavigationPath = "/Views/SecondaryPage.xaml?defaultPanoramaItem=PanPeople"
-            });
+            //links.Add(new LinkViewModel()
+            //{
+            //    Title = "people",
+            //    IconTemplate = "IconPeople",
+            //    NavigationPath = "/Views/SecondaryPage.xaml?defaultPanoramaItem=PanPeople"
+            //});
             links.Add(new LinkViewModel()
             {
                 Title = "my profile",
