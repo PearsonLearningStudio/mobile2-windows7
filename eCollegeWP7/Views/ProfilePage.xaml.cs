@@ -37,5 +37,10 @@ namespace eCollegeWP7.Views
             this.NavigationService.Navigate(new Uri("/Views/CoursePage.xaml?courseId=" + course.ID, UriKind.Relative));
         }
 
+        private void BtnSignOut_Click(object sender, RoutedEventArgs e)
+        {
+            App.SignOut();
+        }
+
     }
 }

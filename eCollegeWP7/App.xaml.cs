@@ -74,6 +74,11 @@ namespace eCollegeWP7
             InitializePhoneApplication();
         }
 
+        public static void SignOut()
+        {
+            
+        }
+
         // Code to execute when the application is launching (eg, from Start)
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)

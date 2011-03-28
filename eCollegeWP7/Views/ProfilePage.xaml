@@ -35,6 +35,10 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
             <ListBox Grid.Row="0" ItemsSource="{Binding Path=MyCourses}" ItemContainerStyle="{StaticResource StretchedContainerStyle}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
@@ -51,6 +55,18 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
+
+
+            <!--<StackPanel Grid.Row="1">
+                <Button Style="{StaticResource PhoneAccentButtonStyle}" Content="sign out" />
+                <Button Style="{StaticResource PhoneDarkAccentButtonStyle}" Content="sign out" />
+                <Button Style="{StaticResource PhoneLightContrastButtonStyle}" Content="sign out" />
+                <Button Style="{StaticResource PhoneAccentButtonStyle}" Content="Sign Out" />
+                <Button Style="{StaticResource PhoneDarkAccentButtonStyle}" Content="Sign Out" />
+                <Button Style="{StaticResource PhoneLightContrastButtonStyle}" Content="Sign Out" />
+            </StackPanel>-->
+            
+            <Button Grid.Row="1" x:Name="BtnSignOut" Style="{StaticResource PhoneDarkAccentButtonStyle}" Content="sign out" Click="BtnSignOut_Click"/>
         </Grid>
     </Grid>
 
