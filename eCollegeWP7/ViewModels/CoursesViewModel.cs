@@ -52,6 +52,8 @@ namespace eCollegeWP7.ViewModels
 
         private static Course _AllCoursesPlaceholder = new Course() {ID = -1, Title = "All Courses"};
         public static Course AllCoursesPlaceholder { get { return _AllCoursesPlaceholder; } }
+        
+        public void Load() {Load(null);}
 
         public void Load(Action<bool> callback)
         {
@@ -64,7 +66,7 @@ namespace eCollegeWP7.ViewModels
                     CourseIdMap[c.ID] = c;
                 }
                 this.MyCourses = oc;
-                callback(true);
+                if (callback != null) callback(true);
             });
         }
 
