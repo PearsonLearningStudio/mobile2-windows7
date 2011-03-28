@@ -35,6 +35,12 @@ namespace eCollegeWP7.ViewModels
             set { _Title = value; this.OnPropertyChanged(() => this.Title); }
         }
 
+        private Action _LinkAction;
+        public Action LinkAction
+        {
+            get { return _LinkAction; }
+            set { _LinkAction = value; this.OnPropertyChanged(() => this.LinkAction); }
+        }
 
         private string _NavigationPath;
         public string NavigationPath

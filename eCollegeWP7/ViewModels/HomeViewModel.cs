@@ -77,6 +77,12 @@ namespace eCollegeWP7.ViewModels
                 IconTemplate = "IconSettings",
                 NavigationPath = "/Views/SettingsPage.xaml"
             });
+            links.Add(new LinkViewModel()
+            {
+                Title = "sign out",
+                IconTemplate = "IconSettings",
+                LinkAction = (() => App.SignOut())
+            });
 
             HomeLinks = links;
         }

@@ -74,6 +74,10 @@ namespace eCollegeWP7.Views
             {
                 this.NavigationService.Navigate(new Uri(link.NavigationPath, UriKind.Relative));
             }
+            else if (link.LinkAction != null)
+            {
+                link.LinkAction();
+            }
             else
             {
                 var defaultItem = PanMain.FindName(link.PanoramaItemName);
