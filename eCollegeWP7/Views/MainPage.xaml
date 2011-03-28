@@ -36,19 +36,20 @@
                 </Grid>
             </controls:PanoramaItem>
 
-            <controls:PanoramaItem x:Name="PanHome" Padding="30,0,0,0">
+            <controls:PanoramaItem x:Name="PanHome" Padding="100,0,0,0">
                 <controls:PanoramaItem.DataContext>
                     <vm:HomeViewModel/>
                 </controls:PanoramaItem.DataContext>
-                <ItemsControl ItemsSource="{Binding Path=HomeLinks}">
+                <ItemsControl Margin="0,10,0,0" ItemsSource="{Binding Path=HomeLinks}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <HyperlinkButton Click="HyperlinkButton_Click">
                                 <HyperlinkButton.Template>
                                     <ControlTemplate>
-                                        <StackPanel Orientation="Horizontal" Margin="5" Background="Transparent">
-                                            <Button Template="{Binding IconTemplate, Converter={StaticResource AppResourceConverter}}"/>
-                                            <TextBlock Text="{Binding Path=Title}" VerticalAlignment="Center"/>
+                                        <StackPanel Orientation="Horizontal" Margin="10" Background="Transparent">
+                                            <Button Margin="0,5,5,0" VerticalAlignment="Center" Template="{Binding IconTemplate, Converter={StaticResource AppResourceConverter}}"/>
+                                            <TextBlock VerticalAlignment="Center" Foreground="{Binding LinkForeground, Converter={StaticResource AppResourceConverter}}" 
+                                                       Text="{Binding Path=Title}" Style="{StaticResource PhoneTextTitle2Style}"/>
                                         </StackPanel>
                                     </ControlTemplate>
                                 </HyperlinkButton.Template>

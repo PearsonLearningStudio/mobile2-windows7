@@ -119,6 +119,7 @@ THE SOURCE CODE IS PROVIDED "AS IS", WITH NO WARRANTIES OR INDEMNITIES.
     <System:Double x:Key="PhoneLightThemeOpacity">1</System:Double>
 
     <!-- Blue -->
+    <Color x:Key="PhoneRegularColor">#DE000000</Color>
     <Color x:Key="PhoneAccentColor">#FF347BAD</Color>
     <Color x:Key="PhoneDarkAccentColor">#FF292D6A</Color>
     <Color x:Key="PhoneAlertColor">#FF880000</Color>
@@ -167,6 +168,7 @@ THE SOURCE CODE IS PROVIDED "AS IS", WITH NO WARRANTIES OR INDEMNITIES.
 
     <SolidColorBrush x:Key="PhoneChromeBrush" Color="{StaticResource PhoneChromeColor}"/>
 
+    <SolidColorBrush x:Key="PhoneRegularBrush" Color="{StaticResource PhoneRegularColor}"/>
     <SolidColorBrush x:Key="PhoneAccentBrush" Color="{StaticResource PhoneAccentColor}"/>
     <SolidColorBrush x:Key="PhoneDarkAccentBrush" Color="{StaticResource PhoneDarkAccentColor}"/>
     <SolidColorBrush x:Key="PhoneAlertBrush" Color="{StaticResource PhoneAlertColor}"/>
@@ -405,65 +407,73 @@ THE SOURCE CODE IS PROVIDED "AS IS", WITH NO WARRANTIES OR INDEMNITIES.
     </ControlTemplate>
     
     <ControlTemplate x:Key="IconHelp" TargetType="Button">
-        <Canvas Width="48" Height="48" Background="{StaticResource PhoneAccentBrush}">
+        <Canvas Width="30" Height="30" Background="{StaticResource PhoneAccentBrush}">
             <Canvas.OpacityMask>
-                <ImageBrush ImageSource="/Resources/Icons/ic_menu_help.png" Stretch="None"/>
+                <ImageBrush ImageSource="/Resources/Icons/icon_help.png" Stretch="Uniform"/>
             </Canvas.OpacityMask>
         </Canvas>
     </ControlTemplate>
 
     <ControlTemplate x:Key="IconActivity" TargetType="Button">
-        <Canvas Width="48" Height="48" Background="{StaticResource PhoneAccentBrush}">
+        <Canvas Width="30" Height="30" Background="{StaticResource PhoneAccentBrush}">
             <Canvas.OpacityMask>
-                <ImageBrush ImageSource="/Resources/Icons/ic_menu_activity.png" Stretch="None"/>
+                <ImageBrush ImageSource="/Resources/Icons/icon_activity.png" Stretch="Uniform"/>
             </Canvas.OpacityMask>
         </Canvas>
     </ControlTemplate>
 
     <ControlTemplate x:Key="IconCourses" TargetType="Button">
-        <Canvas Width="48" Height="48" Background="{StaticResource PhoneAccentBrush}">
+        <Canvas Width="30" Height="30" Background="{StaticResource PhoneAccentBrush}">
             <Canvas.OpacityMask>
-                <ImageBrush ImageSource="/Resources/Icons/icon_course.png" Stretch="None"/>
+                <ImageBrush ImageSource="/Resources/Icons/icon_courses.png" Stretch="Uniform"/>
             </Canvas.OpacityMask>
         </Canvas>
     </ControlTemplate>
 
     <ControlTemplate x:Key="IconDiscussions" TargetType="Button">
-        <Canvas Width="48" Height="48" Background="{StaticResource PhoneAccentBrush}">
+        <Canvas Width="30" Height="30" Background="{StaticResource PhoneAccentBrush}">
             <Canvas.OpacityMask>
-                <ImageBrush ImageSource="/Resources/Icons/ic_menu_discussions.png" Stretch="None"/>
+                <ImageBrush ImageSource="/Resources/Icons/icon_discussions_responses.png" Stretch="Uniform"/>
             </Canvas.OpacityMask>
         </Canvas>
     </ControlTemplate>
 
     <ControlTemplate x:Key="IconPeople" TargetType="Button">
-        <Canvas Width="48" Height="48" Background="{StaticResource PhoneAccentBrush}">
+        <Canvas Width="30" Height="30" Background="{StaticResource PhoneAccentBrush}">
             <Canvas.OpacityMask>
-                <ImageBrush ImageSource="/Resources/Icons/ic_menu_people.png" Stretch="None"/>
+                <ImageBrush ImageSource="/Resources/Icons/icon_people.png" Stretch="Uniform"/>
             </Canvas.OpacityMask>
         </Canvas>
     </ControlTemplate>
 
     <ControlTemplate x:Key="IconProfile" TargetType="Button">
-        <Canvas Width="48" Height="48" Background="{StaticResource PhoneAccentBrush}">
+        <Canvas Width="30" Height="30" Background="{StaticResource PhoneAccentBrush}">
             <Canvas.OpacityMask>
-                <ImageBrush ImageSource="/Resources/Icons/ic_menu_profile.png" Stretch="None"/>
+                <ImageBrush ImageSource="/Resources/Icons/icon_my_profile.png" Stretch="Uniform"/>
             </Canvas.OpacityMask>
         </Canvas>
     </ControlTemplate>
 
-    <ControlTemplate x:Key="IconSettings" TargetType="Button">
+    <!--<ControlTemplate x:Key="IconSettings" TargetType="Button">
         <Canvas Width="48" Height="48" Background="{StaticResource PhoneAccentBrush}">
             <Canvas.OpacityMask>
-                <ImageBrush ImageSource="/Resources/Icons/ic_menu_settings.png" Stretch="None"/>
+                <ImageBrush ImageSource="/Resources/Icons/icon_settings.png" Stretch="Uniform"/>
             </Canvas.OpacityMask>
         </Canvas>
-    </ControlTemplate>
+    </ControlTemplate>-->
 
     <ControlTemplate x:Key="IconWhatsDue" TargetType="Button">
-        <Canvas Width="48" Height="48" Background="{StaticResource PhoneAccentBrush}">
+        <Canvas Width="30" Height="30" Background="{StaticResource PhoneAccentBrush}">
             <Canvas.OpacityMask>
-                <ImageBrush ImageSource="/Resources/Icons/ic_menu_whats_due.png" Stretch="None"/>
+                <ImageBrush ImageSource="/Resources/Icons/icon_whats_due.png" Stretch="Uniform"/>
+            </Canvas.OpacityMask>
+        </Canvas>
+    </ControlTemplate>
+    
+    <ControlTemplate x:Key="IconSignOut" TargetType="Button">
+        <Canvas Width="30" Height="30" Background="{StaticResource PhoneAlertBrush}">
+            <Canvas.OpacityMask>
+                <ImageBrush ImageSource="/Resources/Icons/icon_sign_out.png" Stretch="Uniform"/>
             </Canvas.OpacityMask>
         </Canvas>
     </ControlTemplate>

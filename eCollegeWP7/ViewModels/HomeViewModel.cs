@@ -71,16 +71,17 @@ namespace eCollegeWP7.ViewModels
                 IconTemplate = "IconHelp",
                 NavigationPath = "/Views/HelpPage.xaml"
             });
-            links.Add(new LinkViewModel()
-            {
-                Title = "settings",
-                IconTemplate = "IconSettings",
-                NavigationPath = "/Views/SettingsPage.xaml"
-            });
+            //links.Add(new LinkViewModel()
+            //{
+            //    Title = "settings",
+            //    IconTemplate = "IconSettings",
+            //    NavigationPath = "/Views/SettingsPage.xaml"
+            //});
             links.Add(new LinkViewModel()
             {
                 Title = "sign out",
-                IconTemplate = "IconSettings",
+                IconTemplate = "IconSignOut",
+                LinkForeground = "PhoneAlertBrush",
                 LinkAction = (() => App.SignOut())
             });
 

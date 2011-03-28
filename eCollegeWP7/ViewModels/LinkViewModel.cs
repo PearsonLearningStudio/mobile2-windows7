@@ -21,6 +21,11 @@ namespace eCollegeWP7.ViewModels
     public class LinkViewModel : ViewModelBase
     {
 
+        public LinkViewModel()
+        {
+            LinkForeground = "PhoneRegularBrush";
+        }
+
         private string _IconTemplate;
         public string IconTemplate
         {
@@ -33,6 +38,13 @@ namespace eCollegeWP7.ViewModels
         {
             get { return _Title; }
             set { _Title = value; this.OnPropertyChanged(() => this.Title); }
+        }
+
+        private string _LinkForeground;
+        public string LinkForeground
+        {
+            get { return _LinkForeground; }
+            set { _LinkForeground = value; this.OnPropertyChanged(() => this.LinkForeground); }
         }
 
         private Action _LinkAction;
