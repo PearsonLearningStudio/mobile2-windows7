@@ -92,8 +92,8 @@
                                             Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" MaxHeight="120"
                                             Text="{Binding Path=DiscussionDescription}"/>
                                         </Border>
-                                        
-                                        <ToggleButton x:Name="TglExpandDescription" Content="+" Grid.Column="1" VerticalAlignment="Top" Click="TglExpandDescription_Click">
+
+                                        <ToggleButton x:Name="TglExpandDescription" Template="{StaticResource ToggleButtonTemplate}" Content="+" Grid.Column="1" VerticalAlignment="Top" Click="TglExpandDescription_Click">
                                         </ToggleButton>
                                     </Grid>
                                 </Grid>
