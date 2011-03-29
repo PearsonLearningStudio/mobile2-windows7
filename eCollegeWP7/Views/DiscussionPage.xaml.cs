@@ -62,7 +62,7 @@ namespace eCollegeWP7.Views
                 var t = BtnShowPostResponse.TransformToVisual(scroller);
                 var offset = t.Transform(new Point(0, 0));
 
-                scroller.ScrollToVerticalOffset(offset.Y);
+                scroller.ScrollToVerticalOffset(offset.Y - 30);
             }
 
             //TxtResponseTitle.Focus();
