@@ -29,17 +29,9 @@ namespace eCollegeWP7.Views
             if (settings.TryGetValue<string>("grantToken", out grantToken))
             {
                 App.Model.Client.SetupAuthentication(grantToken);
-                App.Model.Login(grantToken, result =>
-                {
-                    if (result)
-                    {
-                        this.NavigationService.Navigate(new Uri("/Views/MainPage.xaml", UriKind.Relative));
-                    }
-                    else
-                    {
-                        this.NavigationService.Navigate(new Uri("/Views/LoginPage.xaml", UriKind.Relative));
-                    }
-                });
+                App.Model.Login(grantToken, 
+                    () => this.NavigationService.Navigate(new Uri("/Views/MainPage.xaml", UriKind.Relative)), 
+                    (s, r) => this.NavigationService.Navigate(new Uri("/Views/LoginPage.xaml", UriKind.Relative)));
             }
             else
             {

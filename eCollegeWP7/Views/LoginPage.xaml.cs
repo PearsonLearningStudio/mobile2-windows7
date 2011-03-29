@@ -38,17 +38,20 @@ namespace eCollegeWP7.Views
                 settings.Save();
             }
 
-            App.Model.Login(TxtUsername.Text, TxtPassword.Password, result =>
-            {
-                if (result) {
+            App.Model.Login(TxtUsername.Text, TxtPassword.Password, 
+                () =>
+                {
                     if (remember)
                     {
                         settings["grantToken"] = App.Model.Client.GrantToken;
                         settings.Save();
                     }
                     this.NavigationService.Navigate(new Uri("/Views/MainPage.xaml", UriKind.Relative));
-                }
-            });
+                },
+                (service,response) =>
+                {
+                    MessageBox.Show("Unable to login");
+                });
         }
     }
 }

@@ -94,7 +94,19 @@ namespace ECollegeAPI
                 if (!_loginInProgress)
                 {
                     _loginInProgress = true;
-                    PrepareAuthentication();
+                    PrepareAuthentication((authService, authResponse) =>
+                    {
+                        //Authentication failure
+                        var dispatcher = Deployment.Current.Dispatcher;
+                        dispatcher.BeginInvoke(() =>
+                        {
+                            if (failureCallback != null) failureCallback(service, authResponse);
+                        });
+                        dispatcher.BeginInvoke(() =>
+                        {
+                            if (finallyCallback != null) finallyCallback(service);
+                        });
+                    });
                 }
                 _pendingServiceCalls.Enqueue(
                     () => ExecuteService(service, successCallback, failureCallback, finallyCallback));
@@ -158,15 +170,23 @@ namespace ECollegeAPI
             });
 
         }
-        
-        protected void AuthenticationFailed(BaseService service, RestResponse r)
-        {
-            Debug.WriteLine("Auth Failed");
-            _loginInProgress = false;
-        }
 
-        protected void PrepareAuthentication()
+        protected void PrepareAuthentication(Action<BaseService,RestResponse> authFailed)
         {
+            Action<FetchTokenService, RestResponse> tokenFailureHandler = (service, response) =>
+            {
+                Debug.WriteLine("Auth Failed for token");
+                _loginInProgress = false;
+                authFailed(service, response);
+            };
+
+            Action<FetchGrantService, RestResponse> grantFailureHandler = (service, response) =>
+            {
+                Debug.WriteLine("Auth Failed for grant");
+                _loginInProgress = false;
+                authFailed(service, response);
+            };
+
             if (_grantToken == null)
             {
                 ExecuteService(new FetchGrantService(_clientString, _clientId, _username, _password), fgs =>
@@ -177,8 +197,8 @@ namespace ECollegeAPI
                         _currentToken = fts.Result;
                         _authenticator = new ECollegeClientAuthenticator(_currentToken.AccessToken);
                         ResumeServices();
-                    }, AuthenticationFailed);
-                }, AuthenticationFailed);
+                    }, tokenFailureHandler);
+                }, grantFailureHandler);
             }
             else
             {
@@ -187,7 +207,7 @@ namespace ECollegeAPI
                     _currentToken = fts.Result;
                     _authenticator = new ECollegeClientAuthenticator(_currentToken.AccessToken);
                     ResumeServices();
-                }, AuthenticationFailed);
+                }, tokenFailureHandler);
             }
         }
 
@@ -205,13 +225,11 @@ namespace ECollegeAPI
         {
             Debug.WriteLine("ErrorMessage: " + response.ErrorMessage);
             Debug.WriteLine("ErrorException: \n" + response.ErrorException + "\n");
-            Debugger.Break();
         }
 
         protected void OnServerErrorReturned(RestResponse response)
         {
             Debug.WriteLine("ERROR!" + response.StatusCode);
-            Debugger.Break();
         }
 
         private class ECollegeClientAuthenticator : IAuthenticator

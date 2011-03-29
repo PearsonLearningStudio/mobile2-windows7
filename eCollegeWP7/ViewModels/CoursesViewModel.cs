@@ -55,7 +55,7 @@ namespace eCollegeWP7.ViewModels
         
         public void Load() {Load(null);}
 
-        public void Load(Action<bool> callback)
+        public void Load(Action successCallback)
         {
             App.BuildService(new FetchMyCurrentCoursesService()).Execute(service =>
             {
@@ -66,7 +66,7 @@ namespace eCollegeWP7.ViewModels
                     CourseIdMap[c.ID] = c;
                 }
                 this.MyCourses = oc;
-                if (callback != null) callback(true);
+                successCallback();
             });
         }
 

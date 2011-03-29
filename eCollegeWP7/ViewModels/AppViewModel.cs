@@ -15,6 +15,7 @@ using System.Collections.ObjectModel;
 using System.Collections;
 using System.Collections.Generic;
 using ECollegeAPI.Services.Users;
+using RestSharp;
 
 namespace eCollegeWP7.ViewModels
 {
@@ -71,26 +72,28 @@ namespace eCollegeWP7.ViewModels
             state["Courses"] = Courses;
         }
 
-        protected void FetchInitialUserData(Action<bool> callback)
+        protected void FetchInitialUserData(Action successCallback,Action<FetchMeService,RestResponse> failureCallback)
         {
-            App.BuildService(new FetchMeService()).Execute(service =>
+            var call = App.BuildService(new FetchMeService());
+            call.AddFailureHandler(failureCallback);
+            call.Execute(service =>
             {
                 CurrentUser = service.Result;
                 Courses = new CoursesViewModel();
-                Courses.Load(res => callback(true));
+                Courses.Load(successCallback);
             });
         }
 
-        public void Login(String grantToken, Action<bool> callback)
+        public void Login(String grantToken, Action successCallback, Action<FetchMeService, RestResponse> failureCallback)
         {
             Client.SetupAuthentication(grantToken);
-            FetchInitialUserData(callback);
+            FetchInitialUserData(successCallback, failureCallback);
         }
 
-        public void Login(String username, String password, Action<bool> callback)
+        public void Login(String username, String password, Action successCallback, Action<FetchMeService, RestResponse> failureCallback)
         {
             Client.SetupAuthentication(username, password);
-            FetchInitialUserData(callback);
+            FetchInitialUserData(successCallback, failureCallback);
         }
         
     }
