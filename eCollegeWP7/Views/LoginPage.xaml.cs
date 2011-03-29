@@ -12,6 +12,9 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using System.IO.IsolatedStorage;
 using eCollegeWP7.ViewModels;
+using ECollegeAPI.Exceptions;
+
+using Coding4Fun.Phone.Controls;
 
 namespace eCollegeWP7.Views
 {
@@ -29,6 +32,12 @@ namespace eCollegeWP7.Views
 
         private void BtnSignIn_Click(object sender, RoutedEventArgs e)
         {
+            if (String.IsNullOrEmpty(TxtUsername.Text) || String.IsNullOrEmpty(TxtPassword.Password))
+            {
+                App.Model.ShowAlert("Unable to Login","You must provide both a username and password");
+                return;
+            }
+
             bool remember = ChkRememberMe.IsChecked.Value;
 
             var settings = IsolatedStorageSettings.ApplicationSettings;
@@ -50,7 +59,11 @@ namespace eCollegeWP7.Views
                 },
                 (ex) =>
                 {
-                    MessageBox.Show("Unable to login");
+                    if (ex is AuthenticationException)
+                    {
+                        ex.IsHandled = true;
+                        App.Model.ShowAlert("Login Failed","Incorrect username and/or password");
+                    }
                 });
         }
     }

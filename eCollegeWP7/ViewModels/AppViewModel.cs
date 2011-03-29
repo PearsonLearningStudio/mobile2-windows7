@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using Coding4Fun.Phone.Controls;
 using ECollegeAPI;
 using ECollegeAPI.Model;
 using System.Diagnostics;
@@ -48,10 +49,40 @@ namespace eCollegeWP7.ViewModels
             Client.UnhandledExceptionHandler = (ex) => HandleError(ex);
         }
 
-
         public void HandleError(Exception ex)
         {
-            MessageBox.Show("ERROR: " + ex.Message);
+            if (ex is ServerErrorException)
+            {
+                ShowErrorPrompt("An error occurred while communicating with the server");
+            } else if (ex is ClientErrorException)
+            {
+                ShowErrorPrompt("An error occurred while trying to communicate with the server");
+            } else if (ex is DeserializationException)
+            {
+                ShowErrorPrompt("An error occurred while decoding the server's response");
+            } else
+            {
+                ShowErrorPrompt("An unknown error has occurred");
+            }
+#if DEBUG
+            Debugger.Break();
+#endif
+        }
+
+        public void ShowAlert(string title, string message)
+        {
+            var t = new ToastPrompt();
+            t.Background = App.Current.Resources["PhoneBackgroundBrush"] as Brush;
+            t.Foreground = App.Current.Resources["PhoneForegroundBrush"] as Brush;
+            t.Title = title;
+            t.Message = message;
+            t.TextOrientation = Orientation.Vertical;
+            t.Show();
+        }
+
+        public void ShowErrorPrompt( string message)
+        {
+            MessageBox.Show(message, "Error", MessageBoxButton.OK);
         }
 
         public void Activate(IDictionary<string,object> state)

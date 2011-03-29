@@ -76,6 +76,12 @@ namespace eCollegeWP7.Views
 
         private void BtnPostResponse_Click(object sender, RoutedEventArgs e)
         {
+            if (String.IsNullOrEmpty(TxtResponseTitle.Text) || String.IsNullOrEmpty(TxtResponse.Text))
+            {
+                App.Model.ShowAlert("Unable to post", "Both subject and message are required");
+                return;
+            }
+
             GrdResponse.Visibility = Visibility.Collapsed;
             BtnShowPostResponse.Visibility = Visibility.Visible;
             var responseTitle = TxtResponseTitle.Text;

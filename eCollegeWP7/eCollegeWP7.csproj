@@ -48,12 +48,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Coding4Fun.Phone.Controls">
+      <HintPath>..\packages\Coding4Fun.Phone.Controls.1.2\lib\Coding4Fun.Phone.Controls.dll</HintPath>
+    </Reference>
     <Reference Include="HtmlAgilityPack">
       <HintPath>.\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Phone" />
     <Reference Include="Microsoft.Phone.Controls" />
-    <Reference Include="Microsoft.Phone.Controls.Toolkit, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b772ad94eb9ca604, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Phone.Controls.Toolkit, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b772ad94eb9ca604, processorArchitecture=MSIL">
+      <HintPath>..\packages\Coding4Fun.Phone.Controls.1.2\lib\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Phone.Interop" />
     <Reference Include="Newtonsoft.Json.Silverlight">
       <HintPath>.\Newtonsoft.Json.Silverlight.dll</HintPath>
@@ -300,6 +305,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml" />
   </ItemGroup>
@@ -310,7 +316,6 @@
     <Content Include="Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="PanoramaBackground.png" />
     <Content Include="Resources\background_branded_signon.png" />
     <Content Include="Resources\Icons\icon_activity.png" />
     <Content Include="Resources\Icons\icon_courses.png" />

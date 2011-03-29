@@ -192,6 +192,7 @@ namespace ECollegeAPI
             var dispatcher = Deployment.Current.Dispatcher;
             dispatcher.BeginInvoke(() =>
             {
+                ex.IsHandled = false; //if reused exception, make sure ishandled starts out as false
                 if (failureCallback != null)
                 {
                     failureCallback(ex);
@@ -218,19 +219,21 @@ namespace ECollegeAPI
                 {
                     _loginInProgress = true;
                     PrepareAuthentication((ex) =>
-                                              {
-                                                  //Authentication failure
-                                                  var dispatcher = Deployment.Current.Dispatcher;
-                                                  if (failureCallback != null)
-                                                  {
-                                                      dispatcher.BeginInvoke(() => failureCallback(ex));
-                                                  }
-                                                  if (finallyCallback != null)
-                                                  {
+                    {
+                        //Authentication failure
+                        ex.IsHandled = true; //don't propagate original exception up
 
-                                                      dispatcher.BeginInvoke(() => finallyCallback(service));
-                                                  }
-                                              });
+                        var sce = ex as ServerErrorException;
+                        var code = sce.Response.StatusCode;
+
+                        if (code == HttpStatusCode.BadRequest && sce.Response.Content.Contains("incorrect_client_credentials"))
+                        {
+                            HandleFailure(service,new AuthenticationException(sce.Response),failureCallback,finallyCallback);
+                        } else
+                        {
+                            HandleFailure(service,ex,failureCallback,finallyCallback);
+                        }
+                    });
                 }
                 _pendingServiceCalls.Enqueue(
                     () => ExecuteService<T>(service, successCallback, failureCallback, finallyCallback));
@@ -246,6 +249,7 @@ namespace ECollegeAPI
             Action<ServiceException> failureHandler = (ex) =>
             {
                 Debug.WriteLine("Auth Failed");
+                _pendingServiceCalls.Clear();
                 _loginInProgress = false;
                 authFailed(ex);
             };

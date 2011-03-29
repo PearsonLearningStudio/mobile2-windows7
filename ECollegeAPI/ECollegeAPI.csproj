@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="ECollegeClient.cs" />
     <Compile Include="Exceptions\ClientErrorException.cs" />
+    <Compile Include="Exceptions\AuthenticationException.cs" />
     <Compile Include="Exceptions\ServerErrorException.cs" />
     <Compile Include="Exceptions\DeserializationException.cs" />
     <Compile Include="Exceptions\ServiceException.cs" />
