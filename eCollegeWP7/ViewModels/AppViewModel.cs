@@ -16,6 +16,7 @@ using System.Collections;
 using System.Collections.Generic;
 using ECollegeAPI.Services.Users;
 using RestSharp;
+using ECollegeAPI.Exceptions;
 
 namespace eCollegeWP7.ViewModels
 {
@@ -44,6 +45,13 @@ namespace eCollegeWP7.ViewModels
         public AppViewModel()
         {
             Client = new ECollegeClient(AppResources.ClientString, AppResources.ClientID);
+            Client.UnhandledExceptionHandler = (ex) => HandleError(ex);
+        }
+
+
+        public void HandleError(Exception ex)
+        {
+            MessageBox.Show("ERROR: " + ex.Message);
         }
 
         public void Activate(IDictionary<string,object> state)
@@ -72,7 +80,7 @@ namespace eCollegeWP7.ViewModels
             state["Courses"] = Courses;
         }
 
-        protected void FetchInitialUserData(Action successCallback,Action<FetchMeService,RestResponse> failureCallback)
+        protected void FetchInitialUserData(Action successCallback,Action<ServiceException> failureCallback)
         {
             var call = App.BuildService(new FetchMeService());
             call.AddFailureHandler(failureCallback);
@@ -84,13 +92,13 @@ namespace eCollegeWP7.ViewModels
             });
         }
 
-        public void Login(String grantToken, Action successCallback, Action<FetchMeService, RestResponse> failureCallback)
+        public void Login(String grantToken, Action successCallback, Action<ServiceException> failureCallback)
         {
             Client.SetupAuthentication(grantToken);
             FetchInitialUserData(successCallback, failureCallback);
         }
 
-        public void Login(String username, String password, Action successCallback, Action<FetchMeService, RestResponse> failureCallback)
+        public void Login(String username, String password, Action successCallback, Action<ServiceException> failureCallback)
         {
             Client.SetupAuthentication(username, password);
             FetchInitialUserData(successCallback, failureCallback);

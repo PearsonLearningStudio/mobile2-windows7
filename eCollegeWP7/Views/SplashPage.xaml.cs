@@ -31,7 +31,7 @@ namespace eCollegeWP7.Views
                 App.Model.Client.SetupAuthentication(grantToken);
                 App.Model.Login(grantToken, 
                     () => this.NavigationService.Navigate(new Uri("/Views/MainPage.xaml", UriKind.Relative)), 
-                    (s, r) => this.NavigationService.Navigate(new Uri("/Views/LoginPage.xaml", UriKind.Relative)));
+                    (ex) => this.NavigationService.Navigate(new Uri("/Views/LoginPage.xaml", UriKind.Relative)));
             }
             else
             {

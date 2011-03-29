@@ -55,6 +55,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ECollegeClient.cs" />
+    <Compile Include="Exceptions\ClientErrorException.cs" />
+    <Compile Include="Exceptions\ServerErrorException.cs" />
+    <Compile Include="Exceptions\DeserializationException.cs" />
+    <Compile Include="Exceptions\ServiceException.cs" />
     <Compile Include="Model\ActivityStreamActor.cs" />
     <Compile Include="Model\ActivityStreamItem.cs" />
     <Compile Include="Model\ActivityStreamObject.cs" />

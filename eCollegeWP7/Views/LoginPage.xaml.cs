@@ -48,7 +48,7 @@ namespace eCollegeWP7.Views
                     }
                     this.NavigationService.Navigate(new Uri("/Views/MainPage.xaml", UriKind.Relative));
                 },
-                (service,response) =>
+                (ex) =>
                 {
                     MessageBox.Show("Unable to login");
                 });

@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using ECollegeAPI.Exceptions;
 using ECollegeAPI.Services;
 using ECollegeAPI;
 using RestSharp;
@@ -27,7 +28,7 @@ namespace eCollegeWP7.Util
         private readonly ECollegeClient _client;
         private readonly T _service;
         private Action<T> _successHandler;
-        private Action<T, RestResponse> _failureHandler;
+        private Action<ServiceException> _failureHandler;
         private Action<T> _finallyHandler;
 
         public ServiceCallTask(ECollegeClient client, T service)
@@ -54,7 +55,7 @@ namespace eCollegeWP7.Util
             return this;
         }
 
-        public ServiceCallTask<T> AddFailureHandler(Action<T,RestResponse> failureHandler)
+        public ServiceCallTask<T> AddFailureHandler(Action<ServiceException> failureHandler)
         {
             this._failureHandler = failureHandler;
             return this;

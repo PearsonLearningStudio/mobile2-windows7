@@ -139,11 +139,9 @@ namespace eCollegeWP7
             {
                 return;
             }
-            if (System.Diagnostics.Debugger.IsAttached)
-            {
-                // An unhandled exception has occurred; break into the debugger
-                System.Diagnostics.Debugger.Break();
-            }
+
+            Model.HandleError(e.ExceptionObject);
+            e.Handled = true;
         }
 
         #region Phone application initialization

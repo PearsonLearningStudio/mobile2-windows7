@@ -15,7 +15,7 @@ namespace ECollegeAPI.Services.Activities
         public FetchMyWhatsHappeningFeedService(DateTime? since, long? courseId, string typeFilter)
             : base()
         {
-            Resource = "me/whatshappeningfeed";
+            Resource = "me/whatshappeningfeedzzz";
 
             if (typeFilter != null)
             {

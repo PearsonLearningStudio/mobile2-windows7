@@ -19,6 +19,7 @@ using System.IO;
 using ECollegeAPI.Util;
 using ECollegeAPI.Model.Boilerplate;
 using ECollegeAPI.Services;
+using ECollegeAPI.Exceptions;
 
 namespace ECollegeAPI
 {
@@ -38,7 +39,7 @@ namespace ECollegeAPI
         readonly string _clientId;
 
         private bool _loginInProgress = false;
-        private Queue<Action> _pendingServiceCalls = new Queue<Action>();
+        private readonly Queue<Action> _pendingServiceCalls = new Queue<Action>();
 
         private string _username;
         private string _password;
@@ -48,6 +49,8 @@ namespace ECollegeAPI
         private ECollegeClientAuthenticator _authenticator;
 
         public string GrantToken { get { return _grantToken; } }
+
+        public Action<ServiceException> UnhandledExceptionHandler { get; set; }
 
 
         public ECollegeClient(string clientString, string clientId)
@@ -69,8 +72,26 @@ namespace ECollegeAPI
 
         protected string PrettyPrint(string json)
         {
-            object jsonObject = JsonConvert.DeserializeObject(json);
-            return JsonConvert.SerializeObject(jsonObject, Formatting.Indented);
+            try
+            {
+                object jsonObject = JsonConvert.DeserializeObject(json);
+                return JsonConvert.SerializeObject(jsonObject, Formatting.Indented);
+            } catch(Exception e)
+            {
+                return "Error while parsing string to json: " + e.ToString();
+            }
+        }
+
+        protected string PrettyPrint(object o)
+        {
+            try
+            {
+                return JsonConvert.SerializeObject(o, Formatting.Indented);
+            }
+            catch (Exception e)
+            {
+                return "Error while parsing object to json: " + e.ToString();
+            }
         }
 
         public void ExecuteService<T>(T service, Action<T> successCallback) where T : BaseService
@@ -78,113 +99,155 @@ namespace ECollegeAPI
             ExecuteService<T>(service, successCallback, null, null);
         }
 
-        public void ExecuteService<T>(T service, Action<T> successCallback, Action<T, RestResponse> failureCallback) where T : BaseService
+        public void ExecuteService<T>(T service, Action<T> successCallback, Action<ServiceException> failureCallback) where T : BaseService
         {
             ExecuteService<T>(service, successCallback, failureCallback, null);
         }
 
-        public void ExecuteService<T>(T service, Action<T> successCallback, Action<T,RestResponse> failureCallback, Action<T> finallyCallback) where T : BaseService
+        public void ExecuteService<T>(T service, Action<T> successCallback, Action<ServiceException> failureCallback, Action<T> finallyCallback) where T : BaseService
         {
-            var client = new RestClient(RootUri);
-            client.FollowRedirects = true;
-            client.MaxRedirects = 10;
+            try
+            {
+                var client = new RestClient(RootUri);
+                client.FollowRedirects = true;
+                client.MaxRedirects = 10;
 
+                if (AuthenticateIfRequired(service, failureCallback, finallyCallback, successCallback)) return;
+
+                if (_authenticator != null) client.Authenticator = _authenticator;
+
+                var request = new RestRequest(service.Resource,service.RequestMethod);
+                service.PrepareRequest(request);
+            
+#if DEBUG
+                Debug.WriteLine("Request: " + request.Method + " - " + RootUri + request.Resource + " - " + PrettyPrint(request.Parameters));
+#endif
+                client.ExecuteAsync(request, (response) =>
+                {
+                    HandleResponse(response, service, failureCallback, finallyCallback, successCallback);
+                });
+                
+            } catch (Exception e)
+            {
+                HandleFailure(service, new ClientErrorException(service,e), failureCallback, finallyCallback);
+            }
+
+        }
+
+        protected void HandleResponse<T>(RestResponse response, T service, Action<ServiceException> failureCallback, Action<T> finallyCallback, Action<T> successCallback) where T : BaseService
+        {
+#if DEBUG
+            Debug.WriteLine("Status: " + response.StatusCode);
+
+            if (response.ContentType != null && response.ContentType.Contains("json")) // == "application/json")
+            {
+                var prettyResponse = PrettyPrint(response.Content);
+                Debug.WriteLine("Response: " + prettyResponse + "\n");
+            }
+            else
+            {
+                Debug.WriteLine("Response (" + response.ContentType + "): " + response.Content + "\n");
+            }
+#endif
+            if (response.ResponseStatus == ResponseStatus.Error)
+            {
+                HandleFailure(service,new ClientErrorException(service,response.ErrorMessage, response.ErrorException),failureCallback,finallyCallback);
+            }
+            else if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.Created && response.StatusCode != HttpStatusCode.NoContent && response.StatusCode != HttpStatusCode.NotModified)
+            {
+                HandleFailure(service, new ServerErrorException(response, "Server Error: " + response.StatusCode + " - " + response.StatusDescription), failureCallback, finallyCallback);
+            }
+            else
+            {
+                try
+                {
+                    service.ProcessResponse(response);
+                    HandleSuccess(service,successCallback,finallyCallback);
+                } catch(Exception e)
+                {
+                    HandleFailure(service,new DeserializationException(e),failureCallback,finallyCallback);
+                }
+            }
+
+            Debug.WriteLine("\n\n");
+        }
+
+
+        protected void HandleSuccess<T>(T service, Action<T> successCallback, Action<T> finallyCallback) where T : BaseService
+        {
+            var dispatcher = Deployment.Current.Dispatcher;
+            dispatcher.BeginInvoke(() =>
+            {
+                successCallback(service);
+                if (finallyCallback != null)
+                {
+                    finallyCallback(service);
+                }
+            });
+        }
+
+        protected void HandleFailure<T>(T service, ServiceException ex, Action<ServiceException> failureCallback, Action<T> finallyCallback) where T : BaseService
+        {
+            Debug.WriteLine("ERROR! " + ex);
+            var dispatcher = Deployment.Current.Dispatcher;
+            dispatcher.BeginInvoke(() =>
+            {
+                if (failureCallback != null)
+                {
+                    failureCallback(ex);
+                }
+                if (!ex.IsHandled)
+                {
+                    if (UnhandledExceptionHandler != null)
+                    {
+                        UnhandledExceptionHandler(ex);
+                    }
+                }
+                if (finallyCallback != null)
+                {
+                    finallyCallback(service);
+                }
+            });
+        }
+
+        protected bool AuthenticateIfRequired<T>(T service, Action<ServiceException> failureCallback, Action<T> finallyCallback, Action<T> successCallback) where T : BaseService
+        {
             if (service.IsAuthenticationRequired && (_currentToken == null || _currentToken.NeedsToBeRefreshed()))
             {
                 if (!_loginInProgress)
                 {
                     _loginInProgress = true;
-                    PrepareAuthentication((authService, authResponse) =>
-                    {
-                        //Authentication failure
-                        var dispatcher = Deployment.Current.Dispatcher;
-                        dispatcher.BeginInvoke(() =>
-                        {
-                            if (failureCallback != null) failureCallback(service, authResponse);
-                        });
-                        dispatcher.BeginInvoke(() =>
-                        {
-                            if (finallyCallback != null) finallyCallback(service);
-                        });
-                    });
+                    PrepareAuthentication((ex) =>
+                                              {
+                                                  //Authentication failure
+                                                  var dispatcher = Deployment.Current.Dispatcher;
+                                                  if (failureCallback != null)
+                                                  {
+                                                      dispatcher.BeginInvoke(() => failureCallback(ex));
+                                                  }
+                                                  if (finallyCallback != null)
+                                                  {
+
+                                                      dispatcher.BeginInvoke(() => finallyCallback(service));
+                                                  }
+                                              });
                 }
                 _pendingServiceCalls.Enqueue(
-                    () => ExecuteService(service, successCallback, failureCallback, finallyCallback));
-                return;
+                    () => ExecuteService<T>(service, successCallback, failureCallback, finallyCallback));
+                return true;
             }
-
-            if (_authenticator != null) client.Authenticator = _authenticator;
-
-            var request = new RestRequest(service.Resource,service.RequestMethod);
-            service.PrepareRequest(request);
-
-            var paramString = JsonConvert.SerializeObject(request.Parameters, Formatting.Indented);
-            Debug.WriteLine("Request: " + request.Method + " - " + RootUri + request.Resource + " - " + paramString);
-
-            client.ExecuteAsync(request, (response) =>
-            {
-                Debug.WriteLine("Status: " + response.StatusCode);
-
-                if (response.ContentType != null && response.ContentType.Contains("json")) // == "application/json")
-                {
-                    var prettyResponse = PrettyPrint(response.Content);
-                    Debug.WriteLine("Response: " + prettyResponse + "\n");
-                }
-                else
-                {
-                    Debug.WriteLine("Response (" + response.ContentType + "): " + response.Content + "\n");
-                }
-
-                if (response.ResponseStatus == ResponseStatus.Error)
-                {
-                    if (failureCallback != null) failureCallback(service, response);
-                    OnClientErrorReturned(response);
-                    if (finallyCallback != null) finallyCallback(service);
-                }
-                else if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.Created && response.StatusCode != HttpStatusCode.NoContent && response.StatusCode != HttpStatusCode.NotModified)
-                {
-                    var dispatcher = Deployment.Current.Dispatcher;
-                    dispatcher.BeginInvoke(() => 
-                    {
-                        if (failureCallback != null) failureCallback(service, response);
-                    });
-                    OnServerErrorReturned(response);
-                    dispatcher.BeginInvoke(() =>
-                    {
-                        if (finallyCallback != null) finallyCallback(service);
-                    });
-                }
-                else
-                {
-                    service.ProcessResponse(response);
-                    var dispatcher = Deployment.Current.Dispatcher;
-                    dispatcher.BeginInvoke(() =>
-                    {
-                        successCallback(service);
-                        if (finallyCallback != null) finallyCallback(service);
-                    });
-                }
-
-                Debug.WriteLine("\n\n");
-
-            });
-
+            return false;
         }
 
-        protected void PrepareAuthentication(Action<BaseService,RestResponse> authFailed)
-        {
-            Action<FetchTokenService, RestResponse> tokenFailureHandler = (service, response) =>
-            {
-                Debug.WriteLine("Auth Failed for token");
-                _loginInProgress = false;
-                authFailed(service, response);
-            };
 
-            Action<FetchGrantService, RestResponse> grantFailureHandler = (service, response) =>
+
+        protected void PrepareAuthentication(Action<ServiceException> authFailed)
+        {
+            Action<ServiceException> failureHandler = (ex) =>
             {
-                Debug.WriteLine("Auth Failed for grant");
+                Debug.WriteLine("Auth Failed");
                 _loginInProgress = false;
-                authFailed(service, response);
+                authFailed(ex);
             };
 
             if (_grantToken == null)
@@ -197,8 +260,8 @@ namespace ECollegeAPI
                         _currentToken = fts.Result;
                         _authenticator = new ECollegeClientAuthenticator(_currentToken.AccessToken);
                         ResumeServices();
-                    }, tokenFailureHandler);
-                }, grantFailureHandler);
+                    }, failureHandler);
+                }, failureHandler);
             }
             else
             {
@@ -207,7 +270,7 @@ namespace ECollegeAPI
                     _currentToken = fts.Result;
                     _authenticator = new ECollegeClientAuthenticator(_currentToken.AccessToken);
                     ResumeServices();
-                }, tokenFailureHandler);
+                }, failureHandler);
             }
         }
 
@@ -219,17 +282,6 @@ namespace ECollegeAPI
                 var pendingService = _pendingServiceCalls.Dequeue();
                 pendingService();
             }
-        }
-
-        protected void OnClientErrorReturned(RestResponse response)
-        {
-            Debug.WriteLine("ErrorMessage: " + response.ErrorMessage);
-            Debug.WriteLine("ErrorException: \n" + response.ErrorException + "\n");
-        }
-
-        protected void OnServerErrorReturned(RestResponse response)
-        {
-            Debug.WriteLine("ERROR!" + response.StatusCode);
         }
 
         private class ECollegeClientAuthenticator : IAuthenticator
