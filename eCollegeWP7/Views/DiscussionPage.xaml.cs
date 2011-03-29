@@ -37,9 +37,9 @@ namespace eCollegeWP7.Views
 
             if (parameters.ContainsKey("topicId"))
             {
-                this.DataContext = new DiscussionViewModel(parameters["topicId"],DiscussionType.TopicAndResponses);
+                this.DataContext = new DiscussionViewModel(Convert.ToInt64(parameters["topicId"]),DiscussionType.TopicAndResponses);
             } else if (parameters.ContainsKey("responseId")) {
-                this.DataContext = new DiscussionViewModel(parameters["responseId"],DiscussionType.ResponseAndResponses);
+                this.DataContext = new DiscussionViewModel(Convert.ToInt64(parameters["responseId"]),DiscussionType.ResponseAndResponses);
             }
             Model.FetchResponses();
         }

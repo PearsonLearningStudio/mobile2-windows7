@@ -11,7 +11,7 @@ namespace ECollegeAPI.Services.Discussions
         private string _responseTitle;
         private string _responseText;
 
-        public PostMyResponseToResponseService(string responseId, string responseTitle, string responseText)
+        public PostMyResponseToResponseService(long responseId, string responseTitle, string responseText)
             : base()
         {
             this._responseTitle = responseTitle;

@@ -35,8 +35,9 @@ namespace eCollegeWP7.ViewModels
             set { _UserTopicID = value; this.OnPropertyChanged(() => this.UserTopicID); }
         }
 
-        private string _TopicID;
-        public string TopicID { 
+        private long _TopicID;
+        public long TopicID
+        { 
             get { return _TopicID; }
             set { _TopicID = value; this.OnPropertyChanged(()=>this.TopicID); }
         }
@@ -48,8 +49,8 @@ namespace eCollegeWP7.ViewModels
             set { _UserTopic = value; this.OnPropertyChanged(() => this.UserTopic); }
         }
 
-        private string _ResponseID;
-        public string ResponseID
+        private long _ResponseID;
+        public long ResponseID
         {
             get { return _ResponseID; }
             set { _ResponseID = value; this.OnPropertyChanged(() => this.ResponseID); }
@@ -230,7 +231,7 @@ namespace eCollegeWP7.ViewModels
             SetupFromResponse(ur);
         }
 
-        public DiscussionViewModel(string discussionId, DiscussionType dt)
+        public DiscussionViewModel(long discussionId, DiscussionType dt)
         {
             CurrentDiscussionType = dt;
 

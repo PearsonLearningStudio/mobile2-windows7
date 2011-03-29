@@ -7,7 +7,7 @@ namespace ECollegeAPI.Services.Discussions
     {
         public List<UserDiscussionResponse> Result { get; set; }
 
-        public FetchMyDiscussionResponsesByResponseService(string responseId)
+        public FetchMyDiscussionResponsesByResponseService(long responseId)
             : base()
         {
             Resource = "me/responses/" + responseId + "/userresponses";
