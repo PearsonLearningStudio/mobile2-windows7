@@ -66,26 +66,20 @@
                     <vm:ActivitiesViewModel/>
                 </controls:PanoramaItem.DataContext>
                 <Grid>
-                    <ListBox x:Name="LstActivity" Margin="15,0,0,0" ItemsSource="{Binding Path=Activities}" ItemContainerStyle="{StaticResource StretchedContainerStyle}">
-                        <ListBox.Template>
-                            <ControlTemplate TargetType="ListBox">
-                                <ScrollViewer x:Name="ScrollViewer" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Foreground="{TemplateBinding Foreground}" Padding="{TemplateBinding Padding}">
-                                    <StackPanel>
-                                        <ItemsPresenter/>
-
-                                        <Button x:Name="BtnLoadMore" Click="BtnLoadMore_Click"
+                    <toolkit:LongListSelector x:Name="LstActivity" ShowListFooter="True" Margin="15,0,0,0" MaxHeight="800" ItemsSource="{Binding Path=ActivitiesGroup}" >
+                        <toolkit:LongListSelector.ListFooterTemplate>
+                            <DataTemplate>
+                                <Button x:Name="BtnLoadMore" Click="BtnLoadMore_Click"
                                                  Visibility="{Binding Path=CanLoadMore, Converter={StaticResource BooleanToVisibilityConverter}}"
                                                  HorizontalAlignment="Stretch" Content="Load More"/>
-                                    </StackPanel>
-                                </ScrollViewer>
-                            </ControlTemplate>
-                        </ListBox.Template>
-                        <ItemsControl.ItemTemplate>
+                            </DataTemplate>
+                        </toolkit:LongListSelector.ListFooterTemplate>
+                        <toolkit:LongListSelector.ItemTemplate>
                             <DataTemplate>
                                 <Button Click="BtnActivity_Click" Template="{StaticResource ActivityStreamItemTemplate}"/>
                             </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ListBox>
+                        </toolkit:LongListSelector.ItemTemplate>
+                    </toolkit:LongListSelector>
                 </Grid>
             </controls:PanoramaItem>
 

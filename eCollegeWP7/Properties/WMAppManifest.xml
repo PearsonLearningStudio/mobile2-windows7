@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.0">
-  <App xmlns="" ProductID="{dfbb2f86-3b4c-4ce9-ad7b-a39d786d3188}" Title="eCollegeWP7" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal"  Author="eCollegeWP7 author" Description="Sample description" Publisher="eCollegeWP7">
+  <App xmlns="" ProductID="{dfbb2f86-3b4c-4ce9-ad7b-a39d786d3188}" Title="Strata University" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal"  Author="EffectiveUI" Description="Manage your coursework from your phone" Publisher="Pearson">
     <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_GAMERSERVICES"/>
@@ -24,7 +24,7 @@
         <TemplateType5>
           <BackgroundImageURI IsRelative="true" IsResource="false">Background.png</BackgroundImageURI>
           <Count>0</Count>
-          <Title>eCollegeWP7</Title>
+          <Title>Strata University</Title>
         </TemplateType5>
       </PrimaryToken>
     </Tokens>

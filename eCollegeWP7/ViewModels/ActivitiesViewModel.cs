@@ -55,6 +55,14 @@ namespace eCollegeWP7.ViewModels
             set { _Activities = value; this.OnPropertyChanged(() => this.Activities); }
         }
 
+        private ObservableCollection<GroupedObservableCollection<ActivityViewModel>> _ActivitiesGroup;
+        public ObservableCollection<GroupedObservableCollection<ActivityViewModel>> ActivitiesGroup
+        {
+            get { return _ActivitiesGroup; }
+            set { _ActivitiesGroup = value; this.OnPropertyChanged(() => this.ActivitiesGroup); }
+        }
+        
+
         public ActivitiesViewModel() : this(-1, null) {}
 
         public ActivitiesViewModel(long courseId) : this(courseId,null) {}
@@ -102,6 +110,7 @@ namespace eCollegeWP7.ViewModels
                 _loadingWorker.RunWorkerCompleted += (s, e) =>
                 {
                     this.Activities = e.Result as ObservableCollection<ActivityViewModel>;
+                    this.ActivitiesGroup = this.Activities.ToSingleGroupedObservableCollection();
                     this.CanLoadMore = all ? false : true;
                     _loadingWorker = null;
                     if (callback != null) callback(true);

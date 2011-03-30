@@ -17,7 +17,7 @@
     <Grid x:Name="LayoutRoot" Background="Black">
 
         
-        <Image x:Name="ImageSplashScreen" Source="/SplashScreenImage.jpg" Stretch="Fill"/>
+        <Image x:Name="ImageSplashScreen" Source="/Resources/SplashScreenImage.png" Stretch="Fill"/>
         
         <!--<Canvas Width="48" Height="48" Background="{StaticResource PhoneAccentBrush}">
             <Canvas.OpacityMask>

@@ -26,5 +26,36 @@ namespace eCollegeWP7.Util
             }
             return res;
         }
+
+        
+        public static ObservableCollection<GroupedObservableCollection<T>> ToSingleGroupedObservableCollection<T>(this List<T> currentList)
+        {
+            //Initialise the Grouped OC to populate and return
+            ObservableCollection<GroupedObservableCollection<T>> result = new ObservableCollection<GroupedObservableCollection<T>>();
+            
+            var innerOC = new GroupedObservableCollection<T>("singleItem");
+            foreach (var i in currentList)
+            {
+                innerOC.Add(i);
+            }
+
+            result.Add(innerOC);
+            return result;
+        }
+
+        public static ObservableCollection<GroupedObservableCollection<T>> ToSingleGroupedObservableCollection<T>(this ObservableCollection<T> currentList)
+        {
+            //Initialise the Grouped OC to populate and return
+            ObservableCollection<GroupedObservableCollection<T>> result = new ObservableCollection<GroupedObservableCollection<T>>();
+            
+            var innerOC = new GroupedObservableCollection<T>("singleItem");
+            foreach (var i in currentList)
+            {
+                innerOC.Add(i);
+            }
+
+            result.Add(innerOC);
+            return result;
+        }
     }
 }

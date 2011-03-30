@@ -120,7 +120,7 @@ namespace eCollegeWP7.Views
         private void BtnLoadMore_Click(object sender, RoutedEventArgs e)
         {
             var btn = sender as Button;
-            var activitiesVM = (ActivitiesViewModel)btn.DataContext;
+            var activitiesVM = (ActivitiesViewModel)LstActivity.DataContext;
             activitiesVM.Load(true);
         }
     }
