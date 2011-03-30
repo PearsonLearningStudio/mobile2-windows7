@@ -76,7 +76,8 @@ namespace eCollegeWP7.ViewModels
             links.Add(new LinkViewModel()
             {
                 Title = "announcements",
-                NavigationPath = "/Views/CourseAnnouncementsPage.xaml?courseId=" + courseId
+                NavigationPath = "/Views/CourseAnnouncementsPage.xaml?courseId=" + courseId,
+                IconTemplate = "IconAnnouncementsLink"
             });
 
             //links.Add(new LinkViewModel()
@@ -100,13 +101,15 @@ namespace eCollegeWP7.ViewModels
             links.Add(new LinkViewModel()
             {
                 Title = "gradebook",
-                NavigationPath = "/Views/CourseGradebookPage.xaml?courseId=" + courseId
+                NavigationPath = "/Views/CourseGradebookPage.xaml?courseId=" + courseId,
+                IconTemplate = "IconGradebookLink"
             });
 
             links.Add(new LinkViewModel()
             {
                 Title = "people",
-                NavigationPath = "/Views/CoursePeoplePage.xaml?courseId=" + courseId
+                NavigationPath = "/Views/CoursePeoplePage.xaml?courseId=" + courseId,
+                IconTemplate = "IconPeopleLink"
             });
 
             CourseLinks = links;

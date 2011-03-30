@@ -516,11 +516,35 @@ THE SOURCE CODE IS PROVIDED "AS IS", WITH NO WARRANTIES OR INDEMNITIES.
             </Canvas.OpacityMask>
         </Canvas>
     </ControlTemplate>
-    
+
     <ControlTemplate x:Key="IconSignOut" TargetType="Button">
         <Canvas Width="30" Height="30" Background="{StaticResource PhoneAccentBrush}">
             <Canvas.OpacityMask>
                 <ImageBrush ImageSource="/Resources/Icons/icon_sign_out.png" Stretch="Uniform"/>
+            </Canvas.OpacityMask>
+        </Canvas>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="IconPeopleLink" TargetType="Button">
+        <Canvas Width="30" Height="30" Background="{StaticResource PhoneAccentBrush}">
+            <Canvas.OpacityMask>
+                <ImageBrush ImageSource="/Resources/Icons/icon_people.png" Stretch="Uniform"/>
+            </Canvas.OpacityMask>
+        </Canvas>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="IconGradebookLink" TargetType="Button">
+        <Canvas Width="30" Height="30" Background="{StaticResource PhoneAccentBrush}">
+            <Canvas.OpacityMask>
+                <ImageBrush ImageSource="/Resources/Icons/icon_grade.png" Stretch="Uniform"/>
+            </Canvas.OpacityMask>
+        </Canvas>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="IconAnnouncementsLink" TargetType="Button">
+        <Canvas Width="30" Height="30" Background="{StaticResource PhoneAccentBrush}">
+            <Canvas.OpacityMask>
+                <ImageBrush ImageSource="/Resources/Icons/icon_announcement.png" Stretch="Uniform"/>
             </Canvas.OpacityMask>
         </Canvas>
     </ControlTemplate>
