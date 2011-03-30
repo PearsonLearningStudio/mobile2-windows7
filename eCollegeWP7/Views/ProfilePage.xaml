@@ -42,9 +42,9 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Margin="20,0,0,0" Grid.Row="0" Text="CURRENT COURSES"  FontSize="18" />
+            <TextBlock Margin="15,0,0,0" Grid.Row="0" Text="CURRENT COURSES"  FontSize="18" />
 
-            <ListBox Margin="8,10,0,0" Grid.Row="1" ItemsSource="{Binding Path=MyCourses}" ItemContainerStyle="{StaticResource StretchedContainerStyle}">
+            <ListBox Margin="3,10,0,0" Grid.Row="1" ItemsSource="{Binding Path=MyCourses}" ItemContainerStyle="{StaticResource StretchedContainerStyle}">
                 <!--<ListBox.Template>
                     <ControlTemplate TargetType="ListBox">
                         <ScrollViewer x:Name="ScrollViewer" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Foreground="{TemplateBinding Foreground}" Padding="{TemplateBinding Padding}">
