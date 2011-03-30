@@ -14,7 +14,7 @@ namespace ECollegeAPI.Services.Courses
             Resource = "/courses/" + courseId + "/instructors";
         }
 
-        public override void ProcessResponse(RestSharp.RestResponse resp)
+        public override void ProcessResponse(string resp)
         {
             Result = Deserialize<List<User>>(resp, "instructors");
         }

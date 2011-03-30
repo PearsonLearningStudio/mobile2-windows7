@@ -24,7 +24,7 @@ namespace ECollegeAPI.Services
             Resource = "authorize/token?access_grant=" + grantToken;
         }
 
-        public override void ProcessResponse(RestSharp.RestResponse resp)
+        public override void ProcessResponse(string resp)
         {
             Result = Deserialize<Token>(resp);
         }

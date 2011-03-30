@@ -40,8 +40,13 @@ namespace ECollegeAPI.Util
             object jsonObject = JsonConvert.DeserializeObject(json);
             return JsonConvert.SerializeObject(jsonObject, Formatting.Indented);
         }
-
+        
         public T Deserialize<T>(RestResponse response) where T : new()
+        {
+            return Deserialize<T>(response.Content);
+        }
+
+        public T Deserialize<T>(string responseContent) where T : new()
         {
             var target = new T();
 
@@ -53,18 +58,18 @@ namespace ECollegeAPI.Util
 
                     if (RootElement.HasValue())
                     {
-                        var root = FindRoot(response.Content);
+                        var root = FindRoot(responseContent);
                         target = (T)BuildList(objType, root.Children());
                     }
                     else
                     {
-                        JArray json = JArray.Parse(response.Content);
+                        JArray json = JArray.Parse(responseContent);
                         target = (T)BuildList(objType, json.Root.Children());
                     }
                 }
                 else
                 {
-                    var root = FindRoot(response.Content);
+                    var root = FindRoot(responseContent);
 
                     Map(target, root);
                 }

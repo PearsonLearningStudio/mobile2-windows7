@@ -12,7 +12,7 @@ namespace ECollegeAPI.Services.Users
             Resource = "/me";
         }
 
-        public override void ProcessResponse(RestSharp.RestResponse resp)
+        public override void ProcessResponse(string resp)
         {
             Result = Deserialize<User>(resp,"me");
         }

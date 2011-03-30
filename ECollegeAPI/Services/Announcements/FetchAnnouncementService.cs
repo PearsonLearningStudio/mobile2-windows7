@@ -13,7 +13,7 @@ namespace ECollegeAPI.Services.Announcements
             Resource = "courses/" + courseId + "/announcements/" + announcementId;
         }
 
-        public override void ProcessResponse(RestSharp.RestResponse resp)
+        public override void ProcessResponse(string resp)
         {
             Result = Deserialize<List<Announcement>>(resp, "announcements")[0];
         }

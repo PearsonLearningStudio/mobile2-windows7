@@ -43,7 +43,7 @@ namespace ECollegeAPI.Services
             req.AddParameter("password", _password, ParameterType.GetOrPost);
         }
 
-        public override void ProcessResponse(RestSharp.RestResponse resp)
+        public override void ProcessResponse(string resp)
         {
             Result = Deserialize<GrantToken>(resp);
         }

@@ -14,7 +14,7 @@ namespace ECollegeAPI.Services.Courses
             Resource = "me/courses?expand=course";
         }
 
-        public override void ProcessResponse(RestSharp.RestResponse resp)
+        public override void ProcessResponse(string resp)
         {
             var rawResult = Deserialize<List<LinkContainer<CourseLink>>>(resp, "courses");
             Result = new List<Course>();

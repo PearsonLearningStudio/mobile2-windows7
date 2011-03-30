@@ -97,6 +97,7 @@
     <Compile Include="Util\Converters\HtmlToTextConverter.cs" />
     <Compile Include="Util\DateTimeUtil.cs" />
     <Compile Include="Util\Group.cs" />
+    <Compile Include="Util\IsolatedStorageResponseCache.cs" />
     <Compile Include="Util\ListExtensions.cs" />
     <Compile Include="Util\LocalizedResources.cs" />
     <Compile Include="Util\MultiBinding\BindingUtil.cs" />

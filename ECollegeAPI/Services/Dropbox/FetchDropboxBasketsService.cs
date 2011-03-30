@@ -13,7 +13,7 @@ namespace ECollegeAPI.Services.Dropbox
             Resource = "courses/" + courseId + "/dropboxBaskets";
         }
 
-        public override void ProcessResponse(RestSharp.RestResponse resp)
+        public override void ProcessResponse(string resp)
         {
             Result = Deserialize<List<DropboxBasket>>(resp, "dropboxBaskets");
         }

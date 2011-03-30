@@ -22,7 +22,7 @@ namespace ECollegeAPI.Services.Announcements
             }
         }
 
-        public override void ProcessResponse(RestSharp.RestResponse resp)
+        public override void ProcessResponse(string resp)
         {
             Result = Deserialize<List<Announcement>>(resp, "announcements");
         }

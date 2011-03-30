@@ -14,7 +14,7 @@ namespace ECollegeAPI.Services.Courses
             Resource = "me/currentcourses_moby";
         }
 
-        public override void ProcessResponse(RestSharp.RestResponse resp)
+        public override void ProcessResponse(string resp)
         {
             Result = Deserialize<List<Course>>(resp, "currentCourses");
         }

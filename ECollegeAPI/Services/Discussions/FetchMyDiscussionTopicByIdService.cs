@@ -13,7 +13,7 @@ namespace ECollegeAPI.Services.Discussions
             Resource = "me/usertopics/" + userTopicId;
         }
 
-        public override void ProcessResponse(RestSharp.RestResponse resp)
+        public override void ProcessResponse(string resp)
         {
             Result = Deserialize<List<UserDiscussionTopic>>(resp, "userTopics")[0];
         }

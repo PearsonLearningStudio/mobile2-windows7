@@ -106,8 +106,32 @@ namespace ECollegeAPI
 
         public void ExecuteService<T>(T service, Action<T> successCallback, Action<ServiceException> failureCallback, Action<T> finallyCallback) where T : BaseService
         {
+            ExecuteService<T>(service, successCallback, failureCallback, finallyCallback,null,false,false);
+        }
+
+        public void ExecuteService<T>(T service, Action<T> successCallback, Action<ServiceException> failureCallback, Action<T> finallyCallback, ECollegeResponseCache cache, bool readFromCache, bool writeToCache) where T : BaseService
+        {
             try
             {
+                Action<string> cacheCallback = null;
+
+                if (cache != null && service.IsCacheable)
+                {
+                    var cacheKey = service.GetCacheKey(_grantToken);
+                    if (readFromCache) {
+                        var cacheEntry = cache.Get(cacheKey);
+                        if (cacheEntry != null)
+                        {
+                            HandleResponseContent(cacheEntry.Data, service, failureCallback, finallyCallback, successCallback, null);
+                            return;
+                        }
+                    }
+                    if (writeToCache)
+                    {
+                        cacheCallback = (responseContent) => cache.Put(cacheKey, responseContent);
+                    }
+                }
+
                 var client = new RestClient(RootUri);
                 client.FollowRedirects = true;
                 client.MaxRedirects = 10;
@@ -124,7 +148,7 @@ namespace ECollegeAPI
 #endif
                 client.ExecuteAsync(request, (response) =>
                 {
-                    HandleResponse(response, service, failureCallback, finallyCallback, successCallback);
+                    HandleResponse(response, service, failureCallback, finallyCallback, successCallback, cacheCallback);
                 });
                 
             } catch (Exception e)
@@ -134,7 +158,7 @@ namespace ECollegeAPI
 
         }
 
-        protected void HandleResponse<T>(RestResponse response, T service, Action<ServiceException> failureCallback, Action<T> finallyCallback, Action<T> successCallback) where T : BaseService
+        protected void HandleResponse<T>(RestResponse response, T service, Action<ServiceException> failureCallback, Action<T> finallyCallback, Action<T> successCallback, Action<string> cacheCallback) where T : BaseService
         {
 #if DEBUG
             Debug.WriteLine("Status: " + response.StatusCode);
@@ -159,17 +183,23 @@ namespace ECollegeAPI
             }
             else
             {
-                try
-                {
-                    service.ProcessResponse(response);
-                    HandleSuccess(service,successCallback,finallyCallback);
-                } catch(Exception e)
-                {
-                    HandleFailure(service,new DeserializationException(e),failureCallback,finallyCallback);
-                }
+                HandleResponseContent(response.Content, service, failureCallback, finallyCallback, successCallback, cacheCallback);
             }
 
             Debug.WriteLine("\n\n");
+        }
+
+        protected void HandleResponseContent<T>(string responseContent, T service, Action<ServiceException> failureCallback, Action<T> finallyCallback, Action<T> successCallback, Action<string> cacheCallback) where T : BaseService
+        {
+            try
+            {
+                service.ProcessResponse(responseContent);
+                HandleSuccess(service, successCallback, finallyCallback);
+                if (cacheCallback != null) cacheCallback(responseContent);
+            } catch(Exception e)
+            {
+                HandleFailure(service,new DeserializationException(e),failureCallback,finallyCallback);
+            }
         }
 
 

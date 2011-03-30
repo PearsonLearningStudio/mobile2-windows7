@@ -13,7 +13,7 @@ namespace ECollegeAPI.Services.Grades
             Resource = "/me/courses/" + courseId + "/userGradebookItems?expand=grade";
         }
 
-        public override void ProcessResponse(RestSharp.RestResponse resp)
+        public override void ProcessResponse(string resp)
         {
             Result = Deserialize<List<UserGradebookItem>>(resp, "userGradebookItems");
         }

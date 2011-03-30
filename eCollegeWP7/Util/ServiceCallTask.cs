@@ -30,6 +30,8 @@ namespace eCollegeWP7.Util
         private Action<T> _successHandler;
         private Action<ServiceException> _failureHandler;
         private Action<T> _finallyHandler;
+        private bool _readFromCache = true;
+        private bool _writeToCache = true;
 
         public ServiceCallTask(ECollegeClient client, T service)
         {
@@ -46,6 +48,25 @@ namespace eCollegeWP7.Util
         public ServiceCallTask<T> MakeModal()
         {
             _isModal = true;
+            return this;
+        }
+
+        public ServiceCallTask<T> NoCache()
+        {
+            _readFromCache = false;
+            _writeToCache = false;
+            return this;
+        }
+
+        public ServiceCallTask<T> NoCacheRead()
+        {
+            _readFromCache = false;
+            return this;
+        }
+
+        public ServiceCallTask<T> NoCacheWrite()
+        {
+            _readFromCache = false;
             return this;
         }
 
@@ -79,6 +100,7 @@ namespace eCollegeWP7.Util
                 App.Model.PendingServiceCalls++;
             }
 
+            var cache = new IsolatedStorageResponseCache(TimeSpan.FromHours(1.0));
 
             var worker = new BackgroundWorker();
             worker.DoWork += (s, e) =>
@@ -91,7 +113,7 @@ namespace eCollegeWP7.Util
                                          }
                                          if (_finallyHandler != null)
                                              _finallyHandler(service);
-                                     });
+                                     },cache,_readFromCache,_writeToCache);
                                  };
             worker.RunWorkerAsync();
             return this;

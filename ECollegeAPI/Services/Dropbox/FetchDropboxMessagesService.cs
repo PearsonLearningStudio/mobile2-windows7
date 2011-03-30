@@ -14,7 +14,7 @@ namespace ECollegeAPI.Services.Dropbox
             Resource += "?submissionStudents=" + studentId;
         }
 
-        public override void ProcessResponse(RestSharp.RestResponse resp)
+        public override void ProcessResponse(string resp)
         {
             Result = Deserialize<List<DropboxMessage>>(resp, "messages");
         }
