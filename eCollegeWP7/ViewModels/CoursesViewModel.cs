@@ -66,7 +66,7 @@ namespace eCollegeWP7.ViewModels
                     CourseIdMap[c.ID] = c;
                 }
                 this.MyCourses = oc;
-                successCallback();
+                if (successCallback != null) successCallback();
             });
         }
 
