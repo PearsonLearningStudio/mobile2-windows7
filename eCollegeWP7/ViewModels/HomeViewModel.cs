@@ -37,9 +37,9 @@ namespace eCollegeWP7.ViewModels
             });
             links.Add(new LinkViewModel()
             {
-                Title = "what's due",
-                IconTemplate = "IconWhatsDue",
-                PanoramaItemName = "PanWhatsDue"
+                Title = "upcoming",
+                IconTemplate = "IconUpcoming",
+                PanoramaItemName = "PanUpcoming"
             });
             links.Add(new LinkViewModel()
             {

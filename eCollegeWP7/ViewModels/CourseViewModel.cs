@@ -85,11 +85,11 @@ namespace eCollegeWP7.ViewModels
             //    NavigationPath = "/Views/CourseActivitiesPage.xaml?courseId=" + courseId
             //});
 
-            links.Add(new LinkViewModel()
-            {
-                Title = "dropbox",
-                NavigationPath = "/Views/CourseDropboxMessagesPage.xaml?courseId=" + courseId
-            });
+            //links.Add(new LinkViewModel()
+            //{
+            //    Title = "dropbox",
+            //    NavigationPath = "/Views/CourseDropboxMessagesPage.xaml?courseId=" + courseId
+            //});
 
             //links.Add(new LinkViewModel()
             //{

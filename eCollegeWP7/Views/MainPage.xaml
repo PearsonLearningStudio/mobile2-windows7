@@ -89,7 +89,7 @@
                 </Grid>
             </controls:PanoramaItem>
 
-            <controls:PanoramaItem x:Name="PanWhatsDue" Header="what's due">
+            <controls:PanoramaItem x:Name="PanUpcoming" Header="upcoming">
                 <Grid>
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Waiting for API"/>
                 </Grid>

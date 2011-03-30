@@ -339,7 +339,7 @@
     <Content Include="Resources\Icons\icon_my_profile.png" />
     <Content Include="Resources\Icons\icon_people.png" />
     <Content Include="Resources\Icons\icon_sign_out.png" />
-    <Content Include="Resources\Icons\icon_whats_due.png" />
+    <Content Include="Resources\Icons\icon_upcoming.png" />
     <Content Include="Resources\logo_header.png" />
     <Content Include="Resources\logo_large.png" />
     <Content Include="SplashScreenImage.jpg" />
