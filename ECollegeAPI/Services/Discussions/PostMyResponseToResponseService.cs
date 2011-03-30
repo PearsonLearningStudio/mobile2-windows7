@@ -18,6 +18,7 @@ namespace ECollegeAPI.Services.Discussions
             this._responseText = responseText;
             Resource = "me/responses/" + responseId + "/responses";
             RequestMethod = Method.POST;
+            IsCacheable = false;
         }
 
         public override void PrepareRequest(RestRequest req)

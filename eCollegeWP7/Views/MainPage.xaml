@@ -36,7 +36,7 @@
                 </Grid>
             </controls:PanoramaItem>
 
-            <controls:PanoramaItem x:Name="PanHome" Padding="100,0,0,0">
+            <controls:PanoramaItem x:Name="PanHome" Padding="50,0,0,0">
                 <controls:PanoramaItem.DataContext>
                     <vm:HomeViewModel/>
                 </controls:PanoramaItem.DataContext>
@@ -66,7 +66,7 @@
                     <vm:ActivitiesViewModel/>
                 </controls:PanoramaItem.DataContext>
                 <Grid>
-                    <ListBox x:Name="LstActivity" ItemsSource="{Binding Path=Activities}" ItemContainerStyle="{StaticResource StretchedContainerStyle}">
+                    <ListBox x:Name="LstActivity" Margin="15,0,0,0" ItemsSource="{Binding Path=Activities}" ItemContainerStyle="{StaticResource StretchedContainerStyle}">
                         <ListBox.Template>
                             <ControlTemplate TargetType="ListBox">
                                 <ScrollViewer x:Name="ScrollViewer" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Foreground="{TemplateBinding Foreground}" Padding="{TemplateBinding Padding}">
