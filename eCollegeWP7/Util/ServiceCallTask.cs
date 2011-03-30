@@ -101,21 +101,16 @@ namespace eCollegeWP7.Util
             }
 
             var cache = new IsolatedStorageResponseCache(TimeSpan.FromHours(1.0));
+            _client.ExecuteService(_service, successHandler, _failureHandler, (service) =>
+            {
+                if (_progressIndicatorEnabled)
+                {
+                    App.Model.PendingServiceCalls--;
+                }
+                if (_finallyHandler != null)
+                    _finallyHandler(service);
+            }, cache, _readFromCache, _writeToCache);
 
-            var worker = new BackgroundWorker();
-            worker.DoWork += (s, e) =>
-                                 {
-                                     _client.ExecuteService(_service, successHandler, _failureHandler, (service) =>
-                                     {
-                                         if (_progressIndicatorEnabled)
-                                         {
-                                             App.Model.PendingServiceCalls--;
-                                         }
-                                         if (_finallyHandler != null)
-                                             _finallyHandler(service);
-                                     },cache,_readFromCache,_writeToCache);
-                                 };
-            worker.RunWorkerAsync();
             return this;
         }
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
@@ -94,6 +95,14 @@ namespace ECollegeAPI
             }
         }
 
+        protected void DoBackgroundWork(Action work)
+        {
+            var worker = new BackgroundWorker();
+            worker.DoWork += (s, e) => work();
+            worker.RunWorkerAsync();
+        }
+
+
         public void ExecuteService<T>(T service, Action<T> successCallback) where T : BaseService
         {
             ExecuteService<T>(service, successCallback, null, null);
@@ -111,50 +120,53 @@ namespace ECollegeAPI
 
         public void ExecuteService<T>(T service, Action<T> successCallback, Action<ServiceException> failureCallback, Action<T> finallyCallback, ECollegeResponseCache cache, bool readFromCache, bool writeToCache) where T : BaseService
         {
-            try
+            DoBackgroundWork(() =>
             {
-                Action<string> cacheCallback = null;
-
-                if (cache != null && service.IsCacheable)
+                try
                 {
-                    var cacheKey = service.GetCacheKey(_grantToken);
-                    if (readFromCache) {
-                        var cacheEntry = cache.Get(cacheKey);
-                        if (cacheEntry != null)
+                    Action<string> cacheCallback = null;
+
+                    if (cache != null && service.IsCacheable)
+                    {
+                        var cacheKey = service.GetCacheKey(_grantToken);
+                        if (readFromCache) {
+                            var cacheEntry = cache.Get(cacheKey);
+                            if (cacheEntry != null)
+                            {
+                                HandleResponseContent(cacheEntry.Data, service, failureCallback, finallyCallback, successCallback, null);
+                                return;
+                            }
+                        }
+                        if (writeToCache)
                         {
-                            HandleResponseContent(cacheEntry.Data, service, failureCallback, finallyCallback, successCallback, null);
-                            return;
+                            cacheCallback = (responseContent) => cache.Put(cacheKey, responseContent);
                         }
                     }
-                    if (writeToCache)
-                    {
-                        cacheCallback = (responseContent) => cache.Put(cacheKey, responseContent);
-                    }
-                }
 
-                var client = new RestClient(RootUri);
-                client.FollowRedirects = true;
-                client.MaxRedirects = 10;
+                    var client = new RestClient(RootUri);
+                    client.FollowRedirects = true;
+                    client.MaxRedirects = 10;
 
-                if (AuthenticateIfRequired(service, failureCallback, finallyCallback, successCallback)) return;
+                    if (AuthenticateIfRequired(service, failureCallback, finallyCallback, successCallback)) return;
 
-                if (_authenticator != null) client.Authenticator = _authenticator;
+                    if (_authenticator != null) client.Authenticator = _authenticator;
 
-                var request = new RestRequest(service.Resource,service.RequestMethod);
-                service.PrepareRequest(request);
+                    var request = new RestRequest(service.Resource,service.RequestMethod);
+                    service.PrepareRequest(request);
             
 #if DEBUG
-                Debug.WriteLine("Request: " + request.Method + " - " + RootUri + request.Resource + " - " + PrettyPrint(request.Parameters));
+                    Debug.WriteLine("Request: " + request.Method + " - " + RootUri + request.Resource + " - " + PrettyPrint(request.Parameters));
 #endif
-                client.ExecuteAsync(request, (response) =>
-                {
-                    HandleResponse(response, service, failureCallback, finallyCallback, successCallback, cacheCallback);
-                });
+                    client.ExecuteAsync(request, (response) =>
+                    {
+                        DoBackgroundWork(() => HandleResponse(response, service, failureCallback, finallyCallback, successCallback, cacheCallback));
+                    });
                 
-            } catch (Exception e)
-            {
-                HandleFailure(service, new ClientErrorException(service,e), failureCallback, finallyCallback);
-            }
+                } catch (Exception e)
+                {
+                    HandleFailure(service, new ClientErrorException(service,e), failureCallback, finallyCallback);
+                }
+            });
 
         }
 
