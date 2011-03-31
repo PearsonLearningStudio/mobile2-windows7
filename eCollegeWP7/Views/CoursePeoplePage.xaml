@@ -7,7 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
-    xmlns:v="clr-namespace:eCollegeWP7.Views" xmlns:c="clr-namespace:eCollegeWP7.Views.Controls" FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    xmlns:v="clr-namespace:eCollegeWP7.Views" xmlns:c="clr-namespace:eCollegeWP7.Views.Controls" xmlns:mb="clr-namespace:eCollegeWP7.Util.MultiBinding" FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
@@ -21,7 +21,7 @@
         </Grid.RowDefinitions>
 
         <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,5">
             <Rectangle Height="{StaticResource PhoneTop}"/>
             <c:DynamicTextBlock Text="{Binding Path=Course.Title}" HorizontalAlignment="Left"
                                 TextStyle="{StaticResource PhoneTextNormalStyle}"
@@ -31,7 +31,35 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <toolkit:LongListSelector Grid.Row="1" ItemsSource="{Binding Path=PeopleByLastNameFirstChar}">
+            <toolkit:LongListSelector ShowListHeader="True">
+                <mb:BindingUtil.MultiBindings>
+                    <mb:MultiBindings>
+                        <mb:MultiBinding TargetProperty="ItemsSource" Converter="{StaticResource FilterPeopleByRoleConverter}">
+                            <mb:BindingCollection>
+                                <Binding Path="People"/>
+                                <Binding Path="RoleFilter"/>
+                            </mb:BindingCollection>
+                        </mb:MultiBinding>
+                    </mb:MultiBindings>
+                </mb:BindingUtil.MultiBindings>
+                
+                <toolkit:LongListSelector.ListHeaderTemplate>
+                    <DataTemplate>
+                        <StackPanel x:Name="PnlListHeader" Loaded="PnlListHeader_Loaded" Margin="0,0,0,5" >
+                            <toolkit:ListPicker x:Name="LspFilterPeople" ItemCountThreshold="100"
+                                                            ListPickerMode="Expanded" SelectionChanged="LspFilterPeople_SelectionChanged"
+                                                            ItemsSource="{Binding Path=Roles}">
+                                <toolkit:ListPicker.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}" Margin="12 0 0 0"/>
+                                    </DataTemplate>
+                                </toolkit:ListPicker.ItemTemplate>
+                            </toolkit:ListPicker>
+                        </StackPanel>
+                    </DataTemplate>
+                </toolkit:LongListSelector.ListHeaderTemplate>
+
+
                 <toolkit:LongListSelector.GroupHeaderTemplate>
                     <DataTemplate>
                         <Border Margin="10,0,0,0" Width="30" Height="30" HorizontalAlignment="Left">
@@ -58,7 +86,7 @@
                                             <RowDefinition Height="Auto"/>
                                             <RowDefinition Height="Auto"/>
                                         </Grid.RowDefinitions>
-                                        
+
                                         <c:DynamicTextBlock 
                                             Text="{Binding Path=DisplayName}" HorizontalAlignment="Left"
                                             TextStyle="{StaticResource PhoneTextTitle2Style}"/>
@@ -77,7 +105,7 @@
         </Grid>
     </Grid>
 
-    
+
     <!--Sample code showing usage of ApplicationBar-->
     <!--<phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">

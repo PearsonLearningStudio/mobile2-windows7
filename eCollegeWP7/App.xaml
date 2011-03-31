@@ -37,6 +37,7 @@
                     <conv:StringFormatConverter x:Key="StringFormatConverter"/>
                     <conv:IsBlankToVisibilityConverter x:Key="IsBlankToVisibilityConverter"/>
                     <conv:NotNullNotEmptyToVisibilityConverter x:Key="NotNullNotEmptyToVisibilityConverter"/>
+                    <conv:FilterPeopleByRoleConverter x:Key="FilterPeopleByRoleConverter"/>
 
                     <u:LocalizedResources x:Key="res"/>
 

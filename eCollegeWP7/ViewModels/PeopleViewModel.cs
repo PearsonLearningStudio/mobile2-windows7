@@ -21,7 +21,7 @@ namespace eCollegeWP7.ViewModels
 {
     public class PeopleViewModel : ViewModelBase
     {
-        
+
         private long? _CourseID;
         public long? CourseID
         {
@@ -34,6 +34,36 @@ namespace eCollegeWP7.ViewModels
         public Course Course
         {
             get { return CourseID.HasValue ? AppViewModel.Courses.CourseIdMap[CourseID.Value] : null; }
+        }
+
+        private List<string> _Roles;
+        public List<string> Roles
+        {
+            get
+            {
+                if (_Roles == null)
+                {
+                    _Roles = new List<string>();
+                    _Roles.Add("all");
+                    _Roles.Add("students");
+                    _Roles.Add("instructors");
+                }
+                return _Roles;
+            }
+        }
+
+        private string _RoleFilter = "all";
+        public string RoleFilter
+        {
+            get { return _RoleFilter; }
+            set { _RoleFilter = value; this.OnPropertyChanged(() => this.RoleFilter); }
+        }
+
+        private List<RosterUser> _People;
+        public List<RosterUser> People
+        {
+            get { return _People; }
+            set { _People = value; this.OnPropertyChanged(() => this.People); }
         }
 
         private List<Group<RosterUser>> _PeopleByLastNameFirstChar;
@@ -49,6 +79,7 @@ namespace eCollegeWP7.ViewModels
             App.BuildService(new FetchRosterService(courseId)).Execute((service) =>
             {
                 //var sortedUsers = (from u in service.Result orderby u.LastName select u);
+                People = (from u in service.Result orderby u.LastName select u).ToList();
 
                 PeopleByLastNameFirstChar = (from u in service.Result orderby u.LastName
                                                group u by u.LastNameFirstChar

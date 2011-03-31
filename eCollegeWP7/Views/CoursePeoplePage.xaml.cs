@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Windows;
@@ -32,6 +33,35 @@ namespace eCollegeWP7.Views
 
             int courseId = Int32.Parse(parameters["courseId"]);
             this.DataContext = new PeopleViewModel(courseId);
+        }
+
+        private void LspFilterPeople_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var LspFilterPeople = sender as ListPicker;
+
+            if (LspFilterPeople.Tag == null)
+            {
+                LspFilterPeople.Tag = "NotFirstInit";
+                var lspItems = Model.Roles;
+                if (!Model.RoleFilter.Equals("all") && lspItems != null)
+                {
+                    for (int i = 0; i < lspItems.Count; i++)
+                    {
+                        if (lspItems[i].Equals(Model.RoleFilter))
+                        {
+                            LspFilterPeople.SelectedIndex = i;
+                            LspFilterPeople.SelectedItem = lspItems[i];
+                            return;
+                        }
+                    }
+                }
+            }
+            Model.RoleFilter = LspFilterPeople.SelectedItem as string;
+        }
+
+        private void PnlListHeader_Loaded(object sender, RoutedEventArgs e)
+        {
+            (sender as StackPanel).DataContext = Model;
         }
 
     }
