@@ -64,5 +64,13 @@ namespace eCollegeWP7.Views
             (sender as StackPanel).DataContext = Model;
         }
 
+        private void BtnPerson_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as Button;
+            var rosterUser = btn.DataContext as RosterUser;
+
+            this.NavigationService.Navigate(new Uri("/Views/PersonPage.xaml?courseId=" + Model.CourseID + "&displayName=" + rosterUser.DisplayName + "&friendlyRole=" + rosterUser.FriendlyRole, UriKind.Relative));
+        }
+
     }
 }

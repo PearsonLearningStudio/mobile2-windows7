@@ -78,7 +78,7 @@
                 </toolkit:LongListSelector.GroupFooterTemplate>
                 <toolkit:LongListSelector.ItemTemplate>
                     <DataTemplate>
-                        <Button>
+                        <Button x:Name="BtnPerson" Click="BtnPerson_Click">
                             <Button.Template>
                                 <ControlTemplate>
                                     <Grid Margin="0,0,0,10">
