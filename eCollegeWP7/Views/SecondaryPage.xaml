@@ -48,7 +48,7 @@
                         <toolkit:LongListSelector.ListHeaderTemplate>
                             <DataTemplate>
                                 <StackPanel x:Name="PnlListHeader" Loaded="PnlListHeader_Loaded">
-                                    <toolkit:ListPicker x:Name="LspFilterDiscussions" Loaded="LspFilterDiscussions_Loaded"
+                                    <toolkit:ListPicker x:Name="LspFilterDiscussions" Loaded="LspFilterDiscussions_Loaded" ItemCountThreshold="100"
                                                             ListPickerMode="Expanded" SelectionChanged="LspFilterDiscussions_SelectionChanged"
                                                             ItemsSource="{Binding Path=AppViewModel.Courses.MyCoursesPlusAll}">
                                         <toolkit:ListPicker.ItemTemplate>
