@@ -152,7 +152,7 @@
                 </Grid>
             </controls:PanoramaItem>
 
-            <controls:PanoramaItem x:Name="PanPeople" Header="people">
+            <!--<controls:PanoramaItem x:Name="PanPeople" Header="people">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -196,7 +196,7 @@
                         </ItemsControl.ItemTemplate>
                     </ListBox>
                 </Grid>
-            </controls:PanoramaItem>
+            </controls:PanoramaItem>-->
 
         </controls:Panorama>
     </Grid>

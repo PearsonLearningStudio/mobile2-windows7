@@ -79,6 +79,7 @@
     <Compile Include="Model\Boilerplate\TopicLink.cs" />
     <Compile Include="Model\Boilerplate\UserLink.cs" />
     <Compile Include="Model\ContainerInfo.cs" />
+    <Compile Include="Model\RosterUser.cs" />
     <Compile Include="Model\UserGradebookItem.cs" />
     <Compile Include="Model\Course.cs" />
     <Compile Include="Model\DiscussionResponse.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="Services\FetchTokenService.cs" />
     <Compile Include="Services\Dropbox\FetchDropboxBasketsService.cs" />
     <Compile Include="Services\Grades\FetchMyUserGradebookItemsService.cs" />
+    <Compile Include="Services\Users\FetchRosterService.cs" />
     <Compile Include="Services\Users\FetchEnrolledUsersService.cs" />
     <Compile Include="Services\Grades\FetchGradebookItemByGuidService.cs" />
     <Compile Include="Services\Users\FetchMeService.cs" />

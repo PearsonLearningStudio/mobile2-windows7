@@ -15,6 +15,7 @@ using System.Collections.ObjectModel;
 using ECollegeAPI.Model;
 using eCollegeWP7.Util;
 using System.Linq;
+using ECollegeAPI.Services.Users;
 
 namespace eCollegeWP7.ViewModels
 {
@@ -35,14 +36,27 @@ namespace eCollegeWP7.ViewModels
             get { return CourseID.HasValue ? AppViewModel.Courses.CourseIdMap[CourseID.Value] : null; }
         }
 
+        private List<Group<RosterUser>> _PeopleByLastNameFirstChar;
+        public List<Group<RosterUser>> PeopleByLastNameFirstChar
+        {
+            get { return _PeopleByLastNameFirstChar; }
+            set { _PeopleByLastNameFirstChar = value; this.OnPropertyChanged(() => this.PeopleByLastNameFirstChar); }
+        }
+
         public PeopleViewModel(long courseId)
         {
             this.CourseID = courseId;
+            App.BuildService(new FetchRosterService(courseId)).Execute((service) =>
+            {
+                //var sortedUsers = (from u in service.Result orderby u.LastName select u);
 
-            //App.BuildService(new FetchAnnouncementsService(courseId)).Execute((service) =>
-            //{
-            //    this.Announcements = service.Result.ToObservableCollection();
-            //});
+                PeopleByLastNameFirstChar = (from u in service.Result orderby u.LastName
+                                               group u by u.LastNameFirstChar
+                                                   into g
+                                                   orderby g.Key
+                                                              select new Group<RosterUser>(g.Key, g)).ToList();
+            });
+
         }
 
     }

@@ -31,7 +31,49 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Coming soon!"/>
+            <toolkit:LongListSelector Grid.Row="1" ItemsSource="{Binding Path=PeopleByLastNameFirstChar}">
+                <toolkit:LongListSelector.GroupHeaderTemplate>
+                    <DataTemplate>
+                        <Border Margin="10,0,0,0" Width="30" Height="30" HorizontalAlignment="Left">
+                            <Border.Background>
+                                <SolidColorBrush Color="{StaticResource PhoneContrastBackgroundColor}" Opacity=".25"/>
+                            </Border.Background>
+                            <TextBlock Text="{Binding GroupId}" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                       FontSize="{StaticResource PhoneFontSizeMedium}" Foreground="{StaticResource PhoneContrastForegroundBrush}"/>
+                        </Border>
+                    </DataTemplate>
+                </toolkit:LongListSelector.GroupHeaderTemplate>
+                <toolkit:LongListSelector.GroupFooterTemplate>
+                    <DataTemplate>
+                        <Rectangle Height="40"/>
+                    </DataTemplate>
+                </toolkit:LongListSelector.GroupFooterTemplate>
+                <toolkit:LongListSelector.ItemTemplate>
+                    <DataTemplate>
+                        <Button>
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <Grid Margin="0,0,0,10">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        
+                                        <c:DynamicTextBlock 
+                                            Text="{Binding Path=DisplayName}" HorizontalAlignment="Left"
+                                            TextStyle="{StaticResource PhoneTextTitle2Style}"/>
+
+                                        <TextBlock Grid.Row="1" HorizontalAlignment="Left" 
+                                            Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="NoWrap"
+                                            Text="{Binding Path=FriendlyRole}"/>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+
+                    </DataTemplate>
+                </toolkit:LongListSelector.ItemTemplate>
+            </toolkit:LongListSelector>
         </Grid>
     </Grid>
 
