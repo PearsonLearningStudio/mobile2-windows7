@@ -38,17 +38,24 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
 
-            <Button Margin="0,20,12,0" x:Name="BtnLatestAnnouncement" Visibility="{Binding Path=AnnouncementVM.Announcements,Converter={StaticResource NotNullNotEmptyToVisibilityConverter}}" Click="BtnLatestAnnouncement_Click">
+            <Button Margin="-12,3,0,0" x:Name="BtnLatestAnnouncement" Visibility="{Binding Path=AnnouncementVM.Announcements,Converter={StaticResource NotNullNotEmptyToVisibilityConverter}}" Click="BtnLatestAnnouncement_Click">
                 <Button.Template>
                     <ControlTemplate>
-                        <Border Background="#44000000" Padding="10">
-                            <StackPanel>
-                                <TextBlock Text="{Binding Path=AnnouncementVM.Announcements[0].Subject}" FontSize="{StaticResource PhoneFontSizeNormal}"
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Polygon Margin="27,0,0,0" Points="0,0 15,15 0,15" Fill="{StaticResource PhoneLightContrastBackgroundBrush}"/>
+                            <Border Grid.Row="1" Margin="0" BorderThickness="0" Background="{StaticResource PhoneLightContrastBackgroundBrush}" Padding="27,10,27,10">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Path=AnnouncementVM.Announcements[0].Subject}" FontSize="{StaticResource PhoneFontSizeNormal}"
                                            FontFamily="{StaticResource PhoneFontFamilySemiBold}" Foreground="{StaticResource PhoneContrastForegroundBrush}"/>
-                                <TextBlock Margin="0,0,0,0" Text="{Binding Path=AnnouncementVM.Announcements[0].Text}" FontFamily="{StaticResource PhoneFontFamilyNormal}" FontSize="{StaticResource PhoneFontSizeNormal}"
+                                    <TextBlock Margin="0,0,0,0" Text="{Binding Path=AnnouncementVM.Announcements[0].Text}" FontFamily="{StaticResource PhoneFontFamilyNormal}" FontSize="{StaticResource PhoneFontSizeNormal}"
                                            Foreground="{StaticResource PhoneContrastForegroundBrush}"/>
-                            </StackPanel>
-                        </Border>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
                     </ControlTemplate>
                 </Button.Template>
             </Button>

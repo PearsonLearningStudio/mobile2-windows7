@@ -168,6 +168,7 @@ THE SOURCE CODE IS PROVIDED "AS IS", WITH NO WARRANTIES OR INDEMNITIES.
 
     <SolidColorBrush x:Key="PhoneChromeBrush" Color="{StaticResource PhoneChromeColor}"/>
 
+    <SolidColorBrush x:Key="PhoneLightContrastBackgroundBrush" Color="{StaticResource PhoneContrastBackgroundColor}" Opacity=".25"/>
     <SolidColorBrush x:Key="PhoneRegularBrush" Color="{StaticResource PhoneRegularColor}"/>
     <SolidColorBrush x:Key="PhoneAccentBrush" Color="{StaticResource PhoneAccentColor}"/>
     <SolidColorBrush x:Key="PhoneDarkAccentBrush" Color="{StaticResource PhoneDarkAccentColor}"/>
