@@ -104,6 +104,7 @@
     <Compile Include="Services\Courses\FetchInstructorsForCourseService.cs" />
     <Compile Include="Services\Courses\FetchMyCoursesService.cs" />
     <Compile Include="Services\Courses\FetchMyCurrentCoursesService.cs" />
+    <Compile Include="Services\Discussions\UpdateResponseReadStatusService.cs" />
     <Compile Include="Services\Discussions\FetchMyDiscussionResponseByIdService.cs" />
     <Compile Include="Services\Discussions\FetchMyDiscussionResponsesByResponseService.cs" />
     <Compile Include="Services\Discussions\FetchMyDiscussionResponsesByTopicService.cs" />

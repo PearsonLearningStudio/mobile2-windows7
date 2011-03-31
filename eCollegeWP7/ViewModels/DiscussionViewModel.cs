@@ -254,6 +254,7 @@ namespace eCollegeWP7.ViewModels
                 App.BuildService(new FetchMyDiscussionResponseByIdService(UserResponseID)).Execute(service =>
                 {
                     SetupFromResponse(service.Result);
+                    this.MarkAsRead();
                 });
             }
         }
@@ -262,35 +263,75 @@ namespace eCollegeWP7.ViewModels
         {
             if (CurrentDiscussionType == DiscussionType.TopicAndResponses)
             {
-                App.BuildService(new PostMyResponseToTopicService(this.TopicID, responseTitle, responseText)).Execute(
-                    service => FetchResponses());
+                App.BuildService(new PostMyResponseToTopicService(this.TopicID, responseTitle, responseText)).
+                    Execute(service =>
+                    {
+                        this.UserTopic.ChildResponseCounts.Last24HourResponseCount++;
+                        this.UserTopic.ChildResponseCounts.PersonalResponseCount++;
+                        this.UserTopic.ChildResponseCounts.TotalResponseCount++;
+                        App.InvalidateCache(new FetchMyDiscussionTopicByIdService(UserTopicID));
+                        FetchResponses(true);
+                    });
             }
             else if (CurrentDiscussionType == DiscussionType.ResponseAndResponses)
             {
-                App.BuildService(new PostMyResponseToResponseService(this.ResponseID, responseTitle, responseText)).Execute(
-                    service => FetchResponses());
+                App.BuildService(new PostMyResponseToResponseService(this.ResponseID, responseTitle, responseText)).
+                    Execute(service =>
+                    {
+                        this.UserResponse.ChildResponseCounts.Last24HourResponseCount++;
+                        this.UserResponse.ChildResponseCounts.PersonalResponseCount++;
+                        this.UserResponse.ChildResponseCounts.TotalResponseCount++;
+                        App.InvalidateCache(new FetchMyDiscussionResponseByIdService(UserResponseID));
+                        FetchResponses(true);
+                    });
+            }
+        }
+        
+        public void MarkAsRead()
+        {
+            if (CurrentDiscussionType == DiscussionType.ResponseAndResponses && UserResponse.MarkedAsRead != true)
+            {
+                App.BuildService(new UpdateResponseReadStatusService(ResponseID, true)).Execute(service =>
+                {
+                    UserResponse.MarkedAsRead = true;
+                    App.InvalidateCache(new FetchMyDiscussionResponseByIdService(UserResponseID));
+                });
             }
         }
 
         public void FetchResponses()
         {
+            FetchResponses(false);
+        }
+
+        public void FetchResponses(bool ignoreCache)
+        {
             if (CurrentDiscussionType == DiscussionType.TopicAndResponses)
             {
-                App.BuildService(new FetchMyDiscussionResponsesByTopicService(TopicID)).Execute(service =>
+                var call = App.BuildService(new FetchMyDiscussionResponsesByTopicService(TopicID));
+                if (ignoreCache) call.NoCacheRead();
+
+                call.Execute(service =>
                 {
                     var formattedResult = new ObservableCollection<DiscussionViewModel>();
                     foreach (var r in service.Result) formattedResult.Add(new DiscussionViewModel(r));
                     this.Responses = formattedResult;
                 });
+
             }
             else if (CurrentDiscussionType == DiscussionType.ResponseAndResponses)
             {
-                App.BuildService(new FetchMyDiscussionResponsesByResponseService(ResponseID)).Execute(service =>
+                var call = App.BuildService(new FetchMyDiscussionResponsesByResponseService(ResponseID));
+                if (ignoreCache) call.NoCacheRead();
+
+                call.Execute(service =>
                 {
                     var formattedResult = new ObservableCollection<DiscussionViewModel>();
                     foreach (var r in service.Result) formattedResult.Add(new DiscussionViewModel(r));
                     this.Responses = formattedResult;
                 });
+
+
             }
 
         }

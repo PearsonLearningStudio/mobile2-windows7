@@ -124,5 +124,30 @@ namespace eCollegeWP7.Util
                 }
             }
         }
+
+        public void Invalidate(string cacheKey)
+        {
+            string dirPath = GetDirectoryForCacheKey(cacheKey);
+
+            lock (dirPath)
+            {
+                if (storage.DirectoryExists(dirPath))
+                {
+                    string existingCacheFileName = storage.GetFileNames(GetFileGlobForCacheKey(cacheKey)).FirstOrDefault();
+
+                    if (existingCacheFileName != null)
+                    {
+                        var existingCacheFilePath = string.Format("{0}\\{1}", dirPath, existingCacheFileName);
+
+                        storage.DeleteFile(existingCacheFilePath);
+                        storage.DeleteDirectory(dirPath);
+                    }
+                    else
+                    {
+                        storage.DeleteDirectory(dirPath);
+                    }
+                }
+            }
+        }
     }
 }

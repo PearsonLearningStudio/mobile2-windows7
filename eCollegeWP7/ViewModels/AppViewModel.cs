@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using ECollegeAPI.Services.Users;
 using RestSharp;
 using ECollegeAPI.Exceptions;
+using eCollegeWP7.Util;
 
 namespace eCollegeWP7.ViewModels
 {
@@ -43,10 +44,13 @@ namespace eCollegeWP7.ViewModels
 
         public ECollegeClient Client { get; set; }
 
+        public IsolatedStorageResponseCache ServiceCache { get; set; }
+
         public AppViewModel()
         {
             Client = new ECollegeClient(AppResources.ClientString, AppResources.ClientID);
             Client.UnhandledExceptionHandler = (ex) => HandleError(ex);
+            ServiceCache = new IsolatedStorageResponseCache(TimeSpan.FromHours(1.0));
         }
 
         public void HandleError(Exception ex)

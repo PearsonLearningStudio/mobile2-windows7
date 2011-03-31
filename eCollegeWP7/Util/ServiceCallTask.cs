@@ -100,7 +100,6 @@ namespace eCollegeWP7.Util
                 App.Model.PendingServiceCalls++;
             }
 
-            var cache = new IsolatedStorageResponseCache(TimeSpan.FromHours(1.0));
             _client.ExecuteService(_service, successHandler, _failureHandler, (service) =>
             {
                 if (_progressIndicatorEnabled)
@@ -109,7 +108,7 @@ namespace eCollegeWP7.Util
                 }
                 if (_finallyHandler != null)
                     _finallyHandler(service);
-            }, cache, _readFromCache, _writeToCache);
+            }, App.Model.ServiceCache, _readFromCache, _writeToCache);
 
             return this;
         }

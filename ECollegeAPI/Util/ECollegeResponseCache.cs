@@ -22,5 +22,6 @@ namespace ECollegeAPI.Util
     {
         ECollegeResponseCacheEntry Get(string cacheKey);
         void Put(string cacheKey, string responseContent);
+        void Invalidate(string cacheKey);
     }
 }
