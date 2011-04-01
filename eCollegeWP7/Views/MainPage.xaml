@@ -40,7 +40,7 @@
                 <controls:PanoramaItem.DataContext>
                     <vm:HomeViewModel/>
                 </controls:PanoramaItem.DataContext>
-                <ItemsControl Margin="50,10,0,0" ItemsSource="{Binding Path=HomeLinks}">
+                <ItemsControl Margin="70,10,0,0" ItemsSource="{Binding Path=HomeLinks}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <HyperlinkButton Click="HyperlinkButton_Click">

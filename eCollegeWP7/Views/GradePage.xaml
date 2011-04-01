@@ -46,8 +46,8 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            
-            <Button Template="{StaticResource IconGrade}" Grid.RowSpan="5" VerticalAlignment="Top"/>
+
+            <Button Template="{StaticResource IconGrade}" Margin="8,0,0,0" Grid.RowSpan="5" VerticalAlignment="Top"/>
 
 
             <TextBlock Grid.Row="0" Grid.Column="1" 

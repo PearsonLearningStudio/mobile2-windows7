@@ -42,13 +42,13 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <Button Template="{StaticResource IconPerson}" Grid.RowSpan="2" VerticalAlignment="Top"/>
+            <Button Template="{StaticResource IconPerson}" Margin="10,0,9,0" Grid.RowSpan="2" VerticalAlignment="Top"/>
 
-            <TextBlock Grid.Column="1" FontSize="{StaticResource PhoneFontSizeLarge}" Margin="9,0,0,0"
+            <TextBlock Grid.Column="1" FontSize="{StaticResource PhoneFontSizeLarge}" Margin="0"
                        FontFamily="{StaticResource PhoneFontFamilySemiBold}" TextWrapping="Wrap"
                        Text="{Binding Path=DisplayName}" HorizontalAlignment="Left"/>
 
-            <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" 
+            <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Margin="0"
                                             Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="NoWrap"
                                             Text="{Binding Path=FriendlyRole}"/>
         </Grid>
