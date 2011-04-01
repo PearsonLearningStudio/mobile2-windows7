@@ -24,7 +24,7 @@
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
             <Rectangle Height="{StaticResource PhoneTop}"/>
-            <TextBlock x:Name="PageTitle" Text="profile" Margin="9,-7,0,0" Foreground="{StaticResource PhoneAccentBrush}" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock x:Name="PageTitle" Text="my profile" Margin="9,-7,0,0" Foreground="{StaticResource PhoneAccentBrush}" Style="{StaticResource PhoneTextTitle1Style}"/>
 
             <TextBlock Text="{Binding Path=AppViewModel.CurrentUser.DisplayName}" 
                        FontSize="{StaticResource PhoneFontSizeLarge}"

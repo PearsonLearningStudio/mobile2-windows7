@@ -558,6 +558,14 @@ THE SOURCE CODE IS PROVIDED "AS IS", WITH NO WARRANTIES OR INDEMNITIES.
         </Canvas>
     </ControlTemplate>
 
+    <ControlTemplate x:Key="IconPerson" TargetType="Button">
+        <Canvas Width="48" Height="48" Background="{StaticResource PhoneAccentBrush}">
+            <Canvas.OpacityMask>
+                <ImageBrush ImageSource="/Resources/Icons/icon_person.png" Stretch="None"/>
+            </Canvas.OpacityMask>
+        </Canvas>
+    </ControlTemplate>
+
     <ControlTemplate x:Key="IconDropbox" TargetType="Button">
         <Canvas Width="48" Height="48" Background="{StaticResource PhoneAccentBrush}">
             <Canvas.OpacityMask>

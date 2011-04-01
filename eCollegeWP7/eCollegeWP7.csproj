@@ -350,6 +350,7 @@
     <Content Include="Resources\Icons\icon_help.png" />
     <Content Include="Resources\Icons\icon_my_profile.png" />
     <Content Include="Resources\Icons\icon_people.png" />
+    <Content Include="Resources\Icons\icon_person.png" />
     <Content Include="Resources\Icons\icon_sign_out.png" />
     <Content Include="Resources\Icons\icon_upcoming.png" />
     <Content Include="Resources\SplashScreenImage.png" />

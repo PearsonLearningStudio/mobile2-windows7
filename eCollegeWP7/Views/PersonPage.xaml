@@ -26,14 +26,31 @@
             <c:DynamicTextBlock Text="{Binding Path=Course.Title}" HorizontalAlignment="Left"
                                 TextStyle="{StaticResource PhoneTextNormalStyle}"
                                 Margin="0,0,0,0"/>
-            <TextBlock x:Name="PageTitle" Text="{Binding Path=FriendlyRole, Converter={StaticResource ToLowerConverter}}" Margin="9,-7,0,0" Foreground="{StaticResource PhoneAccentBrush}" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock x:Name="PageTitle" Text="profile" Margin="9,-7,0,0" Foreground="{StaticResource PhoneAccentBrush}" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <TextBlock FontSize="{StaticResource PhoneFontSizeLarge}" Margin="9,0,0,0"
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Button Template="{StaticResource IconPerson}" Grid.RowSpan="2" VerticalAlignment="Top"/>
+
+            <TextBlock Grid.Column="1" FontSize="{StaticResource PhoneFontSizeLarge}" Margin="9,0,0,0"
                        FontFamily="{StaticResource PhoneFontFamilySemiBold}" TextWrapping="Wrap"
                        Text="{Binding Path=DisplayName}" HorizontalAlignment="Left"/>
+
+            <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" 
+                                            Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="NoWrap"
+                                            Text="{Binding Path=FriendlyRole}"/>
         </Grid>
     </Grid>
 
