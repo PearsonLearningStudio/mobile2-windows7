@@ -25,8 +25,8 @@
         <controls:Panorama x:Name="PanMain" Style="{StaticResource PhonePanoramaStyle}" Background="{StaticResource PanoramaPageBackground}" SelectionChanged="PanMain_SelectionChanged">
 
             <controls:Panorama.Title>
-                <Border Margin="{StaticResource PhoneTopMargin}">
-                    <Image Source="/Resources/logo_large.png" Margin="50,100,0,0"/>
+                <Border Margin="{StaticResource PhoneTopMargin}" Height="220">
+                    <!--<Image Source="/Resources/logo_large.png" Margin="50,100,0,0"/>-->
                 </Border>
             </controls:Panorama.Title>
             
@@ -40,7 +40,7 @@
                 <controls:PanoramaItem.DataContext>
                     <vm:HomeViewModel/>
                 </controls:PanoramaItem.DataContext>
-                <ItemsControl Margin="0,10,0,0" ItemsSource="{Binding Path=HomeLinks}">
+                <ItemsControl Margin="50,10,0,0" ItemsSource="{Binding Path=HomeLinks}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <HyperlinkButton Click="HyperlinkButton_Click">
@@ -90,6 +90,11 @@
             </controls:PanoramaItem>
 
         </controls:Panorama>
+
+        <Border VerticalAlignment="Top" HorizontalAlignment="Center" Margin="{StaticResource PhoneTopMargin}">
+            <Image Source="/Resources/logo_large.png" Margin="0,20,0,0" Stretch="None"/>
+        </Border>
+
     </Grid>
 
     <!--Panorama-based applications should not show an ApplicationBar-->
