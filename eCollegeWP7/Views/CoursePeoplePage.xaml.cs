@@ -14,6 +14,7 @@ using Microsoft.Phone.Controls;
 using ECollegeAPI.Model;
 using eCollegeWP7.Util;
 using eCollegeWP7.ViewModels;
+using System.Diagnostics;
 
 namespace eCollegeWP7.Views
 {
@@ -70,6 +71,12 @@ namespace eCollegeWP7.Views
             var rosterUser = btn.DataContext as RosterUser;
 
             this.NavigationService.Navigate(new Uri("/Views/PersonPage.xaml?courseId=" + Model.CourseID + "&displayName=" + rosterUser.DisplayName + "&friendlyRole=" + rosterUser.FriendlyRole, UriKind.Relative));
+        }
+
+        private void LongListSelector_StretchingTop(object sender, EventArgs e)
+        {
+            //App.Model.ShowAlert("Foo","Stretching top event");
+            //Debug.WriteLine("StretchingTop even triggered");
         }
 
     }

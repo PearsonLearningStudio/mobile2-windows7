@@ -66,7 +66,7 @@
                     <vm:ActivitiesViewModel/>
                 </controls:PanoramaItem.DataContext>
                 <Grid>
-                    <toolkit:LongListSelector x:Name="LstActivity" ShowListFooter="True" Margin="15,0,0,0" MaxHeight="800" ItemsSource="{Binding Path=ActivitiesGroup}" >
+                    <toolkit:LongListSelector x:Name="LstActivity" Background="Transparent" ShowListFooter="True" Margin="15,0,0,0" MaxHeight="800" ItemsSource="{Binding Path=ActivitiesGroup}" >
                         <toolkit:LongListSelector.ListFooterTemplate>
                             <DataTemplate>
                                 <Button x:Name="BtnLoadMore" Click="BtnLoadMore_Click"

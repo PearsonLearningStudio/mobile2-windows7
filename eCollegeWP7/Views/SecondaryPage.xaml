@@ -34,7 +34,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <toolkit:LongListSelector Grid.Row="1" ShowListHeader="True">
+                    <toolkit:LongListSelector Background="Transparent" Grid.Row="1" ShowListHeader="True">
                         <mb:BindingUtil.MultiBindings>
                             <mb:MultiBindings>
                                 <mb:MultiBinding TargetProperty="ItemsSource" Converter="{StaticResource FilterTopicByCourseConverter}">

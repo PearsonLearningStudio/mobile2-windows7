@@ -31,7 +31,7 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <toolkit:LongListSelector ShowListHeader="True">
+            <toolkit:LongListSelector Background="Transparent" ShowListHeader="True">
                 <mb:BindingUtil.MultiBindings>
                     <mb:MultiBindings>
                         <mb:MultiBinding TargetProperty="ItemsSource" Converter="{StaticResource FilterPeopleByRoleConverter}">
