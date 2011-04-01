@@ -83,6 +83,7 @@
     <Compile Include="Exceptions\AppExitException.cs" />
     <Compile Include="Util\Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Util\Converters\AppResourceConverter.cs" />
+    <Compile Include="Util\Converters\CourseIdToAllTopicsLinkConverter.cs" />
     <Compile Include="Util\Converters\FilterPeopleByRoleConverter.cs" />
     <Compile Include="Util\Converters\NotNullNotEmptyToVisibilityConverter.cs" />
     <Compile Include="Util\Converters\IsNullToVisibilityConverter.cs" />
@@ -145,7 +146,7 @@
     <Compile Include="Views\CourseGradebookPage.xaml.cs">
       <DependentUpon>CourseGradebookPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Archived\CourseDiscussionsPage.xaml.cs">
+    <Compile Include="Views\CourseDiscussionsPage.xaml.cs">
       <DependentUpon>CourseDiscussionsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CourseDropboxMessagesPage.xaml.cs">
@@ -243,7 +244,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Archived\CourseDiscussionsPage.xaml">
+    <Page Include="Views\CourseDiscussionsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

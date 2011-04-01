@@ -22,6 +22,7 @@ namespace eCollegeWP7.ViewModels
     public class DiscussionsViewModel : ViewModelBase
     {
         private bool _loadStarted = false;
+        public bool LoadStarted { get { return _loadStarted; } }
 
         private Course _DiscussionCourseFilter = CoursesViewModel.AllCoursesPlaceholder;
         public Course DiscussionCourseFilter
@@ -35,6 +36,12 @@ namespace eCollegeWP7.ViewModels
         {
             get { return _TopicsByCourse; }
             set { _TopicsByCourse = value; this.OnPropertyChanged(() => this.TopicsByCourse); }
+        }
+
+        public void ForceUpdate()
+        {
+            this.OnPropertyChanged(() => this.DiscussionCourseFilter);
+            this.OnPropertyChanged(() => this.TopicsByCourse);
         }
 
         public DiscussionsViewModel()
@@ -63,7 +70,7 @@ namespace eCollegeWP7.ViewModels
                                        group new DiscussionViewModel(t) by t.Topic.ContainerInfo.CourseID
                                            into r
                                            orderby GetCourseTitle(r.Key)
-                                           select new Group<DiscussionViewModel>(r.Key, r)).ToList();
+                                           select new Group<DiscussionViewModel>(r.Key, r.Where(dvm => dvm.UserTopic.IsActive))).ToList();
                 if (callback != null) callback(true);
             });
         }

@@ -48,6 +48,14 @@ namespace eCollegeWP7.Views
                 PanMain.DefaultItem = defaultItem;
                 UpdateSelectedPanoramaItem(defaultItem);
                 _alreadyNavigatedTo = true;
+            } else
+            {
+                //quick hack until i can figure out why the list isn't loading on back button
+                var oldDiscussionsVM = _discussionsViewModel;
+                _discussionsViewModel = new DiscussionsViewModel();
+                _discussionsViewModel.DiscussionCourseFilter = oldDiscussionsVM.DiscussionCourseFilter;
+                if (oldDiscussionsVM.LoadStarted) _discussionsViewModel.Load();
+                PanDiscussions.DataContext = _discussionsViewModel;
             }
         }
 
@@ -125,6 +133,17 @@ namespace eCollegeWP7.Views
         private void PnlListHeader_Loaded(object sender, RoutedEventArgs e)
         {
             (sender as StackPanel).DataContext = _discussionsViewModel;
+        }
+
+        private void BtnSeeAll_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as HyperlinkButton;
+            var dataContext = btn.DataContext as Group<DiscussionViewModel>;
+
+            if (dataContext != null)
+            {
+                this.NavigationService.Navigate(new Uri("/Views/CourseDiscussionsPage.xaml?courseId=" + dataContext.GroupId, UriKind.Relative));
+            }
         }
     }
 }

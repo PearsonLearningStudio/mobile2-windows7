@@ -95,7 +95,8 @@ namespace eCollegeWP7.ViewModels
             //links.Add(new LinkViewModel()
             //{
             //    Title = "discussions",
-            //    NavigationPath = "/Views/CourseDiscussionsPage.xaml?courseId=" + courseId
+            //    NavigationPath = "/Views/CourseDiscussionsPage.xaml?courseId=" + courseId,
+            //    IconTemplate = "IconDiscussions"
             //});
 
             links.Add(new LinkViewModel()

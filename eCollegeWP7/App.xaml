@@ -38,6 +38,7 @@
                     <conv:IsBlankToVisibilityConverter x:Key="IsBlankToVisibilityConverter"/>
                     <conv:NotNullNotEmptyToVisibilityConverter x:Key="NotNullNotEmptyToVisibilityConverter"/>
                     <conv:FilterPeopleByRoleConverter x:Key="FilterPeopleByRoleConverter"/>
+                    <conv:CourseIdToAllTopicsLinkConverter x:Key="CourseIdToAllTopicsLinkConverter"/>
 
                     <u:LocalizedResources x:Key="res"/>
 

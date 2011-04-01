@@ -38,7 +38,7 @@ namespace eCollegeWP7.Util.Converters
                 //                          select new Group<UserDiscussionTopic>(r.Key, r);
 
                 var res = from t in topicsByCourse
-                          where t.Items[0].UserTopic.Topic.ContainerInfo.CourseID == course.ID
+                          where course.ID.ToString().Equals(t.GroupId.ToString())
                           select new Group<DiscussionViewModel>(t.GroupId, t.Items);
 
 

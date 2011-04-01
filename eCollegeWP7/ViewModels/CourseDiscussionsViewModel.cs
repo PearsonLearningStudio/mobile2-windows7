@@ -39,6 +39,13 @@ namespace eCollegeWP7.ViewModels
             set { _Course = value; this.OnPropertyChanged(() => this.Course); }
         }
 
+        private List<Group<DiscussionViewModel>> _TopicsByUnit;
+        public List<Group<DiscussionViewModel>> TopicsByUnit
+        {
+            get { return _TopicsByUnit; }
+            set { _TopicsByUnit = value; this.OnPropertyChanged(() => this.TopicsByUnit); }
+        }
+
         private ObservableCollection<DiscussionViewModel> _CourseTopics;
         public ObservableCollection<DiscussionViewModel> CourseTopics
         {
@@ -55,7 +62,19 @@ namespace eCollegeWP7.ViewModels
             task.Execute((service) =>
             {
                 this.CourseTopics = (from t in service.Result select new DiscussionViewModel(t)).ToList().ToObservableCollection();
+
+                this.TopicsByUnit = (from t in service.Result
+                                       group new DiscussionViewModel(t) by GetUnitTitle(t)
+                                           into r
+                                           select new Group<DiscussionViewModel>(r.Key, r)).ToList();
+
             });
+        }
+
+        protected string GetUnitTitle(UserDiscussionTopic udt)
+        {
+            var ci = udt.Topic.ContainerInfo;
+            return string.Format("{0} {1}: {2}", ci.UnitHeader, ci.UnitNumber, ci.UnitTitle);
         }
 
     }

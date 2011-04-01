@@ -1,5 +1,5 @@
 ﻿<v:BasePage 
-    x:Class="eCollegeWP7.Views.Archived.CourseDiscussionsPage"
+    x:Class="eCollegeWP7.Views.CourseDiscussionsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
@@ -7,7 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
-    xmlns:v="clr-namespace:eCollegeWP7.Views" xmlns:c="clr-namespace:eCollegeWP7.Views.Controls" FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    xmlns:v="clr-namespace:eCollegeWP7.Views" xmlns:c="clr-namespace:eCollegeWP7.Views.Controls" xmlns:mb="clr-namespace:eCollegeWP7.Util.MultiBinding" FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
@@ -22,13 +22,22 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+            <Rectangle Height="{StaticResource PhoneTop}"/>
+            <c:DynamicTextBlock Text="{Binding Path=Course.Title}" HorizontalAlignment="Left"
+                                TextStyle="{StaticResource PhoneTextNormalStyle}"
+                                Margin="0,0,0,0"/>
             <TextBlock x:Name="PageTitle" Text="discussions" Margin="9,-7,0,0" Foreground="{StaticResource PhoneAccentBrush}" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <ListBox ItemsSource="{Binding CourseTopics}" ItemContainerStyle="{StaticResource StretchedContainerStyle}">
-                <ItemsControl.ItemTemplate>
+            <toolkit:LongListSelector Margin="15,0,0,0" Background="Transparent" ShowListHeader="False" ItemsSource="{Binding TopicsByUnit}">
+                <toolkit:LongListSelector.GroupHeaderTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding GroupId, Converter={StaticResource ToUpperConverter}}"  FontSize="18" />
+                    </DataTemplate>
+                </toolkit:LongListSelector.GroupHeaderTemplate>
+                <toolkit:LongListSelector.ItemTemplate>
                     <DataTemplate>
                         <Button Click="BtnDiscussion_Click">
                             <Button.Template>
@@ -44,7 +53,7 @@
                                             <RowDefinition Height="Auto"/>
                                             <RowDefinition Height="*"/>
                                         </Grid.RowDefinitions>
-                                        <Button Grid.RowSpan="2" VerticalAlignment="Top" Template="{Binding Path=IconTemplate, Converter={StaticResource AppResourceConverter}}"/>
+                                        <Button Grid.RowSpan="2" VerticalAlignment="Top" Margin="0,9,0,0" Template="{Binding Path=IconTemplate, Converter={StaticResource AppResourceConverter}}"/>
                                         <c:DynamicTextBlock Grid.Column="1" 
                                                     Text="{Binding Path=DiscussionTitle}" HorizontalAlignment="Left"
                                                     TextStyle="{StaticResource PhoneTextTitle2Style}"/>
@@ -67,14 +76,15 @@
                                                         Visibility="{Binding Path=UnreadResponseCount, Converter={StaticResource NonZeroVisibilityConverter}}"
                                                         Text="{Binding Path=UnreadResponseCount}" />
                                         </StackPanel>
-                                        
+
                                     </Grid>
                                 </ControlTemplate>
                             </Button.Template>
                         </Button>
+
                     </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ListBox>
+                </toolkit:LongListSelector.ItemTemplate>
+            </toolkit:LongListSelector>
         </Grid>
     </Grid>
 
