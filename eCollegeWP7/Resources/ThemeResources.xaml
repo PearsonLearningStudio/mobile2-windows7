@@ -362,7 +362,7 @@ THE SOURCE CODE IS PROVIDED "AS IS", WITH NO WARRANTIES OR INDEMNITIES.
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Button Template="{Binding IconTemplate, Converter={StaticResource AppResourceConverter}}" Grid.RowSpan="2" VerticalAlignment="Top"/>
+            <Button Margin="0,9,0,0" Template="{Binding IconTemplate, Converter={StaticResource AppResourceConverter}}" Grid.RowSpan="2" VerticalAlignment="Top"/>
 
             <c:DynamicTextBlock Grid.Column="1" Text="{Binding Path=LineOne}" HorizontalAlignment="Left"
                                                TextStyle="{StaticResource PhoneTextTitle2Style}"/>
@@ -391,7 +391,7 @@ THE SOURCE CODE IS PROVIDED "AS IS", WITH NO WARRANTIES OR INDEMNITIES.
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Button Template="{Binding IconTemplate, Converter={StaticResource AppResourceConverter}}" Grid.RowSpan="2" VerticalAlignment="Top"/>
+            <Button Margin="0,9,0,0" Template="{Binding IconTemplate, Converter={StaticResource AppResourceConverter}}" Grid.RowSpan="2" VerticalAlignment="Top"/>
 
             <c:DynamicTextBlock Grid.Column="1" Text="{Binding Path=Title}" HorizontalAlignment="Left"
                                                TextStyle="{StaticResource PhoneTextTitle2Style}"/>
