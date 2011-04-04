@@ -16,13 +16,13 @@ namespace eCollegeWP7.Util
 
         public static string FriendlyDate(DateTime dt)
         {
-            var dtStr = dt.ToString("MMM d yyyy");
+            var dtStr = dt.ToString("MMM d, yyyy");
 
-            if (DateTime.Today.ToString("MMM d yyyy") == dtStr)
+            if (DateTime.Today.ToString("MMM d, yyyy") == dtStr)
             {
                 return "Today";
             }
-            if (DateTime.Today.AddDays(-1.0).ToString("MMM d yyyy") == dtStr)
+            if (DateTime.Today.AddDays(-1.0).ToString("MMM d, yyyy") == dtStr)
             {
                 return "Yesterday";
             }
@@ -44,13 +44,13 @@ namespace eCollegeWP7.Util
 
         public static string LongFriendlyDate(DateTime dt)
         {
-            var dtStr = dt.ToString("MMM d yyyy");
+            var dtStr = dt.ToString("MMM d, yyyy");
 
-            if (DateTime.Today.ToString("MMM d yyyy") == dtStr)
+            if (DateTime.Today.ToString("MMM d, yyyy") == dtStr)
             {
                 return "Today " + dt.ToString("h:mm tt");
             }
-            if (DateTime.Today.AddDays(-1.0).ToString("MMM d yyyy") == dtStr)
+            if (DateTime.Today.AddDays(-1.0).ToString("MMM d, yyyy") == dtStr)
             {
                 return "Yesterday " + dt.ToString("h:mm tt");
             }
