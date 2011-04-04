@@ -23,7 +23,7 @@
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
             <Rectangle Height="{StaticResource PhoneTop}"/>
-            <c:DynamicTextBlock Text="{Binding Path=Course.Title}" HorizontalAlignment="Left"
+            <c:DynamicTextBlock Text="{Binding Path=Course.Title, Converter={StaticResource HtmlToTextConverter}}" HorizontalAlignment="Left"
                                 TextStyle="{StaticResource PhoneTextNormalStyle}"
                                 Margin="0,0,0,0"/>
             <TextBlock x:Name="PageTitle" Text="grade" 
