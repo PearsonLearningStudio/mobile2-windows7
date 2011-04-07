@@ -354,6 +354,7 @@
     <Content Include="Resources\Icons\icon_person.png" />
     <Content Include="Resources\Icons\icon_sign_out.png" />
     <Content Include="Resources\Icons\icon_upcoming.png" />
+    <Content Include="Resources\Icons\icon_white_arrow_right.png" />
     <Content Include="Resources\SplashScreenImage.png" />
     <Content Include="Resources\logo_header.png" />
     <Content Include="Resources\logo_large.png" />

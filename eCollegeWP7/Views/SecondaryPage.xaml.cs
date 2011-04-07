@@ -137,7 +137,7 @@ namespace eCollegeWP7.Views
 
         private void BtnSeeAll_Click(object sender, RoutedEventArgs e)
         {
-            var btn = sender as HyperlinkButton;
+            var btn = sender as Button;
             var dataContext = btn.DataContext as Group<DiscussionViewModel>;
 
             if (dataContext != null)

@@ -24,10 +24,10 @@ namespace eCollegeWP7.Util.Converters
                 Course c;
                 if (App.Model.Courses.CourseIdMap.TryGetValue(v,out c))
                 {
-                    return string.Format("See all {0} topics...",c.Title);
+                    return string.Format("SEE ALL TOPICS FOR {0}",c.Title.ToUpper());
                 }
             }
-            return "See all ? topics...";
+            return "SEE ALL TOPICS FOR ?";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

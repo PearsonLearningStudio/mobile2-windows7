@@ -67,7 +67,17 @@
                         </toolkit:LongListSelector.GroupHeaderTemplate>
                         <toolkit:LongListSelector.GroupFooterTemplate>
                             <DataTemplate>
-                                <HyperlinkButton x:Name="BtnSeeAll" Click="BtnSeeAll_Click" HorizontalAlignment="Left" Margin="-10,15,0,35" Content="{Binding GroupId, Converter={StaticResource CourseIdToAllTopicsLinkConverter}}"/>
+                                <Button x:Name="BtnSeeAll" Click="BtnSeeAll_Click" HorizontalAlignment="Right">
+                                    <Button.Template>
+                                        <ControlTemplate>
+                                            <StackPanel Orientation="Horizontal" Margin="0,20,0,20">
+                                                <c:DynamicTextBlock Text="{Binding GroupId, Converter={StaticResource CourseIdToAllTopicsLinkConverter}}" VerticalAlignment="Center"
+                                                           FontSize="18" FontFamily="{StaticResource PhoneFontFamilyNormal}" Foreground="{StaticResource PhoneAccentBrush}"/>
+                                                <Button Margin="10,0,0,0" Template="{StaticResource IconSeeAllTopics}"/>
+                                            </StackPanel>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
                             </DataTemplate>
                         </toolkit:LongListSelector.GroupFooterTemplate>
                         <toolkit:LongListSelector.ItemTemplate>

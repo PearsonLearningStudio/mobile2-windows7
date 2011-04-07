@@ -594,6 +594,13 @@ THE SOURCE CODE IS PROVIDED "AS IS", WITH NO WARRANTIES OR INDEMNITIES.
         </Canvas>
     </ControlTemplate>
 
+
+    <ControlTemplate x:Key="IconSeeAllTopics" TargetType="Button">
+        <Grid Width="18" Height="18" Background="{StaticResource PhoneAccentBrush}">
+            <Image Source="/Resources/Icons/icon_white_arrow_right.png" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Grid>
+    </ControlTemplate>
+
 </ResourceDictionary>
 
   
