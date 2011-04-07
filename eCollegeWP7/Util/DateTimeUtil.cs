@@ -18,11 +18,11 @@ namespace eCollegeWP7.Util
         {
             var dtStr = dt.ToString("MMM d, yyyy");
 
-            if (DateTime.Today.ToString("MMM d, yyyy") == dtStr)
+            if (DateTime.Today.ToString("MMM d, yyyy").Equals(dtStr))
             {
                 return "Today";
             }
-            if (DateTime.Today.AddDays(-1.0).ToString("MMM d, yyyy") == dtStr)
+            if (DateTime.Today.AddDays(-1.0).ToString("MMM d, yyyy").Equals(dtStr))
             {
                 return "Yesterday";
             }
@@ -46,11 +46,11 @@ namespace eCollegeWP7.Util
         {
             var dtStr = dt.ToString("MMM d, yyyy");
 
-            if (DateTime.Today.ToString("MMM d, yyyy") == dtStr)
+            if (DateTime.Today.ToString("MMM d, yyyy").Equals(dtStr))
             {
                 return "Today " + dt.ToString("h:mm tt");
             }
-            if (DateTime.Today.AddDays(-1.0).ToString("MMM d, yyyy") == dtStr)
+            if (DateTime.Today.AddDays(-1.0).ToString("MMM d, yyyy").Equals(dtStr))
             {
                 return "Yesterday " + dt.ToString("h:mm tt");
             }
