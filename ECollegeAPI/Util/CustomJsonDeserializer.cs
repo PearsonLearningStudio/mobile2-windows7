@@ -34,6 +34,7 @@ namespace ECollegeAPI.Util
         public string RootElement { get; set; }
         public string Namespace { get; set; }
         public string DateFormat { get; set; }
+        public bool UseISOUniversalTime { get; set; }
 
         protected string PrettyPrint(string json)
         {
@@ -196,7 +197,12 @@ namespace ECollegeAPI.Util
                 else if (type == typeof(DateTime))
                 {
                     DateTime dt;
-                    if (DateFormat.HasValue())
+
+                    if (UseISOUniversalTime)//parses "2010-10-12T18:03:18Z"
+                    {
+                        var clean = value.ToString().RemoveSurroundingQuotes();
+                        dt = DateTime.ParseExact(clean, "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'", CultureInfo.InvariantCulture,DateTimeStyles.AssumeUniversal);
+                    } else if (DateFormat.HasValue())
                     {
                         var clean = value.ToString().RemoveSurroundingQuotes();
                         dt = DateTime.ParseExact(clean, DateFormat, CultureInfo.InvariantCulture);
