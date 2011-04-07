@@ -71,7 +71,6 @@
     <Reference Include="system" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net" />
-    <Reference Include="System.Windows.Controls, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -176,12 +175,6 @@
     <Compile Include="Views\SecondaryPage.xaml.cs">
       <DependentUpon>SecondaryPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Dialogs\BaseDialog.xaml.cs">
-      <DependentUpon>BaseDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Dialogs\ErrorDialog.xaml.cs">
-      <DependentUpon>ErrorDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\DropboxMessagePage.xaml.cs">
       <DependentUpon>DropboxMessagePage.xaml</DependentUpon>
     </Compile>
@@ -283,14 +276,6 @@
     <Page Include="Views\SecondaryPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Dialogs\BaseDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Dialogs\ErrorDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DropboxMessagePage.xaml">
       <Generator>MSBuild:Compile</Generator>

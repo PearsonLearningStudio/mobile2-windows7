@@ -14,7 +14,6 @@ using System.Diagnostics;
 using System.Collections.ObjectModel;
 using ECollegeAPI.Model;
 using eCollegeWP7.Util;
-using eCollegeWP7.Views.Dialogs;
 using eCollegeWP7.Exceptions;
 using eCollegeWP7.ViewModels;
 
@@ -57,12 +56,6 @@ namespace eCollegeWP7.Views
                 UpdateSelectedPanoramaItem(defaultItem);
                 _alreadyNavigatedTo = true;
             }
-        }
-
-        private void BtnShowDialog_Click(object sender, RoutedEventArgs e)
-        {
-            ErrorDialog ed = new ErrorDialog();
-            ed.Show();
         }
 
         private void HyperlinkButton_Click(object sender, RoutedEventArgs e)

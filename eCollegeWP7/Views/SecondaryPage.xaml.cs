@@ -14,7 +14,6 @@ using System.Diagnostics;
 using System.Collections.ObjectModel;
 using ECollegeAPI.Model;
 using eCollegeWP7.Util;
-using eCollegeWP7.Views.Dialogs;
 using eCollegeWP7.Exceptions;
 using eCollegeWP7.ViewModels;
 
