@@ -18,6 +18,6 @@ namespace ECollegeAPI.Model
         public string Type { get; set; }
         public string ID { get; set; }
         public string Title { get; set; }
-        public decimal PointsPossible { get; set; }
+        public decimal? PointsPossible { get; set; }
     }
 }

@@ -7,8 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
-    xmlns:v="clr-namespace:eCollegeWP7.Views"
-    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    xmlns:v="clr-namespace:eCollegeWP7.Views" xmlns:c="clr-namespace:eCollegeWP7.Views.Controls" FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
@@ -51,8 +50,8 @@
                                 <StackPanel>
                                     <TextBlock Text="{Binding Path=AnnouncementVM.Announcements[0].Subject}" FontSize="{StaticResource PhoneFontSizeNormal}"
                                            FontFamily="{StaticResource PhoneFontFamilySemiBold}" Foreground="{StaticResource PhoneContrastForegroundBrush}"/>
-                                    <TextBlock Margin="0,0,0,0" Text="{Binding Path=AnnouncementVM.Announcements[0].Text}" FontFamily="{StaticResource PhoneFontFamilyNormal}" FontSize="{StaticResource PhoneFontSizeNormal}"
-                                           Foreground="{StaticResource PhoneContrastForegroundBrush}"/>
+                                    <c:DynamicTextBlock MaxHeight="27" Margin="0,0,0,0" Text="{Binding Path=AnnouncementVM.Announcements[0].Text, Converter={StaticResource HtmlToTextConverter}}" FontFamily="{StaticResource PhoneFontFamilyNormal}" FontSize="{StaticResource PhoneFontSizeNormal}"
+                                           Foreground="{StaticResource PhoneContrastForegroundBrush}" HorizontalAlignment="Left"/>
                                 </StackPanel>
                             </Border>
                         </Grid>

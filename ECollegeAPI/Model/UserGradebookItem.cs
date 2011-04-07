@@ -30,5 +30,25 @@ namespace ECollegeAPI.Model
                 return null;
             }
         }
+
+        public string DisplayedGrade
+        {
+            get
+            {
+                Grade g = this.Grade;
+
+                if (g == null) return null;
+                if (GradebookItem.PointsPossible.HasValue && g.Points.HasValue)
+                {
+                    return string.Format("{0:0.##}", g.Points) + "/" +
+                           string.Format("{0:0.##}", GradebookItem.PointsPossible);
+                }
+                if (g.LetterGrade != null)
+                {
+                    return g.LetterGrade;
+                }
+                return "";
+            }
+        }
     }
 }
