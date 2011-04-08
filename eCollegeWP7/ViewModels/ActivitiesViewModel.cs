@@ -29,6 +29,7 @@ namespace eCollegeWP7.ViewModels
             set { _CanLoadMore = value; this.OnPropertyChanged(() => this.CanLoadMore); }
         }
 
+        public bool AllLoaded { get; set; }
         public bool LoadStarted { get; set; }
 
         private long? _CourseID;
@@ -89,6 +90,7 @@ namespace eCollegeWP7.ViewModels
             if (all)
             {
                 CanLoadMore = false;
+                AllLoaded = true;
             }
             else
             {

@@ -55,6 +55,13 @@ namespace eCollegeWP7.Views
                 PanMain.DefaultItem = defaultItem;
                 UpdateSelectedPanoramaItem(defaultItem);
                 _alreadyNavigatedTo = true;
+            } else
+            {
+                //quick hack until i can figure out why the list isn't loading on back button
+                var oldActivitiesVM = PanActivity.DataContext as ActivitiesViewModel;
+                var newActivitiesVM = new ActivitiesViewModel();
+                if (oldActivitiesVM.LoadStarted) newActivitiesVM.Load(oldActivitiesVM.AllLoaded);
+                PanActivity.DataContext = newActivitiesVM;
             }
         }
 
