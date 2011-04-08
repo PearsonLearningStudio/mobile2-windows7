@@ -66,7 +66,6 @@ namespace ECollegeAPI.Services
         protected T Deserialize<T>(string resp, string rootElement) where T : new()
         {
             var jsonDeserializer = new CustomJsonDeserializer();
-            jsonDeserializer.UseISOUniversalTime = true;//parses "2010-10-12T18:03:18Z"
 
             if (rootElement != null)
             {
