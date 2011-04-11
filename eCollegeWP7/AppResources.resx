@@ -127,7 +127,7 @@
     <value>30bb1d4f-2677-45d1-be13-339174404402</value>
   </data>
   <data name="ClientString" xml:space="preserve">
-    <value>ctstate</value>
+    <value>sandbox</value>
   </data>
   <data name="SignoutPromptMessage" xml:space="preserve">
     <value>Are you sure you would like to sign out?</value>

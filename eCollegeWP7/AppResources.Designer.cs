@@ -88,7 +88,7 @@ namespace eCollegeWP7 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ctstate.
+        ///   Looks up a localized string similar to sandbox.
         /// </summary>
         public static string ClientString {
             get {
