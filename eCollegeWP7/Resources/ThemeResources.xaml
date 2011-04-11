@@ -364,14 +364,14 @@ THE SOURCE CODE IS PROVIDED "AS IS", WITH NO WARRANTIES OR INDEMNITIES.
 
             <Button Margin="0,9,0,0" Template="{Binding IconTemplate, Converter={StaticResource AppResourceConverter}}" Grid.RowSpan="2" VerticalAlignment="Top"/>
 
-            <c:DynamicTextBlock Grid.Column="1" Text="{Binding Path=LineOne}" HorizontalAlignment="Left"
+            <c:DynamicTextBlock Grid.Column="1" Text="{Binding Path=LineOne,Converter={StaticResource HtmlToTextConverter}}" HorizontalAlignment="Left"
                                                TextStyle="{StaticResource PhoneTextTitle2Style}"/>
             <c:DynamicTextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Left" 
                                                TextStyle="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" MaxHeight="70" 
                                                Text="{Binding Path=LineTwo,Converter={StaticResource HtmlToTextConverter}}"/>
             <TextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" HorizontalAlignment="Left"
                                                Style="{StaticResource PhoneTextSmallStyle}" 
-                                               Text="{Binding Path=LineThree}"/>
+                                               Text="{Binding Path=LineThree,Converter={StaticResource HtmlToTextConverter}}"/>
             <TextBlock Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" 
                                                Style="{StaticResource PhoneTextSubtleStyle}"
                                                Text="{Binding Path=FriendlyDate}" />
@@ -393,14 +393,14 @@ THE SOURCE CODE IS PROVIDED "AS IS", WITH NO WARRANTIES OR INDEMNITIES.
 
             <Button Margin="0,9,0,0" Template="{Binding IconTemplate, Converter={StaticResource AppResourceConverter}}" Grid.RowSpan="2" VerticalAlignment="Top"/>
 
-            <c:DynamicTextBlock Grid.Column="1" Text="{Binding Path=Title}" HorizontalAlignment="Left"
+            <c:DynamicTextBlock Grid.Column="1" Text="{Binding Path=Title,Converter={StaticResource HtmlToTextConverter}}" HorizontalAlignment="Left"
                                                TextStyle="{StaticResource PhoneTextTitle2Style}"/>
             <c:DynamicTextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Left" 
                                                TextStyle="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" MaxHeight="70" 
                                                Text="{Binding Path=LineTwo,Converter={StaticResource HtmlToTextConverter}}"/>
             <TextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" HorizontalAlignment="Left"
                                                Style="{StaticResource PhoneTextSmallStyle}" 
-                                               Text="{Binding Path=LineThree}"/>
+                                               Text="{Binding Path=LineThree,Converter={StaticResource HtmlToTextConverter}}"/>
             <TextBlock Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" 
                                                Style="{StaticResource PhoneTextSubtleStyle}"
                                                Text="{Binding Path=FriendlyDate}" />
