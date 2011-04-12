@@ -115,10 +115,10 @@ namespace ECollegeAPI
 
         public void ExecuteService<T>(T service, Action<T> successCallback, Action<ServiceException> failureCallback, Action<T> finallyCallback) where T : BaseService
         {
-            ExecuteService<T>(service, successCallback, failureCallback, finallyCallback,null,false,false);
+            ExecuteService<T>(service, successCallback, failureCallback, finallyCallback,null,false,false,false);
         }
 
-        public void ExecuteService<T>(T service, Action<T> successCallback, Action<ServiceException> failureCallback, Action<T> finallyCallback, ECollegeResponseCache cache, bool readFromCache, bool writeToCache) where T : BaseService
+        public void ExecuteService<T>(T service, Action<T> successCallback, Action<ServiceException> failureCallback, Action<T> finallyCallback, ECollegeResponseCache cache, bool rerunAfterCacheHit, bool readFromCache, bool writeToCache) where T : BaseService
         {
             DoBackgroundWork(() =>
             {
@@ -134,7 +134,7 @@ namespace ECollegeAPI
                             if (cacheEntry != null)
                             {
                                 HandleResponseContent(cacheEntry.Data, service, failureCallback, finallyCallback, successCallback, null);
-                                return;
+                                if (!rerunAfterCacheHit) return;
                             }
                         }
                         if (writeToCache)

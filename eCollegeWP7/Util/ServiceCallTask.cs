@@ -31,6 +31,7 @@ namespace eCollegeWP7.Util
         private Action<T> _successHandler;
         private Action<ServiceException> _failureHandler;
         private Action<T> _finallyHandler;
+        private bool _rerunAfterCacheHit = false;
         private bool _readFromCache = true;
         private bool _writeToCache = true;
         private ECollegeResponseCache _cache;
@@ -51,6 +52,12 @@ namespace eCollegeWP7.Util
         public ServiceCallTask<T> MakeModal()
         {
             _isModal = true;
+            return this;
+        }
+
+        public ServiceCallTask<T> RerunAfterCacheHit()
+        {
+            _rerunAfterCacheHit = true;
             return this;
         }
 
@@ -111,7 +118,7 @@ namespace eCollegeWP7.Util
                 }
                 if (_finallyHandler != null)
                     _finallyHandler(service);
-            }, _cache, _readFromCache, _writeToCache);
+            }, _cache, _rerunAfterCacheHit, _readFromCache, _writeToCache);
 
             return this;
         }
