@@ -23,6 +23,7 @@ namespace ECollegeAPI.Services
         public bool IsCacheable { get; set; }
         public bool IsAuthenticationRequired { get; set; }
         public string Resource { get; set; }
+        public string CacheScope { get; set; }
         public Method RequestMethod { get; set; }
 
         public BaseService()
@@ -30,6 +31,7 @@ namespace ECollegeAPI.Services
             IsCacheable = true;
             IsAuthenticationRequired = true;
             RequestMethod = Method.GET;
+            CacheScope = this.GetType().Namespace; //scope can group related services together so they can be invalidated simultaneously
         }
 
         public virtual string GetCacheKey()

@@ -130,7 +130,7 @@ namespace ECollegeAPI
                     {
                         var cacheKey = service.GetCacheKey();
                         if (readFromCache) {
-                            var cacheEntry = cache.Get(cacheKey);
+                            var cacheEntry = cache.Get(service.CacheScope,cacheKey);
                             if (cacheEntry != null)
                             {
                                 HandleResponseContent(cacheEntry.Data, service, failureCallback, finallyCallback, successCallback, null);
@@ -139,7 +139,7 @@ namespace ECollegeAPI
                         }
                         if (writeToCache)
                         {
-                            cacheCallback = (responseContent) => cache.Put(cacheKey, responseContent);
+                            cacheCallback = (responseContent) => cache.Put(service.CacheScope, cacheKey, responseContent);
                         }
                     }
 

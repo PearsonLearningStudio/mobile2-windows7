@@ -73,118 +73,152 @@ namespace eCollegeWP7.Util
             _storage.DeleteDirectory(dirToDelete);
         }
 
-        protected string GetFileGlobForCacheKey(string cacheKey)
+        //Directory:  Cache\{sessionKey}\{scope}\{cacheKey}\{expirationTimeStamp}.cache
+        protected string GetFileGlobForCacheEntry(string scope, string cacheKey)
         {
-            return string.Format("Cache\\{0}\\{1}\\*.cache", _sessionKey,cacheKey);
+            return string.Format("Cache\\{0}\\{1}\\{2}\\*.cache", _sessionKey,scope,cacheKey);
         }
 
-        protected string GetFileForCacheKey(string cacheKey)
+        protected string GetFileForCacheEntry(string scope, string cacheKey)
         {
             DateTime expiration = DateTime.UtcNow + _expiresIn;
-            return string.Format("Cache\\{0}\\{1}\\{2}.cache",_sessionKey,cacheKey,expiration.ToFileTimeUtc());
+            return string.Format("Cache\\{0}\\{1}\\{2}\\{3}.cache",_sessionKey,scope,cacheKey,expiration.ToFileTimeUtc());
         }
 
-        protected string GetDirectoryForCacheKey(string cacheKey)
+        protected string GetDirectoryForCacheEntry(string scope, string cacheKey)
         {
-            return string.Format("Cache\\{0}\\{1}", _sessionKey,cacheKey);
+            return string.Format("Cache\\{0}\\{1}\\{2}", _sessionKey, scope, cacheKey);
         }
 
-        public ECollegeResponseCacheEntry Get(string cacheKey)
+        protected string GetDirectoryForScope(string scope)
         {
-            string dirPath = GetDirectoryForCacheKey(cacheKey);
+            return string.Format("Cache\\{0}\\{1}", _sessionKey, scope);
+        }
 
+        public ECollegeResponseCacheEntry Get(string scope, string cacheKey)
+        {
             ECollegeResponseCacheEntry result = null;
 
-            lock (dirPath)
+            string scopePath = GetDirectoryForScope(scope);
+
+            lock (scopePath)
             {
-                if (_storage.DirectoryExists(dirPath))
+                if (_storage.DirectoryExists(scopePath))
                 {
+                    string cacheEntryPath = GetDirectoryForCacheEntry(scope, cacheKey);
 
-                    string existingCacheFileName = _storage.GetFileNames(GetFileGlobForCacheKey(cacheKey)).FirstOrDefault();
-
-                    if (existingCacheFileName != null)
+                    lock (cacheEntryPath)
                     {
-                        var existingCacheFilePath = string.Format("{0}\\{1}", dirPath, existingCacheFileName);
-
-                        var expirationDate =
-                            DateTime.FromFileTimeUtc(long.Parse(Path.GetFileNameWithoutExtension(existingCacheFileName)));
-
-                        if (expirationDate >= DateTime.UtcNow)
+                        if (_storage.DirectoryExists(cacheEntryPath))
                         {
-                            using (var f = new IsolatedStorageFileStream(existingCacheFilePath, FileMode.Open, FileAccess.Read, _storage))
+                            string existingCacheFileName = _storage.GetFileNames(GetFileGlobForCacheEntry(scope, cacheKey)).FirstOrDefault();
+
+                            if (existingCacheFileName != null)
                             {
-                                using (var sr = new StreamReader(f))
+                                var existingCacheFilePath = string.Format("{0}\\{1}", cacheEntryPath, existingCacheFileName);
+
+                                var expirationDate =
+                                    DateTime.FromFileTimeUtc(long.Parse(Path.GetFileNameWithoutExtension(existingCacheFileName)));
+
+                                if (expirationDate >= DateTime.UtcNow)
                                 {
-                                    result = new ECollegeResponseCacheEntry();
-                                    result.CachedAt = DateTime.Now;
-                                    result.Data = sr.ReadToEnd();
+                                    using (var f = new IsolatedStorageFileStream(existingCacheFilePath, FileMode.Open, FileAccess.Read, _storage))
+                                    {
+                                        using (var sr = new StreamReader(f))
+                                        {
+                                            result = new ECollegeResponseCacheEntry();
+                                            result.CachedAt = DateTime.Now;
+                                            result.Data = sr.ReadToEnd();
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    _storage.DeleteFile(existingCacheFilePath);
+                                    _storage.DeleteDirectory(cacheEntryPath);
                                 }
                             }
-                        } else
-                        {
-                            _storage.DeleteFile(existingCacheFilePath);
-                            _storage.DeleteDirectory(dirPath);
+                            else
+                            {
+                                _storage.DeleteDirectory(cacheEntryPath);
+                            }
                         }
-                    } else
-                    {
-                        _storage.DeleteDirectory(dirPath);
                     }
                 }
             }
 
             return result;
-
         }
 
-        public void Put(string cacheKey, string responseContent)
+        public void Put(string scope, string cacheKey, string responseContent)
         {
-            string dirPath = GetDirectoryForCacheKey(cacheKey);
+            string scopePath = GetDirectoryForScope(scope);
 
-            lock (dirPath)
+            lock (scopePath)
             {
-                if (_storage.DirectoryExists(dirPath))
+                if (_storage.DirectoryExists(scopePath))
                 {
-                    string existingCacheFilePath = _storage.GetFileNames(GetFileGlobForCacheKey(cacheKey)).FirstOrDefault();
-                    if (existingCacheFilePath != null)
-                    {
-                        _storage.DeleteFile(existingCacheFilePath);
-                    }
-                } else
-                {
-                    _storage.CreateDirectory(dirPath);
+                    _storage.CreateDirectory(scopePath);
                 }
 
-                string cacheFilePath = GetFileForCacheKey(cacheKey);
-                using (var f = new IsolatedStorageFileStream(cacheFilePath, FileMode.Create, FileAccess.Write, _storage))
+                string cacheEntryPath = GetDirectoryForCacheEntry(scope, cacheKey);
+
+                lock (cacheEntryPath)
                 {
-                    using (var sw = new StreamWriter(f))
+                    if (_storage.DirectoryExists(cacheEntryPath))
                     {
-                        sw.Write(responseContent);
+                        string existingCacheFilePath = _storage.GetFileNames(GetFileGlobForCacheEntry(scope, cacheKey)).FirstOrDefault();
+                        if (existingCacheFilePath != null)
+                        {
+                            _storage.DeleteFile(existingCacheFilePath);
+                        }
+                    }
+                    else
+                    {
+                        _storage.CreateDirectory(cacheEntryPath);
+                    }
+
+                    string cacheFilePath = GetFileForCacheEntry(scope, cacheKey);
+                    using (var f = new IsolatedStorageFileStream(cacheFilePath, FileMode.Create, FileAccess.Write, _storage))
+                    {
+                        using (var sw = new StreamWriter(f))
+                        {
+                            sw.Write(responseContent);
+                        }
                     }
                 }
             }
         }
-
-        public void Invalidate(string cacheKey)
+        
+        public void Invalidate(string scope)
         {
-            string dirPath = GetDirectoryForCacheKey(cacheKey);
+            string scopePath = GetDirectoryForScope(scope);
 
-            lock (dirPath)
+            lock (scopePath)
             {
-                if (_storage.DirectoryExists(dirPath))
+                if (_storage.DirectoryExists(scopePath))
                 {
-                    string existingCacheFileName = _storage.GetFileNames(GetFileGlobForCacheKey(cacheKey)).FirstOrDefault();
+                    RecursiveDeleteDirectory(scopePath);
+                }
+            }
+        }
 
-                    if (existingCacheFileName != null)
-                    {
-                        var existingCacheFilePath = string.Format("{0}\\{1}", dirPath, existingCacheFileName);
+        public void Invalidate(string scope, string cacheKey)
+        {
+            string scopePath = GetDirectoryForScope(scope);
 
-                        _storage.DeleteFile(existingCacheFilePath);
-                        _storage.DeleteDirectory(dirPath);
-                    }
-                    else
+            lock (scopePath)
+            {
+                if (_storage.DirectoryExists(scopePath))
+                {
+                    string cacheEntryPath = GetDirectoryForCacheEntry(scope, cacheKey);
+
+                    lock (cacheEntryPath)
                     {
-                        _storage.DeleteDirectory(dirPath);
+                        if (_storage.DirectoryExists(cacheEntryPath))
+                        {
+                            RecursiveDeleteDirectory(cacheEntryPath);
+                        }
                     }
                 }
             }

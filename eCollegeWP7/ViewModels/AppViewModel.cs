@@ -137,11 +137,19 @@ namespace eCollegeWP7.ViewModels
             worker.RunWorkerAsync();
         }
 
+        public void InvalidateCache(string scope)
+        {
+            if (_ServiceCache != null)
+            {
+                DoBackgroundWork(() => _ServiceCache.Invalidate(scope));
+            }
+        }
+
         public void InvalidateCache<T>(T service) where T : BaseService
         {
             if (_ServiceCache != null)
             {
-                DoBackgroundWork(() => _ServiceCache.Invalidate(service.GetCacheKey()));
+                DoBackgroundWork(() => _ServiceCache.Invalidate(service.CacheScope,service.GetCacheKey()));
             }
         }
 

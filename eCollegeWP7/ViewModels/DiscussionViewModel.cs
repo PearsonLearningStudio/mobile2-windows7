@@ -269,7 +269,7 @@ namespace eCollegeWP7.ViewModels
                         this.UserTopic.ChildResponseCounts.Last24HourResponseCount++;
                         this.UserTopic.ChildResponseCounts.PersonalResponseCount++;
                         this.UserTopic.ChildResponseCounts.TotalResponseCount++;
-                        App.Model.InvalidateCache(new FetchMyDiscussionTopicByIdService(UserTopicID));
+                        App.Model.InvalidateCache("ECollegeAPI.Services.Discussions"); //invalidate all discussion-related caches
                         FetchResponses(true);
                     });
             }
@@ -281,7 +281,7 @@ namespace eCollegeWP7.ViewModels
                         this.UserResponse.ChildResponseCounts.Last24HourResponseCount++;
                         this.UserResponse.ChildResponseCounts.PersonalResponseCount++;
                         this.UserResponse.ChildResponseCounts.TotalResponseCount++;
-                        App.Model.InvalidateCache(new FetchMyDiscussionResponseByIdService(UserResponseID));
+                        App.Model.InvalidateCache("ECollegeAPI.Services.Discussions"); //invalidate all discussion-related caches
                         FetchResponses(true);
                     });
             }
@@ -294,7 +294,7 @@ namespace eCollegeWP7.ViewModels
                 App.Model.BuildService(new UpdateResponseReadStatusService(ResponseID, true)).Execute(service =>
                 {
                     UserResponse.MarkedAsRead = true;
-                    App.Model.InvalidateCache(new FetchMyDiscussionResponseByIdService(UserResponseID));
+                    App.Model.InvalidateCache("ECollegeAPI.Services.Discussions"); //invalidate all discussion-related caches
                 });
             }
         }

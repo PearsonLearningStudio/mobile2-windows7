@@ -20,8 +20,9 @@ namespace ECollegeAPI.Util
 
     public interface ECollegeResponseCache
     {
-        ECollegeResponseCacheEntry Get(string cacheKey);
-        void Put(string cacheKey, string responseContent);
-        void Invalidate(string cacheKey);
+        ECollegeResponseCacheEntry Get(string scope, string cacheKey);
+        void Put(string scope, string cacheKey, string responseContent);
+        void Invalidate(string scope, string cacheKey);
+        void Invalidate(string scope);
     }
 }
