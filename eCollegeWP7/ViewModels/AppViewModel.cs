@@ -124,7 +124,7 @@ namespace eCollegeWP7.ViewModels
                 (_ServiceCacheGrantToken != null && !_ServiceCacheGrantToken.Equals(Client.GrantToken)))  //need a new service cache since grant token changed
             {
                 _ServiceCacheGrantToken = Client.GrantToken;
-                _ServiceCache = new IsolatedStorageResponseCache(_ServiceCacheGrantToken,TimeSpan.FromHours(1.0));
+                _ServiceCache = new IsolatedStorageResponseCache(_ServiceCacheGrantToken);
                 DoBackgroundWork(() => _ServiceCache.PurgeOldSessions());
             }
             return new ServiceCallTask<T>(Client,_ServiceCache,service);
@@ -155,7 +155,7 @@ namespace eCollegeWP7.ViewModels
 
         protected void FetchInitialUserData(Action successCallback,Action<ServiceException> failureCallback)
         {
-            var call = BuildService(new FetchMeService());
+            var call = BuildService(new FetchMeService()).SetExpiration(TimeSpan.FromDays(1.0));
             call.AddFailureHandler(failureCallback);
             call.Execute(service =>
             {

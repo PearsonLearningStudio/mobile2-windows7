@@ -26,9 +26,7 @@ namespace eCollegeWP7.Views
 
         protected override void OnReady(System.Windows.Navigation.NavigationEventArgs e)
         {
-            var cvm = new CoursesViewModel();
-            this.DataContext = cvm;
-            cvm.Load();
+            this.DataContext = App.Model.Courses;
         }
 
         private void BtnOpenCourse_Click(object sender, RoutedEventArgs e)

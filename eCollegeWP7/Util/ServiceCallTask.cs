@@ -35,6 +35,7 @@ namespace eCollegeWP7.Util
         private bool _readFromCache = true;
         private bool _writeToCache = true;
         private ECollegeResponseCache _cache;
+        private TimeSpan? _expiration = TimeSpan.FromHours(1.0);
 
         public ServiceCallTask(ECollegeClient client, ECollegeResponseCache cache, T service)
         {
@@ -52,6 +53,12 @@ namespace eCollegeWP7.Util
         public ServiceCallTask<T> MakeModal()
         {
             _isModal = true;
+            return this;
+        }
+
+        public ServiceCallTask<T> SetExpiration(TimeSpan? expiration)
+        {
+            _expiration = expiration;
             return this;
         }
 
@@ -118,7 +125,7 @@ namespace eCollegeWP7.Util
                 }
                 if (_finallyHandler != null)
                     _finallyHandler(service);
-            }, _cache, _rerunAfterCacheHit, _readFromCache, _writeToCache);
+            }, _cache, _expiration, _rerunAfterCacheHit, _readFromCache, _writeToCache);
 
             return this;
         }

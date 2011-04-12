@@ -29,7 +29,7 @@ namespace ECollegeAPI.Util
             var rawRes = hash.ComputeHash(System.Text.Encoding.UTF8.GetBytes(buffer.ToString()));
             var result = System.BitConverter.ToString(rawRes);
 
-            return result;
+            return result.Replace("-","");
         }
     }
 }
