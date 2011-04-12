@@ -128,7 +128,7 @@ namespace ECollegeAPI
 
                     if (cache != null && service.IsCacheable)
                     {
-                        var cacheKey = service.GetCacheKey(_grantToken);
+                        var cacheKey = service.GetCacheKey();
                         if (readFromCache) {
                             var cacheEntry = cache.Get(cacheKey);
                             if (cacheEntry != null)

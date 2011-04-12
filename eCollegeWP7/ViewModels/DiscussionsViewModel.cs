@@ -64,7 +64,7 @@ namespace eCollegeWP7.ViewModels
             _loadStarted = true;
 
             var courseIds = (from c in AppViewModel.Courses.MyCourses select (long)c.ID).ToList<long>();
-            App.BuildService(new FetchMyDiscussionTopicsService(courseIds)).Execute(service =>
+            App.Model.BuildService(new FetchMyDiscussionTopicsService(courseIds)).Execute(service =>
             {
                 this.TopicsByCourse = (from t in service.Result
                                        group new DiscussionViewModel(t) by t.Topic.ContainerInfo.CourseID

@@ -126,6 +126,7 @@
     <Compile Include="Services\Grades\FetchMyGradebookItemGradeService.cs" />
     <Compile Include="Util\CustomJsonDeserializer.cs" />
     <Compile Include="Util\ECollegeResponseCache.cs" />
+    <Compile Include="Util\HashUtil.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />

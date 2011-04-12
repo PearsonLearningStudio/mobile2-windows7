@@ -49,7 +49,7 @@ namespace eCollegeWP7.ViewModels
         {
             this.CourseID = courseId;
 
-            App.BuildService(new FetchAnnouncementsService(courseId)).Execute((service) =>
+            App.Model.BuildService(new FetchAnnouncementsService(courseId)).Execute((service) =>
             {
                 this.Announcements = service.Result.ToObservableCollection();
             });

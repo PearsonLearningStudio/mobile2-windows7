@@ -97,7 +97,7 @@ namespace eCollegeWP7.ViewModels
                 since = DateTime.Today.AddDays(-14.0);
             }
 
-            App.BuildService(new FetchMyWhatsHappeningFeedService(since,CourseID,_typeFilter)).Execute((service) =>
+            App.Model.BuildService(new FetchMyWhatsHappeningFeedService(since,CourseID,_typeFilter)).Execute((service) =>
             {
                 _loadingWorker = new BackgroundWorker();
                 _loadingWorker.DoWork += (s, e) =>

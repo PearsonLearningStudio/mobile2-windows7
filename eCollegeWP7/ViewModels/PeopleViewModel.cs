@@ -76,7 +76,7 @@ namespace eCollegeWP7.ViewModels
         public PeopleViewModel(long courseId)
         {
             this.CourseID = courseId;
-            App.BuildService(new FetchRosterService(courseId)).Execute((service) =>
+            App.Model.BuildService(new FetchRosterService(courseId)).Execute((service) =>
             {
                 //var sortedUsers = (from u in service.Result orderby u.LastName select u);
                 People = (from u in service.Result orderby u.LastName select u).ToList();

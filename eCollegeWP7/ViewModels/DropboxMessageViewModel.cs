@@ -49,7 +49,7 @@ namespace eCollegeWP7.ViewModels
         public DropboxMessageViewModel(long courseId, long basketId, long messageId)
         {
             this.CourseID = courseId;
-            App.BuildService(new FetchDropboxMessageService(courseId, basketId, messageId)).Execute(service =>
+            App.Model.BuildService(new FetchDropboxMessageService(courseId, basketId, messageId)).Execute(service =>
             {
                 this.Message = service.Result;
             });

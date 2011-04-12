@@ -58,7 +58,7 @@ namespace eCollegeWP7.ViewModels
             this.CourseID = courseId;
             this.Course = App.Model.Courses.CourseIdMap[courseId];
 
-            var task = App.BuildService(new FetchMyDiscussionTopicsService(new List<long>() { courseId }));
+            var task = App.Model.BuildService(new FetchMyDiscussionTopicsService(new List<long>() { courseId }));
             task.Execute((service) =>
             {
                 this.CourseTopics = (from t in service.Result select new DiscussionViewModel(t)).ToList().ToObservableCollection();

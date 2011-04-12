@@ -60,12 +60,12 @@ namespace eCollegeWP7.ViewModels
             this.CourseID = courseId;
             this.GradebookItemGuid = gradebookItemGuid;
 
-            App.BuildService(new FetchGradebookItemByGuidService(CourseID, GradebookItemGuid)).Execute(service =>
+            App.Model.BuildService(new FetchGradebookItemByGuidService(CourseID, GradebookItemGuid)).Execute(service =>
             {
                 this.GradebookItem = service.Result;
             });
 
-            App.BuildService(new FetchMyGradebookItemGradeService(CourseID, GradebookItemGuid)).Execute(service =>
+            App.Model.BuildService(new FetchMyGradebookItemGradeService(CourseID, GradebookItemGuid)).Execute(service =>
             {
                 this.Grade = service.Result;
             });

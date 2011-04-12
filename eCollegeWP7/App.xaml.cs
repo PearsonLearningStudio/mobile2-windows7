@@ -42,26 +42,6 @@ namespace eCollegeWP7
             }
         }
 
-        public static ServiceCallTask<T> BuildService<T>(T service) where T : BaseService
-        {
-            return new ServiceCallTask<T>(Model.Client,service);
-        }
-
-        public static void InvalidateCache<T>(T service) where T : BaseService
-        {
-            DoBackgroundWork(() =>
-                                 {
-                                     App.Model.ServiceCache.Invalidate(service.GetCacheKey(Model.Client.GrantToken));
-                                 });
-        }
-
-        protected static void DoBackgroundWork(Action work)
-        {
-            var worker = new BackgroundWorker();
-            worker.DoWork += (s, e) => work();
-            worker.RunWorkerAsync();
-        }
-
         /// <summary>
         /// Constructor for the Application object.
         /// </summary>

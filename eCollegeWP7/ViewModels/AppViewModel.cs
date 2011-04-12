@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,6 +16,7 @@ using System.Diagnostics;
 using System.Collections.ObjectModel;
 using System.Collections;
 using System.Collections.Generic;
+using ECollegeAPI.Services;
 using ECollegeAPI.Services.Users;
 using RestSharp;
 using ECollegeAPI.Exceptions;
@@ -44,13 +46,14 @@ namespace eCollegeWP7.ViewModels
 
         public ECollegeClient Client { get; set; }
 
-        public IsolatedStorageResponseCache ServiceCache { get; set; }
+        private string _ServiceCacheGrantToken;
+        private IsolatedStorageResponseCache _ServiceCache;
+
 
         public AppViewModel()
         {
             Client = new ECollegeClient(AppResources.ClientString, AppResources.ClientID);
             Client.UnhandledExceptionHandler = (ex) => HandleError(ex);
-            ServiceCache = new IsolatedStorageResponseCache(TimeSpan.FromHours(1.0));
         }
 
         public void HandleError(Exception ex)
@@ -115,9 +118,36 @@ namespace eCollegeWP7.ViewModels
             state["Courses"] = Courses;
         }
 
+        public ServiceCallTask<T> BuildService<T>(T service) where T : BaseService
+        {
+            if ((_ServiceCacheGrantToken == null && Client.GrantToken != null) ||   //service cache not yet created for grant token
+                (_ServiceCacheGrantToken != null && !_ServiceCacheGrantToken.Equals(Client.GrantToken)))  //need a new service cache since grant token changed
+            {
+                _ServiceCacheGrantToken = Client.GrantToken;
+                _ServiceCache = new IsolatedStorageResponseCache(_ServiceCacheGrantToken,TimeSpan.FromHours(1.0));
+                DoBackgroundWork(() => _ServiceCache.PurgeOldSessions());
+            }
+            return new ServiceCallTask<T>(Client,_ServiceCache,service);
+        }
+
+        public void DoBackgroundWork(Action work)
+        {
+            var worker = new BackgroundWorker();
+            worker.DoWork += (s, e) => work();
+            worker.RunWorkerAsync();
+        }
+
+        public void InvalidateCache<T>(T service) where T : BaseService
+        {
+            if (_ServiceCache != null)
+            {
+                DoBackgroundWork(() => _ServiceCache.Invalidate(service.GetCacheKey()));
+            }
+        }
+
         protected void FetchInitialUserData(Action successCallback,Action<ServiceException> failureCallback)
         {
-            var call = App.BuildService(new FetchMeService());
+            var call = BuildService(new FetchMeService());
             call.AddFailureHandler(failureCallback);
             call.Execute(service =>
             {

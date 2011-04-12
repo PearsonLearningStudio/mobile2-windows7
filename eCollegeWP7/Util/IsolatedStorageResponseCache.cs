@@ -20,33 +20,73 @@ namespace eCollegeWP7.Util
 {
     public class IsolatedStorageResponseCache : ECollegeResponseCache
     {
-        private IsolatedStorageFile storage;
-        private TimeSpan expiresIn;
+        private IsolatedStorageFile _storage;
+        private TimeSpan _expiresIn;
+        private string _sessionKey;
 
-        public IsolatedStorageResponseCache(TimeSpan expiresIn)
+        public IsolatedStorageResponseCache(string session, TimeSpan expiresIn)
         {
-            this.expiresIn = expiresIn;
-            storage = IsolatedStorageFile.GetUserStoreForApplication();
-            if (!storage.DirectoryExists("Cache"))
+            this._expiresIn = expiresIn;
+            if (session == null) throw new ArgumentNullException("session");
+            this._sessionKey = HashUtil.ToSHA1(session);
+
+            //create cache dir
+            _storage = IsolatedStorageFile.GetUserStoreForApplication();
+            if (!_storage.DirectoryExists("Cache"))
             {
-                storage.CreateDirectory("Cache");
+                _storage.CreateDirectory("Cache");
+            }
+
+            //create session dir
+            string thisSessionDirectory = string.Format("Cache\\{0}", _sessionKey);
+            if (!_storage.DirectoryExists(thisSessionDirectory))
+            {
+                _storage.CreateDirectory(thisSessionDirectory);
             }
         }
-        
+
+        public void PurgeOldSessions() {
+            string[] otherSessionKeys = _storage.GetDirectoryNames("Cache\\*");
+            foreach (string otherSessionKey in otherSessionKeys)
+            {
+                if (!_sessionKey.Equals(otherSessionKey))
+                {
+                    RecursiveDeleteDirectory(string.Format("Cache\\{0}",otherSessionKey));
+                }
+            }
+        }
+
+        protected void RecursiveDeleteDirectory(string dirToDelete)
+        {
+            string dirToDeleteTrailingSlash = string.Format("{0}\\", dirToDelete);
+
+            var files = _storage.GetFileNames(dirToDeleteTrailingSlash);
+            foreach (var file in files)
+            {
+                _storage.DeleteFile(string.Format("{0}\\{1}",dirToDelete,file));
+            }
+            var directories = _storage.GetDirectoryNames(dirToDeleteTrailingSlash);
+            foreach (var directory in directories)
+            {
+                RecursiveDeleteDirectory(string.Format("{0}\\{1}", dirToDelete, directory));
+            }
+            _storage.DeleteDirectory(dirToDelete);
+        }
+
         protected string GetFileGlobForCacheKey(string cacheKey)
         {
-            return string.Format("Cache\\{0}\\*.cache", cacheKey);
+            return string.Format("Cache\\{0}\\{1}\\*.cache", _sessionKey,cacheKey);
         }
 
         protected string GetFileForCacheKey(string cacheKey)
         {
-            DateTime expiration = DateTime.UtcNow + expiresIn;
-            return string.Format("Cache\\{0}\\{1}.cache",cacheKey,expiration.ToFileTimeUtc());
+            DateTime expiration = DateTime.UtcNow + _expiresIn;
+            return string.Format("Cache\\{0}\\{1}\\{2}.cache",_sessionKey,cacheKey,expiration.ToFileTimeUtc());
         }
 
         protected string GetDirectoryForCacheKey(string cacheKey)
         {
-            return string.Format("Cache\\{0}", cacheKey);
+            return string.Format("Cache\\{0}\\{1}", _sessionKey,cacheKey);
         }
 
         public ECollegeResponseCacheEntry Get(string cacheKey)
@@ -57,10 +97,10 @@ namespace eCollegeWP7.Util
 
             lock (dirPath)
             {
-                if (storage.DirectoryExists(dirPath))
+                if (_storage.DirectoryExists(dirPath))
                 {
 
-                    string existingCacheFileName = storage.GetFileNames(GetFileGlobForCacheKey(cacheKey)).FirstOrDefault();
+                    string existingCacheFileName = _storage.GetFileNames(GetFileGlobForCacheKey(cacheKey)).FirstOrDefault();
 
                     if (existingCacheFileName != null)
                     {
@@ -71,7 +111,7 @@ namespace eCollegeWP7.Util
 
                         if (expirationDate >= DateTime.UtcNow)
                         {
-                            using (var f = new IsolatedStorageFileStream(existingCacheFilePath, FileMode.Open, FileAccess.Read, storage))
+                            using (var f = new IsolatedStorageFileStream(existingCacheFilePath, FileMode.Open, FileAccess.Read, _storage))
                             {
                                 using (var sr = new StreamReader(f))
                                 {
@@ -82,12 +122,12 @@ namespace eCollegeWP7.Util
                             }
                         } else
                         {
-                            storage.DeleteFile(existingCacheFilePath);
-                            storage.DeleteDirectory(dirPath);
+                            _storage.DeleteFile(existingCacheFilePath);
+                            _storage.DeleteDirectory(dirPath);
                         }
                     } else
                     {
-                        storage.DeleteDirectory(dirPath);
+                        _storage.DeleteDirectory(dirPath);
                     }
                 }
             }
@@ -102,20 +142,20 @@ namespace eCollegeWP7.Util
 
             lock (dirPath)
             {
-                if (storage.DirectoryExists(dirPath))
+                if (_storage.DirectoryExists(dirPath))
                 {
-                    string existingCacheFilePath = storage.GetFileNames(GetFileGlobForCacheKey(cacheKey)).FirstOrDefault();
+                    string existingCacheFilePath = _storage.GetFileNames(GetFileGlobForCacheKey(cacheKey)).FirstOrDefault();
                     if (existingCacheFilePath != null)
                     {
-                        storage.DeleteFile(existingCacheFilePath);
+                        _storage.DeleteFile(existingCacheFilePath);
                     }
                 } else
                 {
-                    storage.CreateDirectory(dirPath);
+                    _storage.CreateDirectory(dirPath);
                 }
 
                 string cacheFilePath = GetFileForCacheKey(cacheKey);
-                using (var f = new IsolatedStorageFileStream(cacheFilePath, FileMode.Create, FileAccess.Write, storage))
+                using (var f = new IsolatedStorageFileStream(cacheFilePath, FileMode.Create, FileAccess.Write, _storage))
                 {
                     using (var sw = new StreamWriter(f))
                     {
@@ -131,20 +171,20 @@ namespace eCollegeWP7.Util
 
             lock (dirPath)
             {
-                if (storage.DirectoryExists(dirPath))
+                if (_storage.DirectoryExists(dirPath))
                 {
-                    string existingCacheFileName = storage.GetFileNames(GetFileGlobForCacheKey(cacheKey)).FirstOrDefault();
+                    string existingCacheFileName = _storage.GetFileNames(GetFileGlobForCacheKey(cacheKey)).FirstOrDefault();
 
                     if (existingCacheFileName != null)
                     {
                         var existingCacheFilePath = string.Format("{0}\\{1}", dirPath, existingCacheFileName);
 
-                        storage.DeleteFile(existingCacheFilePath);
-                        storage.DeleteDirectory(dirPath);
+                        _storage.DeleteFile(existingCacheFilePath);
+                        _storage.DeleteDirectory(dirPath);
                     }
                     else
                     {
-                        storage.DeleteDirectory(dirPath);
+                        _storage.DeleteDirectory(dirPath);
                     }
                 }
             }

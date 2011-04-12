@@ -12,6 +12,7 @@ using System.Windows.Shapes;
 using ECollegeAPI.Exceptions;
 using ECollegeAPI.Services;
 using ECollegeAPI;
+using ECollegeAPI.Util;
 using RestSharp;
 
 namespace eCollegeWP7.Util
@@ -32,9 +33,11 @@ namespace eCollegeWP7.Util
         private Action<T> _finallyHandler;
         private bool _readFromCache = true;
         private bool _writeToCache = true;
+        private ECollegeResponseCache _cache;
 
-        public ServiceCallTask(ECollegeClient client, T service)
+        public ServiceCallTask(ECollegeClient client, ECollegeResponseCache cache, T service)
         {
+            this._cache = cache;
             this._client = client;
             this._service = service;
         }
@@ -108,7 +111,7 @@ namespace eCollegeWP7.Util
                 }
                 if (_finallyHandler != null)
                     _finallyHandler(service);
-            }, App.Model.ServiceCache, _readFromCache, _writeToCache);
+            }, _cache, _readFromCache, _writeToCache);
 
             return this;
         }

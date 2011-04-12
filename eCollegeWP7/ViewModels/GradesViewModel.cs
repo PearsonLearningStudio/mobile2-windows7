@@ -50,7 +50,7 @@ namespace eCollegeWP7.ViewModels
         {
             this.CourseID = courseId;
 
-            App.BuildService(new FetchMyUserGradebookItemsService(courseId)).Execute((service) =>
+            App.Model.BuildService(new FetchMyUserGradebookItemsService(courseId)).Execute((service) =>
             {
                 this.UserGrades = service.Result.ToObservableCollection();
             });

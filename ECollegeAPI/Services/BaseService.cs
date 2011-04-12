@@ -32,20 +32,9 @@ namespace ECollegeAPI.Services
             RequestMethod = Method.GET;
         }
 
-        public virtual string GetCacheKey(string grantToken)
+        public virtual string GetCacheKey()
         {
-            SHA1 hash = new SHA1Managed();
-
-            var buffer = new StringBuilder();
-            buffer.Append(Resource);
-            buffer.Append(RequestMethod.GetType().ToString());
-            buffer.Append(grantToken);
-            buffer.Append(CACHE_VERSION);
-
-            var rawRes = hash.ComputeHash(System.Text.Encoding.UTF8.GetBytes(buffer.ToString()));
-            var result = System.BitConverter.ToString(rawRes);
-
-            return result;
+            return HashUtil.ToSHA1(Resource, RequestMethod.GetType().ToString(), CACHE_VERSION);
         }
 
         public virtual void PrepareRequest(RestRequest req)

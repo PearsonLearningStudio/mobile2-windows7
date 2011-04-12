@@ -240,7 +240,7 @@ namespace eCollegeWP7.ViewModels
                 this.TopicID = discussionId;
                 this.UserTopicID = AppViewModel.CurrentUser.ID + "-" + this.TopicID;
 
-                App.BuildService(new FetchMyDiscussionTopicByIdService(UserTopicID)).Execute(service =>
+                App.Model.BuildService(new FetchMyDiscussionTopicByIdService(UserTopicID)).Execute(service =>
                 {
                     SetupFromTopic(service.Result);
                 });
@@ -251,7 +251,7 @@ namespace eCollegeWP7.ViewModels
                 this.ResponseID = discussionId;
                 this.UserResponseID = AppViewModel.CurrentUser.ID + "-" + this.ResponseID;
 
-                App.BuildService(new FetchMyDiscussionResponseByIdService(UserResponseID)).Execute(service =>
+                App.Model.BuildService(new FetchMyDiscussionResponseByIdService(UserResponseID)).Execute(service =>
                 {
                     SetupFromResponse(service.Result);
                     this.MarkAsRead();
@@ -263,25 +263,25 @@ namespace eCollegeWP7.ViewModels
         {
             if (CurrentDiscussionType == DiscussionType.TopicAndResponses)
             {
-                App.BuildService(new PostMyResponseToTopicService(this.TopicID, responseTitle, responseText)).
+                App.Model.BuildService(new PostMyResponseToTopicService(this.TopicID, responseTitle, responseText)).
                     Execute(service =>
                     {
                         this.UserTopic.ChildResponseCounts.Last24HourResponseCount++;
                         this.UserTopic.ChildResponseCounts.PersonalResponseCount++;
                         this.UserTopic.ChildResponseCounts.TotalResponseCount++;
-                        App.InvalidateCache(new FetchMyDiscussionTopicByIdService(UserTopicID));
+                        App.Model.InvalidateCache(new FetchMyDiscussionTopicByIdService(UserTopicID));
                         FetchResponses(true);
                     });
             }
             else if (CurrentDiscussionType == DiscussionType.ResponseAndResponses)
             {
-                App.BuildService(new PostMyResponseToResponseService(this.ResponseID, responseTitle, responseText)).
+                App.Model.BuildService(new PostMyResponseToResponseService(this.ResponseID, responseTitle, responseText)).
                     Execute(service =>
                     {
                         this.UserResponse.ChildResponseCounts.Last24HourResponseCount++;
                         this.UserResponse.ChildResponseCounts.PersonalResponseCount++;
                         this.UserResponse.ChildResponseCounts.TotalResponseCount++;
-                        App.InvalidateCache(new FetchMyDiscussionResponseByIdService(UserResponseID));
+                        App.Model.InvalidateCache(new FetchMyDiscussionResponseByIdService(UserResponseID));
                         FetchResponses(true);
                     });
             }
@@ -291,10 +291,10 @@ namespace eCollegeWP7.ViewModels
         {
             if (CurrentDiscussionType == DiscussionType.ResponseAndResponses && UserResponse.MarkedAsRead != true)
             {
-                App.BuildService(new UpdateResponseReadStatusService(ResponseID, true)).Execute(service =>
+                App.Model.BuildService(new UpdateResponseReadStatusService(ResponseID, true)).Execute(service =>
                 {
                     UserResponse.MarkedAsRead = true;
-                    App.InvalidateCache(new FetchMyDiscussionResponseByIdService(UserResponseID));
+                    App.Model.InvalidateCache(new FetchMyDiscussionResponseByIdService(UserResponseID));
                 });
             }
         }
@@ -308,7 +308,7 @@ namespace eCollegeWP7.ViewModels
         {
             if (CurrentDiscussionType == DiscussionType.TopicAndResponses)
             {
-                var call = App.BuildService(new FetchMyDiscussionResponsesByTopicService(TopicID));
+                var call = App.Model.BuildService(new FetchMyDiscussionResponsesByTopicService(TopicID));
                 if (ignoreCache) call.NoCacheRead();
 
                 call.Execute(service =>
@@ -321,7 +321,7 @@ namespace eCollegeWP7.ViewModels
             }
             else if (CurrentDiscussionType == DiscussionType.ResponseAndResponses)
             {
-                var call = App.BuildService(new FetchMyDiscussionResponsesByResponseService(ResponseID));
+                var call = App.Model.BuildService(new FetchMyDiscussionResponsesByResponseService(ResponseID));
                 if (ignoreCache) call.NoCacheRead();
 
                 call.Execute(service =>

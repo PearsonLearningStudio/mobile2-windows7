@@ -64,7 +64,7 @@ namespace eCollegeWP7.ViewModels
             this.CourseID = courseId;
             this.Course = App.Model.Courses.CourseIdMap[courseId];
 
-            App.BuildService(new FetchInstructorsForCourseService(courseId)).Execute(service =>
+            App.Model.BuildService(new FetchInstructorsForCourseService(courseId)).Execute(service =>
             {
                 this.Instructors = service.Result.ToObservableCollection();
             });

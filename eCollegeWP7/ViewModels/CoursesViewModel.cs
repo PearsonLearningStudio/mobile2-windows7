@@ -57,7 +57,7 @@ namespace eCollegeWP7.ViewModels
 
         public void Load(Action successCallback)
         {
-            App.BuildService(new FetchMyCurrentCoursesService()).Execute(service =>
+            App.Model.BuildService(new FetchMyCurrentCoursesService()).Execute(service =>
             {
                 var oc = new ObservableCollection<Course>();
                 foreach (var c in service.Result)
