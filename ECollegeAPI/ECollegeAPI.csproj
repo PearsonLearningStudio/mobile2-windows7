@@ -41,10 +41,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json.Silverlight">
-      <HintPath>..\eCollegeWP7\Newtonsoft.Json.Silverlight.dll</HintPath>
+    <Reference Include="Newtonsoft.Json.WindowsPhone">
+      <HintPath>..\eCollegeWP7\Newtonsoft.Json.WindowsPhone.dll</HintPath>
     </Reference>
-    <Reference Include="RestSharp.WindowsPhone">
+    <Reference Include="RestSharp.WindowsPhone, Version=101.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\eCollegeWP7\RestSharp.WindowsPhone.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows" />

@@ -146,6 +146,7 @@ namespace ECollegeAPI
                     var client = new RestClient(RootUri);
                     client.FollowRedirects = true;
                     client.MaxRedirects = 10;
+                    client.EnsureCallbacksOnUI = false;
 
                     if (AuthenticateIfRequired(service, failureCallback, finallyCallback, successCallback)) return;
 
@@ -159,7 +160,7 @@ namespace ECollegeAPI
 #endif
                     client.ExecuteAsync(request, (response) =>
                     {
-                        DoBackgroundWork(() => HandleResponse(response, service, failureCallback, finallyCallback, successCallback, cacheCallback));
+                        HandleResponse(response, service, failureCallback, finallyCallback, successCallback, cacheCallback);
                     });
                 
                 } catch (Exception e)

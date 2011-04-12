@@ -111,7 +111,7 @@ namespace ECollegeAPI.Util
                 if (value == null)
                 {
                     // try camel cased name
-                    actualName = name.ToCamelCase();
+                    actualName = name.ToCamelCase(CultureInfo.InvariantCulture);
                     value = json[actualName];
                 }
 
@@ -210,7 +210,7 @@ namespace ECollegeAPI.Util
                     else
                     {
                         // try parsing instead
-                        dt = value.ToString().ParseJsonDate();
+                        dt = value.ToString().ParseJsonDate(CultureInfo.InvariantCulture);
                     }
 
                     prop.SetValue(x, dt, null);
