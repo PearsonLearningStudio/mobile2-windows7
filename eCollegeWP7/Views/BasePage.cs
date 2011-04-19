@@ -52,7 +52,7 @@ namespace eCollegeWP7.Views
             this.BackKeyPress += new EventHandler<System.ComponentModel.CancelEventArgs>(BasePageNew_BackKeyPress);
         }
 
-        void BasePageNew_BackKeyPress(object sender, System.ComponentModel.CancelEventArgs e)
+        protected virtual void BasePageNew_BackKeyPress(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (CloseOnBackButton)
             {

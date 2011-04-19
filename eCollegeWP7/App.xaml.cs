@@ -86,7 +86,7 @@ namespace eCollegeWP7
                 settings.Remove("grantToken");
                 settings.Save();
                 _Model = new AppViewModel();
-                RootFrame.Navigate(new Uri("/Views/LoginPage.xaml", UriKind.Relative));
+                RootFrame.Navigate(new Uri("/Views/SplashPage.xaml", UriKind.Relative));
             }
         }
 

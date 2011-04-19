@@ -108,6 +108,7 @@
     <Compile Include="Util\MultiBinding\IMultiValueConverter.cs" />
     <Compile Include="Util\MultiBinding\MultiBinding.cs" />
     <Compile Include="Util\MultiBinding\MultiBindings.cs" />
+    <Compile Include="Util\QueryStringHelper.cs" />
     <Compile Include="Util\RelativeAnimatingContentControl.cs" />
     <Compile Include="Util\ServiceCallTask.cs" />
     <Compile Include="Util\TreeHelperExtensions.cs" />
@@ -133,6 +134,9 @@
     </Compile>
     <Compile Include="Views\Controls\WatermarkTextBox.xaml.cs">
       <DependentUpon>WatermarkTextBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SingleSignonPage.xaml.cs">
+      <DependentUpon>SingleSignonPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PersonPage.xaml.cs">
       <DependentUpon>PersonPage.xaml</DependentUpon>
@@ -221,6 +225,10 @@
     <Page Include="Views\Controls\WatermarkTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SingleSignonPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\PersonPage.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -357,6 +365,7 @@
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

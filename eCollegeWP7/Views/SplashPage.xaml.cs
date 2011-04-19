@@ -35,7 +35,14 @@ namespace eCollegeWP7.Views
             }
             else
             {
-                this.NavigationService.Navigate(new Uri("/Views/LoginPage.xaml", UriKind.Relative));
+                if (AppResources.UseSSO.Equals("true"))
+                {
+                    this.NavigationService.Navigate(new Uri("/Views/SingleSignonPage.xaml", UriKind.Relative));
+                } else
+                {
+                    this.NavigationService.Navigate(new Uri("/Views/LoginPage.xaml", UriKind.Relative));
+                }
+
             }
         }
     }

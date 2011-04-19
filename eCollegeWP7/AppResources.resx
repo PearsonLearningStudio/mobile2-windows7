@@ -135,4 +135,10 @@
   <data name="SignoutPromptTitle" xml:space="preserve">
     <value>Sign Out</value>
   </data>
+  <data name="SSOUrl" xml:space="preserve">
+    <value>http://ecollegessodemo.heroku.com/</value>
+  </data>
+  <data name="UseSSO" xml:space="preserve">
+    <value>true</value>
+  </data>
 </root>
