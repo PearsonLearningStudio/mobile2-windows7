@@ -139,6 +139,6 @@
     <value>http://ecollegessodemo.heroku.com/</value>
   </data>
   <data name="UseSSO" xml:space="preserve">
-    <value>true</value>
+    <value>false</value>
   </data>
 </root>

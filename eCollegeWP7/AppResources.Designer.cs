@@ -124,7 +124,7 @@ namespace eCollegeWP7 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to true.
+        ///   Looks up a localized string similar to false.
         /// </summary>
         public static string UseSSO {
             get {
