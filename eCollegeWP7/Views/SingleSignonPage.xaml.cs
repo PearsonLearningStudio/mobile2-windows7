@@ -34,7 +34,13 @@ namespace eCollegeWP7.Views
             WebSingleSignon.IsScriptEnabled = true;
             WebSingleSignon.Navigating += new EventHandler<NavigatingEventArgs>(WebSingleSignon_Navigating);
             WebSingleSignon.Navigated += new EventHandler<System.Windows.Navigation.NavigationEventArgs>(WebSingleSignon_Navigated);
+            WebSingleSignon.LoadCompleted += new System.Windows.Navigation.LoadCompletedEventHandler(WebSingleSignon_LoadCompleted);
             WebSingleSignon.Source = new Uri(url, UriKind.Absolute);
+        }
+
+        void WebSingleSignon_LoadCompleted(object sender, System.Windows.Navigation.NavigationEventArgs e)
+        {
+            App.Model.PendingServiceCalls = 0;
         }
 
         void WebSingleSignon_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
@@ -48,6 +54,8 @@ namespace eCollegeWP7.Views
 
         void WebSingleSignon_Navigating(object sender, NavigatingEventArgs e)
         {
+            App.Model.PendingServiceCalls++;
+
             if (e.Uri.ToString().StartsWith(RedirectUrl))
             {
                 var queryParams = QueryStringHelper.ParseQueryString(e.Uri.Query);
@@ -55,6 +63,7 @@ namespace eCollegeWP7.Views
                 if (queryParams.TryGetValue("grant_token", out grantToken))
                 {
                     e.Cancel = true;
+                    App.Model.PendingServiceCalls = 0;
                     var settings = IsolatedStorageSettings.ApplicationSettings;
                     //grantToken = HttpUtility.UrlDecode(grantToken);
                     //grantToken = grantToken.Replace("%7", "|");
