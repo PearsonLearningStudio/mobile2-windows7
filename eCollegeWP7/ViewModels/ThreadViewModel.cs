@@ -37,15 +37,15 @@ namespace eCollegeWP7.ViewModels
             get { return AppViewModel.Courses.CourseIdMap[CourseID]; }
         }
 
-        private DiscussionThread _Thread;
-        public DiscussionThread Thread
+        private string _ThreadTitle;
+        public string ThreadTitle
         {
-            get { return _Thread; }
-            set { _Thread = value; this.OnPropertyChanged(() => this.Thread); }
+            get { return _ThreadTitle; }
+            set { _ThreadTitle = value; this.OnPropertyChanged(() => this.ThreadTitle); }
         }
 
-        private List<DiscussionThreadTopic> _ThreadTopics;
-        public List<DiscussionThreadTopic> ThreadTopics
+        private ObservableCollection<GroupedObservableCollection<DiscussionViewModel>> _ThreadTopics;
+        public ObservableCollection<GroupedObservableCollection<DiscussionViewModel>> ThreadTopics
         {
             get { return _ThreadTopics; }
             set { _ThreadTopics = value; this.OnPropertyChanged(() => this.ThreadTopics); }
@@ -57,10 +57,19 @@ namespace eCollegeWP7.ViewModels
             this.CourseID = courseId;
             App.Model.BuildService(new FetchDiscussionTopicsByThreadIdService(courseId,threadId)).Execute((service) =>
             {
-                ThreadTopics = service.Result;
+                foreach (var t in service.Result)
+                {
+                    if (t.Topic.ContainerInfo.ContentItemTitle != null)
+                    {
+                        ThreadTitle = t.Topic.ContainerInfo.ContentItemTitle;
+                        break;
+                    }
+                }
+
+                ThreadTopics = (from t in service.Result select new DiscussionViewModel(t)).ToList().ToSingleGroupedObservableCollection();
             });
-            App.Model.BuildService(new FetchDiscussionThreadByIdService(courseId, threadId)).Execute(
-                (service) => Thread = service.Result);
+            //App.Model.BuildService(new FetchDiscussionThreadByIdService(courseId, threadId)).Execute(
+            //    (service) => Thread = service.Result);
         }
 
     }

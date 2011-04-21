@@ -37,11 +37,8 @@ namespace eCollegeWP7.Views
             this.DataContext = new ThreadViewModel(courseId,threadId);
         }
 
-        private void BtnOpenTopic_Click(object sender, RoutedEventArgs e)
+        private void BtnDiscussion_Click(object sender, RoutedEventArgs e)
         {
-
         }
-
-
     }
 }

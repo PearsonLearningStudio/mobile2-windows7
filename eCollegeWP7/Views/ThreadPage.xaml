@@ -26,51 +26,62 @@
             <c:DynamicTextBlock Text="{Binding Path=Course.Title}" HorizontalAlignment="Left"
                                 TextStyle="{StaticResource PhoneTextNormalStyle}"
                                 Margin="0,0,0,0"/>
-            <TextBlock x:Name="PageTitle" Text="thread" Margin="9,-7,0,0" Foreground="{StaticResource PhoneAccentBrush}" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock x:Name="PageTitle" Text="thread topics" Margin="9,-7,0,0" Foreground="{StaticResource PhoneAccentBrush}" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock Text="{Binding Path=ThreadTitle}" HorizontalAlignment="Left" TextWrapping="Wrap"
+                       Style="{StaticResource PhoneTextTitle2Style}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <ListBox Grid.Row="2" ItemsSource="{Binding Path=ThreadTopics}" ItemContainerStyle="{StaticResource StretchedContainerStyle}">
-                <ListBox.Template>
-                    <ControlTemplate TargetType="ListBox">
-                        <ScrollViewer x:Name="ScrollViewer" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Foreground="{TemplateBinding Foreground}" Padding="{TemplateBinding Padding}">
-                            <StackPanel>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-
-                                    <Button Margin="0,9,0,0" VerticalAlignment="Top" Template="{StaticResource IconDiscussionsNoResponses}"/>
-
-                                    <TextBlock Grid.Column="1" 
-                                            Text="{Binding Path=Thread.IntroductoryText}" HorizontalAlignment="Left" TextWrapping="Wrap"
-                                            Style="{StaticResource PhoneTextTitle2Style}"/>
-                                </Grid>
-                                <TextBlock Text="TOPICS"  FontSize="18" />
-                                <ItemsPresenter/>
-                            </StackPanel>
-                        </ScrollViewer>
-                    </ControlTemplate>
-                </ListBox.Template>
-
-
-                <ListBox.ItemTemplate>
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="21,0,12,0">
+            <toolkit:LongListSelector Background="Transparent" ItemsSource="{Binding ThreadTopics}" Grid.Row="1">
+                <toolkit:LongListSelector.ItemTemplate>
                     <DataTemplate>
-                        <Button x:Name="BtnOpenTopic" Click="BtnOpenTopic_Click">
+                        <Button Click="BtnDiscussion_Click">
                             <Button.Template>
                                 <ControlTemplate>
-                                    <StackPanel Margin="0,0,0,10">
-                                        <TextBlock Text="{Binding Path=Title,Converter={StaticResource HtmlToTextConverter}}" Style="{StaticResource PhoneTextTitle2Style}"/>
-                                        <TextBlock Text="{Binding Path=Description,Converter={StaticResource HtmlToTextConverter}}" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                                    </StackPanel>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Button Grid.RowSpan="2" VerticalAlignment="Top" Margin="0,9,0,0" Template="{Binding Path=IconTemplate, Converter={StaticResource AppResourceConverter}}"/>
+                                        <c:DynamicTextBlock Grid.Column="1" 
+                                                    Text="{Binding Path=DiscussionTitle}" HorizontalAlignment="Left"
+                                                    TextStyle="{StaticResource PhoneTextTitle2Style}"/>
+                                        <c:DynamicTextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Left" 
+                                                    TextStyle="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" MaxHeight="70" 
+                                                    Text="{Binding Path=TotalResponsesLine}"/>
+                                        <TextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" HorizontalAlignment="Left"
+                                                    Style="{StaticResource PhoneTextSmallStyle}" 
+                                                    Text="{Binding Path=MyResponsesLine}"/>
+
+
+                                        <StackPanel Grid.Column="2" Grid.RowSpan="3" Margin="5" VerticalAlignment="Top" HorizontalAlignment="Right">
+                                            <TextBlock Style="{StaticResource PhoneTextNormalStyle}" HorizontalAlignment="Right"
+                                                        Visibility="{Binding DiscussionDate, Converter={StaticResource NotNullToVisibilityConverter}}"
+                                                        Text="{Binding Path=DiscussionDate, Converter={StaticResource FriendlyDateConverter}}" />
+                                            <TextBlock HorizontalAlignment="Right" Margin="0,0,10,0"
+                                                        FontFamily="{StaticResource PhoneFontFamilyLight}"
+                                                        FontSize="{StaticResource PhoneFontSizeExtraLarge}"
+                                                        Foreground="{StaticResource PhoneSubtleBrush}"
+                                                        Visibility="{Binding Path=UnreadResponseCount, Converter={StaticResource NonZeroVisibilityConverter}}"
+                                                        Text="{Binding Path=UnreadResponseCount}" />
+                                        </StackPanel>
+
+                                    </Grid>
                                 </ControlTemplate>
                             </Button.Template>
                         </Button>
+
                     </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+                </toolkit:LongListSelector.ItemTemplate>
+            </toolkit:LongListSelector>
         </Grid>
     </Grid>
 
