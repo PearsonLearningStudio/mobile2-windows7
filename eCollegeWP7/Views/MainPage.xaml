@@ -84,8 +84,27 @@
             </controls:PanoramaItem>
 
             <controls:PanoramaItem x:Name="PanUpcoming" Header="upcoming">
+                <controls:PanoramaItem.DataContext>
+                    <vm:ScratchThreadsViewModel/>
+                </controls:PanoramaItem.DataContext>
                 <Grid>
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Waiting for API"/>
+                    <ItemsControl Margin="70,10,0,0" ItemsSource="{Binding Path=ThreadLinks}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <HyperlinkButton Click="HyperlinkButton_Click">
+                                    <HyperlinkButton.Template>
+                                        <ControlTemplate>
+                                            <StackPanel Orientation="Horizontal" Margin="10" Background="Transparent">
+                                                <Button Margin="0,5,5,0" VerticalAlignment="Center" Template="{Binding IconTemplate, Converter={StaticResource AppResourceConverter}}"/>
+                                                <TextBlock VerticalAlignment="Center"
+                                                       Text="{Binding Path=Title}" Style="{StaticResource PhoneTextTitle2Style}"/>
+                                            </StackPanel>
+                                        </ControlTemplate>
+                                    </HyperlinkButton.Template>
+                                </HyperlinkButton>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </Grid>
             </controls:PanoramaItem>
 

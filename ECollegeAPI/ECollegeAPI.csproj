@@ -80,6 +80,8 @@
     <Compile Include="Model\Boilerplate\TopicLink.cs" />
     <Compile Include="Model\Boilerplate\UserLink.cs" />
     <Compile Include="Model\ContainerInfo.cs" />
+    <Compile Include="Model\DiscussionThread.cs" />
+    <Compile Include="Model\DiscussionThreadTopic.cs" />
     <Compile Include="Model\RosterUser.cs" />
     <Compile Include="Model\UserGradebookItem.cs" />
     <Compile Include="Model\Course.cs" />
@@ -106,6 +108,8 @@
     <Compile Include="Services\Courses\FetchInstructorsForCourseService.cs" />
     <Compile Include="Services\Courses\FetchMyCoursesService.cs" />
     <Compile Include="Services\Courses\FetchMyCurrentCoursesService.cs" />
+    <Compile Include="Services\Discussions\FetchDiscussionThreadByIdService.cs" />
+    <Compile Include="Services\Discussions\FetchDiscussionTopicsByThreadIdService.cs" />
     <Compile Include="Services\Discussions\UpdateResponseReadStatusService.cs" />
     <Compile Include="Services\Discussions\FetchMyDiscussionResponseByIdService.cs" />
     <Compile Include="Services\Discussions\FetchMyDiscussionResponsesByResponseService.cs" />

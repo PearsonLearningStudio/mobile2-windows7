@@ -15,6 +15,7 @@ using System.Collections.ObjectModel;
 using ECollegeAPI.Model;
 using eCollegeWP7.Util;
 using ECollegeAPI.Services.Courses;
+using eCollegeWP7.Util.Converters;
 
 namespace eCollegeWP7.ViewModels
 {
@@ -62,6 +63,7 @@ namespace eCollegeWP7.ViewModels
                 var oc = new ObservableCollection<Course>();
                 foreach (var c in service.Result)
                 {
+                    c.Title = HtmlToTextConverter.StripHtml(c.Title); //don't need html in title
                     oc.Add(c);
                     CourseIdMap[c.ID] = c;
                 }

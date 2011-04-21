@@ -1,0 +1,90 @@
+﻿<v:BasePage 
+    x:Class="eCollegeWP7.Views.ThreadPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:v="clr-namespace:eCollegeWP7.Views" xmlns:c="clr-namespace:eCollegeWP7.Views.Controls" xmlns:mb="clr-namespace:eCollegeWP7.Util.MultiBinding" FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480">
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="{StaticResource DefaultPageBackground}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel contains the name of the application and page title-->
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,5">
+            <Rectangle Height="{StaticResource PhoneTop}"/>
+            <c:DynamicTextBlock Text="{Binding Path=Course.Title}" HorizontalAlignment="Left"
+                                TextStyle="{StaticResource PhoneTextNormalStyle}"
+                                Margin="0,0,0,0"/>
+            <TextBlock x:Name="PageTitle" Text="thread" Margin="9,-7,0,0" Foreground="{StaticResource PhoneAccentBrush}" Style="{StaticResource PhoneTextTitle1Style}"/>
+        </StackPanel>
+
+        <!--ContentPanel - place additional content here-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <ListBox Grid.Row="2" ItemsSource="{Binding Path=ThreadTopics}" ItemContainerStyle="{StaticResource StretchedContainerStyle}">
+                <ListBox.Template>
+                    <ControlTemplate TargetType="ListBox">
+                        <ScrollViewer x:Name="ScrollViewer" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Foreground="{TemplateBinding Foreground}" Padding="{TemplateBinding Padding}">
+                            <StackPanel>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Button Margin="0,9,0,0" VerticalAlignment="Top" Template="{StaticResource IconDiscussionsNoResponses}"/>
+
+                                    <TextBlock Grid.Column="1" 
+                                            Text="{Binding Path=Thread.IntroductoryText}" HorizontalAlignment="Left" TextWrapping="Wrap"
+                                            Style="{StaticResource PhoneTextTitle2Style}"/>
+                                </Grid>
+                                <TextBlock Text="TOPICS"  FontSize="18" />
+                                <ItemsPresenter/>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </ControlTemplate>
+                </ListBox.Template>
+
+
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Button x:Name="BtnOpenTopic" Click="BtnOpenTopic_Click">
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <StackPanel Margin="0,0,0,10">
+                                        <TextBlock Text="{Binding Path=Title,Converter={StaticResource HtmlToTextConverter}}" Style="{StaticResource PhoneTextTitle2Style}"/>
+                                        <TextBlock Text="{Binding Path=Description,Converter={StaticResource HtmlToTextConverter}}" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                    </StackPanel>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+    </Grid>
+
+
+    <!--Sample code showing usage of ApplicationBar-->
+    <!--<phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
+                <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>-->
+
+</v:BasePage>
