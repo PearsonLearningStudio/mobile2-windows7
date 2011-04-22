@@ -71,7 +71,7 @@ namespace eCollegeWP7.ViewModels
                 _loadingWorker = new BackgroundWorker();
                 _loadingWorker.DoWork += (s, e) =>
                 {
-                    var res = (from t in service.Result where t.EventType != UpcomingEventType.Ignored
+                    var res = (from t in service.Result where t.EventType != UpcomingEventType.Ignored orderby t.When.Time
                                group new UpcomingEventViewModel(t) by UpcomingEventViewModel.ParseDateGroup(t)
                                into r
                                select new Group<UpcomingEventViewModel>(r.Key, r)).ToList();

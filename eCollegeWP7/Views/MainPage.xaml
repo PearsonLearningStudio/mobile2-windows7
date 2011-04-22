@@ -71,7 +71,7 @@
                             <DataTemplate>
                                 <Button x:Name="BtnLoadMore" Click="BtnLoadMore_Click"
                                                  Visibility="{Binding Path=CanLoadMore, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                                 HorizontalAlignment="Stretch" Content="Load More"/>
+                                                 HorizontalAlignment="Stretch" Content="Load More"  DataContext="{Binding ElementName=PanActivity,Path=DataContext}"></Button>
                             </DataTemplate>
                         </toolkit:LongListSelector.ListFooterTemplate>
                         <toolkit:LongListSelector.ItemTemplate>
@@ -93,7 +93,8 @@
                             <DataTemplate>
                                 <Button x:Name="BtnLoadMoreUpcoming" Click="BtnLoadMoreUpcoming_Click"
                                                  Visibility="{Binding Path=CanLoadMore, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                                 HorizontalAlignment="Stretch" Content="Load More"/>
+                                                 HorizontalAlignment="Stretch" Content="Load More" DataContext="{Binding ElementName=PanUpcoming,Path=DataContext}">
+                                </Button>
                             </DataTemplate>
                         </toolkit:LongListSelector.ListFooterTemplate>
                         <toolkit:LongListSelector.GroupHeaderTemplate>

@@ -39,6 +39,8 @@ namespace eCollegeWP7.Views
 
         private void BtnDiscussion_Click(object sender, RoutedEventArgs e)
         {
+            var dis = (sender as Button).DataContext as DiscussionViewModel;
+            this.NavigationService.Navigate(new Uri(dis.NavigationPath, UriKind.Relative));
         }
     }
 }
