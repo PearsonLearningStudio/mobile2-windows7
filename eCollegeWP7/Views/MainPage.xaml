@@ -88,7 +88,7 @@
                     <vm:UpcomingEventsViewModel/>
                 </controls:PanoramaItem.DataContext>
                 <Grid>
-                    <toolkit:LongListSelector x:Name="LstUpcoming" Background="Transparent" ShowListFooter="True" Margin="15,0,0,0" MaxHeight="800" ItemsSource="{Binding Path=UpcomingEventsGroup}" >
+                    <toolkit:LongListSelector x:Name="LstUpcoming" Background="Transparent" ShowListFooter="True" Margin="15,0,0,0" MaxHeight="800" ItemsSource="{Binding Path=UpcomingEventsByDate}" >
                         <toolkit:LongListSelector.ListFooterTemplate>
                             <DataTemplate>
                                 <Button x:Name="BtnLoadMoreUpcoming" Click="BtnLoadMoreUpcoming_Click"
@@ -96,6 +96,11 @@
                                                  HorizontalAlignment="Stretch" Content="Load More"/>
                             </DataTemplate>
                         </toolkit:LongListSelector.ListFooterTemplate>
+                        <toolkit:LongListSelector.GroupHeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding GroupId, Converter={StaticResource ToUpperConverter}}"  FontSize="18" />
+                            </DataTemplate>
+                        </toolkit:LongListSelector.GroupHeaderTemplate>
                         <toolkit:LongListSelector.ItemTemplate>
                             <DataTemplate>
                                 <Button Click="BtnUpcomingEvent_Click" Template="{StaticResource UpcomingEventItemTemplate}"/>

@@ -35,18 +35,11 @@ namespace eCollegeWP7.ViewModels
         protected BackgroundWorker _loadingWorker;
         protected string _typeFilter;
 
-        private ObservableCollection<UpcomingEventViewModel> _UpcomingEvents;
-        public ObservableCollection<UpcomingEventViewModel> UpcomingEvents
+        private List<Group<UpcomingEventViewModel>> _UpcomingEventsByDate;
+        public List<Group<UpcomingEventViewModel>> UpcomingEventsByDate
         {
-            get { return _UpcomingEvents; }
-            set { _UpcomingEvents = value; this.OnPropertyChanged(() => this.UpcomingEvents); }
-        }
-
-        private ObservableCollection<GroupedObservableCollection<UpcomingEventViewModel>> _UpcomingEventsGroup;
-        public ObservableCollection<GroupedObservableCollection<UpcomingEventViewModel>> UpcomingEventsGroup
-        {
-            get { return _UpcomingEventsGroup; }
-            set { _UpcomingEventsGroup = value; this.OnPropertyChanged(() => this.UpcomingEventsGroup); }
+            get { return _UpcomingEventsByDate; }
+            set { _UpcomingEventsByDate = value; this.OnPropertyChanged(() => this.UpcomingEventsByDate); }
         }
         
         public UpcomingEventsViewModel()
@@ -78,18 +71,17 @@ namespace eCollegeWP7.ViewModels
                 _loadingWorker = new BackgroundWorker();
                 _loadingWorker.DoWork += (s, e) =>
                 {
-                    ObservableCollection<UpcomingEventViewModel> data = new ObservableCollection<UpcomingEventViewModel>();
-                    foreach (var item in service.Result)
-                    {
-                        if (item.EventType != UpcomingEventType.Ignored) data.Add(new UpcomingEventViewModel(item));
-                        
-                    }
-                    e.Result = data;
+                    var res = (from t in service.Result where t.EventType != UpcomingEventType.Ignored
+                               group new UpcomingEventViewModel(t) by UpcomingEventViewModel.ParseDateGroup(t)
+                               into r
+                               select new Group<UpcomingEventViewModel>(r.Key, r)).ToList();
+
+                    e.Result = res;
                 };
                 _loadingWorker.RunWorkerCompleted += (s, e) =>
                 {
-                    this.UpcomingEvents = e.Result as ObservableCollection<UpcomingEventViewModel>;
-                    this.UpcomingEventsGroup = this.UpcomingEvents.ToSingleGroupedObservableCollection();
+
+                    this.UpcomingEventsByDate = (List<Group<UpcomingEventViewModel>>) e.Result;
                     this.CanLoadMore = all ? false : true;
                     _loadingWorker = null;
                     if (callback != null) callback(true);

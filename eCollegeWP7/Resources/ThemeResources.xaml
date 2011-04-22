@@ -365,7 +365,7 @@ THE SOURCE CODE IS PROVIDED "AS IS", WITH NO WARRANTIES OR INDEMNITIES.
             <c:DynamicTextBlock Grid.Column="1" Text="{Binding Path=Title,Converter={StaticResource HtmlToTextConverter}}" HorizontalAlignment="Left"
                                                TextStyle="{StaticResource PhoneTextTitle2Style}"/>
             <c:DynamicTextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" 
-                                               TextStyle="{StaticResource PhoneTextSmallStyle}" TextWrapping="Wrap" MaxHeight="70" 
+                                               TextStyle="{StaticResource PhoneTextSmallStyle}" TextWrapping="Wrap" MaxHeight="70" Margin="0,0,0,15"
                                                Text="{Binding Path=ScheduleInfo,Converter={StaticResource HtmlToTextConverter}}"/>
         </Grid>
     </ControlTemplate>

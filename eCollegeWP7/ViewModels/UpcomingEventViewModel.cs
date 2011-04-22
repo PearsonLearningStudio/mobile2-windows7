@@ -55,6 +55,19 @@ namespace eCollegeWP7.ViewModels
             }
         }
 
+        public static string ParseDateGroup(UpcomingEventItem item)
+        {
+            var dt = item.When.Time;
+
+            if (dt < DateTime.Today.AddDays(1)) return "Today";
+            if (dt < DateTime.Today.AddDays(2)) return "Tomorrow";
+            if (dt < DateTime.Today.AddDays(3)) return "2 Days";
+            if (dt < DateTime.Today.AddDays(4)) return "3 Days";
+            if (dt < DateTime.Today.AddDays(5)) return "4 Days";
+            if (dt < DateTime.Today.AddDays(6)) return "5 Days";
+            return "Later";
+        }
+
 
     }
 }
