@@ -85,26 +85,23 @@
 
             <controls:PanoramaItem x:Name="PanUpcoming" Header="upcoming">
                 <controls:PanoramaItem.DataContext>
-                    <vm:ScratchThreadsViewModel/>
+                    <vm:UpcomingEventsViewModel/>
                 </controls:PanoramaItem.DataContext>
                 <Grid>
-                    <ItemsControl Margin="70,10,0,0" ItemsSource="{Binding Path=ThreadLinks}">
-                        <ItemsControl.ItemTemplate>
+                    <toolkit:LongListSelector x:Name="LstUpcoming" Background="Transparent" ShowListFooter="True" Margin="15,0,0,0" MaxHeight="800" ItemsSource="{Binding Path=UpcomingEventsGroup}" >
+                        <toolkit:LongListSelector.ListFooterTemplate>
                             <DataTemplate>
-                                <HyperlinkButton Click="HyperlinkButton_Click">
-                                    <HyperlinkButton.Template>
-                                        <ControlTemplate>
-                                            <StackPanel Orientation="Horizontal" Margin="10" Background="Transparent">
-                                                <Button Margin="0,5,5,0" VerticalAlignment="Center" Template="{Binding IconTemplate, Converter={StaticResource AppResourceConverter}}"/>
-                                                <TextBlock VerticalAlignment="Center"
-                                                       Text="{Binding Path=Title}" Style="{StaticResource PhoneTextTitle2Style}"/>
-                                            </StackPanel>
-                                        </ControlTemplate>
-                                    </HyperlinkButton.Template>
-                                </HyperlinkButton>
+                                <Button x:Name="BtnLoadMoreUpcoming" Click="BtnLoadMoreUpcoming_Click"
+                                                 Visibility="{Binding Path=CanLoadMore, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                                 HorizontalAlignment="Stretch" Content="Load More"/>
                             </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                        </toolkit:LongListSelector.ListFooterTemplate>
+                        <toolkit:LongListSelector.ItemTemplate>
+                            <DataTemplate>
+                                <Button Click="BtnUpcomingEvent_Click" Template="{StaticResource UpcomingEventItemTemplate}"/>
+                            </DataTemplate>
+                        </toolkit:LongListSelector.ItemTemplate>
+                    </toolkit:LongListSelector>
                 </Grid>
             </controls:PanoramaItem>
 

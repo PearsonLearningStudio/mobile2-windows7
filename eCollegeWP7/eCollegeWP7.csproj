@@ -117,6 +117,9 @@
     <Compile Include="ViewModels\ActivityViewModel.cs" />
     <Compile Include="ViewModels\AnnouncementsViewModel.cs" />
     <Compile Include="ViewModels\AnnouncementViewModel.cs" />
+    <Compile Include="ViewModels\HtmlContentViewModel.cs" />
+    <Compile Include="ViewModels\UpcomingEventsViewModel.cs" />
+    <Compile Include="ViewModels\UpcomingEventViewModel.cs" />
     <Compile Include="ViewModels\ScratchThreadsViewModel.cs" />
     <Compile Include="ViewModels\ThreadViewModel.cs" />
     <Compile Include="ViewModels\PersonViewModel.cs" />
@@ -136,6 +139,9 @@
     </Compile>
     <Compile Include="Views\Controls\WatermarkTextBox.xaml.cs">
       <DependentUpon>WatermarkTextBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HtmlContentPage.xaml.cs">
+      <DependentUpon>HtmlContentPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ThreadPage.xaml.cs">
       <DependentUpon>ThreadPage.xaml</DependentUpon>
@@ -230,6 +236,10 @@
     <Page Include="Views\Controls\WatermarkTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HtmlContentPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ThreadPage.xaml">
       <Generator>MSBuild:Compile</Generator>

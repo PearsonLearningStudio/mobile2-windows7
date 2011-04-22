@@ -32,6 +32,22 @@ namespace eCollegeWP7.Util.Converters
             return HttpUtility.HtmlDecode(output).Trim();
         }
 
+        public static string StripHtmlBody(string html)
+        {
+            if (html == null) return null;
+            HtmlDocument doc = new HtmlDocument();
+            doc.LoadHtml(html);
+
+            var output = "";
+
+            foreach (var node in doc.DocumentNode.ChildNodes)
+            {
+                output += node.InnerText;
+            }
+
+            return HttpUtility.HtmlDecode(output).Trim();
+        }
+
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             if (value == null) return null;

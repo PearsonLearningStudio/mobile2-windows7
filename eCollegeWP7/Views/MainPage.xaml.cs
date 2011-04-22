@@ -62,6 +62,11 @@ namespace eCollegeWP7.Views
                 var newActivitiesVM = new ActivitiesViewModel();
                 if (oldActivitiesVM.LoadStarted) newActivitiesVM.Load(oldActivitiesVM.AllLoaded);
                 PanActivity.DataContext = newActivitiesVM;
+
+                var oldUpcomingEventsVM = PanUpcoming.DataContext as UpcomingEventsViewModel;
+                var newUpcomingEventsVM = new UpcomingEventsViewModel();
+                if (oldUpcomingEventsVM.LoadStarted) newUpcomingEventsVM.Load(oldUpcomingEventsVM.AllLoaded);
+                PanUpcoming.DataContext = newUpcomingEventsVM;
             }
         }
 
@@ -102,6 +107,14 @@ namespace eCollegeWP7.Views
                         activitiesVM.Load(false);
                         selectedItem.DataContext = activitiesVM;
                     }
+                } else if (selectedItem.Name == "PanUpcoming")
+                {
+                    var upcomingEventsVM = (UpcomingEventsViewModel)selectedItem.DataContext;
+                    if (!upcomingEventsVM.LoadStarted)
+                    {
+                        upcomingEventsVM.Load(false);
+                        selectedItem.DataContext = upcomingEventsVM;
+                    }
                 }
             }
         }
@@ -122,6 +135,24 @@ namespace eCollegeWP7.Views
             var btn = sender as Button;
             var activitiesVM = (ActivitiesViewModel)LstActivity.DataContext;
             activitiesVM.Load(true);
+        }
+
+        private void BtnUpcomingEvent_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as Button;
+            var vm = btn.DataContext as UpcomingEventViewModel;
+
+            if (vm.NavigationPath != null)
+            {
+                this.NavigationService.Navigate(new Uri(vm.NavigationPath, UriKind.Relative));
+            }
+        }
+
+        private void BtnLoadMoreUpcoming_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as Button;
+            var upcomingEventsVM = (UpcomingEventsViewModel)LstUpcoming.DataContext;
+            upcomingEventsVM.Load(true);
         }
     }
 }
