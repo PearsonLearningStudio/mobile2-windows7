@@ -81,7 +81,8 @@ namespace eCollegeWP7.ViewModels
                     ObservableCollection<UpcomingEventViewModel> data = new ObservableCollection<UpcomingEventViewModel>();
                     foreach (var item in service.Result)
                     {
-                        data.Add(new UpcomingEventViewModel(item));
+                        if (item.EventType != UpcomingEventType.Ignored) data.Add(new UpcomingEventViewModel(item));
+                        
                     }
                     e.Result = data;
                 };

@@ -35,8 +35,10 @@
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="21,0,12,0">
             <!--<phone:WebBrowser x:Name="WebHtmlContent"
                               Background="Transparent"/>-->
-            <TextBlock TextWrapping="Wrap" 
-                       Text="{Binding HtmlContent, Converter={StaticResource HtmlToTextConverter}}"/>
+            <ScrollViewer>
+                <TextBlock TextWrapping="Wrap" 
+                       Text="{Binding HtmlContent, Converter={StaticResource HtmlToTextConverter},ConverterParameter='body'}"/>
+            </ScrollViewer>
         </Grid>
     </Grid>
 

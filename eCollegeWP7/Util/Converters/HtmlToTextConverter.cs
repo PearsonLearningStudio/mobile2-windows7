@@ -32,17 +32,36 @@ namespace eCollegeWP7.Util.Converters
             return HttpUtility.HtmlDecode(output).Trim();
         }
 
+        private static HtmlNode FindBodyNode(HtmlNode node)
+        {
+            if (node.Name != null && node.Name.ToLower().Equals("body"))
+            {
+                return node;
+            }
+            foreach (var childNode in node.ChildNodes)
+            {
+                var res = FindBodyNode(childNode);
+                if (res != null) return res;
+            }
+            return null;
+        }
+
         public static string StripHtmlBody(string html)
         {
             if (html == null) return null;
             HtmlDocument doc = new HtmlDocument();
             doc.LoadHtml(html);
 
+            var bodyNode = FindBodyNode(doc.DocumentNode);
+
             var output = "";
 
-            foreach (var node in doc.DocumentNode.ChildNodes)
+            if (bodyNode != null)
             {
-                output += node.InnerText;
+                foreach (var node in bodyNode.ChildNodes)
+                {
+                    output += node.InnerText;
+                }
             }
 
             return HttpUtility.HtmlDecode(output).Trim();
@@ -51,6 +70,7 @@ namespace eCollegeWP7.Util.Converters
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             if (value == null) return null;
+            if ("body".Equals(parameter)) return StripHtmlBody(value.ToString());
             return StripHtml(value.ToString());
         }
 

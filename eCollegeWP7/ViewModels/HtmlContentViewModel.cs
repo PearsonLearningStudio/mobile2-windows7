@@ -68,7 +68,7 @@ namespace eCollegeWP7.ViewModels
             this.Title = title;
             App.Model.BuildService(new FetchHtmlByIdService(CourseID, HtmlID)).Execute((service) =>
             {
-                HtmlContent = HtmlToTextConverter.StripHtmlBody(service.Result);
+                HtmlContent = service.Result;
             });
         }
 
