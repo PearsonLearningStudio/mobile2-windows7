@@ -38,9 +38,15 @@ namespace eCollegeWP7.ViewModels
             links.Add(new LinkViewModel()
             {
                 Title = "upcoming",
-                IconTemplate = "IconUpcoming",
+                IconTemplate = "IconActivity",
                 PanoramaItemName = "PanUpcoming"
             });
+            //links.Add(new LinkViewModel()
+            //{
+            //    Title = "upcoming",
+            //    IconTemplate = "IconUpcoming",
+            //    PanoramaItemName = "PanUpcoming"
+            //});
             links.Add(new LinkViewModel()
             {
                 Title = "discussions",
@@ -65,12 +71,12 @@ namespace eCollegeWP7.ViewModels
                 IconTemplate = "IconProfile",
                 NavigationPath = "/Views/ProfilePage.xaml"
             });
-            links.Add(new LinkViewModel()
-            {
-                Title = "help",
-                IconTemplate = "IconHelp",
-                NavigationPath = "/Views/HelpPage.xaml"
-            });
+            //links.Add(new LinkViewModel()
+            //{
+            //    Title = "help",
+            //    IconTemplate = "IconHelp",
+            //    NavigationPath = "/Views/HelpPage.xaml"
+            //});
             //links.Add(new LinkViewModel()
             //{
             //    Title = "settings",
