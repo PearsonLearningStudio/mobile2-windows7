@@ -35,7 +35,8 @@ namespace eCollegeWP7.Views
             long courseId = Int64.Parse(parameters["courseId"]);
             long htmlId = Int64.Parse(parameters["htmlId"]);
             string title = parameters["title"];
-            this.DataContext = new HtmlContentViewModel(courseId, htmlId, title);
+            string scheduleInfo = parameters["scheduleInfo"];
+            this.DataContext = new HtmlContentViewModel(courseId, htmlId, title,scheduleInfo);
         }
     }
 }

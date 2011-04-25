@@ -34,7 +34,8 @@ namespace eCollegeWP7.Views
 
             long courseId = Int64.Parse(parameters["courseId"]);
             long threadId = Int64.Parse(parameters["threadId"]);
-            this.DataContext = new ThreadViewModel(courseId,threadId);
+            string scheduleInfo = parameters["scheduleInfo"];
+            this.DataContext = new ThreadViewModel(courseId, threadId, scheduleInfo);
         }
 
         private void BtnDiscussion_Click(object sender, RoutedEventArgs e)

@@ -29,6 +29,8 @@
             <TextBlock x:Name="PageTitle" Text="thread topics" Margin="9,-7,0,0" Foreground="{StaticResource PhoneAccentBrush}" Style="{StaticResource PhoneTextTitle1Style}"/>
             <TextBlock Text="{Binding Path=ThreadTitle}" HorizontalAlignment="Left" TextWrapping="Wrap"
                        Style="{StaticResource PhoneTextTitle2Style}"/>
+            <TextBlock Text="{Binding Path=ScheduleInfo}" HorizontalAlignment="Left" TextWrapping="Wrap"
+                       Style="{StaticResource PhoneTextSubtleStyle}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->

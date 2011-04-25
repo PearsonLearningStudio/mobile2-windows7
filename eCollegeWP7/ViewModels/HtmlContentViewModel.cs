@@ -59,13 +59,21 @@ namespace eCollegeWP7.ViewModels
             get { return _HtmlID; }
             set { _HtmlID = value; this.OnPropertyChanged(() => this.HtmlID); }
         }
+
+        private string _ScheduleInfo;
+        public string ScheduleInfo
+        {
+            get { return _ScheduleInfo; }
+            set { _ScheduleInfo = value; this.OnPropertyChanged(() => this.ScheduleInfo); }
+        }
         
 
-        public HtmlContentViewModel(long courseId, long htmlId, string title)
+        public HtmlContentViewModel(long courseId, long htmlId, string title, string scheduleInfo)
         {
             this.CourseID = courseId;
             this.HtmlID = htmlId;
             this.Title = title;
+            this.ScheduleInfo = scheduleInfo;
             App.Model.BuildService(new FetchHtmlByIdService(CourseID, HtmlID)).Execute((service) =>
             {
                 HtmlContent = service.Result;

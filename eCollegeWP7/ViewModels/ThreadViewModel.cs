@@ -50,11 +50,19 @@ namespace eCollegeWP7.ViewModels
             get { return _ThreadTopics; }
             set { _ThreadTopics = value; this.OnPropertyChanged(() => this.ThreadTopics); }
         }
-        
 
-        public ThreadViewModel(long courseId, long threadId)
+        private string _ScheduleInfo;
+        public string ScheduleInfo
+        {
+            get { return _ScheduleInfo; }
+            set { _ScheduleInfo = value; this.OnPropertyChanged(() => this.ScheduleInfo); }
+        }
+
+        public ThreadViewModel(long courseId, long threadId, string scheduleInfo)
         {
             this.CourseID = courseId;
+            this.ScheduleInfo = scheduleInfo;
+
             App.Model.BuildService(new FetchDiscussionTopicsByThreadIdService(courseId,threadId)).Execute((service) =>
             {
                 foreach (var t in service.Result)

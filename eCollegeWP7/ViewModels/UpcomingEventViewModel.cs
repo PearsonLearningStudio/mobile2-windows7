@@ -31,27 +31,34 @@ namespace eCollegeWP7.ViewModels
         public UpcomingEventViewModel(UpcomingEventItem item)
         {
             Title = item.Title;
+
+
+            if (item.CategoryType == CategoryType.Start)
+            {
+                ScheduleInfo = "Starts at " + DateTimeUtil.LongFriendlyDate(item.When.Time);
+            }
+            else if (item.CategoryType == CategoryType.End)
+            {
+                ScheduleInfo = "Ends at " + DateTimeUtil.LongFriendlyDate(item.When.Time);
+            }
+            else if (item.CategoryType == CategoryType.Due)
+            {
+                ScheduleInfo = "Due at " + DateTimeUtil.LongFriendlyDate(item.When.Time);
+            }
+
             if (item.EventType == UpcomingEventType.Html)
             {
                 NavigationPath = "/Views/HtmlContentPage.xaml?courseId=" + item.CourseID + "&htmlId=" + item.MultimediaID + "&title=" + HttpUtility.UrlEncode(item.Title);
+                NavigationPath += "&scheduleInfo=" + HttpUtility.UrlEncode(ScheduleInfo);
                 IconTemplate = "IconPerson"; //need better icon
             } else if (item.EventType == UpcomingEventType.Thread)
             {
                 NavigationPath = "/Views/ThreadPage.xaml?courseId=" + item.CourseID + "&threadId=" + item.ThreadID;
+                NavigationPath += "&scheduleInfo=" + HttpUtility.UrlEncode(ScheduleInfo);
                 IconTemplate = "IconDiscussionsNoResponses";
             } else if (item.EventType == UpcomingEventType.QuizExamTest)
             {
                 IconTemplate = "IconGrade"; //need better icon?
-            }
-            if (item.CategoryType == CategoryType.Start)
-            {
-                ScheduleInfo = "Starts at " + DateTimeUtil.LongFriendlyDate(item.When.Time);
-            } else if (item.CategoryType == CategoryType.End)
-            {
-                ScheduleInfo = "Ends at " + DateTimeUtil.LongFriendlyDate(item.When.Time);
-            } else if (item.CategoryType == CategoryType.Due)
-            {
-                ScheduleInfo = "Due at " + DateTimeUtil.LongFriendlyDate(item.When.Time);
             }
         }
 
