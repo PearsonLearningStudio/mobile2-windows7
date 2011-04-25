@@ -38,7 +38,7 @@ namespace eCollegeWP7.ViewModels
             links.Add(new LinkViewModel()
             {
                 Title = "upcoming",
-                IconTemplate = "IconActivity",
+                IconTemplate = "IconUpcoming",
                 PanoramaItemName = "PanUpcoming"
             });
             //links.Add(new LinkViewModel()

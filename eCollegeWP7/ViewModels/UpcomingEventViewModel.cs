@@ -50,7 +50,7 @@ namespace eCollegeWP7.ViewModels
             {
                 NavigationPath = "/Views/HtmlContentPage.xaml?courseId=" + item.CourseID + "&htmlId=" + item.MultimediaID + "&title=" + HttpUtility.UrlEncode(item.Title);
                 NavigationPath += "&scheduleInfo=" + HttpUtility.UrlEncode(ScheduleInfo);
-                IconTemplate = "IconPerson"; //need better icon
+                IconTemplate = "IconAssignment"; //need better icon
             } else if (item.EventType == UpcomingEventType.Thread)
             {
                 NavigationPath = "/Views/ThreadPage.xaml?courseId=" + item.CourseID + "&threadId=" + item.ThreadID;
@@ -58,7 +58,7 @@ namespace eCollegeWP7.ViewModels
                 IconTemplate = "IconDiscussionsNoResponses";
             } else if (item.EventType == UpcomingEventType.QuizExamTest)
             {
-                IconTemplate = "IconGrade"; //need better icon?
+                IconTemplate = "IconExam";
             }
         }
 
